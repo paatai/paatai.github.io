@@ -311,29 +311,3 @@ footer.site p { margin: 0.12rem 0; }
   ul.coauthors { grid-template-columns: 1fr; }
 }
 
-.meta.contact {
-  display: flex;
-  align-items: center;
-  gap: 0.55rem;
-  flex-wrap: wrap;
-}
-a.x-link {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 1.45rem;
-  height: 1.45rem;
-  color: var(--ink);
-  border-bottom: none;
-  text-decoration: none;
-  border-radius: 3px;
-}
-a.x-link:hover {
-  color: var(--mark);
-  background: rgba(122, 44, 34, 0.08);
-}
-a.x-link svg {
-  width: 0.92rem;
-  height: 0.92rem;
-  display: block;
-}
