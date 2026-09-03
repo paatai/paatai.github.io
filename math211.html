@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MATH 211A — Paata Ivanisvili</title>
+<meta name="description" content="Paata Ivanisvili, Professor of Mathematics, University of California, Irvine.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;0,9..144,650;1,9..144,500;1,9..144,600&family=Source+Sans+3:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/site.css">
+
+</head>
+<body>
+<a class="skip" href="#content">Skip to content</a>
+<nav class="site-nav" aria-label="Primary">
+  <div class="nav-inner">
+    <a class="brand" href="index.html">Paata Ivanisvili</a>
+    <ul>
+      <li><a href="index.html">Home</a></li><li><a href="papers.html">Papers</a></li><li><a href="talks.html">Talks</a></li><li><a href="teaching.html" aria-current="page">Teaching</a></li><li><a href="students.html">Students</a></li><li><a href="slides.html">Slides</a></li><li><a href="coauthors.html">Co-authors</a></li><li><a href="organization.html">Organization</a></li>
+    </ul>
+  </div>
+</nav>
+<main id="content">
+<h1 class="page-title">MATH 211A Topics course in Analysis, Spring 2020</h1>
+
+<p>Some of my lecture notes for this course later appeared on my blog <a href="https://extremal010101.wordpress.com/">Zeros and Ones</a>.</p>
+<ul>
+  <li><a href="https://extremal010101.wordpress.com/2020/04/11/convergence-of-fourier-series-in-lp/">Convergence of Fourier Series in L<sup>p</sup>.</a></li>
+  <li><a href="https://extremal010101.wordpress.com/2020/04/18/harmonic-functions-brownian-motion-and-stopping-times/">Harmonic functions, Brownian motions, and Stopping times.</a></li>
+  <li><a href="https://extremal010101.wordpress.com/2020/04/27/math-211-subharmonic-functions/">Subharmonic functions.</a></li>
+  <li><a href="https://extremal010101.wordpress.com/2020/05/06/fourier-multipliers-examples-on-the-torus/">Fourier multipliers: examples on the torus.</a></li>
+  <li><a href="https://extremal010101.wordpress.com/2020/05/14/singular-integrals/">Singular integrals.</a></li>
+</ul>
+<h2>Course syllabus</h2>
+<p>This course starts from Fourier series. The question is to understand how we can decompose a function as a sum of simple functions. Which functions do we consider (on which sets are they given, what values do they output)? What do we mean by simple functions? What do we mean to decompose? What do we mean by sum (if the number of simple functions is infinite and countable, there are many ways to sum them up; in which sense would the sum converge?).</p>
+<p>As we see there are already many questions which are not well understood. However, there are certain instances when these questions are kind of well understood:</p>
+<p>Example: any vector in R<sup>n</sup> we can decompose as a sum of basis vectors with certain coordinates, and this problem in linear algebra is well understood: in this example by simple functions we mean any basis in R<sup>n</sup>. And when is the family of vectors a basis in R<sup>n</sup>? Well, when there are n of them and they are linearly independent. Looks like a simple description, but let us not forget that verification of linear independence takes some time.</p>
+<p>So in finite dimensions the decomposition is more or less well understood; we do not have issues with summability as all sums are finite.</p>
+<p>Now in infinite dimensions, like functions on [0,1], the question is more delicate: there are many (a lot) of candidates for simple functions.</p>
+<p>One classical candidate is {exp(2 pi i k x)}, where k ranges among all integers, and in this case we know something (but not everything). In this course we will be working with this basis. We will see that questions about convergence reduce to understanding whether certain operators are bounded, say in L<sup>p</sup>. Many of these operators have a singularity, and in harmonic analysis we have developed techniques (Calderon-Zygmund theory, Mikhlin multiplier theorems) which give good sufficient conditions under which these operators are bounded, but not if-and-only-if type conditions. Several subjects come into play (probability, combinatorics, analysis, complex analysis) to better understand how to bound these operators. My goal is to get to these operators and to describe certain techniques for bounding them (and sometimes finding the best possible bounds).</p>
+<p>There is no book which contains the way I want to present this subject to you. You can find useful the following lecture notes and books:</p>
+<ol>
+  <li>A. Zygmund, <em>Trigonometric Series</em>, vols. I and II, 2nd ed., Cambridge Univ. Press, London, 1959.</li>
+  <li>T. Tao, Lecture notes Harmonic Analysis, <a href="https://www.math.ucla.edu/~tao/247a.1.06f/">Part I</a>, <a href="https://www.math.ucla.edu/~tao/247b.1.07w/">Part II</a>.</li>
+  <li>Th. Wolff, <a href="http://www.math.ubc.ca/~ilaba/wolff/">Lectures on Harmonic Analysis</a>.</li>
+  <li>J. Duoandikoetxea, <em>Fourier Analysis</em>, AMS Graduate Studies in Mathematics, Vol. 29 (2001).</li>
+</ol>
+
+</main>
+<footer>
+  <p>&copy; Paata Ivanisvili</p>
+  <p><a href="mailto:pivanisv@uci.edu">pivanisv@uci.edu</a> · Department of Mathematics, University of California, Irvine</p>
+</footer>
+</body>
+</html>
