@@ -302,10 +302,29 @@ footer.site {
 footer.site p { margin: 0.12rem 0; }
 
 @media (max-width: 720px) {
-  .stage { padding: 1.25rem 1.1rem 2.2rem; }
-  .folio { box-shadow: 0 0 0 1px #0a0908, 0 12px 28px rgba(0,0,0,0.3); }
-  .band, .mast, .page { padding-left: 1.25rem; padding-right: 1.25rem; }
-  footer.site { margin-left: 1.25rem; margin-right: 1.25rem; }
+  /* Edge-to-edge cream on phones — no dark gutters */
+  body {
+    background: var(--folio);
+    background-image: none;
+  }
+  .stage {
+    padding: 0;
+    padding-bottom: env(safe-area-inset-bottom, 0);
+  }
+  .folio {
+    max-width: none;
+    margin: 0;
+    box-shadow: none;
+    min-height: 100dvh;
+  }
+  .band, .mast, .page {
+    padding-left: max(1.25rem, env(safe-area-inset-left, 0px));
+    padding-right: max(1.25rem, env(safe-area-inset-right, 0px));
+  }
+  footer.site {
+    margin-left: max(1.25rem, env(safe-area-inset-left, 0px));
+    margin-right: max(1.25rem, env(safe-area-inset-right, 0px));
+  }
   .mast { grid-template-columns: 1fr; }
   .mast img { width: 6.6rem; height: 8.2rem; }
   ul.coauthors { grid-template-columns: 1fr; }
