@@ -188,7 +188,9 @@ h2 {
   border: none;
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
   gap: 0.65rem;
+  line-height: 1.45;
 }
 h2::before {
   content: "";
@@ -196,6 +198,14 @@ h2::before {
   height: 0.45rem;
   background: var(--mark);
   flex: 0 0 auto;
+}
+h2.wrap {
+  display: block;
+}
+h2.wrap::before {
+  display: inline-block;
+  margin-right: 0.65rem;
+  vertical-align: 0.08em;
 }
 h3 {
   font-family: "Bodoni Moda", Georgia, serif;
