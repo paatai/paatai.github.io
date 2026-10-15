@@ -1,0 +1,383 @@
+% A unicorn under the moon, drawn entirely with TikZ.
+% Build: pdflatex unicorn.tex
+\documentclass[tikz,border=0pt]{standalone}
+\usetikzlibrary{shadings,fadings,calc}
+
+\definecolor{coat}{RGB}{252,250,255}
+\definecolor{coatshade}{RGB}{150,140,195}
+\definecolor{coatdeep}{RGB}{105,95,155}
+\definecolor{farcoat}{RGB}{178,170,214}
+\definecolor{skytop}{RGB}{8,10,38}
+\definecolor{skymid}{RGB}{58,34,98}
+\definecolor{skylow}{RGB}{236,150,170}
+\definecolor{gold1}{RGB}{255,236,170}
+\definecolor{gold2}{RGB}{214,160,60}
+\definecolor{gold3}{RGB}{140,95,30}
+\definecolor{hoof}{RGB}{120,110,140}
+\definecolor{iris}{RGB}{70,40,90}
+
+\tikzfading[name=soft, inner color=transparent!0, outer color=transparent!100]
+
+% \soft[options]{center}{x radius}{y radius}: airbrushed elliptical spot
+\newcommand\soft[4][]{\fill[#1, path fading=soft] (#2) ellipse[x radius=#3, y radius=#4];}
+
+% \sparkle{center}{size}{opacity}
+\newcommand\sparkle[3]{%
+  \soft[white, opacity=#3*0.5]{#1}{#2*1.6}{#2*1.6}
+  \begin{scope}[shift={(#1)}, scale=#2]
+    \fill[white, opacity=#3] (0,1) .. controls (0.1,0.1) .. (1,0)
+      .. controls (0.1,-0.1) .. (0,-1) .. controls (-0.1,-0.1) .. (-1,0)
+      .. controls (-0.1,0.1) .. cycle;
+  \end{scope}}
+
+\newcommand\bodypath{plot[smooth cycle, tension=0.55] coordinates {
+  (5.6,6.6) (6.2,6.2) (6.9,6.1) (7.6,6.2) (8.6,6.0) (9.7,5.8)
+  (11.0,5.75) (12.3,5.95) (13.2,6.35) (13.72,7.0) (13.88,7.9) (13.92,8.9)
+  (14.1,9.65) (14.4,10.1) (14.8,9.78) (15.2,9.42) (15.7,9.12) (16.2,8.98)
+  (16.68,9.1) (16.88,9.35) (16.8,9.6) (16.5,9.95) (16.0,10.55) (15.5,11.2)
+  (15.05,11.8) (14.6,12.12) (14.2,12.05) (13.6,11.5) (13.0,10.7) (12.4,9.7)
+  (11.7,8.95) (10.9,8.5) (9.8,8.3) (8.6,8.4) (7.4,8.72) (6.4,8.75)
+  (5.6,8.2) (5.25,7.3)}}
+
+% All silhouettes run counter-clockwise so that clipping to several of
+% them at once (nonzero rule) yields their union.
+\newcommand\nearhind{plot[smooth cycle, tension=0.45] coordinates {
+  (5.3,7.2) (5.45,6.4) (5.72,5.3) (5.92,4.5) (5.9,3.85) (6.12,3.45)
+  (6.4,2.6) (6.45,1.9) (6.42,1.55) (6.7,1.12) (6.75,1.0) (7.45,1.0)
+  (7.28,1.42) (7.0,1.8) (6.85,2.4) (6.82,3.3) (6.95,3.95) (7.35,4.85)
+  (7.85,5.7) (7.9,6.5) (7.0,7.4)}}
+
+\newcommand\farhind{plot[smooth cycle, tension=0.45] coordinates {
+  (7.0,6.6) (7.35,4.7) (7.5,3.9) (7.85,2.8) (7.97,2.0) (7.98,1.6)
+  (8.22,1.15) (8.25,1.0) (8.95,1.0) (8.78,1.42) (8.5,1.8) (8.33,2.4)
+  (8.28,3.4) (8.36,3.95) (8.7,4.8) (8.95,5.7) (8.6,6.4)}}
+
+\newcommand\farfore{plot[smooth cycle, tension=0.45] coordinates {
+  (11.55,6.5) (11.7,5.2) (11.75,4.3) (11.82,3.8) (11.86,2.6) (11.85,2.0)
+  (11.82,1.68) (11.95,1.3) (11.97,1.0) (12.68,1.0) (12.5,1.42) (12.3,1.78)
+  (12.22,2.3) (12.22,3.7) (12.32,4.1) (12.55,5.0) (12.9,6.4)}}
+
+\newcommand\nearfore{plot[smooth cycle, tension=0.45] coordinates {
+  (12.15,6.5) (12.6,5.55) (13.2,5.2) (13.95,4.98) (13.82,4.3)
+  (13.72,3.7) (13.55,3.38) (13.58,2.98) (14.15,3.05) (14.12,3.45)
+  (14.05,3.78) (14.18,4.55) (14.55,5.12) (14.4,5.6) (13.65,5.98)
+  (13.5,6.9)}}
+
+\begin{document}
+\begin{tikzpicture}[line cap=round, line join=round]
+\pgfmathsetseed{2718}
+\clip (0,0) rectangle (20,15);
+
+% ---------------------------------------------------------------- sky
+\shade[top color=skytop, middle color=skymid, bottom color=skylow]
+  (0,1.5) rectangle (20,15);
+\soft[skylow, opacity=0.45]{10,3}{14}{3.2}
+\soft[violet!60!blue, opacity=0.25]{15,10}{7}{4}
+
+% stars
+\foreach \i in {1,...,320}{
+  \pgfmathsetmacro\x{20*rnd}
+  \pgfmathsetmacro\y{5+10*rnd^0.7}
+  \pgfmathsetmacro\s{0.008+0.03*rnd^4}
+  \pgfmathsetmacro\o{0.35+0.65*rnd}
+  \fill[white, opacity=\o] (\x,\y) circle[radius=\s];
+}
+\foreach \p/\s in {{1.2,9.4}/0.12, {8.5,13.6}/0.14, {18.6,13.9}/0.16,
+                   {10.6,11.6}/0.09, {19.2,9.8}/0.1, {6.2,14.3}/0.1}{
+  \sparkle{\p}{\s}{0.9}
+}
+
+% nebula wisps
+\foreach \i in {1,...,14}{
+  \pgfmathsetmacro\x{6+12*rnd}
+  \pgfmathsetmacro\y{10+4*rnd}
+  \pgfmathsetmacro\h{260+60*rnd}
+  \definecolor{neb}{Hsb}{\h,0.5,1}
+  \soft[neb, opacity=0.06]{\x,\y}{2.2}{0.8}
+}
+
+% moon
+\soft[white, opacity=0.18]{4,12.2}{3.2}{3.2}
+\soft[white, opacity=0.35]{4,12.2}{1.8}{1.8}
+\shade[inner color=white, outer color=gold1!35!white] (4,12.2) circle[radius=1.05];
+\begin{scope}
+  \clip (4,12.2) circle[radius=1.05];
+  \soft[gray!60, opacity=0.35]{3.7,12.5}{0.28}{0.22}
+  \soft[gray!60, opacity=0.3]{4.35,11.9}{0.35}{0.28}
+  \soft[gray!60, opacity=0.25]{4.4,12.65}{0.18}{0.15}
+  \soft[gray!60, opacity=0.25]{3.6,11.8}{0.2}{0.16}
+\end{scope}
+
+% far mountains
+\fill[skymid!70!skylow, opacity=0.75] (0,1.5) -- plot[smooth, tension=0.6] coordinates {
+  (0,4.6) (1.5,5.4) (2.8,4.9) (4.5,6.1) (6.0,5.2) (7.5,5.6) (9.2,4.7)
+  (11.0,5.5) (12.6,4.9) (14.5,6.3) (16.2,5.4) (18.0,6.0) (20,5.0)} -- (20,1.5) -- cycle;
+\fill[skytop!70!skymid, opacity=0.9] (0,1.5) -- plot[smooth, tension=0.6] coordinates {
+  (0,3.6) (1.8,4.2) (3.6,3.5) (5.5,4.0) (7.6,3.3) (10.0,3.8) (12.5,3.1)
+  (14.8,3.9) (17.0,3.3) (18.6,4.1) (20,3.6)} -- (20,1.5) -- cycle;
+\soft[skylow, opacity=0.3]{10,2.6}{12}{0.9}
+
+% meadow
+\shade[top color=skytop!60!teal!60!black, bottom color=skytop] (0,0) -- (0,2.4)
+  .. controls (6,2.0) and (14,2.1) .. (20,2.5) -- (20,0) -- cycle;
+\soft[teal!50!white, opacity=0.18]{10,1.6}{8}{0.7}
+
+% fireflies
+\foreach \i in {1,...,30}{
+  \pgfmathsetmacro\x{20*rnd}
+  \pgfmathsetmacro\y{1+6*rnd}
+  \soft[gold1, opacity=0.6]{\x,\y}{0.1}{0.1}
+  \fill[gold1!50!white] (\x,\y) circle[radius=0.02];
+}
+
+% ground glow and shadow beneath the unicorn
+\soft[white, opacity=0.25]{9.8,1.1}{6}{0.9}
+\soft[black, opacity=0.55]{9.6,0.95}{3.6}{0.3}
+
+% ------------------------------------------------- unicorn: halo & far side
+\soft[white, opacity=0.14]{11,7.5}{7.5}{5.5}
+\soft[white, opacity=0.12]{15,10.8}{2.6}{2.4}
+\soft[white, opacity=0.1]{9.5,7.3}{5}{2.2}
+
+% tail (behind body)
+\foreach \pass in {1,2,3}{
+  \foreach \i in {1,...,70}{
+    \pgfmathsetmacro\t{\i/70}
+    \pgfmathsetmacro\r{rnd}
+    \pgfmathsetmacro\q{rnd}
+    \pgfmathsetmacro\h{mod(330-150*\t+20*\r,360)}
+    \ifcase\pass\or
+      \definecolor{hc}{Hsb}{\h,0.55,0.72}\def\lw{5pt}\def\op{0.35}
+    \or
+      \definecolor{hc}{Hsb}{\h,0.42,1}\def\lw{1.6pt}\def\op{0.75}
+    \or
+      \definecolor{hc}{Hsb}{\h,0.12,1}\def\lw{0.45pt}\def\op{0.85}
+    \fi
+    \draw[hc, opacity=\op, line width=\lw]
+      ({5.55+0.25*\r},{8.0-0.35*\q})
+      .. controls ({4.5-0.6*\t},{9.0+0.3*\r}) and ({3.4-1.2*\t+0.4*\q},{7.4-1.2*\t}) ..
+      ({3.0-1.4*\t+0.5*\r},{5.6-1.6*\t+0.3*\q})
+      .. controls ({2.8-1.2*\t},{4.6-1.3*\t}) and ({3.6-1.0*\t+0.4*\r},{3.6-0.9*\t}) ..
+      ({2.6-1.6*\t+0.8*\q},{2.4-0.5*\t+0.6*\r});
+  }
+}
+
+% far legs
+\foreach \leg in {\farhind,\farfore}{
+  \fill[farcoat] \leg;
+  \begin{scope}
+    \clip \leg;
+    \shade[left color=farcoat!80!white, right color=coatshade, opacity=0.6]
+      (6,0.5) rectangle (13,7);
+    \soft[coatdeep, opacity=0.35]{9.5,6.2}{4}{0.8}
+  \end{scope}
+}
+\fill[hoof!80!black] plot[smooth cycle, tension=0.4] coordinates {
+  (8.22,1.02) (8.95,1.0) (8.8,1.38) (8.36,1.36)};
+\fill[hoof!80!black] plot[smooth cycle, tension=0.4] coordinates {
+  (11.96,1.02) (12.68,1.0) (12.52,1.38) (12.04,1.36)};
+
+% far ear
+\fill[farcoat] plot[smooth cycle, tension=0.5] coordinates {
+  (13.85,11.85) (13.62,12.6) (13.66,13.0) (13.95,12.6) (14.3,12.05)};
+
+% ------------------------------------------------ unicorn: body & near legs
+\fill[coat] \bodypath \nearhind \nearfore;
+\begin{scope}
+  \clip \bodypath \nearhind \nearfore;
+  % legs darken gently towards the ground
+  \shade[top color=coat, bottom color=coatshade!55!white, opacity=0.7]
+    (5,1) rectangle (15,5.2);
+  % shadows
+  \soft[coatshade, opacity=0.6]{10,5.8}{3.6}{0.75}
+  \soft[coatshade, opacity=0.45]{13.8,7.6}{0.8}{1.7}
+  \soft[coatshade, opacity=0.35]{13.95,9.6}{0.6}{1.4}
+  \soft[coatshade, opacity=0.55]{15.3,9.2}{1.2}{0.5}
+  \soft[coatshade, opacity=0.22]{7.5,7.2}{0.9}{1.6}
+  \soft[coatshade, opacity=0.2]{11.4,7.2}{0.9}{1.6}
+  \soft[coatshade, opacity=0.25]{5.4,6.6}{0.6}{1.4}
+  \soft[coatshade, opacity=0.25]{14.6,10.2}{0.6}{0.5}
+  \soft[coatshade, opacity=0.45]{6.35,3.7}{0.4}{0.35}
+  \soft[coatshade, opacity=0.4]{6.4,2.4}{0.3}{1.0}
+  \soft[coatshade, opacity=0.4]{13.75,4.0}{0.25}{0.8}
+  \soft[coatshade, opacity=0.5]{13.2,5.3}{1.0}{0.32}
+  \soft[coatshade, opacity=0.3]{14.3,5.0}{0.3}{0.3}
+  % highlights
+  \soft[white, opacity=1]{6.6,8.0}{1.4}{0.7}
+  \soft[white, opacity=1]{9.6,7.9}{2.4}{0.45}
+  \soft[white, opacity=1]{12.6,7.8}{0.8}{1.1}
+  \soft[white, opacity=1]{13.1,10.2}{0.5}{1.0}
+  \soft[white, opacity=1]{15.6,10.8}{0.55}{0.4}
+  \soft[white, opacity=0.9]{6.3,6.0}{0.6}{1.3}
+  \soft[white, opacity=0.8]{13.4,5.75}{0.8}{0.25}
+  % rim light from the pink horizon
+  \soft[skylow, opacity=0.3]{10,5.8}{3.2}{0.22}
+  \soft[skylow, opacity=0.25]{7.1,3.0}{0.25}{1.6}
+  % muzzle
+  \soft[coatshade!60!pink, opacity=0.55]{16.6,9.35}{0.5}{0.38}
+  % muscle contours
+  \draw[coatshade, opacity=0.3, line width=0.9pt]
+    (7.95,5.6) .. controls (7.35,6.5) and (7.3,7.4) .. (7.75,8.2);
+  \draw[coatshade, opacity=0.25, line width=0.9pt]
+    (11.9,8.7) .. controls (12.2,8.0) and (12.6,7.4) .. (13.5,7.1);
+  \draw[coatshade, opacity=0.3, line width=0.8pt]
+    (12.2,6.4) .. controls (12.6,6.0) and (13.1,5.85) .. (13.6,5.95);
+  \draw[coatshade, opacity=0.2, line width=0.8pt]
+    (9.0,6.4) .. controls (9.6,6.8) and (10.4,6.9) .. (11.0,6.7);
+  \draw[coatshade, opacity=0.3, line width=0.8pt]
+    (6.05,4.6) .. controls (6.4,4.2) and (6.6,3.9) .. (6.75,3.55);
+  % jowl and cheekbone
+  \draw[coatshade, opacity=0.5, line width=0.9pt]
+    (14.55,10.9) .. controls (14.6,10.2) and (15.0,9.8) .. (15.6,9.6);
+  \draw[coatshade, opacity=0.25, line width=0.7pt]
+    (15.5,10.6) .. controls (15.9,10.2) and (16.1,9.9) .. (16.3,9.7);
+\end{scope}
+
+% hooves (gilded)
+\foreach \pts in {{(6.72,1.02) (7.46,1.0) (7.28,1.4) (6.82,1.36)}}{
+  \shade[top color=gold1, bottom color=gold3]
+    plot[smooth cycle, tension=0.4] coordinates {\pts};
+}
+\begin{scope}[shift={(13.86,3.02)}, rotate=8]
+  \shade[left color=gold3, right color=gold1]
+    plot[smooth cycle, tension=0.4] coordinates {
+    (-0.28,-0.04) (0.3,0.0) (0.26,0.38) (-0.22,0.34)};
+\end{scope}
+
+% fetlock feathering
+\foreach \cx/\cy/\n in {6.95/1.5/9, 13.85/3.4/7, 8.5/1.5/6, 12.25/1.5/6}{
+  \foreach \k in {1,...,\n}{
+    \pgfmathsetmacro\dx{0.5*rnd-0.25}
+    \pgfmathsetmacro\len{0.25+0.2*rnd}
+    \draw[white, opacity=0.8, line width=0.5pt]
+      ({\cx+\dx},{\cy+0.2}) .. controls ({\cx+\dx*1.4},{\cy}) ..
+      ({\cx+\dx*1.6-0.05},{\cy+0.15-\len});
+  }
+}
+
+% near ear
+\fill[coat] plot[smooth cycle, tension=0.5] coordinates {
+  (14.15,11.9) (14.02,12.6) (14.12,13.1) (14.42,12.7) (14.7,12.05)};
+\fill[coatshade!70!pink, opacity=0.6] plot[smooth cycle, tension=0.5] coordinates {
+  (14.25,12.05) (14.17,12.6) (14.15,12.9) (14.38,12.6) (14.52,12.1)};
+
+% ----------------------------------------------------------------- mane
+\foreach \pass in {1,2,3}{
+  \foreach \i in {1,...,95}{
+    \pgfmathsetmacro\t{\i/95}
+    \pgfmathsetmacro\r{rnd}
+    \pgfmathsetmacro\q{rnd}
+    \pgfmathsetmacro\sx{14.3-2.65*\t-0.35*sin(180*\t)+0.15*\r}
+    \pgfmathsetmacro\sy{12.0-3.1*\t+0.29*sin(180*\t)-0.15*\q}
+    \pgfmathsetmacro\h{mod(320-140*\t+25*\r,360)}
+    \pgfmathsetmacro\L{1.8+1.4*\r+0.6*sin(180*\t)}
+    \ifcase\pass\or
+      \definecolor{hc}{Hsb}{\h,0.55,0.75}\def\lw{4.5pt}\def\op{0.4}
+    \or
+      \definecolor{hc}{Hsb}{\h,0.42,1}\def\lw{1.5pt}\def\op{0.75}
+    \or
+      \definecolor{hc}{Hsb}{\h,0.1,1}\def\lw{0.4pt}\def\op{0.9}
+    \fi
+    \draw[hc, opacity=\op, line width=\lw] (\sx,\sy)
+      .. controls ({\sx-0.3*\L},{\sy+0.45+0.2*\q}) and
+                  ({\sx-0.55*\L},{\sy-0.35*\L+0.3*\r}) ..
+      ({\sx-0.75*\L},{\sy-0.25*\L})
+      .. controls ({\sx-0.9*\L},{\sy-0.18*\L+0.2}) and
+                  ({\sx-1.0*\L},{\sy-0.3*\L+0.4*\q}) ..
+      ({\sx-1.15*\L},{\sy-0.55*\L+0.3*\r});
+  }
+}
+% forelock
+\foreach \pass in {1,2,3}{
+  \foreach \i in {1,...,22}{
+    \pgfmathsetmacro\r{rnd}
+    \pgfmathsetmacro\q{rnd}
+    \pgfmathsetmacro\h{295+40*\r}
+    \ifcase\pass\or
+      \definecolor{hc}{Hsb}{\h,0.5,0.8}\def\lw{2.2pt}\def\op{0.3}
+    \or
+      \definecolor{hc}{Hsb}{\h,0.4,1}\def\lw{0.9pt}\def\op{0.75}
+    \or
+      \definecolor{hc}{Hsb}{\h,0.1,1}\def\lw{0.35pt}\def\op{0.9}
+    \fi
+    \draw[hc, opacity=\op, line width=\lw] ({14.35+0.3*\q},{12.15-0.1*\q})
+      .. controls ({14.75+0.3*\r},{12.4+0.1*\q}) and ({15.0+0.25*\r},{12.0}) ..
+      ({14.85+0.45*\r+0.1*\q},{11.45+0.35*\q});
+  }
+}
+
+% ----------------------------------------------------------------- face
+% eye socket shading
+\soft[coatshade, opacity=0.45]{15.15,11.05}{0.38}{0.26}
+\begin{scope}[shift={(15.17,11.03)}, rotate=-35]
+  \fill[iris!60!black] (-0.2,0) .. controls (-0.08,0.13) and (0.1,0.13) .. (0.21,0.01)
+                       .. controls (0.1,-0.09) and (-0.08,-0.09) .. cycle;
+  \shade[inner color=iris!80!violet, outer color=black]
+    (0.0,0.01) circle[radius=0.085];
+  \fill[white] (-0.04,0.05) circle[radius=0.025];
+  \fill[white, opacity=0.6] (0.06,-0.03) circle[radius=0.012];
+  \draw[black!80, line width=0.7pt] (-0.2,0) .. controls (-0.08,0.13) and (0.1,0.13) .. (0.21,0.01);
+  \draw[coatshade, opacity=0.8, line width=0.5pt] (-0.18,0.08) .. controls (-0.05,0.21) and (0.12,0.2) .. (0.22,0.07);
+  \foreach \a/\l in {0.2/0.12, 0.1/0.14, 0.0/0.13, -0.1/0.1}{
+    \draw[black!85, line width=0.45pt] (\a,{0.09-0.4*(\a)^2*0})
+      .. controls ({\a+0.03},{0.15}) .. ({\a+0.08},{0.09+\l});
+  }
+\end{scope}
+
+% nostril and mouth
+\fill[coatdeep, opacity=0.65] (16.55,9.62) .. controls (16.68,9.75) and (16.78,9.7) .. (16.74,9.58)
+  .. controls (16.68,9.52) and (16.6,9.55) .. cycle;
+\soft[coatshade, opacity=0.5]{16.62,9.62}{0.18}{0.13}
+\draw[coatdeep, opacity=0.55, line width=0.7pt]
+  (16.74,9.22) .. controls (16.55,9.18) and (16.4,9.2) .. (16.25,9.15);
+
+% ----------------------------------------------------------------- horn
+\soft[gold1, opacity=0.35]{15.8,13.2}{1.4}{1.6}
+\begin{scope}[shift={(14.9,11.82)}, rotate=57]
+  \shade[top color=gold1, bottom color=gold2, middle color=white!40!gold1]
+    (0,-0.2) .. controls (1.0,-0.14) and (2.0,-0.05) .. (2.8,0)
+    .. controls (2.0,0.05) and (1.0,0.14) .. (0,0.2) -- cycle;
+  \foreach \s in {0.12,0.33,...,2.6}{
+    \pgfmathsetmacro\w{0.2*(1-\s/2.85)}
+    \draw[gold3, opacity=0.7, line width=0.6pt]
+      (\s,-\w) .. controls ({\s+0.06},0) .. ({\s+0.16},\w);
+    \draw[white, opacity=0.7, line width=0.35pt]
+      ({\s+0.04},-\w) .. controls ({\s+0.1},0) .. ({\s+0.2},{\w*0.9});
+  }
+\end{scope}
+\sparkle{16.42,14.2}{0.22}{1}
+
+% magic sparkles drifting from the horn
+\foreach \i in {1,...,26}{
+  \pgfmathsetmacro\t{\i/26}
+  \pgfmathsetmacro\x{16.4+3.2*\t+0.5*rnd-0.25}
+  \pgfmathsetmacro\y{14.0-2.5*\t+1.2*sin(400*\t)+0.4*rnd}
+  \pgfmathsetmacro\s{0.05+0.1*rnd}
+  \pgfmathsetmacro\o{1-0.6*\t}
+  \sparkle{\x,\y}{\s}{\o}
+}
+
+% ----------------------------------------------------- foreground meadow
+\foreach \i in {1,...,420}{
+  \pgfmathsetmacro\x{20*rnd}
+  \pgfmathsetmacro\y{1.9*rnd^1.5}
+  \pgfmathsetmacro\l{0.25+0.45*rnd}
+  \pgfmathsetmacro\b{0.25*rnd-0.12}
+  \pgfmathsetmacro\o{0.4+0.5*rnd}
+  \draw[teal!40!skytop!80!white, opacity=\o, line width=0.5pt]
+    (\x,\y) .. controls (\x,{\y+0.6*\l}) .. ({\x+\b},{\y+\l});
+}
+\foreach \i in {1,...,45}{
+  \pgfmathsetmacro\x{20*rnd}
+  \pgfmathsetmacro\y{1.8*rnd}
+  \pgfmathsetmacro\h{280+80*rnd}
+  \definecolor{fl}{Hsb}{\h,0.35,1}
+  \soft[fl, opacity=0.5]{\x,\y}{0.12}{0.12}
+  \fill[fl] (\x,\y) circle[radius=0.035];
+}
+% vignette
+\foreach \c in {{0,0},{20,0},{0,15},{20,15}}{
+  \soft[black, opacity=0.45]{\c}{5}{4}
+}
+\end{tikzpicture}
+\end{document}
