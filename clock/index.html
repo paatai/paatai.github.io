@@ -94,12 +94,29 @@ function lay(){
  const pushR=Math.max(0,margin-(s0-Rs));s0+=pushR;s1+=pushR;
  P.push({cx:s0,cy:cyS,R:Rs},{cx:s1,cy:cyS,R:Rs});
  return{unit,R,cy,gap,x0,balls:P,colon:{cx:x0+2*unit+gap/2,cy,R}}}
+// Pointer on the viewer-facing hemisphere: +x right, +y up, +z toward the camera.
+// Outside the silhouette, clamp to the rim so the grab stays on the front face.
+function frontHit(cx,cy,R,x,y){
+ let nx=(x-cx)/R,ny=(cy-y)/R,r2=nx*nx+ny*ny;
+ if(r2>1){const s=1/Math.sqrt(r2);return [nx*s,ny*s,0]}
+ return [nx,ny,Math.sqrt(1-r2)]}
+// Shortest rotation taking unit vector a onto unit vector b (view space).
+function qRot(a,b){
+ const d=a[0]*b[0]+a[1]*b[1]+a[2]*b[2];
+ const c=[a[1]*b[2]-a[2]*b[1],a[2]*b[0]-a[0]*b[2],a[0]*b[1]-a[1]*b[0]];
+ const q=[1+d,c[0],c[1],c[2]],l=Math.hypot(q[0],q[1],q[2],q[3]);
+ if(l<1e-6){const t=Math.abs(a[0])<0.9?[1,0,0]:[0,1,0];
+  return nq([0,a[1]*t[2]-a[2]*t[1],a[2]*t[0]-a[0]*t[2],a[0]*t[1]-a[1]*t[0]])}
+ return q.map(v=>v/l)}
 const drags={};
 c.addEventListener('pointerdown',e=>{const P=lay().balls;let best=-1,bestD=1e9;
  for(let i=0;i<NB;i++){const p=P[i],d=Math.hypot(e.clientX-p.cx,e.clientY-p.cy);if(d<p.R*1.05&&d/p.R<bestD){best=i;bestD=d/p.R}}
- if(best<0)return;const b=balls[best];b.drag=true;b.a=null;drags[e.pointerId]={i:best,x:e.clientX,y:e.clientY,R:P[best].R};c.setPointerCapture(e.pointerId);e.preventDefault()});
-c.addEventListener('pointermove',e=>{const d=drags[e.pointerId];if(!d)return;const dx=e.clientX-d.x,dy=e.clientY-d.y;d.x=e.clientX;d.y=e.clientY;
- const l=Math.hypot(dx,dy);if(!l)return;const ang=l/d.R,s=Math.sin(ang/2);const qd=[Math.cos(ang/2),-dy/l*s,dx/l*s,0];const b=balls[d.i];b.q=nq(qm(qd,b.q));e.preventDefault()});
+ if(best<0)return;const b=balls[best],p=P[best];b.drag=true;b.a=null;
+ drags[e.pointerId]={i:best,q0:b.q.slice(),v0:frontHit(p.cx,p.cy,p.R,e.clientX,e.clientY)};
+ c.setPointerCapture(e.pointerId);e.preventDefault()});
+c.addEventListener('pointermove',e=>{const d=drags[e.pointerId];if(!d)return;const p=lay().balls[d.i];
+ const v1=frontHit(p.cx,p.cy,p.R,e.clientX,e.clientY);
+ balls[d.i].q=nq(qm(qRot(d.v0,v1),d.q0));e.preventDefault()});
 function up(e){const d=drags[e.pointerId];if(!d)return;delete drags[e.pointerId];const b=balls[d.i];b.drag=false;b.a={from:b.q.slice(),t0:performance.now(),dur:1000}}
 c.addEventListener('pointerup',up);c.addEventListener('pointercancel',up);c.addEventListener('contextmenu',e=>e.preventDefault());
 const ov=document.createElement('canvas');ov.style.pointerEvents='none';document.body.appendChild(ov);const g=ov.getContext('2d');
