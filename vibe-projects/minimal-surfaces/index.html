@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-B5RJQSZGRT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-B5RJQSZGRT');
+</script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Minimal surfaces — Paata Ivanisvili</title>
+<meta name="description" content="Paata Ivanisvili, Professor of Mathematics, University of California, Irvine.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,500;0,6..96,600;1,6..96,500&family=Outfit:wght@400;500;650&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../css/site.css">
+<style>
+dl.dict dt { font-weight: 650; margin-top: 0.9rem; }
+dl.dict dd { margin: 0.2rem 0 0 1.1rem; }
+ol.surf li { margin: 0.35rem 0; }
+.note { font-size: 0.92rem; }
+</style>
+</head>
+<body>
+<a class="skip" href="#content">Skip to content</a>
+<div class="stage">
+<article class="folio">
+<div class="band"><span class="mono">01 01 01</span><span>UCI Mathematics</span></div>
+<header class="mast">
+  <div>
+    <p class="role">Professor of Mathematics</p>
+    <h1><a href="../../index.html">Paata Ivanisvili</a></h1>
+    <p class="meta"><a href="https://www.math.uci.edu/">University of California, Irvine</a></p>
+    <p class="meta"><a href="mailto:pivanisv@uci.edu">pivanisv@uci.edu</a>
+      · <a href="https://x.com/PI010101">x.com/PI010101</a></p>
+    <p class="sabbatical">On sabbatical, 2025–2026</p>
+  </div>
+  <img src="../../images/paata.jpg" width="134" height="166" alt="Paata Ivanisvili">
+  <nav class="primary" aria-label="Primary"><ul><li><a href="../../index.html">Home</a></li><li><a href="../../index.html#papers">Papers</a></li><li><a href="../../talks.html">Talks</a></li><li><a href="../../teaching.html">Teaching</a></li><li><a href="../../students.html">Students</a></li><li><a href="../../slides.html">Slides</a></li><li><a href="../../coauthors.html">Co-authors</a></li><li><a href="../../organization.html">Organization</a></li><li><a href="../index.html" aria-current="page">Vibe projects</a></li></ul></nav>
+  <ul class="also">
+    <li><a href="https://extremal010101.wordpress.com/">Zeros and Ones</a></li>
+    <li><a href="https://sites.google.com/view/paw-seminar">Probability and Analysis Webinar</a>
+      <span class="sub">(<a href="https://twitter.com/PAW_seminar">twitter</a>,
+      <a href="https://www.youtube.com/channel/UCO7mXgeoAFYG2Q17XDRQobA">youtube</a>)</span></li>
+    <li><a href="https://sites.uci.edu/analysis/">Harmonic Analysis Seminar</a>
+      <span class="sub">(<a href="https://www.youtube.com/channel/UChrqwsi-cQsUWfo7ASAgKtw">youtube</a>)</span></li>
+  </ul>
+</header>
+<div class="page" id="content">
+<p><a href="../index.html">← Vibe projects</a></p>
+<h1 class="page-title">Minimal surfaces</h1>
+<p>Played with AI (Grok bot) to learn something about minimal surfaces. Take any point of a minimal surface and a small enough patch around it: that patch has the smallest area among all surfaces with the same boundary curve. A soap film on a wire is the physical picture.</p>
+<p>Here are some of the unique examples in 3D. Click a surface to open its narrated animation (each opens on its own page). The terms in bold are explained in the dictionary below.</p>
+<ol class="surf">
+<li><a href="nadirashvili/index.html">Nadirashvili’s complete minimal disk inside a ball</a> — a <strong>complete</strong> minimal surface can be <strong>bounded</strong>.</li>
+<li><a href="dense/index.html">A complete minimal surface dense in space</a> — one complete minimal surface can come arbitrarily close to every point of a region.</li>
+<li><a href="gyroid/index.html">Schoen’s gyroid</a> — a <strong>triply periodic</strong> surface splitting space into two labyrinths, with no straight lines and no mirror planes.</li>
+<li><a href="costa/index.html">Costa’s surface</a> — the first new <strong>complete embedded</strong> minimal surface of <strong>finite topology</strong> since the catenoid and helicoid: <strong>genus</strong> one, three <strong>ends</strong>.</li>
+<li><a href="genus-one-helicoid/index.html">The genus-one helicoid</a> — a helicoid with one handle.</li>
+<li><a href="riemann/index.html">Riemann’s minimal examples</a> — every horizontal slice is a circle or a line; infinitely many flat ends.</li>
+</ol>
+<p><a href="all-six/index.html">All six in one minute (montage)</a></p>
+
+<h2 id="dictionary">Intuitive dictionary</h2>
+<p class="note">Each term is defined exactly, followed by equivalent ways to think about it. Surfaces live in ordinary 3-dimensional space ℝ³ and are smooth.</p>
+<dl class="dict">
+<dt>Area-minimizing patch</dt>
+<dd>A piece of surface with a boundary curve whose area is the smallest among <em>all</em> surfaces having that same boundary curve.</dd>
+
+<dt>Minimal surface</dt>
+<dd>A surface such that around every point, every small enough patch is area-minimizing: it has the least area among all surfaces with the same boundary curve. Equivalent characterizations:
+<ul>
+<li><em>No first-order gain:</em> any small deformation that keeps a patch’s boundary fixed does not change the area to first order (the area is “stationary”, like a function at a critical point).</li>
+<li><em>Mean curvature zero:</em> at every point the two principal curvatures are equal and opposite, κ₁ = −κ₂. So at every point the surface is either flat or saddle-shaped, bending up in one direction exactly as much as it bends down in the perpendicular direction.</li>
+<li><em>Soap films:</em> a soap film on a wire frame is (to very good approximation) a minimal surface, because surface tension pulls it to reduce area.</li>
+</ul>
+Warning: “minimal” does <em>not</em> mean the whole surface has least area. Only small enough patches are guaranteed to. For example, a long thin catenoid between two rings is a minimal surface, yet it does not have least area for its two rings (see the <a href="least-area-catenoid-helicoid/index.html">split-screen animation</a>).</dd>
+
+<dt>Principal curvatures, mean curvature, Gaussian curvature</dt>
+<dd>Cut the surface at a point by planes containing the normal line; each cut is a curve with a signed curvature (1/radius of the best-fitting circle). The largest and smallest of these are the <em>principal curvatures</em> κ₁ and κ₂. The <em>mean curvature</em> is their average (κ₁ + κ₂)/2; the <em>Gaussian curvature</em> is their product κ₁κ₂. On a minimal surface the Gaussian curvature is ≤ 0 everywhere. By Gauss’s Theorema Egregium, Gaussian curvature can be measured by an ant living on the surface, so bending a surface without stretching it never changes its Gaussian curvature.</dd>
+
+<dt>Intrinsic distance</dt>
+<dd>The distance between two points measured by walking on the surface: the shortest length of a path that stays on the surface (not the straight-line distance through space).</dd>
+
+<dt>Complete</dt>
+<dd>You cannot walk off the surface in finite distance: every path on the surface that runs off toward its “edge” (eventually leaving every finite piece of the surface for good) has infinite length. Equivalently, the surface is complete as a metric space for its intrinsic distance; equivalently (Hopf–Rinow), every geodesic (“straight walk” on the surface) can be continued forever. Examples: the plane, the catenoid and the helicoid are complete; an open disk is not (you reach its rim in finite distance). Complete does <em>not</em> mean unbounded in space: Nadirashvili’s surface is complete but fits inside a ball.</dd>
+
+<dt>Bounded</dt>
+<dd>The surface fits inside some ball in space.</dd>
+
+<dt>Immersed vs. embedded</dt>
+<dd><em>Immersed</em>: near each of its own points the surface is a smooth surface, but different parts are allowed to pass through each other. <em>Embedded</em>: it never crosses or touches itself; every point of space is on at most one sheet.</dd>
+
+<dt>Properly embedded</dt>
+<dd>Embedded, and every bounded region of space meets only a finite (compact) piece of the surface; the surface does not pile up anywhere. Properly embedded surfaces are automatically complete. A surface that is dense in a region (below) is never proper.</dd>
+
+<dt>Dense in a region</dt>
+<dd>The surface comes arbitrarily close to every point of the region: every small ball in the region, however tiny, meets the surface. Equivalently, the closure of the surface is the whole region.</dd>
+
+<dt>Orientable</dt>
+<dd>The surface has two sides: one can choose a unit normal vector at every point that varies continuously. A Möbius strip is not orientable.</dd>
+
+<dt>Simply connected</dt>
+<dd>Every closed loop on the surface can be shrunk to a point without leaving the surface. For the surfaces here (no boundary, not compact) this means topologically a plane. The plane and the helicoid are simply connected; the catenoid is not (a loop around its neck cannot be shrunk).</dd>
+
+<dt>Genus</dt>
+<dd>The number of handles. Exactly: for an orientable surface, the largest number of disjoint simple closed curves along which you can cut all at once without the surface falling apart into pieces. A sphere, plane, catenoid or helicoid has genus 0; a torus, and Costa’s surface, have genus 1.</dd>
+
+<dt>Ends</dt>
+<dd>The different ways of going off to infinity on the surface. Exactly: cut out a compact (finite) part of the surface and count the leftover pieces that still run off toward the surface’s “edge” (pieces that are not themselves contained in a compact part); the number of ends is the largest count you can get as the cut-out part grows. The plane and the helicoid have one end, the catenoid two, Costa’s surface three (two like catenoid ends, one <em>flat</em>, i.e. asymptotic to a plane), Riemann’s examples infinitely many.</dd>
+
+<dt>Finite topology</dt>
+<dd>The surface is a compact surface with finitely many points removed; equivalently, it has finite genus and finitely many ends. Each removed point corresponds to one end.</dd>
+
+<dt>Periodic (singly, doubly, triply)</dt>
+<dd>The surface is unchanged by a translation (a shift) of space. Singly periodic: invariant under shifts by one vector (and its multiples), like Riemann’s examples. Triply periodic: invariant under shifts in three independent directions, like a crystal, as for the gyroid and Schwarz’s P and D surfaces.</dd>
+
+<dt>Plane, catenoid, helicoid</dt>
+<dd>The <em>catenoid</em> is the surface of revolution of a hanging-chain curve (catenary) x = a cosh(z/a); it is the shape of a soap film between two nearby parallel rings. The <em>helicoid</em> is swept out by a horizontal line that rotates at constant speed while it moves up a vertical axis, like a spiral staircase or screw: (s cos t, s sin t, ct). Together with the plane these were the only known complete embedded minimal surfaces of finite topology until Costa’s surface (1982).</dd>
+
+<dt>Associate family; Bonnet angle</dt>
+<dd>Any simply connected piece of a minimal surface can be bent continuously, through minimal surfaces, by an angle θ from 0° to 360° without stretching: all lengths on the surface (and so the Gaussian curvature) stay the same. At θ = 90° one gets the <em>conjugate</em> surface; for example, a piece of the catenoid bends into a piece of the helicoid. Schwarz’s D surface bends into Schwarz’s P surface at 90°, and at the <em>Bonnet angle</em> ≈ 38.01° (from D) it is the gyroid. The other surfaces in between do not close up into embedded surfaces; the gyroid is the only exception.</dd>
+
+<dt>Gauss map; Weierstrass representation</dt>
+<dd>The <em>Gauss map</em> sends each point of the surface to its unit normal vector, a point on the unit sphere. The <em>Weierstrass representation</em> writes every minimal surface by explicit integrals of two complex-analytic (holomorphic) ingredients: the Gauss map (seen in the complex plane via stereographic projection) and a “height differential”. All the exact animations here are computed this way.</dd>
+
+<dt>Exact / numerical / schematic (labels on the videos)</dt>
+<dd><em>Exact</em>: drawn from a closed-form formula for the real surface. <em>Numerical</em>: an exact formula whose few free constants are computed numerically. <em>Schematic</em>: an illustration of the idea, not the surface itself.</dd>
+</dl>
+<p class="note">Extra: <a href="least-area-catenoid-helicoid/index.html">split-screen animation</a> of the least-area property on Enneper’s surface, the catenoid and the helicoid, and of a soap film between two rings (no voice).</p>
+
+</div>
+<footer class="site">
+  <p>Department of Mathematics, University of California, Irvine</p>
+  <p>This site was created with AI and is maintained by the author’s assistants.</p>
+</footer>
+
+</article>
+</div>
+</body>
+</html>
