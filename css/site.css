@@ -131,7 +131,7 @@ sup, sub { line-height: 0; }
   color: var(--mark);
 }
 
-/* Ten items: two even rows of five on wide screens, wrapping on phones */
+/* Eleven items: two aligned rows (six and five) on wide screens, wrapping on phones */
 nav.primary {
   grid-column: 1 / -1;
   margin: 0;
@@ -144,7 +144,7 @@ nav.primary ul {
   padding: 0;
   margin: 0;
   display: grid;
-  grid-template-columns: repeat(5, auto);
+  grid-template-columns: repeat(6, auto);
   justify-content: space-between;
   gap: 0.15rem 1.2rem;
 }
@@ -469,6 +469,12 @@ a.ap-n:hover { text-decoration: underline; }
     column-gap: 0.7rem;
   }
   .ap-side { flex-direction: row; align-items: baseline; gap: 0.55rem; margin-top: 0.3rem; }
+}
+
+/* Keeps the nav to three rows, none with a lone item, on 360–400px phones */
+@media (max-width: 400px) {
+  nav.primary ul { gap: 0 0.75rem; }
+  nav.primary a { letter-spacing: 0.1em; }
 }
 
 @media print {

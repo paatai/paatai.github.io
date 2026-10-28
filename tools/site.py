@@ -11,7 +11,7 @@ from datetime import date
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 NAV = [("Home", "index.html"), ("Papers", "papers.html"), ("Talks", "talks.html"),
        ("Teaching", "teaching.html"), ("Students", "students.html"), ("Slides", "slides.html"),
-       ("Co-authors", "coauthors.html"), ("Organization", "organization.html"),
+       ("Co-authors", "coauthors.html"), ("Organization", "organization.html"), ("Awards", "awards.html"),
        ("Vibe projects", "vibe-projects/index.html"), ("AI proofs", "ai-proofs/index.html")]
 SKIP = ("clock/", "3dpoints/")          # stand-alone pages without the site header
 
