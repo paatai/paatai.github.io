@@ -10,15 +10,16 @@ Static HTML/CSS only. Shared stylesheet: `css/site.css`. Shared nav is duplicate
 
 Root:
 
-- `index.html` — header (bio, links, sabbatical), awards, students at UCI, visiting assistant professors
+- `index.html` — header (bio, links, sabbatical) and the point-cloud clock (`clock/#embed=1` in an iframe)
 - `papers.html` — the numbered list of all papers (`<ol class="papers">`, oldest first)
 - `talks.html` — talks 2012–2026, including 2024 (no traveling due to childbirth)
 - `teaching.html` — courses with cleaned UCI / Canvas / NCSU URLs
 - `math211.html` — MATH 211A (Spring 2020) notes and syllabus
-- `students.html` — UCI students and VAPs with paper links
+- `students.html` — "Students and VAPs": UCI students and visiting assistant professors with paper links
 - `slides.html` — talk slides
 - `coauthors.html` — alphabetical co-authors (Joris Roos, not Joos)
 - `organization.html` — HIM 2024, summer/fall schools, AIM, Clay, Math CEO pentominoes
+- `awards.html` — awards and grants
 - `ai-proofs/index.html` — AI-generated proofs, built from `ai-proofs/entries.json` by `tools/site.py ai-proofs`
 - `vibe-projects/` — interactive projects
 
@@ -38,4 +39,4 @@ Schools (`schools/`):
 
 ## Design
 
-Warm paper background `#f6f1e8`, ink navy `#1a2744`, rust `#b44a24`. Fraunces + Source Sans 3. Hero with name on the left and a rounded-rectangle portrait on the right; sticky top nav; no left circular sidebar; no accordion toggles; footer copyright only.
+A cream folio (`#f6f1e6`) on a dark field (`#13110e`), ink `#1c1914`, rust `#7a2c22`, gold hairlines. Bodoni Moda for the name and headings, Outfit for text (Google Fonts). Masthead with the name on the left and the framed portrait on the right, then the nav: uppercase labels in two aligned rows, the current page underlined in rust. Content lists share one small rust-square bullet; numbered lists use rust numerals. On phones the folio runs edge to edge and the nav wraps. No sticky nav, no accordions.
