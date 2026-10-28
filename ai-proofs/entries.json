@@ -241,5 +241,19 @@
     "barvinok-lee-novik/barvinok-lee-novik.tex"
    ]
   ]
+ },
+ {
+  "n": 19,
+  "date": "2026-10-28",
+  "title": "Complex hypercontractivity for several correlated Gaussian functions below the diagonal",
+  "status": "raw draft",
+  "line": "Three parts: an exact criterion for imaginary parameters and every outer exponent; the exact imaginary-axis region for two &rho;-correlated functions; and joint narrow-bump counterexamples for general complex z, with two failure points certified in ball arithmetic. Not refereed; off the axes only inner and outer bounds are proved, the region between them is open, and the remaining numerical facts are stated only as evidence.",
+  "pdf": "complex-hypercontractivity-correlated-gaussian/complex-hypercontractivity-correlated-gaussian.pdf",
+  "files": [
+   [
+    "code",
+    "complex-hypercontractivity-correlated-gaussian/code.zip"
+   ]
+  ]
  }
 ]
