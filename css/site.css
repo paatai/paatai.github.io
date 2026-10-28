@@ -401,7 +401,7 @@ footer.site p { margin: 0.15rem 0; }
 }
 .home .folio { width: 100%; padding-bottom: 0; }
 .clock {
-  margin: 1.25rem auto 0;
+  margin: 0.25rem auto 0;
   width: 100%;
   max-width: 100rem;
   min-height: max(50vh, 20rem);
