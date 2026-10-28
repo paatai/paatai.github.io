@@ -55,16 +55,25 @@ MONTHS = "January February March April May June July August September October No
 STATUSES = ("refereed", "partial result", "raw draft", "polished")   # badge styles live in css/site.css
 
 
+def is_date(s):
+    try: return bool(re.fullmatch(r"\d{4}-\d{2}-\d{2}", s)) and bool(date.fromisoformat(s))
+    except (TypeError, ValueError): return False
+
+
 def problems(e, seen):
-    if any(k not in e for k in ("n", "date", "title", "status", "pdf")):
+    if not isinstance(e, dict) or any(k not in e for k in ("n", "date", "title", "status", "pdf")):
         return ["needs n, date, title, status and pdf"]
-    out = [] if e["n"] not in seen else ["number %d is used twice" % e["n"]]
-    seen.add(e["n"])
-    try: date.fromisoformat(e["date"])
-    except ValueError: out.append("date %r is not YYYY-MM-DD" % e["date"])
+    out = []
+    if type(e["n"]) is not int: out.append("n %r is not a whole number" % (e["n"],))
+    elif e["n"] in seen: out.append("number %d is used twice" % e["n"])
+    else: seen.add(e["n"])
+    if not is_date(e["date"]): out.append("date %r is not a real YYYY-MM-DD date" % (e["date"],))
     if e["status"] not in STATUSES: out.append("status %r is not one of %s" % (e["status"], ", ".join(STATUSES)))
-    out += ["missing file ai-proofs/" + h for _, h in [("PDF", e["pdf"])] + e.get("files", [])
-            if not os.path.isfile(os.path.join(ROOT, "ai-proofs", h))]
+    files = e.get("files", [])
+    if not (isinstance(files, list) and all(isinstance(f, list) and len(f) == 2 for f in files)):
+        out.append('files must be a list of ["label", "path"] pairs'); files = []
+    out += ["missing file ai-proofs/%s" % h for h in [e["pdf"]] + [f[1] for f in files]
+            if not os.path.isfile(os.path.join(ROOT, "ai-proofs", str(h)))]
     return out
 
 
@@ -73,9 +82,9 @@ def entry_html(e):
     files = [("PDF", e["pdf"])] + [tuple(f) for f in e.get("files", [])]
     links = " · ".join('<a href="%s">%s</a>' % (html.escape(h), t) for t, h in files)
     note = e["line"] + " " if e.get("line") else ""
-    return ('<li id="{n}" value="{n}"><a class="ap-n" href="#{n}">{n}</a>'
-            '<a class="ap-title" href="{pdf}">{title}</a>'
-            '<span class="ap-side"><time datetime="{date}">{when}</time> <span class="badge {cls}">{status}</span></span>'
+    return ('<li id="{n}" value="{n}"><a class="ap-n" href="#{n}">{n}</a> '
+            '<a class="ap-title" href="{pdf}">{title}</a> '
+            '<span class="ap-side"><time datetime="{date}">{when}</time> <span class="badge {cls}">{status}</span></span> '
             '<span class="ap-note">{note}<span class="ap-files">[{links}]</span></span></li>').format(
         n=e["n"], pdf=html.escape(e["pdf"]), title=e["title"], date=e["date"], when="%s %d, %d" % (MONTHS[m - 1][:3], d, y),
         cls=e["status"].replace(" ", "-"), status=e["status"], note=note, links=links)
@@ -83,9 +92,13 @@ def entry_html(e):
 
 def build_ai_proofs():
     entries = json.load(open(os.path.join(ROOT, "ai-proofs/entries.json"), encoding="utf-8"))
-    seen = set()
-    for e in entries:
-        for msg in problems(e, seen): print("WARNING: entry %s: %s" % (e.get("n", "?"), msg))
+    seen, bad = set(), []
+    for i, e in enumerate(entries):
+        who = "entry %d" % e["n"] if isinstance(e, dict) and type(e.get("n")) is int else "entry number %d in the file" % (i + 1)
+        bad += ["%s: %s" % (who, msg) for msg in problems(e, seen)]
+    if bad:
+        print("\n".join("ERROR: " + b for b in bad))
+        sys.exit("ai-proofs/index.html was left unchanged; fix ai-proofs/entries.json and run again")
     entries.sort(key=lambda e: (e["date"], e["n"]), reverse=True)   # newest first
     rows = [entry_html(e) for e in entries]
     block = ('<p class="ap-count">%d entries, newest first</p>\n<ol class="ap-list">\n%s\n</ol>\n'
