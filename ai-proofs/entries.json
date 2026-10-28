@@ -150,8 +150,12 @@
   "pdf": "reverse-khinchin-biased-bits/reverse-khinchin-biased-bits.pdf",
   "files": [
    [
-    "proof code and certificates",
+    "proof code",
     "reverse-khinchin-biased-bits/code.zip"
+   ],
+   [
+    "certificates",
+    "reverse-khinchin-biased-bits/certificates.zip"
    ]
   ]
  },
