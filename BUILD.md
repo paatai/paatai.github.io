@@ -12,7 +12,7 @@ The pages show `images/paata-dark.png`: the same 357×357 photo with its white s
 
 Root:
 
-- `index.html` — header (bio, links, department)
+- `index.html` — header (bio, links, department) and the site footer (department line only)
 - `papers.html` — the numbered list of all papers (`<ol class="papers">`, oldest first)
 - `talks.html` — talks 2012–2026, including 2024 (no traveling due to childbirth)
 - `teaching.html` — courses with cleaned UCI / Canvas / NCSU URLs
