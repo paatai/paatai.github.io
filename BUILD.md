@@ -6,11 +6,13 @@ Static HTML/CSS only. Shared stylesheet: `css/site.css`. Shared nav is duplicate
 
 `images/paata.jpg` is a real JPEG portrait (copied from `/workspace/paatai-photo.jpg`, about 20 KB). The Google Sites `googleusercontent` photo URL returned HTTP 403, so that original file was used instead of a monogram placeholder.
 
+The pages show `images/paata-dark.png`: the same 357×357 photo with its white studio background replaced by `#000`, so only the person shows on the black page. It was made with `rembg` (BiRefNet portrait matte). Where the matte is partly transparent (hair, shoulders), the white was un-mixed from each pixel, using I = αF + (1 − α)B with B estimated from nearby pure-background pixels, before compositing on black; that leaves no light halo. Pixels where the matte is fully opaque keep their original values, except within three pixels of the left, right and bottom edges. The JPEG has a thin light line there, which was replaced from the adjacent rows and columns first. The original JPEG stays in the repository.
+
 ## Page list
 
 Root:
 
-- `index.html` — header (bio, links, sabbatical) and the point-cloud clock (`clock/index.html#embed=1` in an iframe)
+- `index.html` — header (bio, links, department) and, full width below it, the point-cloud clock (`clock/index.html#embed=1` in an iframe); no footer
 - `papers.html` — the numbered list of all papers (`<ol class="papers">`, oldest first)
 - `talks.html` — talks 2012–2026, including 2024 (no traveling due to childbirth)
 - `teaching.html` — courses with cleaned UCI / Canvas / NCSU URLs
@@ -39,4 +41,8 @@ Schools (`schools/`):
 
 ## Design
 
-A cream folio (`#f6f1e6`) on a dark field (`#13110e`), ink `#1c1914`, rust `#7a2c22`, gold hairlines. Bodoni Moda for the name and headings, Outfit for text (Google Fonts). Masthead with the name on the left and the framed portrait on the right, then the nav: uppercase labels in two aligned rows, the current page underlined in rust. Content lists share one small rust-square bullet; numbered lists use rust numerals. On phones the folio runs edge to edge and the nav wraps. No sticky nav, no accordions.
+After x.com's dark mode. Everything sits on a `#000` page, with no card behind the content. Text is `#e7e9ea`, secondary text `#71767b` (4.6:1 on black, so keep it on `#000`; use `#8b98a5` on raised or tinted surfaces), hairlines `#2f3336`, raised surfaces `#16181c`. Links are `#1d9bf0` and lighten on hover. Inside running text they are underlined, because blue on the light grey text is only 2.5:1; in the masthead and link lists they get the underline on hover. Text uses the system font stack (`system-ui`: San Francisco on Apple devices, Segoe UI on Windows, Roboto on Android), with no web fonts.
+
+The masthead has the name and links on the left and the portrait on the right; the portrait's background is black, so only the person shows. Below it the nav is a row of X-style tabs: grey labels, with the current page in white over a blue bar. Wide screens get two aligned rows; narrow screens get wrapping rows balanced with `text-wrap: balance`, so no tab is left alone on the last row. Content lists share one small grey dot; numbered lists use grey numerals. AI-proof statuses are tinted pills. No sticky nav, no accordions.
+
+iPhone: every page sets `theme-color` `#000000` and `color-scheme` `dark`, so the status bar and overscroll stay black. With `viewport-fit=cover`, body padding keeps content clear of the notch in landscape (`env(safe-area-inset-*)`). The home clock is sized in `svh`, so Safari's toolbars do not resize it.
