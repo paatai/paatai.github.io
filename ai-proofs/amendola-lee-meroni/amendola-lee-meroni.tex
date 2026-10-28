@@ -1,0 +1,368 @@
+\documentclass[11pt]{amsart}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage[margin=1.1in]{geometry}
+\usepackage{hyperref}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{question}[theorem]{Question}
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\conv}{\operatorname{conv}}
+\newcommand{\vol}{\operatorname{vol}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\re}{\operatorname{Re}}
+
+\title[Signature volume formula and cyclic curves]{On the Am\'endola--Lee--Meroni conjecture:\\
+the signature volume formula on all subpaths does not characterize cyclic curves}
+\date{October 26, 2026}
+
+\begin{document}
+\begin{abstract}
+Am\'endola, Lee and Meroni proved that the volume of the convex hull of a cyclic curve
+$x:[0,1]\to\R^d$ equals its top-level alternating path signature $\alpha^{(d)}(x)$, and they conjectured
+(GSI 2023, Conjecture 3.11) that cyclic curves are exactly the curves for which this identity holds for every subpath.
+The literal statement fails trivially for non-cyclic curves inside a hyperplane. We show that full-dimensionality does not save it: the conjecture is false in every
+dimension $d\ge 2$, even for full-dimensional piecewise linear curves. In the plane we prove that the conjecture is true for injective curves (simple arcs and simple
+closed curves). In every dimension $d\ge3$ it fails even for injective full-dimensional curves: a cone over a logarithmic spiral started at its pole,
+with a specific growth rate, satisfies the identity on every subpath but is not cyclic. We also record, with a Lipschitz bound, the known fact that a
+full-dimensional curve whose ordered $(d+1)$-point determinants are all nonnegative is cyclic.
+\end{abstract}
+\maketitle
+
+\section{Setting and statement}
+
+All paths are Lipschitz maps $x:[a,b]\to\R^d$; $x'$ exists a.e. For $k\ge1$ let
+\[
+S^{(k)}(x)=\int_{a<t_1<\dots<t_k<b} x'(t_1)\wedge\dots\wedge x'(t_k)\,dt\in\Lambda^k\R^d,\qquad S^{(0)}(x)=1,
+\]
+and $\alpha^{(d)}(x)=\frac1{d!}\langle S^{(d)}(x),e_1\wedge\dots\wedge e_d\rangle=\frac1{d!}\int_{a<t_1<\dots<t_d<b}\det(x'(t_1),\dots,x'(t_d))\,dt$.
+This is the normalization of \cite{ALM}. For $d=2$,
+\[
+\alpha^{(2)}(x|_{[a,b]})=A(a,b):=\tfrac12\int_a^b\det\big(x(t)-x(a),x'(t)\big)\,dt,
+\]
+which is the L\'evy area: the signed area enclosed by $x|_{[a,b]}$ followed by the chord from $x(b)$ to $x(a)$.
+For points $p_0,\dots,p_d\in\R^d$ put $\Delta(p_0,\dots,p_d)=\det\begin{pmatrix}1&\cdots&1\\ p_0&\cdots&p_d\end{pmatrix}$.
+
+\begin{definition}[\cite{ALM}]
+A path $x:[0,1]\to\R^d$ is \emph{$d$-order} if $\Delta(x(t_0),\dots,x(t_d))>0$ for all $0\le t_0<\dots<t_d\le1$.
+It is \emph{cyclic} if it is a uniform limit of $d$-order paths. (\cite{ALM}, Def.~2.6, allow limits in the Lipschitz or, equivalently they say, the
+uniform topology. We use uniform limits. The counterexamples below are not weakly ordered, so they are not limits in either sense. The positive results produce
+uniform limits with bounded Lipschitz constants.)
+We call $x$ \emph{weakly $d$-ordered} if $\Delta(x(t_0),\dots,x(t_d))\ge0$ for all $t_0<\dots<t_d$.
+\end{definition}
+
+Weak order is preserved under pointwise limits, so cyclic paths are weakly $d$-ordered.
+
+\begin{theorem}[\cite{ALM}, Thms.\ 3.4--3.5]\label{thm:ALM}
+If $x$ is $d$-order, or a uniform limit of $d$-order paths with uniformly bounded Lipschitz constants, then
+$\vol_d(\conv x([0,1]))=\alpha^{(d)}(x)$.
+\end{theorem}
+
+We say that $x$ satisfies \textbf{(H)} if $\vol_d(\conv x([a,b]))=\alpha^{(d)}(x|_{[a,b]})$ for all $0\le a<b\le1$.
+Cyclic Lipschitz paths satisfy (H): they are weakly $d$-ordered, so Proposition~\ref{prop:smooth} below applies (and if $x([a,b])$ lies in a hyperplane, both sides vanish).
+
+\begin{conjecture}[\cite{ALM}, Conjecture 3.11]\label{conj:ALM}
+A Lipschitz path $x:[0,1]\to\R^d$ is cyclic if and only if it satisfies (H).
+\end{conjecture}
+
+\begin{theorem}\label{thm:counter}
+For every $d\ge2$ there is a piecewise linear path $x:[0,1]\to\R^d$ that satisfies (H), whose image is not contained in any
+affine hyperplane, and that is not weakly $d$-ordered; in particular it is not cyclic. Hence Conjecture~\ref{conj:ALM} is false for every $d\ge2$.
+\end{theorem}
+
+\begin{theorem}\label{thm:inj}
+For every $d\ge3$ there is an injective Lipschitz path $x:[0,1]\to\R^d$, not contained in any affine hyperplane, that satisfies (H) and is not weakly $d$-ordered.
+In particular Conjecture~\ref{conj:ALM} fails for injective full-dimensional paths in every dimension $d\ge3$.
+\end{theorem}
+
+\begin{theorem}\label{thm:planar}
+Let $x:[0,1]\to\R^2$ be Lipschitz, injective on $[0,1)$ and on $(0,1]$, so that $x$ is a simple arc or a simple closed curve.
+The following are equivalent: (a) $x$ satisfies (H); (b) $x$ is weakly $2$-ordered; (c) $x$ is cyclic.
+In particular Conjecture~\ref{conj:ALM} holds for such curves.
+\end{theorem}
+
+\begin{proposition}\label{prop:smooth}
+Let $x:[0,1]\to\R^d$ be continuous and weakly $d$-ordered, with $x([0,1])$ not contained in an affine hyperplane.
+Then there are $C^\infty$ $d$-order paths $x_\varepsilon\to x$ uniformly as $\varepsilon\to0$.
+If $x$ is Lipschitz, they can be chosen with $\sup_\varepsilon\operatorname{Lip}(x_\varepsilon)<\infty$, and then $x$ satisfies (H).
+In particular $x$ is cyclic.
+\end{proposition}
+
+So a full-dimensional path is cyclic if and only if it is weakly $d$-ordered. \cite{ALM} state this as a remark. In substance it is the classical fact that weak
+Tchebycheff systems are limits of Tchebycheff systems, obtained by smoothing with the Gauss kernel (\cite{K}, Ch.~3; \cite{Z}). Here $(1,x_1,\dots,x_d)$ is a weak Tchebycheff
+system exactly when $x$ is weakly $d$-ordered. The new point in Proposition~\ref{prop:smooth} is only the Lipschitz bound. The counterexamples of Theorems~\ref{thm:counter} and
+\ref{thm:inj} satisfy (H) but are not weakly $d$-ordered. Theorem~\ref{thm:planar} shows that in the plane every counterexample must revisit points, and
+Theorem~\ref{thm:inj} shows that this is not so for $d\ge3$.
+
+\begin{question}\label{q:inj}
+Are there injective counterexamples in $d\ge3$ that are piecewise linear or smooth? The examples of Theorem~\ref{thm:inj} wind infinitely often around one point.
+What does (H) characterize?
+\end{question}
+
+\section{Two algebraic tools}
+
+\begin{lemma}[Chen's identity]\label{lem:chen}
+If $x$ is the concatenation of $y$ (on $[a,b]$) and $z$ (on $[b,c]$), then
+$S^{(k)}(x)=\sum_{i+j=k}S^{(i)}(y)\wedge S^{(j)}(z)$.
+\end{lemma}
+\begin{proof}
+Split $\{a<t_1<\dots<t_k<c\}$ according to the number $i$ of the $t_\nu$ lying in $[a,b]$. The piece with index $i$ is
+$\{a<t_1<\dots<t_i<b\}\times\{b<t_{i+1}<\dots<t_k<c\}$ up to a null set. On it the integrand factors, by multilinearity of $\wedge$.
+\end{proof}
+
+For a segment $y$, $S^{(j)}(y)=0$ for $j\ge2$ because $v\wedge v=0$.
+For a path contained in an affine hyperplane $p+W$, $S^{(j)}(y)\in\Lambda^jW$, so $S^{(d)}(y)=0$; both sides of (H) then vanish.
+
+\begin{lemma}[Cone lemma]\label{lem:cone}
+Let $Y:[0,c]\to\R^{d-1}\times\{0\}$ be Lipschitz with $Y(0)=P$. Let $\epsilon=(-1)^d$ and $h>0$. Let $X$ be the segment from
+$P+\epsilon h e_d$ to $P$, and let $Z=X*Y$. Then
+\[
+\vol_d(\conv Z)=\tfrac hd\vol_{d-1}(\conv Y),\qquad \alpha^{(d)}(Z)=\tfrac hd\,\alpha^{(d-1)}(Y),
+\]
+where the right-hand sides are computed in $\R^{d-1}$. Moreover, for $t_0$ in the interior of the parameter interval of $X$,
+with $Z(t_0)=P+\epsilon h'e_d$, and $t_1<\dots<t_d$ in the parameter interval of $Y$,
+$\Delta(Z(t_0),Z(t_1),\dots,Z(t_d))=h'\,\Delta_{\R^{d-1}}(Y(t_1),\dots,Y(t_d))$.
+\end{lemma}
+\begin{proof}
+Since $P\in\conv Y$, $\conv Z=\conv(\{P+\epsilon he_d\}\cup\conv Y)$, a pyramid of height $h$ over the $(d-1)$-dimensional base $\conv Y$.
+By Lemma~\ref{lem:chen} and the remarks after it, $S^{(d)}(Z)=S^{(1)}(X)\wedge S^{(d-1)}(Y)=-\epsilon h\,e_d\wedge S^{(d-1)}(Y)$.
+Moving $e_d$ to the last position costs $(-1)^{d-1}$, and $(-1)^{d-1}(-\epsilon)=1$. Hence
+$\langle S^{(d)}(Z),e_1\wedge\dots\wedge e_d\rangle=h\langle S^{(d-1)}(Y),e_1\wedge\dots\wedge e_{d-1}\rangle$; divide by $d!=d\cdot(d-1)!$.
+For the determinant, write $Z(t_i)-Z(t_0)=(w_i,-\epsilon h')$ with $w_i=Y(t_i)-P\in\R^{d-1}$. Then
+$\det(Z(t_1)-Z(t_0),\dots,Z(t_d)-Z(t_0))=(-\epsilon h')(-1)^{d-1}\Delta_{\R^{d-1}}(w_1,\dots,w_d)$.
+The sign is $(-1)^{d+1}(-1)^{d-1}=1$, and $\Delta$ is translation invariant.
+\end{proof}
+
+\section{Counterexamples: proof of Theorem~\ref{thm:counter}}
+
+\subsection*{The planar example}
+Let $\Gamma:\R\to\R^2$ be the $4$-periodic, unit-speed, counterclockwise parametrization of $\partial Q$, $Q=[0,1]^2$, with
+$\Gamma(0)=(0,0)$: $\Gamma(t)=(t,0)$ on $[0,1]$, $(1,t-1)$ on $[1,2]$, $(3-t,1)$ on $[2,3]$, $(0,4-t)$ on $[3,4]$. Define
+\[
+x=\Gamma|_{[0,9/2]}.
+\]
+This is one counterclockwise lap of the square followed by the segment from $(0,0)$ to $(1/2,0)$ along the first edge.
+After rescaling the parameter to $[0,1]$, which changes neither side of (H), we check (H) on each $[a,b]\subset[0,9/2]$.
+
+\emph{Case $b-a\le4$.} Then $x|_{[a,b]}$ is a counterclockwise boundary arc $\sigma$ of the convex polygon $Q$ of length at most
+the perimeter. The closed curve $\sigma$ followed by the chord $[x(b),x(a)]$ is the positively oriented boundary of the convex set
+$\conv\sigma$, which is the part of $Q$ cut off by the chord on the side of $\sigma$, or $Q$ itself when $b-a=4$.
+Hence $A(a,b)=|\conv\sigma|=V(a,b)$, where $V(a,b):=|\conv x([a,b])|$.
+
+\emph{Case $b-a>4$.} Then $0\le a<b-4\le1/2$, so $x([a,b])=\partial Q$ and $V(a,b)=1$. By Lemma~\ref{lem:chen} with the split point $a+4$,
+\[
+A(a,b)=A(a,a+4)+A(a+4,b)+\tfrac12\det\big(x(a+4)-x(a),x(b)-x(a+4)\big)=1+0+0,
+\]
+because $x(a+4)=x(a)$ and $x|_{[a+4,b]}$ is a segment.
+
+So (H) holds. However $\Delta(x(0),x(2),x(4.3))=\det((1,1),(0.3,0))=-0.3<0$, so $x$ is not weakly $2$-ordered and hence not cyclic.
+Concretely, the line $\{x_1=1/4\}$ is crossed transversally at $t=1/4$, $11/4$ and $17/4$.
+
+\subsection*{Induction on $d$}
+Assume $Y_{d-1}:[0,c]\to\R^{d-1}$ is piecewise linear, full-dimensional, satisfies (H), and has an ordered $d$-tuple of parameters
+with $\Delta_{\R^{d-1}}<0$. Let $P=Y_{d-1}(0)$ and let $Z=Y_d$ be as in Lemma~\ref{lem:cone} with $h=1$.
+Full dimensionality is clear. For a subinterval of $Z$ there are three cases.
+If it lies in $X$, both sides of (H) are $0$ (a segment).
+If it lies in the domain of $Y_{d-1}$, both sides are $0$ (contained in a hyperplane).
+Otherwise it starts at a parameter $t_a$ in the domain of $X$, with $Z(t_a)=P+\epsilon h_ae_d$, $0<h_a\le h$. Then $Z$ restricted to it is a segment from
+$P+\epsilon h_ae_d$ to $P$ followed by $Y_{d-1}|_{[0,c']}$, and Lemma~\ref{lem:cone} (with $h_a$ in place of $h$)
+together with (H) for $Y_{d-1}$ on $[0,c']$ gives (H) for $Z$.
+Finally Lemma~\ref{lem:cone} turns the negative $d$-tuple of $Y_{d-1}$ into a negative $(d+1)$-tuple of $Z$.
+This proves Theorem~\ref{thm:counter}. \qed
+
+\begin{remark}
+(1) There are also degenerate counterexamples: any non-cyclic path inside an affine hyperplane, for example
+$t\mapsto(\sin4\pi t,0)$ in $\R^2$, satisfies (H) trivially.
+(2) The planar example can be made $C^{1,1}$. Replace $Q$ by a stadium, the convex hull of two equal discs, and let the tail run along a
+straight part of its boundary. The same two cases apply.
+(3) In these examples the path revisits points it has already passed. Theorem~\ref{thm:planar} shows that in the plane this is unavoidable. For $d\ge3$ it is not; see Theorem~\ref{thm:inj}.
+\end{remark}
+
+\section{Injective counterexamples in $d\ge3$: proof of Theorem~\ref{thm:inj}}
+
+The induction step in \S3 uses (H) for the base $Y_{d-1}$ only on \emph{initial} intervals $[0,c']$: subintervals inside the base lie in a hyperplane, where both sides
+of (H) vanish. Theorem~\ref{thm:planar} uses (H) on all subintervals. This leaves room for an injective planar base.
+
+\subsection*{The spiral}
+For $k>0$ let $Y(\varphi)=e^{(k+i)\varphi}$ ($\varphi\le0$) in $\C=\R^2$, with $Y(-\infty)=0$. Its length $\int_{-\infty}^0|Y'|=\sqrt{1+k^2}/k$ is finite, so the arc-length
+parametrization $y:[0,\ell]\to\R^2$ starting at the pole $y(0)=0$ is an injective Lipschitz path. Let $V(\varphi_b)$ be the area of $\conv Y((-\infty,\varphi_b])$ and $A(\varphi_b)$ the
+L\'evy area of $y$ up to $Y(\varphi_b)$. Since $\det(Y,Y')=|Y|^2=e^{2k\varphi}$,
+\[
+A(\varphi_b)=\tfrac12\int_{-\infty}^{\varphi_b}e^{2k\varphi}\,d\varphi=\frac{e^{2k\varphi_b}}{4k}.
+\]
+The similarity $w\mapsto e^{(k+i)\varphi_b}w$ maps $Y((-\infty,0])$ onto $Y((-\infty,\varphi_b])$, so $V(\varphi_b)=e^{2k\varphi_b}V(0)$. Hence:
+
+\emph{$y$ satisfies (H) on all initial intervals if and only if $V(0)=\frac1{4k}$.}
+
+\begin{lemma}\label{lem:spiral}
+Let $\gamma=\arctan(1/k)\in(0,\frac\pi2)$. The boundary of $\conv Y((-\infty,0])$ consists of the arc $Y([\varphi_t,0])$ and the segment from $Y(0)$ to $Y(\varphi_t)$, which is
+tangent to the spiral at $Y(\varphi_t)$. Here $\varphi_t\in(-2\pi,-\pi)$ is the unique solution in $(-2\pi,-\pi-\gamma)$ of $k\sin\varphi+\cos\varphi=e^{k\varphi}$. Consequently
+\[
+V(0)=\frac{1-e^{2k\varphi_t}}{4k}+\tfrac12e^{k\varphi_t}\sin\varphi_t .
+\]
+\end{lemma}
+\begin{proof}
+For a direction $\theta$, the support function is $h(\theta)=\sup_{\varphi\le0}g_\theta(\varphi)$ with $g_\theta(\varphi)=\re(e^{-i\theta}Y(\varphi))=e^{k\varphi}\cos(\varphi-\theta)$.
+Since $g_\theta'=e^{k\varphi}\sqrt{1+k^2}\cos(\varphi-\theta+\gamma)$, the local maxima of $g_\theta$ are at $\varphi_n=\theta+\frac\pi2-\gamma+2\pi n$, with values
+$e^{k\varphi_n}\sin\gamma$, which increase with $n$. Put $\theta_0=\gamma-\frac\pi2$ and write $\theta=\theta_0+\psi$ with $\psi\in[0,2\pi)$. The largest local maximum in
+$(-\infty,0]$ is then at $\varphi_{-1}=\psi-2\pi$, and $h(\theta)=\max\big(g_\theta(0),g_\theta(\psi-2\pi)\big)$. The difference is
+$D(\psi)=g_\theta(0)-g_\theta(\psi-2\pi)=\sin(\psi+\gamma)-\sin\gamma\,e^{k(\psi-2\pi)}$.
+We have $D(0)=\sin\gamma\,(1-e^{-2\pi k})>0$. On $[\pi-\gamma,2\pi-\gamma]$, $D<0$, since the first term is $\le0$. On $(2\pi-\gamma,2\pi)$,
+$D'=\cos(\psi+\gamma)-k\sin\gamma\,e^{k(\psi-2\pi)}>\cos\gamma-k\sin\gamma=0$ and $D(2\pi)=0$, so $D<0$. On $(0,\pi-\gamma)$, $D''<0$. So $D$ has exactly one zero $\psi_t$ in
+$(0,2\pi)$, and $\psi_t\in(0,\pi-\gamma)$.
+For $\psi\in(\psi_t,2\pi)$ the supporting point is $Y(\psi-2\pi)$, and for $\psi\in[0,\psi_t)$ it is $Y(0)$. So the boundary is the arc $Y([\varphi_t,0])$ with $\varphi_t=\psi_t-2\pi$,
+together with the segment from $Y(0)$ to $Y(\varphi_t)$. These two points lie on the same support line, which is perpendicular to the direction $\theta_0+\psi_t$, and at the local
+maximum $Y(\varphi_t)$ this line is the tangent line. Expanding $D(\psi_t)=0$ with $\cot\gamma=k$ gives $k\sin\varphi_t+\cos\varphi_t=e^{k\varphi_t}$, and uniqueness follows from
+uniqueness of $\psi_t$. The boundary is traversed counterclockwise by the arc followed by the segment. The area formula is $\frac12\oint\det(w,dw)$: the arc contributes
+$\frac12\int_{\varphi_t}^0e^{2k\varphi}d\varphi$ and the segment contributes $\frac12\det(Y(0),Y(\varphi_t))=\frac12e^{k\varphi_t}\sin\varphi_t$.
+\end{proof}
+
+\begin{lemma}\label{lem:kstar}
+Let $\Phi(k)=\frac{2k}{\sqrt{1+k^2}}-e^{k(\arctan(1/k)-2\pi)}$. Then $\Phi(0.19)<0<\Phi(0.2)$, so $\Phi$ has a zero $k^*\in(0.19,0.2)$; numerically $k^*=0.195378813151504\ldots$
+For $k=k^*$ we have $\varphi_t=\gamma-2\pi$ and $V(0)=\frac1{4k^*}$.
+\end{lemma}
+\begin{proof}
+$\Phi(0.19)=0.37332\ldots-0.39417\ldots<0$ and $\Phi(0.2)=0.39223\ldots-0.37460\ldots>0$. At $k=k^*$, take $\psi=\gamma$, so $\varphi=\gamma-2\pi$. Using
+$e^{k(\gamma-2\pi)}=2k\sin\gamma$ (that is, $\Phi(k^*)=0$, since $\sin\gamma=1/\sqrt{1+k^2}$), we get
+$D(\gamma)=\sin2\gamma-2k\sin^2\gamma=2\sin\gamma(\cos\gamma-k\sin\gamma)=0$. Since $\gamma\in(0,\pi-\gamma)$, uniqueness gives $\psi_t=\gamma$, i.e.\ $\varphi_t=\gamma-2\pi$.
+Then $\sin\varphi_t=\sin\gamma$ and $e^{k\varphi_t}=2k\sin\gamma$, and Lemma~\ref{lem:spiral} gives
+\[
+V(0)=\frac1{4k}-\frac{e^{2k\varphi_t}}{4k}+\frac12e^{k\varphi_t}\sin\varphi_t=\frac1{4k}+\frac{e^{k\varphi_t}}{4k}\big(2k\sin\gamma-e^{k\varphi_t}\big)=\frac1{4k}.
+\]
+\end{proof}
+
+\begin{proof}[Proof of Theorem~\ref{thm:inj}]
+Let $k=k^*$ and let $y$ be the arc-length parametrized spiral from the pole, rescaled to $[0,1]$. By Lemma~\ref{lem:kstar} and self-similarity, $y$ satisfies (H) on every
+initial interval. Moreover $y$ is not weakly $2$-ordered: for $\varphi_1<\varphi_2$ with $\varphi_2-\varphi_1\in(\pi,2\pi)$,
+$\Delta(0,Y(\varphi_1),Y(\varphi_2))=\det(Y(\varphi_1),Y(\varphi_2))=e^{k(\varphi_1+\varphi_2)}\sin(\varphi_2-\varphi_1)<0$.
+Now apply Lemma~\ref{lem:cone} with $d=3$, $P=0$ and $h=1$ to obtain $Y_3=X*y$. The three-case argument of the induction step in \S3 uses (H) for the base only on
+initial intervals, so it shows that $Y_3$ satisfies (H). The segment meets the plane $\{x_3=0\}$ only at the pole, so $Y_3$ is injective. It is full-dimensional, and by
+Lemma~\ref{lem:cone} the negative triple of $y$ (with $t_1=0$, the pole) becomes a negative $4$-tuple of $Y_3$. Iterating the induction step of \S3 gives injective examples in every
+$d\ge3$; injectivity is preserved because each new segment meets the previous hyperplane only at its endpoint.
+\end{proof}
+
+\noindent\emph{Numerical confirmation} (\texttt{numerics/alm\_spiral\_cone.py}, \texttt{numerics/alm\_spiral\_cone.txt}).
+\begin{itemize}
+\item The convex hull area of a dense sample of the spiral equals $1/(4k^*)$ to $4\cdot10^{-9}$.
+\item For $Y_3$, the hull volume equals $|\alpha^{(3)}|$ to relative accuracy $10^{-7}$ on $33$ random subintervals that start in the segment. The planar subintervals give $0=0$.
+\item The ordered $4$-tuple (apex, pole, $Y(-5)$, $Y(-\frac12)$) has $\Delta=-0.334$.
+\end{itemize}
+The planar spiral alone is not a counterexample in $\R^2$: it violates (H) on some non-initial interval, consistently with Theorem~\ref{thm:planar}.
+
+\section{Proof of Proposition~\ref{prop:smooth}}
+
+For $\varepsilon>0$ and $t,u\in[0,1]$ let
+\begin{gather*}
+G_\varepsilon(t,u)=e^{-(t-u)^2/\varepsilon},\qquad m_\varepsilon(t)=\int_0^1G_\varepsilon(t,u)\,du,\\
+K_\varepsilon=\frac{G_\varepsilon}{m_\varepsilon(t)},\qquad x_\varepsilon(t)=\int_0^1K_\varepsilon(t,u)x(u)\,du .
+\end{gather*}
+Since $\int K_\varepsilon(t,u)\,du=1$, the column $(1,x_\varepsilon(t))^T$ equals $\int K_\varepsilon(t,u)(1,x(u))^T\,du$.
+
+\emph{Total positivity.} $G_\varepsilon(t,u)=e^{-t^2/\varepsilon}e^{2tu/\varepsilon}e^{-u^2/\varepsilon}$. The kernel $e^{2tu/\varepsilon}$ is
+strictly totally positive (generalized Vandermonde), and positive row and column factors preserve this. Hence
+$\det[K_\varepsilon(t_i,u_j)]_{i,j=0}^d>0$ for $t_0<\dots<t_d$ and $u_0<\dots<u_d$; see Karlin, \emph{Total Positivity}, Ch.~3.
+
+\emph{Basic composition formula.} By multilinearity, then antisymmetry in the $u$'s,
+\[
+\Delta(x_\varepsilon(t_0),\dots,x_\varepsilon(t_d))=\int_{0<u_0<\dots<u_d<1}\det[K_\varepsilon(t_i,u_j)]\;\Delta(x(u_0),\dots,x(u_d))\,du.
+\]
+The integrand is $\ge0$. Since $x([0,1])$ spans $\R^d$ affinely, some ordered $u^*$ has $\Delta(x(u^*))\ne0$, hence $>0$, and by continuity
+$\Delta(x(u))>0$ near $u^*$. Therefore the integral is $>0$, and $x_\varepsilon$ is $d$-order and $C^\infty$.
+
+\emph{Convergence.} $|x_\varepsilon(t)-x(t)|\le\omega(\eta)+2\|x\|_\infty\int_{|u-t|>\eta}K_\varepsilon(t,u)\,du$, where $\omega$ is the modulus of continuity.
+Since $m_\varepsilon(t)\ge\frac12\sqrt{\pi\varepsilon}(1-o(1))$ uniformly in $t\in[0,1]$, the last integral is at most
+$Ce^{-\eta^2/\varepsilon}/\sqrt\varepsilon\to0$ uniformly. If $x$ is $L$-Lipschitz, then using $\int\partial_tK_\varepsilon\,du=0$,
+$|x_\varepsilon'(t)|\le L\int|\partial_tK_\varepsilon(t,u)||u-t|\,du$. Writing
+$\partial_tK_\varepsilon=K_\varepsilon\cdot(-2(t-u)/\varepsilon-m_\varepsilon'/m_\varepsilon)$, this is
+$\le L\big(2\int K_\varepsilon(u-t)^2/\varepsilon+|m'_\varepsilon/m_\varepsilon|\int K_\varepsilon|u-t|\big)$. Here $|m_\varepsilon'|=|e^{-t^2/\varepsilon}-e^{-(1-t)^2/\varepsilon}|\le1$,
+$\int K_\varepsilon(u-t)^2\le C\varepsilon$ and $\int K_\varepsilon|u-t|\le C\sqrt\varepsilon$, so the bound is $O(L)$ uniformly in $\varepsilon\le1$ and $t$.
+For the last claim, let $[a,b]\subset[0,1]$. The restrictions $x_\varepsilon|_{[a,b]}$ are $d$-order with the same Lipschitz bound and converge uniformly to
+$x|_{[a,b]}$. So (H) on $[a,b]$ follows from Theorem~\ref{thm:ALM} and the two continuity facts below.
+(i) $x_n\to x$ uniformly implies $\conv x_n([a,b])\to\conv x([a,b])$ in the Hausdorff metric, and volume is continuous on convex bodies.
+(ii) If $x_n\to x$ uniformly with $\operatorname{Lip}(x_n)\le L$, then every iterated integral
+$I^{(k)}_n(t)=\int_{a<t_1<\dots<t_k<t}dx_n^{i_1}\cdots dx_n^{i_k}$ converges uniformly to the corresponding $I^{(k)}(t)$ for $x$.
+By induction on $k$: for $k=1$ this is clear. If $I^{(k-1)}_n\to I^{(k-1)}$ uniformly, then
+$I_n^{(k)}-I^{(k)}=\int(I^{(k-1)}_n-I^{(k-1)})\,dx_n^{i_k}+\int I^{(k-1)}\,d(x_n^{i_k}-x^{i_k})$.
+The first term is at most $L\|I^{(k-1)}_n-I^{(k-1)}\|_\infty$. In the second, $I^{(k-1)}$ is Lipschitz, and integrating by parts it equals
+$I^{(k-1)}(t)(x_n-x)^{i_k}(t)-\int(x_n-x)^{i_k}\,dI^{(k-1)}$, which tends to $0$ uniformly. Hence $\alpha^{(d)}(x_n|_{[a,b]})\to\alpha^{(d)}(x|_{[a,b]})$. \qed
+
+\section{Proof of Theorem~\ref{thm:planar}}
+
+(c)$\Rightarrow$(b) holds because weak order is preserved under limits.
+(b)$\Rightarrow$(c),(a): if $x([0,1])$ spans $\R^2$, apply Proposition~\ref{prop:smooth}. Otherwise $x$ lies on a line $p+\R v$.
+A simple closed curve cannot lie on a line, so $x(t)=p+u(t)v$ with $u$ strictly monotone. Put $s=+1$ if $u$ is increasing and $s=-1$ if it is decreasing, and let $J$ be
+rotation by $\pi/2$. The paths $x_\varepsilon=p+uv+s\varepsilon u^2Jv$ are $2$-order (they traverse a parabola counterclockwise) and converge to
+$x$ in the Lipschitz norm, so $x$ is cyclic. (H) holds trivially, since both sides vanish on a line.
+It remains to prove (a)$\Rightarrow$(b).
+
+Both sides of (H) and the sign of $\Delta$ are invariant under increasing absolutely continuous reparametrizations.
+Since $x$ is injective on $[0,1)$, the arc-length function is strictly increasing. So we may assume $|x'|=1$ a.e.
+
+\emph{Step 1 (growth at the right end).} Fix $a$. The function $b\mapsto A(a,b)$ is Lipschitz with derivative $\frac12\det(x(b)-x(a),x'(b))$
+for a.e.\ $b$. By (H) it coincides with $b\mapsto V(a,b)$, which is nondecreasing. Hence
+\begin{equation}\label{eq:i}
+\det\big(x(b)-x(a),x'(b)\big)\ge0\quad\text{for every }a\text{ and a.e. }b\in(a,1].
+\end{equation}
+
+\emph{Step 2 (growth at the left end).} Fix $b$. Write $A(a,b)=\frac12\int_a^b\det(x,x')\,dt-\frac12\det(x(a),x(b))$.
+For a.e.\ $a$, $\partial_aA(a,b)=-\frac12\det(x(a),x'(a))-\frac12\det(x'(a),x(b))=-\frac12\det\big(x'(a),x(b)-x(a)\big)$.
+Since $a\mapsto V(a,b)$ is nonincreasing,
+\begin{equation}\label{eq:ii}
+\det\big(x'(a),x(b)-x(a)\big)\ge0\quad\text{for every }b\text{ and a.e. }a\in[0,b).
+\end{equation}
+
+\emph{Step 3 (good base points).} Let $E=\{(a,b):a<b,\ x\text{ differentiable at }a,\ \det(x'(a),x(b)-x(a))<0\}$.
+By \eqref{eq:ii} every $b$-section of $E$ is null, so $|E|=0$ by Fubini, and for a.e.\ $a$ the $a$-section is null.
+Let $G$ be the set of $a\in[0,1)$ at which $x$ is differentiable, $|x'(a)|=1$, and the $a$-section of $E$ is null.
+Then $G$ has full measure. For $a\in G$, continuity of $x$ upgrades \eqref{eq:ii} to all $b>a$: every $x(b)$, $b>a$, lies in the closed half-plane
+$H_a=\{w:\det(x'(a),w-x(a))\ge0\}$.
+
+\emph{Step 4 (angle monotonicity).} Fix $a\in G$, $a>0$, and put $y(t)=x(t)-x(a)$. By injectivity $y(t)\ne0$ for $t\in(a,1]$.
+Let $\theta$ be a continuous lift of $\arg y$ on $(a,1]$. On each $[a+\eta,1]$, $|y|$ is bounded below, so $\theta$ is Lipschitz there
+and $\theta'=\det(y,y')/|y|^2\ge0$ a.e.\ by \eqref{eq:i}. So $\theta$ is nondecreasing.
+By Step 3, $e^{i\theta(t)}$ lies in the closed half-circle $\{w\in S^1:\det(x'(a),w)\ge0\}$, whose preimage under $e^{i\cdot}$ is a disjoint
+union of closed intervals of length $\pi$. Since $\theta((a,1])$ is connected, it lies in one of them.
+Hence for $a<t_1<t_2\le1$ we have $0\le\theta(t_2)-\theta(t_1)\le\pi$ and
+\[
+\Delta(x(a),x(t_1),x(t_2))=|y(t_1)||y(t_2)|\sin(\theta(t_2)-\theta(t_1))\ge0.
+\]
+
+\emph{Step 5 (all triples).} Let $t_0<t_1<t_2$. Choose $a_n\in G\cap(0,t_1)$ with $a_n\to t_0$; this is possible since $G$ has full measure.
+By Step 4, $\Delta(x(a_n),x(t_1),x(t_2))\ge0$, and continuity gives $\Delta(x(t_0),x(t_1),x(t_2))\ge0$.
+If $x(0)=x(1)$, the triples with $t_0=0$, $t_2=1$ have $\Delta=0$, and the argument above never needs $y(1)\ne0$ for $a=0$. \qed
+
+\begin{remark}[Where injectivity enters, and the role of the source paper]
+Steps 1--2 are valid for every path. They are exactly the statement that the hull grows at an endpoint at the rate prescribed by the
+signature. Injectivity is used only in Step 4, to exclude returns to the base point. The counterexample of Theorem~\ref{thm:counter}
+returns to $x(0)$ and then retraces a straight edge: this sweeps no area and does not enlarge the hull.
+The direction (c)$\Rightarrow$(a) is the volume formula for curves with totally positive torsion of de Dios Pont--Ivanisvili--Madrid
+\cite{DIM}, Cor.~2.7, extended to $d$-order and cyclic curves in \cite{ALM}. For $d$-order curves the volume formula goes back to Karlin--Studden \cite{KS}; see also
+Nudel'man \cite{N} on convex curves and polygonal lines. Proposition~\ref{prop:smooth} complements it by showing that
+weak order, a condition on $(d+1)$-point determinants, is all that is needed. The smoothing is a total-positivity argument in the
+spirit of Lemma~3.1 of \cite{DIM}.
+\end{remark}
+
+\begin{remark}[On Question~\ref{q:inj}]
+In $d\ge3$, Step 1 only gives $\langle S^{(d-1)}(x|_{[a,b]})\wedge x'(b),e_1\wedge\dots\wedge e_d\rangle\ge0$ a.e., and similarly at the left end; this is much weaker than in
+the plane. The examples of Theorem~\ref{thm:inj} use the fact that a cone needs (H) for its base only on initial intervals. A naive injective lift of the planar example
+of Theorem~\ref{thm:counter} (tail $t\mapsto(t-4,0,\varepsilon(t-4))$) turns out to be weakly $3$-ordered, hence cyclic.
+\end{remark}
+
+\begin{thebibliography}{9}
+\bibitem{ALM} C.~Am\'endola, D.~Lee, C.~Meroni, \emph{Convex hulls of curves: volumes and signatures}, in: Geometric Science of
+Information (GSI 2023), LNCS 14071, Springer, 2023, 455--464; arXiv:2301.09405.
+\bibitem{DIM} J.~de Dios Pont, P.~Ivanisvili, J.~Madrid, \emph{A new proof of the description of the convex hull of space curves with
+totally positive torsion}, Michigan Math.\ J.\ 76 (2026), 1043--1089.
+\bibitem{K} S.~Karlin, \emph{Total Positivity}, Vol.~I, Stanford Univ.\ Press, 1968.
+\bibitem{KS} S.~Karlin, W.~J.~Studden, \emph{Tchebycheff Systems: With Applications in Analysis and Statistics}, Interscience, 1966.
+\bibitem{N} A.~A.~Nudel'man, \emph{Isoperimetric problems for the convex hulls of polygonal lines and curves in multidimensional spaces}, Math.\ USSR Sb.\ 25 (1975) 276--294.
+\bibitem{Z} R.~Zielke, \emph{Discontinuous \v Ceby\v sev Systems}, Lecture Notes in Math.\ 707, Springer, 1979.
+\end{thebibliography}
+\end{document}

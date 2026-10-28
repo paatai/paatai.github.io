@@ -1,0 +1,499 @@
+\documentclass[11pt]{amsart}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[margin=1in]{geometry}
+\usepackage{hyperref}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{proposition}[theorem]{Proposition}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+\renewcommand{\thetheorem}{\arabic{theorem}}
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\cc}{\mathfrak{c}}
+\newcommand{\conv}{\operatorname{conv}}
+\newcommand{\aff}{\operatorname{aff}}
+\newcommand{\re}{\operatorname{Re}}
+\newcommand{\inter}{\operatorname{int}}
+
+\title[Carath\'eodory numbers of $SO(2)$-orbitopes]{Carath\'eodory numbers of the Barvinok--Novik orbitopes,\\ of all four-dimensional $SO(2)$-orbitopes, and of a further family}
+\date{October 26, 2026}
+
+\begin{document}
+\begin{abstract}
+For a trigonometric moment curve $U_A(t)=(e^{ia_1t},\dots,e^{ia_dt})\in\C^d=\R^{2d}$, let $\mathcal C_A=\conv U_A(\R)$ be the
+corresponding $SO(2)$-orbitope (a Carath\'eodory orbitope in the terminology of Sanyal, Sottile and Sturmfels). They asked for the Carath\'eodory
+numbers of orbitopes (Orbitopes, Question~3). We prove:
+(A) the Barvinok--Novik orbitope $B_k=\mathcal C_{(1,3,\dots,2k-1)}\subset\R^{2k}$ has Carath\'eodory number $2k-1$ for $k\ge2$;
+(B) $\mathcal C_{(a,b)}$ has Carath\'eodory number $3$ for all coprime $1\le a<b$, so every four-dimensional $SO(2)$-orbitope has
+Carath\'eodory number $3$; (C) $\mathcal C_{(1,2,\dots,d-1,2d-1)}$ has Carath\'eodory number $2d-1$ for $d\ge2$. In all three cases Fenchel's bound ($2k$, $4$, $2d$) is not attained.
+More generally, for $d\ge2$ the Carath\'eodory number is $2d-1$ whenever $a_d=2d-1$, $\{0,\pm a_1,\dots,\pm a_{d-1}\}$ is a complete residue system modulo $a_d$,
+and the contact points of every face with $a_d$ contact points are equally spaced. We verify the last condition for all such $A$ with $2\le d\le5$. The
+verification is computer-assisted for $3$ of the $8$ sets with $d=4$ and $13$ of the $16$ sets with $d=5$. In (A), for $k\ge3$, the value is far above the
+dimension count $k+1$, and it is attained on the boundary. The lower bound in (A) is elementary and also follows from known results on real ranks of binary
+forms; the new content is the upper bound. The upper bounds come from a ray-and-chord argument: rays from curve points through
+an interior point are followed into the faces of the orbitope, and averaging over a regular polygon of starting points is combined with
+an elementary inequality for chords of the unit disk.
+\end{abstract}
+\maketitle
+
+\section{Statements}
+
+For integers $0<a_1<\dots<a_d$ let $U(t)=U_A(t)=(e^{ia_1t},\dots,e^{ia_dt})$, $t\in S:=\R/2\pi\Z$, where $\C^d$ is identified with
+$\R^{2d}$ via $x_m=x_{\cos m}+i\,x_{\sin m}$. So $U_A$ is the curve $(\cos a_1t,\sin a_1t,\dots,\cos a_dt,\sin a_dt)$. Write $z_m(x)\in\C$ for the coordinate
+of frequency $m\in A$, let $X=U(S)$ and $K=\mathcal C_A=\conv X$. For $p\in K$ let $d_p$ be the least number of extreme points of $K$ whose convex hull contains $p$,
+and $\cc(K)=\sup_pd_p$. This is the Carath\'eodory number of \cite[\S2.1]{SSS}, where Question~3 asks: \emph{What are the Carath\'eodory numbers of orbitopes?}
+
+\smallskip\noindent\textbf{Standing facts.} (i) The functions $\cos mt,\sin mt$ ($m\in A$) are linearly independent, so $X$ spans $\R^{2d}$. For any integer
+$n>\max A$, $0=\frac1n\sum_{j<n}U(2\pi j/n)\in K$, so the affine hull of $K$ is $\R^{2d}$ and $K$ has nonempty interior. (ii) $|U(t)|^2=d$ is constant, and $U$ is injective if $\gcd(A)=1$. Then each $U(s)$ is exposed by $\langle U(s),\cdot\rangle$, and
+the extreme points of $K$ are exactly the points of $X$ (every point of $\conv X$ is a finite convex combination of points of $X$, and $\conv X$ is compact).
+So $d_p$ is the least number of curve points needed to represent $p$. (iii) $|z_m|\le1$ on $K$.
+
+\begin{theorem}\label{thm:A}
+Let $k\ge2$ and $B_k=\mathcal C_{(1,3,\dots,2k-1)}\subset\R^{2k}$ (the Barvinok--Novik orbitope \cite{BN08}). Then $\cc(B_k)=2k-1$. The value
+$2k-1$ is attained at every point of the relative interior of each $(2k-2)$-simplex face $B_k\cap\{z_{2k-1}=e^{i\varphi}\}$, and at all points of $B_k$ near
+such a point (including interior points).
+\end{theorem}
+
+\begin{theorem}\label{thm:B}
+Let $1\le a<b$ be coprime integers. Then $\cc(\mathcal C_{(a,b)})=3$. Consequently, every four-dimensional $SO(2)$-orbitope has Carath\'eodory number $3$.
+\end{theorem}
+
+\begin{theorem}\label{thm:C}
+Let $d\ge2$ and $A=(1,2,\dots,d-1,2d-1)$. Then $\cc(\mathcal C_A)=2d-1$. The value $2d-1$ is attained on the relative interiors of the $(2d-2)$-simplex faces
+$\mathcal C_A\cap\{z_{2d-1}=e^{i\varphi}\}$ and near them.
+\end{theorem}
+\noindent For $d=2$, Theorem~\ref{thm:C} is the case $B_2=\mathcal C_{(1,3)}$ of Theorems~\ref{thm:A} and \ref{thm:B}. For $d\ge3$ it gives, besides $B_k$, a second family of unbounded dimension on which
+the Carath\'eodory number is exactly one below Fenchel's bound. Section~6 also settles, among the sets satisfying condition (R) of
+Proposition~\ref{prop:general} (which gives a simplex face at the top frequency): all four triples with $a_3=5$ (Proposition~\ref{prop:N5}), all
+eight quadruples with $a_4=7$ (Proposition~\ref{prop:N7}; partly computer-assisted), and all sixteen quintuples with $a_5=9$ (Proposition~\ref{prop:N9};
+computer-assisted). In all these cases the value is $2d-1$.
+
+For the consequence (cf.\ \cite[Example 2.1, Lemma 5.1]{SSS}), let $SO(2)$ act linearly on $V$ and $v\in V$. Decompose $V=V_0\oplus\bigoplus_{m\ge1}V_m$ into isotypic
+components, where rotation by $t$ acts trivially on $V_0$ and as $e^{imt}$ on $V_m$ for a complex structure $J_m$. Write $v=\sum_mv_m$. The orbit is
+$t\mapsto v_0+\sum_{m\ge1}(\cos(mt)v_m+\sin(mt)J_mv_m)$. With $A=\{m\ge1:v_m\ne0\}$, the real-affine map $(w_m)_{m\in A}\mapsto
+v_0+\sum_{m\in A}(\operatorname{Re}w_m\,v_m+\operatorname{Im}w_m\,J_mv_m)$ is injective (since $v_m,J_mv_m$ are independent and the $V_m$ are independent), and it maps $U_A(t)$ to the
+orbit point. So the orbitope is affinely isomorphic to $\mathcal C_A$ and has dimension $2|A|$. Dimension $4$ forces $A=\{a,b\}$ with $a<b$. Finally
+$\mathcal C_{(a,b)}=\mathcal C_{(a/g,b/g)}$ as sets, where $g=\gcd(a,b)$, and the Carath\'eodory number is an affine invariant.
+
+\smallskip\noindent\textbf{Context.} Fenchel's theorem \cite{Fen} gives $\cc(K)\le\dim K$ because $X$ is connected (see \cite[\S2.1]{SSS}). Counting dimensions gives the lower bound
+$\cc(\mathcal C_A)\ge d+1$, since $m$ curve points with weights form a $(2m-1)$-dimensional family (cf.\ \cite[Prop.~2.3]{SSS}). The known exact value is
+$\cc(\mathcal C_{(1,\dots,d)})=d+1$ for the universal orbitope, from the Carath\'eodory--Toeplitz theorem \cite{Car,SSS}; the case $d=2$ is $\cc(\mathcal C_{(1,2)})=3$
+\cite[Example 1.1]{SSS}. For $B_k$ the lower bound $2k-1$ is elementary (Corollary~\ref{cor:facesA}). It also follows from real-rank results, see
+Remark~\ref{rem:forms}. So the new content of Theorem~\ref{thm:A} is the upper bound. Before this note the best general upper bound was Fenchel's $2k$. For
+$\mathcal C_{(a,b)}$ with $(a,b)\ne(1,2)$ the known bounds were $3\le\cc\le4$. Theorem~\ref{thm:A} also shows that the secant lower bound of
+\cite[Prop.~2.3]{SSS}, about $k+1$, is not tight for $B_k$ when $k\ge3$. This bears on \cite[Question~7]{SSS}.
+
+\section{Chords of the unit disk}
+
+Fix $\zeta\in\C$ with $|\zeta|<1$ and put $P:=1-|\zeta|^2$. For $|v|=1$, the line through $v$ and $\zeta$ meets the unit circle in exactly one further
+point $v'$. We call $v$ the \emph{start} and $v'$ the \emph{exit} of the chord, and define $\theta\in(0,1)$ by $\zeta=(1-\theta)v+\theta v'$.
+We write $\theta=\theta^{\rm st}_\zeta(v)$ when the chord is given by its start, and $\theta=\theta^{\rm ex}_\zeta(v')$ when it is given by its exit.
+
+\begin{lemma}\label{lem:chord}
+$\theta^{\rm st}_\zeta(v)=\dfrac{|v-\zeta|^2}{|v-\zeta|^2+P}$ and $\theta^{\rm ex}_\zeta(w)=\dfrac{P}{P+|w-\zeta|^2}$. In particular
+$\theta^{\rm st}_\zeta$ is continuous, and $\theta^{\rm ex}_\zeta(w)+\theta^{\rm ex}_\zeta(-w)\le1$ for every $|w|=1$.
+\end{lemma}
+\begin{proof}
+Let $\mathsf a=|v-\zeta|$ and $\mathsf b=|v'-\zeta|$. By the intersecting chords theorem, $\mathsf a\mathsf b=P$, and $\theta=\mathsf a/(\mathsf a+\mathsf b)$. Substituting $\mathsf b=P/\mathsf a$,
+respectively $\mathsf a=P/\mathsf b$, gives the two formulas. For the inequality write $\mathsf b_\pm=|\pm w-\zeta|$. Clearing denominators,
+$\frac P{P+\mathsf b_+^2}+\frac P{P+\mathsf b_-^2}\le1$ is equivalent to $P^2\le \mathsf b_+^2\mathsf b_-^2$. This holds because
+$\mathsf b_+\mathsf b_-=|w^2-\zeta^2|\ge|w|^2-|\zeta|^2=P$.
+\end{proof}
+
+\begin{lemma}\label{lem:avg}
+Let $n\ge2$, let $v_0,\dots,v_{n-1}$ be the vertices of a regular $n$-gon inscribed in the unit circle, $\xi\in\C$ and $\theta\in(0,1)$.
+If $|\xi-(1-\theta)v_l|<\theta$ for all $l$, then $\theta>1/2$.
+\end{lemma}
+\begin{proof}
+Since $\sum_lv_l=0$ and $|v_l|=1$, we have $\frac1n\sum_l|\xi-(1-\theta)v_l|^2=|\xi|^2+(1-\theta)^2$. Hence $\theta^2>(1-\theta)^2$.
+\end{proof}
+
+\section{Rays from curve points}
+
+Let $K=\mathcal C_A$ with $\gcd(A)=1$ and fix $x\in\inter K$. For $s\in S$ let $r_s(\rho)=U(s)+\rho(x-U(s))$ and $\rho^\ast(s)=\max\{\rho\ge0: r_s(\rho)\in K\}$.
+Since $x$ is interior, $\rho^\ast>1$; since $x\ne U(s)$ and $K$ is bounded, $\rho^\ast<\infty$. The point $y_s:=r_s(\rho^\ast(s))$ lies in $\partial K$, and
+\begin{equation}\label{eq:ray}
+x=(1-\theta_s)U(s)+\theta_sy_s,\qquad\theta_s=1/\rho^\ast(s)\in(0,1),\qquad\text{hence}\qquad d_x\le1+d_{y_s}.
+\end{equation}
+For $m\in A$, the interior point $x$ has $|z_m(x)|<1$. Otherwise $z_m(x)=e^{imt_0}$, and by strict convexity of the disk every representation of $x$ uses only
+points with $e^{ims}=e^{imt_0}$; then the functional $\re(e^{-imt_0}z_m)\le1$ exposes a proper face containing $x$. Along the ray,
+$z_m(r_s(\rho))=e^{ims}+\rho(z_m(x)-e^{ims})$ is unimodular exactly for $\rho=0$ and $\rho=1/\theta^m(s)$, where
+\[
+\theta^m(s):=\theta^{\rm st}_{z_m(x)}(e^{ims}),
+\]
+and $|z_m(r_s(\rho))|>1$ for $\rho>1/\theta^m(s)$. Since $|z_m|\le1$ on $K$, we get $\rho^\ast(s)\le1/\theta^m(s)$. Moreover,
+$|z_m(y_s)|=1$ if and only if $\rho^\ast(s)=1/\theta^m(s)$, and in that case $z_m(y_s)$ is the exit of the chord starting at $e^{ims}$.
+
+\begin{lemma}[fiber lemma]\label{lem:fiber}
+Let $m,a\in A$ with $m\ge2$ and $\gcd(a,m)=1$, put $\zeta=z_m(x)$, and fix $|v|=1$, $v=e^{i\vartheta}$. Let $s_l=(\vartheta+2\pi l)/m$ for $l\in\Z/m$.
+If $|z_m(y_{s_l})|=1$ and $|z_a(y_{s_l})|<1$ for every $l$, then $\theta^{\rm st}_\zeta(v)>1/2$.
+\end{lemma}
+\begin{proof}
+Since $e^{ims_l}=v$ for all $l$, we have $\theta^m(s_l)=\theta:=\theta^{\rm st}_\zeta(v)$. By hypothesis $\rho^\ast(s_l)=1/\theta$, so $\theta_{s_l}=\theta$, and by
+\eqref{eq:ray}, $z_a(y_{s_l})=(\xi-(1-\theta)e^{ias_l})/\theta$ with $\xi=z_a(x)$. Now $e^{ias_l}=e^{ia\vartheta/m}e^{2\pi i\,al/m}$, and $al$ runs over $\Z/m$ as
+$l$ does. So these are the vertices of a regular $m$-gon inscribed in the unit circle. The hypothesis $|z_a(y_{s_l})|<1$ reads
+$|\xi-(1-\theta)e^{ias_l}|<\theta$, and Lemma~\ref{lem:avg} gives $\theta>1/2$.
+\end{proof}
+
+\begin{corollary}\label{cor:fiber}
+In the setting of Lemma~\ref{lem:fiber}, the hypothesis cannot hold for every unimodular $v$.
+\end{corollary}
+\begin{proof}
+Otherwise $\theta^{\rm st}_\zeta(v)>1/2$ for every start $v$. Every unimodular $w$ is the exit of exactly one chord, so $\theta^{\rm ex}_\zeta(w)>1/2$ for all $w$.
+This contradicts $\theta^{\rm ex}_\zeta(w)+\theta^{\rm ex}_\zeta(-w)\le1$ (Lemma~\ref{lem:chord}).
+\end{proof}
+
+\section{The Barvinok--Novik orbitope: proof of Theorem~\ref{thm:A}}
+
+Let $A=(1,3,\dots,N)$ with $N=2k-1\ge3$, $K=B_k$, $z:=z_N$, and $M':=\{1,3,\dots,N-2\}$. A linear functional $\ell$ gives the real trigonometric polynomial
+$g_\ell(t)=\ell(U(t))$, with frequencies in $\{\pm1,\pm3,\dots,\pm N\}$, and $g_\ell(t+\pi)=-g_\ell(t)$. The map $\ell\mapsto g_\ell$ is injective.
+
+\begin{lemma}\label{lem:zeros}
+A real trigonometric polynomial $g\not\equiv0$ of degree $\le n$ has at most $2n$ zeros on $S$ counted with multiplicity. If $g\ge0$ its zeros have even multiplicity.
+\end{lemma}
+\begin{proof}
+$g(t)=e^{-int}P(e^{it})$ with $P$ a nonzero polynomial of degree $\le2n$. Orders of vanishing match root multiplicities. A zero of odd order of a nonnegative
+function would be a sign change.
+\end{proof}
+
+\begin{lemma}\label{lem:support}
+Let $\ell\ne0$, $c=\max_K\ell$, $Z=\{t: g_\ell(t)=c\}$. Then $c>0$ and $|Z|\le N$. If $|Z|=N$, then $Z=t_0+\frac{2\pi}N\Z$ for some $t_0$, and
+$\ell=c\,\re(e^{-iNt_0}z)$.
+\end{lemma}
+\begin{proof}
+Write $g=g_\ell$. Then $g\not\equiv0$ has no constant term, and $\min g=-\max g=-c$ by oddness, so $c>0$. Apply Lemma~\ref{lem:zeros} to $c-g\ge0$: $|Z|\le N$.
+Let $Z=\{t_1,\dots,t_N\}$ and $G=c^2-g^2\ge0$, of degree $\le2N$. Then $G$ vanishes on the $2N$ distinct points $Z\cup(Z+\pi)$ (where $g=\pm c$), and
+$G\not\equiv0$, since otherwise $g\equiv\pm c$, which contradicts $\int g=0$. Each of these $2N$ distinct zeros has even multiplicity because $G\ge0$, so $G$ has
+at least $4N$ zeros counted with multiplicity. Lemma~\ref{lem:zeros} allows at most $4N$. Hence each zero is exactly double, there are no other zeros, and
+$w^{2N}G$ is a polynomial of degree $4N$ with double roots exactly at $\pm e^{it_i}$. The same holds for $w^{2N}S_0^2$, where $S_0=\prod_i\sin(t-t_i)$ and
+$w^NS_0=(2i)^{-N}\prod_i(w^2e^{-it_i}-e^{it_i})$. Hence $G=CS_0^2$ for a constant $C$. Here $C>0$ because $G$ and $S_0^2$ are nonnegative and neither vanishes identically.
+So $g^2+h^2=c^2$ for the real trigonometric polynomial $h=\sqrt C\,S_0$. In $\C[w,w^{-1}]$ ($w=e^{it}$) this reads $(g+ih)(g-ih)=c^2$. The units are the monomials, so
+$g+ih=\kappa w^M$ for some $\kappa\ne0$, and $2g=\kappa w^M+(c^2/\kappa)w^{-M}$. Moreover $M\ne0$, since $g$ is not constant. As $g$ is real, $2g=2\bar g=\bar\kappa w^{-M}+(c^2/\bar\kappa)w^M$ on $|w|=1$.
+Comparing the coefficients of $w^M$ gives $\kappa=c^2/\bar\kappa$, i.e.\ $|\kappa|=c$, so $g=c\cos(Mt+\varphi)$.
+The frequencies of $g$ are odd and at most $N$, and $\{g=c\}$ has $|M|$ points, so $|M|=N$. Thus $g=c\cos(N(t-t_0))$ and $Z=t_0+\frac{2\pi}N\Z$. Finally $\ell$ and $c\,\re(e^{-iNt_0}z)$
+agree on $X$, which spans $\R^{2k}$.
+\end{proof}
+
+For $t_0\in\R$ let $\tau_j=t_0+2\pi j/N$ and $F_{t_0}=\conv\{U(\tau_j):j\in\Z/N\}$.
+
+\begin{corollary}\label{cor:facesA}
+(a) $K\cap\{z=e^{iNt_0}\}=F_{t_0}$ is an exposed face and an $(N-1)$-simplex. (b) If $y\in\partial K$, then $d_y\le N$. If moreover $|z(y)|<1$, then $d_y\le N-1$.
+\end{corollary}
+\begin{proof}
+(a) As in \S3, every representation of a point with $z=e^{iNt_0}$ uses only the points $U(\tau_j)$. Conversely $F_{t_0}\subset\{z=e^{iNt_0}\}$, and
+$\re(e^{-iNt_0}z)\le1$ exposes it. For affine independence, let $\sum c_j=0$ and $\sum c_jU(\tau_j)=0$ with $c_j\in\R$. Then $\sum_jc_j\omega^{mj}=0$, $\omega=e^{2\pi i/N}$, for
+$m\in\{0\}\cup M'\cup(-M')$. Since $-M'\equiv\{2,4,\dots,N-1\}\pmod N$, this is a complete residue system, so the discrete Fourier transform of $(c_j)$ vanishes and $c=0$.
+(b) Take a supporting functional $\ell$ at $y$. Every representation of $y$ uses only points $U(t)$ with $t\in Z$, and $|Z|\le N$. If $|Z|=N$, then $\re(e^{-iNt_0}z(y))=1$
+by Lemma~\ref{lem:support}, so $|z(y)|=1$.
+\end{proof}
+
+\begin{proof}[Proof of Theorem~\ref{thm:A}]
+\emph{Lower bound.} Let $p$ be in the relative interior of some $F_{t_0}$, for instance the barycenter $b=\frac1N\sum_jU(2\pi j/N)$ of $F_0$. Every representation of $p$
+uses only vertices of the simplex $F_{t_0}$ (Corollary~\ref{cor:facesA}(a)), and the barycentric coordinates of $p$ are all positive. So $d_p=N$. If $p_n\to p$ with
+$d_{p_n}\le N-1$, a compactness argument (convergent subsequences of the $N-1$ points and weights) represents $p$ with $N-1$ points, which is impossible.
+So $d=N$ on a neighbourhood of $p$ in $K$.
+
+\emph{Upper bound.} Boundary points have $d_y\le N$ by Corollary~\ref{cor:facesA}(b). Let $x\in\inter K$ and suppose $d_x>N$. By \eqref{eq:ray},
+$d_{y_s}\ge N$ for every $s$. By Corollary~\ref{cor:facesA}, $|z(y_s)|=1$ and $y_s$ lies in a simplex $F_{t}$. Since $d_{y_s}=N$, all its barycentric
+coordinates are positive. So $z_1(y_s)$ is a convex combination with positive weights of the $N\ge3$ distinct unimodular numbers $e^{i\tau_j}$, and $|z_1(y_s)|<1$.
+Thus the hypothesis of Lemma~\ref{lem:fiber} holds for $m=N$, $a=1$ and every unimodular $v$, contradicting Corollary~\ref{cor:fiber}.
+\end{proof}
+
+\section{Four-dimensional orbitopes: proof of Theorem~\ref{thm:B}}
+
+Let $1\le a<b$ be coprime, $K=\mathcal C_{(a,b)}$, $U(t)=(e^{iat},e^{ibt})$. The map $t\mapsto(at,bt)\in(\R/2\pi\Z)^2$ is injective. Indeed, if
+$a(t-t')=2\pi\mu$ and $b(t-t')=2\pi\nu$ with $\mu,\nu\in\Z$, then $b\mu=a\nu$, so $a\mid\mu$ and $t-t'\in2\pi\Z$.
+
+\begin{lemma}[mixed functionals]\label{lem:mixed}
+Let $g(t)=\re(\alpha e^{iat}+\beta e^{ibt})$ with $\alpha\ne0\ne\beta$, and $c=\max g$. Then $\{t\in S: g(t)=c\}$ has at most two elements.
+\end{lemma}
+\begin{proof}
+At a point $t$ with $g(t)=c$ write $\alpha e^{iat}=X_1+iY_1$ and $\beta e^{ibt}=X_2+iY_2$. Then
+\[
+g=X_1+X_2=c,\qquad g'=-aY_1-bY_2=0,\qquad g''=-a^2X_1-b^2X_2\le0,
+\]
+and $X_1^2+Y_1^2=|\alpha|^2$, $X_2^2+Y_2^2=|\beta|^2$. Substituting $X_2=c-X_1$, $Y_2=-\frac abY_1$ and $Y_1^2=|\alpha|^2-X_1^2$ gives
+\[
+q(X_1):=(b^2-a^2)X_1^2-2b^2cX_1+b^2c^2+a^2|\alpha|^2-b^2|\beta|^2=0 .
+\]
+The leading coefficient of $q$ is positive and its vertex is at $X_v=b^2c/(b^2-a^2)$. The condition $g''\le0$ reads $(b^2-a^2)X_1\le b^2c$, i.e.\ $X_1\le X_v$.
+So $X_1$ is the smaller root of $q$ (if the two roots coincide, then $X_1=X_v$), the same value at every maximum point. Then $X_2=c-X_1$ is determined, $Y_1=\pm\sqrt{|\alpha|^2-X_1^2}$, and $Y_2=-\frac abY_1$.
+So the pair $(\alpha e^{iat},\beta e^{ibt})$ takes at most two values, i.e.\ $(at,bt)$ modulo $2\pi$ takes at most two values. By injectivity, $t$ takes at most two values.
+\end{proof}
+
+For $t_0\in\R$ let $Q_{t_0}=\conv\{U(t_0+2\pi j/b): j\in\Z/b\}$ and $P_{t_0}=\conv\{U(t_0+2\pi j/a): j\in\Z/a\}$.
+The $z_a$-coordinates of the vertices of $Q_{t_0}$ are $e^{iat_0}e^{2\pi i\,aj/b}$, so $Q_{t_0}$ is a regular $b$-gon in the plane $\{z_b=e^{ibt_0}\}$ (a segment if $b=2$).
+Likewise $P_{t_0}$ is a regular $a$-gon in $\{z_a=e^{iat_0}\}$ (a point if $a=1$, a segment if $a=2$).
+
+\begin{lemma}\label{lem:facesB}
+(a) $K\cap\{z_b=e^{ibt_0}\}=Q_{t_0}$ and $K\cap\{z_a=e^{iat_0}\}=P_{t_0}$. If $|z_a(y)|=|z_b(y)|=1$ for $y\in K$, then $y\in X$.
+(b) Every $y\in\partial K$ has $d_y\le3$. If $d_y=3$, then $y$ lies in some $Q_{t_0}$ with $b\ge3$ and $|z_a(y)|<1$, or in some $P_{t_0}$ with $a\ge3$ and $|z_b(y)|<1$.
+\end{lemma}
+\begin{proof}
+(a) By strict convexity of the disk, a representation of a point with $z_b=e^{ibt_0}$ uses only $t$ with $e^{ibt}=e^{ibt_0}$. If both coordinates
+are unimodular, all points used share $(e^{iat},e^{ibt})$, hence coincide by injectivity.
+(b) Let $\ell$ be a supporting functional at $y$, $g_\ell=\re(\alpha e^{iat}+\beta e^{ibt})$. If $\alpha\beta\ne0$, then $y$ is a combination of the $\le2$ contact points
+(Lemma~\ref{lem:mixed}). If $\beta=0$, the contact set is $t_0+\frac{2\pi}a\Z$ and the exposed face is $P_{t_0}$, a convex polygon in a plane (or a point or segment).
+So $d_y\le3$, and $d_y=3$ forces $a\ge3$; moreover $|z_b(y)|<1$, since otherwise $y\in X$ by (a). The case $\alpha=0$ is symmetric.
+\end{proof}
+
+\begin{proof}[Proof of Theorem~\ref{thm:B}]
+\emph{Lower bound.} The points with $d_p\le2$ form the image of the smooth map $S\times S\times[0,1]\to\R^4$, $(s,t,\lambda)\mapsto\lambda U(s)+(1-\lambda)U(t)$, from a
+$3$-dimensional manifold with boundary. This image has Lebesgue measure zero, while $K$ has nonempty interior. So $\cc(K)\ge3$.
+
+\emph{Upper bound.} Boundary points are handled by Lemma~\ref{lem:facesB}(b). Let $x\in\inter K$ and suppose $d_x\ge4$ (in fact $d_x\le4$ by Fenchel's theorem). By \eqref{eq:ray}, $d_{y_s}\ge3$ for every
+$s$. By Lemma~\ref{lem:facesB}, for each $s$ exactly one of $|z_a(y_s)|$, $|z_b(y_s)|$ equals $1$. By \S3, if $|z_b(y_s)|=1$ then $\rho^\ast(s)=1/\theta^b(s)\le1/\theta^a(s)$,
+with equality impossible since $|z_a(y_s)|<1$. So $\theta^b(s)>\theta^a(s)$. Symmetrically, $|z_a(y_s)|=1$ forces $\theta^a(s)>\theta^b(s)$. Thus the continuous function
+$\theta^a-\theta^b$ (Lemma~\ref{lem:chord}) has no zero on the connected circle $S$, so it has constant sign.
+
+If $\theta^b>\theta^a$ on $S$, then $|z_b(y_s)|=1$ and $|z_a(y_s)|<1$ for all $s$. This is the hypothesis of Lemma~\ref{lem:fiber} with $m=b\ge2$ and the frequency $a$, for every
+$v$, which contradicts Corollary~\ref{cor:fiber}. If $\theta^a>\theta^b$ on $S$, then $|z_a(y_s)|=1$ and $|z_b(y_s)|<1$ for all $s$. By Lemma~\ref{lem:facesB}(b) this is already a contradiction if $a\le2$.
+If $a\ge3$, Lemma~\ref{lem:fiber} with $m=a$ and the frequency $b$ gives the same contradiction as before. Hence $d_x\le3$.
+\end{proof}
+
+\section{A simplex face at the top frequency: proof of Theorem~\ref{thm:C}}
+
+The proof of Theorem~\ref{thm:A} uses only two properties of $A$. We isolate them.
+
+\begin{proposition}\label{prop:general}
+Let $A=(a_1<\dots<a_{d-1}<N)$ with $\gcd(A)=1$ and $N\ge3$, and put $A'=\{a_1,\dots,a_{d-1}\}$. Assume:
+\begin{enumerate}
+\item[(R)] $\{0\}\cup A'\cup(-A')$ is a complete residue system mod $N$ (so $N=2d-1$);
+\item[(F)] every supporting functional $\ell$ of $\mathcal C_A$ whose maximum is attained at $N$ points of $S$ is a positive multiple of $\re(e^{-iNt_0}z_N)$ for some $t_0$.
+\end{enumerate}
+Then $\cc(\mathcal C_A)=N=2d-1$. The value $N$ is attained on the relative interiors of the $(N-1)$-simplex faces $\mathcal C_A\cap\{z_N=e^{iNt_0}\}$ and near them.
+\end{proposition}
+\begin{proof}
+Let $K=\mathcal C_A$ and $z=z_N$. For a supporting functional $\ell$, the function $c-\ell\circ U\ge0$ is a nonzero trigonometric polynomial of degree $\le N$, so it has at most $N$ zeros
+(Lemma~\ref{lem:zeros}). By (F), the faces with $N$ contact points are the sets $F_{t_0}=K\cap\{z=e^{iNt_0}\}=\conv\{U(t_0+2\pi j/N)\}$ (strict convexity of the disk).
+By (R), the argument of Corollary~\ref{cor:facesA}(a) shows that $F_{t_0}$ is an $(N-1)$-simplex. The proof of Corollary~\ref{cor:facesA}(b) applies unchanged: boundary points have $d_y\le N$,
+and $d_y\le N-1$ if $|z(y)|<1$. The lower bound is proved as in Theorem~\ref{thm:A}. For the upper bound, (R) gives some $a\in A'$ with $a\equiv\pm1\pmod N$. Then $\gcd(a,N)=1$, so the
+numbers $e^{ia\tau_j}$ ($\tau_j=t_0+2\pi j/N$) are $N\ge3$ distinct unimodular numbers. The proof of Theorem~\ref{thm:A} then goes through with the fiber lemma for $m=N$ and the auxiliary frequency $a$.
+\end{proof}
+
+\noindent For $B_k$, (R) and (F) are Corollary~\ref{cor:facesA}(a) and Lemma~\ref{lem:support}; so Theorem~\ref{thm:A} is a special case. Condition (F) for other $A$ comes from the next lemma.
+
+\begin{lemma}[equally spaced contact points]\label{lem:gap}
+Let $N\ge2$, $1\le r\le N-1$ with $r\ge\frac{N-1}2$, and let $f\ge0$, $f\not\equiv0$, be a real trigonometric polynomial of degree $\le N$ whose Fourier coefficients $\hat f_k$
+vanish for $N-r\le k\le N-1$. If $f$ has $N$ distinct zeros $t_1,\dots,t_N$ in $S$, then they are equally spaced, $\{t_j\}=t_0+\frac{2\pi}N\Z$, and
+$f=C\,(1-\cos(N(t-t_0)))$ for some $C>0$.
+\end{lemma}
+\begin{proof}
+Each zero has even order (Lemma~\ref{lem:zeros}), so these are all the zeros, each double, and $w^Nf$ is a polynomial of degree $2N$ with double roots at
+$w_j=e^{it_j}$. Let $P(w)=\prod_j(w-w_j)=\sum_{m=0}^Nc_mw^m$ ($c_N=1$). The polynomials $w^Nf$ and $P^2$ have degree $2N$ and the same roots, so $w^Nf=\kappa P^2$.
+On $|w|=1$ we have $|P(w)|^2=\lambda w^{-N}P(w)^2$ with $\lambda=\prod_j(-\bar w_j)$, because $1-\bar w_jw=-\bar w_j(w-w_j)$. Hence $f=(\kappa/\lambda)|P|^2=:C_1|P|^2$, with $C_1>0$ because $f\ge0$ and $f\not\equiv0$.
+Since all roots of $P$ are unimodular, $P$ is self-inversive: $w^N\overline{P(1/\bar w)}=\prod_j(1-\bar w_jw)=\lambda P(w)$, i.e.\ $\bar c_m=\lambda c_{N-m}$ for all $m$.
+The coefficient of $w^k$ in $|P|^2=P\cdot\sum_m\bar c_mw^{-m}$ is $\sum_{m=0}^{N-k}c_{m+k}\bar c_m$. We show by induction on $j=1,\dots,r$ that $c_{N-j}=0$; by self-inversiveness this also gives $\bar c_j=\lambda c_{N-j}=0$.
+For $k=N-j$ the sum is $c_{N-j}\bar c_0+\sum_{m=1}^{j-1}c_{N-j+m}\bar c_m+c_N\bar c_j$. The middle terms vanish by induction, and $c_{N-j}\bar c_0+\bar c_j=2\lambda c_{N-j}$. So $\hat f_{N-j}=0$ forces
+$c_{N-j}=0$. Since $r\ge\frac{N-1}2$, the sets $\{1,\dots,r\}$ and $\{N-r,\dots,N-1\}$ cover $\{1,\dots,N-1\}$. Hence $P=w^N+c_0$ with $|c_0|=1$, and the roots are equally spaced.
+Writing $c_0=-e^{iNt_0}$ gives $f=C_1|w^N-e^{iNt_0}|^2=2C_1(1-\cos(N(t-t_0)))$.
+\end{proof}
+
+\begin{proof}[Proof of Theorem~\ref{thm:C}]
+Let $N=2d-1$. Condition (R) holds because $\{0,\pm1,\dots,\pm(d-1)\}$ consists of $N$ consecutive integers. For (F), let $\ell$ attain its maximum $c$ at $N$ points and put
+$g=\ell\circ U$ and $f=c-g$. Then $f\ge0$ has mean $c>0$. Its coefficients $\hat f_k$ vanish for $d\le k\le N-1$, since these frequencies are not in $A$; this is the range
+$N-r\le k\le N-1$ with $r=d-1=\frac{N-1}2$. By Lemma~\ref{lem:gap}, $g=(c-C)+C\cos(N(t-t_0))$, and since $g$ has no constant term, $C=c$. Thus $\ell=c\,\re(e^{-iNt_0}z_N)$.
+Proposition~\ref{prop:general} applies.
+\end{proof}
+
+\begin{proposition}[an algebraic criterion for (F)]\label{prop:closure}
+Let $A$ satisfy (R) with $N=2d-1$. Define $Z\subset\{1,\dots,N-1\}$ as the smallest set with the following property: if $a\in A'$ and for every $1\le i\le a-1$ at least one of
+$i$, $a-i$ lies in $Z$, then $a\in Z$ and $N-a\in Z$. If $Z=\{1,\dots,N-1\}$, then (F) holds, and hence $\cc(\mathcal C_A)=2d-1$.
+\end{proposition}
+\begin{proof}
+Let $\ell$ attain its maximum $c$ at $N$ points and $f=c-\ell\circ U$. As in Lemma~\ref{lem:gap}, $w^Nf=\kappa P^2$ with $P=\sum_{m=0}^Nc_mw^m$ monic, all roots unimodular, $|c_0|=1$ and
+$\bar c_m=\lambda c_{N-m}$. Also $\hat f_k=0$ for $k\in\{1,\dots,N-1\}\setminus A'=N-A'$. The coefficient of $w^{N-k}$ in $w^Nf$ is $\hat f_{-k}=\overline{\hat f_k}$, so $[w^a]P^2=0$ for all $a\in A'$.
+That is, $2c_0c_a+\sum_{i=1}^{a-1}c_ic_{a-i}=0$. Build $Z$ step by step. Whenever every product $c_ic_{a-i}$ contains a factor already known to vanish, we get $c_a=0$, and
+$c_{N-a}=\bar\lambda\,\bar c_a=0$. If $Z=\{1,\dots,N-1\}$, then $P=w^N+c_0$, the contact points are equally spaced, and (F) follows as in the proof of Theorem~\ref{thm:C}.
+\end{proof}
+
+\noindent The criterion requires $1\in A'$. It holds for $B_k$ (odd $a$: one of $i,a-i$ is a smaller odd number), for $(1,\dots,d-1,2d-1)$, and for instance for $(1,2,4,7)$. It
+fails for $(2,4,5)$, $(3,4,5)$ and $(1,4,5,7)$. For these, and for the four sets with $d=4$ and $1\notin A'$, (F) is proved below using that the roots are unimodular
+(Propositions~\ref{prop:N5} and \ref{prop:N7}).
+A numerical search over root configurations (\texttt{numerics/caratheodory\_RF\_check.py}, output \texttt{caratheodory\_RF.txt}) covers every $A$ satisfying (R)
+with $d\le5$: $4$, $8$ and $16$ sets for $d=3,4,5$. From $1200$--$1500$ random starts per set, it found no configuration of $N$ distinct unimodular roots
+with $[w^a]P^2=0$ for all $a\in A'$ other than the equally spaced one. Propositions~\ref{prop:N5}, \ref{prop:N7} and \ref{prop:N9} below turn this into a proof for
+$d\le5$.
+We expect (R)$\Rightarrow$(F) in general, which would give $\cc(\mathcal C_A)=2d-1$ for every $A$ satisfying (R).
+
+\begin{proposition}\label{prop:N5}
+$\cc(\mathcal C_{(2,4,5)})=\cc(\mathcal C_{(3,4,5)})=5$. Hence $\cc(\mathcal C_A)=5$ for each of the four triples $A=(1,2,5),(1,3,5),(2,4,5),(3,4,5)$, which are exactly the triples with $a_3=5$ satisfying (R).
+\end{proposition}
+\begin{proof}
+For both triples (R) holds: $\{0,\pm2,\pm4\}$ and $\{0,\pm3,\pm4\}$ are complete mod $5$. We check (F). As in Lemma~\ref{lem:gap}, a supporting functional with five contact points gives
+$f=C_1|P|^2$, where $P$ has degree $5$ and unimodular roots, and the coefficients of $|P|^2$ vanish at the frequencies not in $A$. A rotation multiplies $\lambda$ by a fifth power of a
+unimodular number, so we may assume $\lambda=1$. Then $\bar c_m=c_{5-m}$, and $P=w^5+aw^4+bw^3+\bar bw^2+\bar aw+1$ with $a=c_4$, $b=c_3$. The coefficients of $|P|^2$ are
+\[
+s_4=2a,\qquad s_3=2b+a^2,\qquad s_2=2\bar b+2ab,\qquad s_1=2\bar a+2a\bar b+b^2 .
+\]
+\emph{$A=(2,4,5)$: $s_1=s_3=0$.} Then $b=-a^2/2$ and $\bar a(2-|a|^2)+a^4/4=0$. Writing $a=\rho e^{i\varphi}$ with $\rho>0$ gives $\rho^3e^{5i\varphi}=4(\rho^2-2)$. So $e^{5i\varphi}=\pm1$, and
+$\rho\in\{2,1+\sqrt5\}$ (sign $+$) or $\rho=\sqrt5-1$ (sign $-$). Rotations by $2\pi/5$ preserve $\lambda=1$ and multiply $a$ by fifth roots of unity, so each branch is one rotation orbit. It has the real
+representative $a\in\{2,\,1+\sqrt5,\,1-\sqrt5\}$, $b=-a^2/2$.
+\emph{$A=(3,4,5)$: $s_1=s_2=0$.} Then $\bar b=-ab$. Either $b=0$, and then $s_1=2\bar a=0$; or $|a|=1$. In the second case write $a=e^{i\psi}$ and $b=\beta e^{i\chi}$ with
+$\beta>0$. Then $e^{2i\chi}=-e^{-i\psi}$, so $e^{i\chi}=\varepsilon ie^{-i\psi/2}$ with $\varepsilon=\pm1$, and $s_1=e^{-i\psi}\big(2-\beta^2-2\beta\varepsilon ie^{5i\psi/2}\big)$. So $s_1=0$ forces
+$ie^{5i\psi/2}=\pm1$, i.e.\ $e^{5i\psi}=-1$, and $\beta^2\pm2\beta-2=0$, i.e.\ $\beta\in\{\sqrt3-1,\sqrt3+1\}$. For each $\psi$ and each $\beta$ the sign $\varepsilon$ is determined.
+So each branch consists of five solutions, one rotation orbit. The representative $\psi=\pi$ gives $a=-1$ and $b$ real with $b^2-2b-2=0$, i.e.\ $b=1\pm\sqrt3$.
+\emph{Exclusion of the nonzero branches.} For real $a,b$, $P$ is palindromic of odd degree. Hence $P=(w+1)\,w^2h(w+1/w)$ with $h(u)=u^2+(a-1)u+(b-a-1)$. All roots of $P$ are unimodular
+exactly when both roots of $h$ are real and lie in $[-2,2]$. The roots of $h$ for the five representatives are
+$\frac{-1\pm\sqrt{21}}2$ (one is $\approx-2.79$); $\approx2.16,-4.39$; $\approx2.45,-0.22$; $1\pm i\,3^{1/4}$; and $1\pm3^{1/4}$ (one is $\approx2.32$). In each case some root fails. So
+$a=b=0$, $P=w^5+1$, the contact points are equally spaced, and (F) follows as in the proof of Theorem~\ref{thm:C}. Proposition~\ref{prop:general} applies. The last statement
+combines this with Theorems~\ref{thm:A} and \ref{thm:C}. Among the triples with $a_3=5$ and $\gcd=1$, (R) fails exactly for $(1,4,5)$ and $(2,3,5)$.
+\end{proof}
+
+\begin{proposition}\label{prop:N7}
+Condition (F) holds for each of the eight sets $A=(a_1,a_2,a_3,7)$ satisfying (R), namely
+$A'=\{1,2,3\},\{1,2,4\},\{1,3,5\},\{1,4,5\},\{2,3,6\},\{2,4,6\},\{3,5,6\},\{4,5,6\}$. Hence $\cc(\mathcal C_A)=7$ for each of them. Together with
+Theorem~\ref{thm:B} and Proposition~\ref{prop:N5}, $\cc(\mathcal C_A)=2d-1$ for every $A$ satisfying (R) with $2\le d\le4$. For three of the eight sets the
+proof is computer-assisted.
+\end{proposition}
+\begin{proof}
+As in the proof of Proposition~\ref{prop:closure}, a supporting functional with seven contact points gives a monic $P=\sum_{m=0}^7c_mw^m$ with distinct
+unimodular roots $\zeta_1,\dots,\zeta_7$, with $\bar c_m=\lambda c_{7-m}$, and with $[w^a]P^2=\sum_{i+j=a}c_ic_j=0$ for $a\in A'$. A rotation $t\mapsto t+s$
+replaces $c_m$ by $e^{-i(7-m)s}c_m$ and $\lambda$ by $e^{7is}\lambda$. It multiplies each $[w^a]P^2$ by a unimodular factor and preserves the
+conclusion $P=w^7+c_0$. So, as in Proposition~\ref{prop:N5}, we may assume $\lambda=1$, i.e.\ $c_0=c_7=1$ and $c_{7-m}=\bar c_m$. We show $c_1=c_2=c_3=0$, i.e.\ $P=w^7+1$;
+then (F) follows as in the proof of Theorem~\ref{thm:C}, and Proposition~\ref{prop:general} applies. We use the power sums $p_k=\sum_j\zeta_j^k$, which satisfy
+$|p_k|\le7$. Newton's identities express them through $e_j=(-1)^jc_{7-j}$; here $e_1=-\bar c_1$, $e_2=\bar c_2$, $e_3=-\bar c_3$, $e_4=c_3$, and
+$p_1=e_1$, $p_2=e_1p_1-2e_2$, $p_3=e_1p_2-e_2p_1+3e_3$, $p_4=e_1p_3-e_2p_2+e_3p_1-4e_4$.
+
+\emph{$A'=\{1,2,3\},\{1,2,4\},\{1,3,5\}$.} Proposition~\ref{prop:closure} applies.
+
+\emph{$A'=\{1,4,5\}$.} First $[w^1]P^2=2c_1=0$. Then $[w^4]P^2=2\bar c_3+c_2^2=0$ and $[w^5]P^2=2\bar c_2+2c_2c_3=0$, so $c_3=-\bar c_2^2/2$ and
+$\bar c_2(2-|c_2|^2)=0$. If $c_2\ne0$, then $|c_2|^2=2$. Since $e_1=p_1=0$, we get $p_4=2e_2^2-4e_4=4\bar c_2^2$, so $|p_4|=8>7$, a contradiction. Hence $c_2=c_3=0$.
+
+\emph{$A'=\{2,3,6\}$.} The equations $[w^2]P^2=2c_2+c_1^2=0$ and $[w^3]P^2=2c_3+2c_1c_2=0$ give $c_2=-c_1^2/2$ and $c_3=c_1^3/2$. Suppose $c_1=\rho e^{i\alpha}$ with $\rho>0$. Then
+$[w^6]P^2=2\bar c_1+2c_1\bar c_2+2c_2\bar c_3+c_3^2=e^{-i\alpha}\big(2\rho-\rho^3-\frac12\rho^5+\frac14\rho^6e^{7i\alpha}\big)$. So $\varepsilon:=e^{7i\alpha}=\pm1$ and
+$g_\varepsilon(\rho):=2-\rho^2-\frac12\rho^4+\frac\varepsilon4\rho^5=0$. With $x=\bar c_1$, Newton's identities give $p_3=-4x^3$ and $p_4=\frac{11}2x^4-2\bar x^3$. Hence
+$|p_3|=4\rho^3$ and $|p_4|=\rho^3|\frac{11}2\rho-2\varepsilon|$.
+\begin{itemize}
+\item By Descartes' rule, $g_{-1}$ has exactly one positive root, and a sign change places it in $(1.04,1.05)$. There $|p_4|=\rho^3(\frac{11}2\rho+2)>1.04^3\cdot7.72>8.6$.
+\item The polynomial $g_{+1}$ has at most two positive roots, and sign changes place them in $(1.24,1.25)$ and $(2,3)$. There $|p_3|>4\cdot1.24^3>7.6$.
+\end{itemize}
+Each case contradicts $|p_k|\le7$. Hence $c_1=0$, and then $c_2=c_3=0$.
+
+\emph{$A'=\{2,4,6\},\{3,5,6\},\{4,5,6\}$ (computer-assisted).} Put $u_j=c_j$ and $v_j=\bar c_j$ ($j=1,2,3$), regarded as independent unknowns. The three
+equations $[w^a]P^2=0$ ($a\in A'$) and their complex conjugates form a system of six quadratic equations over $\mathbb Q$ in $(u_1,u_2,u_3,v_1,v_2,v_3)$. A
+lexicographic Gr\"obner basis of this system, computed exactly, is in shape position. It consists of a univariate polynomial $h(v_3)$ and of the polynomials
+$\gamma_xx-f_x(v_3)$ for $x\in\{u_1,u_2,u_3,v_1,v_2\}$, with rational $\gamma_x\ne0$. So the complex solutions are exactly the points $(f_x(r)/\gamma_x,r)$ with $h(r)=0$.
+Here $\deg h=64,36,36$ respectively, and $h$ is squarefree. The root $r=0$ gives the trivial solution $c=0$. The other roots of $h$ were isolated in Arb ball
+arithmetic, and the coordinates of the corresponding solutions were enclosed in balls. For each of these solutions, the power sums of
+$w^7+v_1w^6+v_2w^5+v_3w^4+u_3w^3+u_2w^2+u_1w+1$ (which is $P$ if the solution comes from a functional) satisfy a certified inequality $|p_k|>7$ for
+some $k\le5$. Hence no nontrivial solution comes from a functional, and $c=0$. The script is \texttt{numerics/caratheodory\_F\_d4.py}, with output
+\texttt{caratheodory\_F\_d4.txt}. It also rechecks $A'=\{2,3,6\}$; there $14$ of the $35$ nontrivial solutions are certified not to satisfy $u_j=\bar v_j$, and the others
+have $|p_k|>7$ with $k\le4$. The hand proof for $A'=\{1,4,5\}$ is confirmed by the splitting method of Proposition~\ref{prop:N9}
+(\texttt{numerics/caratheodory\_F\_d4\_split\_1457.txt}). The sets $\{2,3,6\},\{2,4,6\},\{3,5,6\},\{4,5,6\}$ were rechecked with the Singular
+pipeline used there (\texttt{numerics/caratheodory\_F\_d4\_singular.txt}).
+\end{proof}
+
+\begin{proposition}[computer-assisted]\label{prop:N9}
+Let $A=(a_1,\dots,a_4,9)$ be one of the sixteen sets satisfying (R). Then condition (F) holds, and hence $\cc(\mathcal C_A)=9$. Consequently
+$\cc(\mathcal C_A)=2d-1$ for every $A$ satisfying (R) with $2\le d\le5$.
+\end{proposition}
+\begin{proof}
+The set-up is that of Proposition~\ref{prop:N7} with $N=9$: $P=w^9+\sum_{m=1}^8c_mw^m+1$ with $c_{9-m}=\bar c_m$, unknowns $u_j=c_j$ and $v_j=\bar c_j$
+($j\le4$) treated as independent, and the ideal $I\subset\mathbb Q[u,v]$ generated by the equations $[w^a]P^2=0$ ($a\in A'$) and their conjugates.
+Only zeros with $v=\bar u$ come from functionals; call them \emph{real}. For a real zero, $c_j=0$ iff $u_j=v_j=0$. Two facts are used.
+\begin{itemize}
+\item[(a)] The trivial zero $c=0$ is isolated and simple. Indeed, the linear parts of the eight generators at $0$ are $2u_j$ and $2v_j$ in some order, because $A'$
+contains exactly one of $j$ and $9-j$.
+\item[(b)] Nine unimodular roots give $|p_k|\le9$ for every $k$.
+\end{itemize}
+Exact Gr\"obner bases and saturations are computed in Singular, and roots are isolated in Arb.
+\begin{itemize}
+\item[(i)] For eleven sets the ideal $I$ is zero-dimensional, and its lexicographic basis is in shape position. The last coordinate is $v_4$, or a linear form
+$v_4+\sum r_ix_i$ with small integers $r_i$. As in Proposition~\ref{prop:N7}, every nontrivial zero is then certified either not to be real, or to have
+$|p_k|>9$ for some $k\le7$. For three of these sets, $(1,2,3,4,9)$, $(1,2,3,5,9)$ and $(1,3,5,7,9)$, the only zero is $c=0$, as also follows from
+Proposition~\ref{prop:closure}.
+\item[(ii)] For the other five sets the real zeros are split exhaustively, for $j=1,2,\dots$, according to whether $c_j=0$ (add $u_j,v_j$) or
+$c_j\ne0$ (saturate by $u_jv_j$). For $(1,3,4,7,9)$, $(2,5,6,8,9)$ and $(3,5,7,8,9)$ the ideal $I$ is one-dimensional, so the splitting is necessary. For
+$(2,4,6,8,9)$ and $(4,6,7,8,9)$ the ideal is zero-dimensional (vdim $256=1+3+252$ and $148=1+3+144$), but no separating coordinate with a lexicographic
+basis computable in reasonable time was found, so these were split as well. The first split is on $c_1$. In the branch $c_1=0$ the trivial zero is removed
+by saturating with the maximal ideal at $0$; by (a) this removes exactly that point. In the branch $c_1\ne0$ it is removed by the saturation by $u_1v_1$
+itself, since by (a) the origin is an isolated point of $V(I)$ lying in $V(u_1v_1)$. Every saturation $J$ of an ideal $I_0$ by $f$ is checked
+independently: each generator $g$ of $J$ satisfies $f^kg\in I_0$ for some $k\le10$. For the maximal ideal, $f$ runs over the variables. This proves
+$J\subseteq(I_0:f^\infty)$, hence $V(J)\supseteq V(I_0)\setminus V(f)$, which is the inclusion the exhaustiveness of the splitting needs. Each
+zero-dimensional piece is treated as in (i). The positive-dimensional pieces are as follows.
+\begin{itemize}
+\item For $(1,3,4,7,9)$ there is one piece, on which $|p_6|^2=p_6(u,v)\,p_6(v,u)$ has constant normal form $200>81$.
+\item For $(2,5,6,8,9)$ there is one piece, on which $|p_4|^2=196$.
+\item For $(3,5,7,8,9)$ there is the piece $c_2=c_3=0$, $|c_1|=1$, $c_4^2=-2\bar c_1$. A normal form computation gives $p_5=-\bar c_1^5-10c_4$ there, so
+$|p_5|\ge10|c_4|-|c_1|^5=10\sqrt2-1>9$.
+\end{itemize}
+\end{itemize}
+Hence $P=w^9+1$ in all cases, and Proposition~\ref{prop:general} applies. The scripts are in \texttt{numerics/}:
+\begin{itemize}
+\item certification: \texttt{caratheodory\_F\_general.py} and \texttt{caratheodory\_F\_split.py};
+\item power sums: \texttt{caratheodory\_F\_posdim.py};
+\item the normal form for the last piece: \texttt{caratheodory\_F\_d5\_hand.py};
+\item driver \texttt{caratheodory\_F\_d5\_all.sh}, with output \texttt{caratheodory\_F\_d5.txt}.
+\end{itemize}
+Software: Singular 4.3.2, sympy 1.14.0, python-flint 0.9.0 (Arb).
+\end{proof}
+
+\section{Remarks}
+
+\begin{remark}[What the proofs use]
+For Theorems~\ref{thm:A} and \ref{thm:C} the two inputs are isolated in Proposition~\ref{prop:general}: a simplex face at the top frequency, (R), and the face condition (F).
+(F) comes from antipodal symmetry for $B_k$, and from the self-inversive Lemma~\ref{lem:gap} otherwise. Besides the face structure, the upper bounds use only one auxiliary coordinate. This is the frequency-$1$ coordinate for $B_k$, and the other frequency for $\mathcal C_{(a,b)}$.
+That coordinate is coprime to the frequency whose polygonal faces could trap the rays. The trapping is ruled out by averaging over the regular polygon of starting
+points (Lemma~\ref{lem:avg}) and by the antipodal chord inequality (Lemma~\ref{lem:chord}). Lemma~\ref{lem:mixed} gives an independent elementary proof of the part of
+Smilansky's classification of the faces of $\mathcal C_{(a,b)}$ \cite{Smi} that is needed here: exposed faces with three or more vertices are the polygons
+$P_{t_0}$, $Q_{t_0}$.
+\end{remark}
+
+\begin{remark}[Binary forms]\label{rem:forms}
+Let $d=2k-1$ and $\ell_t=\cos t\,X+\sin t\,Y$. By \cite[\S5]{SSS} there is a linear isomorphism from $\R^{2k}$ onto real binary forms of degree $d$ with $U(t)\mapsto\ell_t^d$.
+It maps $B_k$ onto $\conv\{\ell_t^d\}$. Since $-\ell^d=(-\ell)^d$ for odd $d$, this is the unit ball of the norm dual to $f\mapsto\max_t|f(\cos t,\sin t)|$ under the apolar
+pairing $\langle f,\ell_t^d\rangle=f(\cos t,\sin t)$. This is the symmetric nuclear norm. A representation of a point by $m$ curve points is a real Waring decomposition
+with $m$ terms and positive weights.
+(i) Theorem~\ref{thm:A} says: every real binary form of odd degree $d\ge3$ whose nuclear norm is at most $1$ is a convex combination of at most $d$ powers $\ell_t^d$, and $d$
+cannot be lowered. For forms of nuclear norm exactly $1$, Corollary~\ref{cor:facesA}(b) gives nuclear decompositions with at most $d$ terms.
+(ii) In particular every real binary form of odd degree $d$ has real Waring rank at most $d$. This is a known fact \cite[Prop.~2.1]{CO}.
+(iii) The barycenter $b$ corresponds to $(1/N)\sum_j\ell_{2\pi j/N}^d=2^{1-d}\re\big((X+iY)^d\big)$, which has $d$ distinct real roots. Such forms have real rank exactly $d$
+(\cite[Cor.~1]{CR}, completing \cite{CO}), which gives a second proof of $d_b\ge d$.
+\end{remark}
+
+\begin{remark}[General $\mathcal C_A$]
+For the universal orbitope $\cc(\mathcal C_{(1,\dots,d)})=d+1$. For $B_k$ and for $\mathcal C_{(1,\dots,d-1,2d-1)}$ the value is $2d-1$. In all known cases with $d\ge2$ Fenchel's bound $2d$ is not attained.
+\emph{Numerical evidence for $d=3$} (\texttt{numerics/caratheodory\_6d.py}). Random interior points, and points near the barycenters of the faces $\{|z_m|=1\}$, were tested.
+\begin{itemize}
+\item $A=(1,2,3),(1,2,4),(1,3,4),(2,3,4),(1,4,5),(2,3,5)$: every point tested is a combination of $4$ curve points.
+\item $A=(1,3,5),(1,2,5),(1,3,7),(1,5,7)$: some points need $5$.
+\item No tested point needs $6$.
+\end{itemize}
+This raises the question whether $\cc(\mathcal C_A)\le2d-1$ for every $A$ with $d\ge2$; the evidence is limited to small cases. For $N=a_d=2d-1$ the method of this note gives the bound $2d-1$ whenever every face with $N$ contact points is of the
+form $\{z_N=e^{iN t_0}\}$. If moreover $\{0\}\cup\pm\{a_1,\dots,a_{d-1}\}$ is a complete residue system mod $N$, it gives the value $2d-1$. Examples are $B_k$ (by antipodal symmetry) and
+$(1,\dots,d-1,2d-1)$ (by Lemma~\ref{lem:gap}). Every $A$ satisfying (R) with $2\le d\le5$ has $\cc=2d-1$ (Theorem~\ref{thm:B} for $d=2$, and
+Propositions~\ref{prop:N5}, \ref{prop:N7} and \ref{prop:N9}). Whether (R) implies (F) for all $d$ remains open.
+\end{remark}
+
+\begin{remark}[Literature]
+We have not found the values $\cc(B_k)=2k-1$ ($k\ge3$) or $\cc(\mathcal C_{(a,b)})=3$ ($(a,b)\ne(1,2)$) in the literature on these orbitopes
+\cite{SSS,BN08,BLN,Vin,Smi,Sinn,BK,ABF}. In \cite{ABF} a ``Carath\'eodory subset'' is a set whose hull contains the origin, which is a different notion.
+The lower bound in Theorem~\ref{thm:A} also follows from \cite{CR} (Remark~\ref{rem:forms}). The same quantity appears as the Carath\'eodory number of a
+truncated moment problem in \cite{DS,DK}. We are not aware of trigonometric cases with gaps treated there. The upper bounds, the ray-and-chord method,
+Lemma~\ref{lem:gap} and Theorem~\ref{thm:C} appear to be new.
+\end{remark}
+
+\begin{thebibliography}{9}
+\bibitem{ABF} H.~Adams, J.~Bush, F.~Frick, \emph{Metric thickenings, Borsuk--Ulam theorems, and orbitopes}, Mathematika 66 (2020) 79--102.
+\bibitem{BK} I.~B\'ar\'any, R.~Karasev, \emph{Notes about the Carath\'eodory number}, Discrete Comput.\ Geom.\ 48 (2012) 783--792.
+\bibitem{BN08} A.~Barvinok, I.~Novik, \emph{A centrally symmetric version of the cyclic polytope}, Discrete Comput.\ Geom.\ 39 (2008) 76--99.
+\bibitem{BLN} A.~Barvinok, S.~J.~Lee, I.~Novik, \emph{Neighborliness of the symmetric moment curve}, Mathematika 59 (2013) 223--249.
+\bibitem{Car} C.~Carath\'eodory, \emph{\"Uber den Variabilit\"atsbereich der Fourier'schen Konstanten von positiven harmonischen Funktionen}, Rend.\ Circ.\ Mat.\ Palermo 32 (1911) 193--217;
+O.~Toeplitz, \emph{\"Uber die Fourier'sche Entwickelung positiver Funktionen}, Rend.\ Circ.\ Mat.\ Palermo 32 (1911) 191--192.
+\bibitem{CR} A.~Causa, R.~Re, \emph{On the maximum rank of a real binary form}, Ann.\ Mat.\ Pura Appl.\ 190 (2011) 55--59.
+\bibitem{CO} P.~Comon, G.~Ottaviani, \emph{On the typical rank of real binary forms}, Linear Multilinear Algebra 60 (2012) 657--667.
+\bibitem{DK} P.~di Dio, M.~Kummer, \emph{The multidimensional truncated moment problem: Carath\'eodory numbers from Hilbert functions}, Math.\ Ann.\ 380 (2021) 267--291.
+\bibitem{DS} P.~di Dio, K.~Schm\"udgen, \emph{The multidimensional truncated moment problem: Carath\'eodory numbers}, J.\ Math.\ Anal.\ Appl.\ 461 (2018) 1606--1638.
+\bibitem{Fen} W.~Fenchel, \emph{\"Uber Kr\"ummung und Windung geschlossener Raumkurven}, Math.\ Ann.\ 101 (1929) 238--252.
+\bibitem{SSS} R.~Sanyal, F.~Sottile, B.~Sturmfels, \emph{Orbitopes}, Mathematika 57 (2011) 275--314.
+\bibitem{Sinn} R.~Sinn, \emph{Algebraic boundaries of $SO(2)$-orbitopes}, Discrete Comput.\ Geom.\ 50 (2013) 219--235.
+\bibitem{Smi} Z.~Smilansky, \emph{Convex hulls of generalized moment curves}, Israel J.\ Math.\ 52 (1985) 115--128.
+\bibitem{Vin} C.~Vinzant, \emph{Edges of the Barvinok--Novik orbitope}, Discrete Comput.\ Geom.\ 46 (2011) 479--487.
+\end{thebibliography}
+\end{document}

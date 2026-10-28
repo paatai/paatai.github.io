@@ -1,0 +1,241 @@
+[
+ {
+  "n": 1,
+  "date": "2026-09-18",
+  "title": "Sharp Markov&ndash;Bernstein inequality in Gauss space for p&ge;2",
+  "status": "polished",
+  "line": "Written-up proof. Prompted and discussed together with Alexandros Eskenazis.",
+  "pdf": "../sharp-markov-bernstein-gauss.pdf",
+  "files": []
+ },
+ {
+  "n": 2,
+  "date": "2026-09-23",
+  "title": "An explicit Bellman function for disjoint partitions: the sharp logarithmic gain for three families",
+  "status": "polished",
+  "line": "Written-up proof with verification code.",
+  "pdf": "bellman-n3/bellman-n3.pdf",
+  "files": [
+   [
+    "TeX",
+    "bellman-n3/bellman-n3.tex"
+   ],
+   [
+    "verification code",
+    "bellman-n3/verification.zip"
+   ]
+  ]
+ },
+ {
+  "n": 3,
+  "date": "2026-10-02",
+  "title": "Sharp linear hypercontractivity for ultraspherical measures",
+  "status": "polished",
+  "line": "Written-up proof.",
+  "pdf": "../sharp-linear-hypercontractivity.pdf",
+  "files": []
+ },
+ {
+  "n": 4,
+  "date": "2026-10-02",
+  "title": "Counterexample to Sedykh and Shapiro conjecture",
+  "status": "polished",
+  "line": "Written-up counterexample.",
+  "pdf": "../counterexample-sedykh-shapiro.pdf",
+  "files": []
+ },
+ {
+  "n": 5,
+  "date": "2026-10-15",
+  "title": "Short, computer-free proofs of three nonlinear-mean inequalities of Nazarov, Vasyunin and Volberg",
+  "status": "polished",
+  "line": "Hand proofs of the I3, I4 and I6 inequalities of arXiv:2204.01336; an independent hostile audit found no errors.",
+  "pdf": "nvv-inequalities/nvv-short-proofs.pdf",
+  "files": [
+   [
+    "longer version",
+    "nvv-inequalities/nvv-computer-free-proofs.pdf"
+   ]
+  ]
+ },
+ {
+  "n": 6,
+  "date": "2026-10-19",
+  "title": "The Sánchez-Ruiz entropy bound for all harmonic-oscillator eigenstates: a proof of his Eqs. (30) and (37)",
+  "status": "refereed",
+  "line": "Proof of Eq. (37) of Sánchez-Ruiz (1997); rated valid by an independent auditor.",
+  "pdf": "sanchez-ruiz-entropy/sanchez-ruiz-entropy.pdf",
+  "files": []
+ },
+ {
+  "n": 7,
+  "date": "2026-10-21",
+  "title": "The sin-omial integral: a one-page elementary proof",
+  "status": "refereed",
+  "line": "Two short proofs of (1/&pi;)&int;<sub>0</sub><sup>&pi;</sup> sin<sup>r</sup>x / (sin<sup>s</sup>(sx/r) sin<sup>r&minus;s</sup>((r&minus;s)x/r)) dx = binom(r,s); both rated valid by an independent auditor.",
+  "pdf": "sinomial-integral/proof-a.pdf",
+  "files": [
+   [
+    "second proof",
+    "sinomial-integral/proof-b.pdf"
+   ],
+   [
+    "audit",
+    "sinomial-integral/audit.pdf"
+   ]
+  ]
+ },
+ {
+  "n": 8,
+  "date": "2026-10-21",
+  "title": "Ball&rsquo;s integral inequality via weighted level sets",
+  "status": "refereed",
+  "line": "A short new proof of K. Ball&rsquo;s 1986 inequality for &int;|sin t / t|<sup>s</sup>, s&ge;2; rated valid by an independent auditor.",
+  "pdf": "ball-inequality/ball-inequality.pdf",
+  "files": [
+   [
+    "one-page version",
+    "ball-inequality/ball-inequality-one-page.pdf"
+   ]
+  ]
+ },
+ {
+  "n": 9,
+  "date": "2026-10-21",
+  "title": "AND testing with square-root loss: the optimal &epsilon;&ndash;&delta; dependence is &Theta;(&radic;&epsilon;), and polynomial bounds for all approximate polymorphisms",
+  "status": "refereed",
+  "line": "Rated valid by an independent auditor and a referee.",
+  "pdf": "and-testing/and-testing-sqrt-eps.pdf",
+  "files": [
+   [
+    "numerics",
+    "and-testing/numerics.zip"
+   ]
+  ]
+ },
+ {
+  "n": 10,
+  "date": "2026-10-21",
+  "title": "The Keller&ndash;Klein Berry&ndash;Esseen conjecture: the reachable half for all Rademacher sums, and the full conjecture for a<sub>1</sub>&ge;0.07",
+  "status": "partial result",
+  "line": "Computer-assisted (ball arithmetic); rated valid by an independent auditor and a referee. The full conjecture for a<sub>1</sub>&lt;0.07 remains open.",
+  "pdf": "keller-klein/keller-klein.pdf",
+  "files": [
+   [
+    "certified computation",
+    "keller-klein/code.zip"
+   ]
+  ]
+ },
+ {
+  "n": 11,
+  "date": "2026-10-21",
+  "title": "List-decoding thresholds of approximate polymorphisms",
+  "status": "refereed",
+  "line": "Shows that a lemma (5.6) in the CFMMS paper is false and that the upper threshold s<sup>U</sup> is not tight; rated valid by an independent auditor and a referee.",
+  "pdf": "approximate-polymorphisms/approximate-polymorphisms.pdf",
+  "files": [
+   [
+    "numerics",
+    "approximate-polymorphisms/numerics.zip"
+   ]
+  ]
+ },
+ {
+  "n": 12,
+  "date": "2026-10-22",
+  "title": "A sharp reverse Khinchin-type inequality for biased bits: the optimal constant R(q) for every q&isin;(0,1)",
+  "status": "refereed",
+  "line": "Computer-assisted; rated valid by an independent referee and an auditor. Several agents worked on it over several days.",
+  "pdf": "reverse-khinchin-biased-bits/reverse-khinchin-biased-bits.pdf",
+  "files": [
+   [
+    "proof code and certificates",
+    "reverse-khinchin-biased-bits/code.zip"
+   ]
+  ]
+ },
+ {
+  "n": 13,
+  "date": "2026-10-23",
+  "title": "Sharp L<sup>1</sup> Poincaré inequality on the Hamming cube",
+  "status": "polished",
+  "line": "An explanation of the proof, based on Tomar&rsquo;s preprint.",
+  "pdf": "sharp-L1-poincare/sharp_L1_Poincare_Hamming_cube.pdf",
+  "files": []
+ },
+ {
+  "n": 14,
+  "date": "2026-10-24",
+  "title": "No 421 equiangular lines in R<sup>44</sup>, no 94 in R<sup>20</sup>, no 74 in R<sup>19</sup> and no 59 in R<sup>18</sup>",
+  "status": "partial result",
+  "line": "N(44)&le;420 and N(20)&le;93 are rated valid by an independent auditor and a referee; N(19)&le;73 and N(18)&le;58 have not been refereed yet.",
+  "pdf": "equiangular-lines/equiangular-lines-upper-bounds.pdf",
+  "files": [
+   [
+    "TeX",
+    "equiangular-lines/equiangular-lines-upper-bounds.tex"
+   ],
+   [
+    "code",
+    "equiangular-lines/code.zip"
+   ]
+  ]
+ },
+ {
+  "n": 15,
+  "date": "2026-10-26",
+  "title": "The exact Rosenthal bound for independent zero-mean summands when 3&le;p&le;4, and in the two extreme regimes when 4&lt;p&lt;5",
+  "status": "partial result",
+  "line": "Independent adversarial referee passes found no critical or major issues; the middle regime of 4&lt;p&lt;5 is open.",
+  "pdf": "rosenthal-3-4/rosenthal-exact-bound.pdf",
+  "files": [
+   [
+    "source and numerics",
+    "rosenthal-3-4/source-and-numerics.zip"
+   ]
+  ]
+ },
+ {
+  "n": 16,
+  "date": "2026-10-27",
+  "title": "Carathéodory numbers of the Barvinok&ndash;Novik orbitopes, of all four-dimensional SO(2)-orbitopes, and of a further family",
+  "status": "raw draft",
+  "line": "Not refereed.",
+  "pdf": "caratheodory-orbitopes/caratheodory-orbitopes.pdf",
+  "files": [
+   [
+    "TeX",
+    "caratheodory-orbitopes/caratheodory-orbitopes.tex"
+   ]
+  ]
+ },
+ {
+  "n": 17,
+  "date": "2026-10-27",
+  "title": "On the Améndola&ndash;Lee&ndash;Meroni conjecture: the signature volume formula on all subpaths does not characterize cyclic curves",
+  "status": "raw draft",
+  "line": "Claims a counterexample to the conjecture. Not refereed.",
+  "pdf": "amendola-lee-meroni/amendola-lee-meroni.pdf",
+  "files": [
+   [
+    "TeX",
+    "amendola-lee-meroni/amendola-lee-meroni.tex"
+   ]
+  ]
+ },
+ {
+  "n": 18,
+  "date": "2026-10-27",
+  "title": "The local neighborliness threshold of the symmetric moment curve, and the Barvinok&ndash;Lee&ndash;Novik conjecture for k&le;440 and all sufficiently large k",
+  "status": "raw draft",
+  "line": "Not refereed; the conjecture for intermediate k is open.",
+  "pdf": "barvinok-lee-novik/barvinok-lee-novik.pdf",
+  "files": [
+   [
+    "TeX",
+    "barvinok-lee-novik/barvinok-lee-novik.tex"
+   ]
+  ]
+ }
+]

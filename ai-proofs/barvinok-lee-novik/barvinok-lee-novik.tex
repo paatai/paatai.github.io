@@ -1,0 +1,890 @@
+\documentclass[11pt]{amsart}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage[margin=1.05in]{geometry}
+\usepackage{hyperref}
+\usepackage{booktabs}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{remark}[theorem]{Remark}
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Sph}{\mathbb{S}}
+\newcommand{\eps}{\varepsilon}
+
+\title[Neighborliness threshold of the symmetric moment curve]{The local neighborliness threshold of the symmetric moment curve:\\
+an integral criterion, sharp asymptotics, and the Barvinok--Lee--Novik conjecture\\ for $k\le440$ and for all sufficiently large $k$}
+\date{October 27, 2026}
+
+\begin{document}
+\begin{abstract}
+Let $\phi_k$ be the largest $\phi$ such that any $k$ points of the symmetric moment curve
+$U_k(t)=(\cos t,\sin t,\cos3t,\sin3t,\dots,\cos(2k-1)t,\sin(2k-1)t)$ lying on an open arc of length $\phi$ span a face of
+$\operatorname{conv}U_k$. Barvinok, Lee and Novik proved $\pi/2<\phi_k<\pi$ and $\phi_k\to\pi/2$, reduced $\phi_k$ to configurations
+collapsed to the two endpoints of the arc, and conjectured that the balanced collapse is always the worst one.
+We turn their characterization into an explicit two-integral criterion. We use it to prove:
+$\phi_k<\frac\pi2+\frac{\log(8\pi(k+1/2))}{4(k-1)}$ for even $k\ge4$;
+$\phi_k<\frac\pi2+\frac{\log(64\sqrt\pi(k-1)\sqrt{k-1/2})}{2k-8}$ for odd $k\ge13$;
+and $\liminf_k\big(4k(\phi_k-\pi/2)-\log k\big)\ge2\log2$. We also prove the effective two-sided bound
+$\frac\pi2+\frac{\log k}{4k}<\phi_k<\frac\pi2+\frac{\log k+4.1}{4k}$ for every $k\ge2$; on a finite range of $k$ it rests on explicit closed-form
+inequalities certified in ball arithmetic. Refining the analysis we obtain the exact second-order term,
+$\lim_k\big(4k(\phi_k-\frac\pi2)-\log k\big)=\log(8\pi)$, which is the asymptotics of the balanced split. We prove the
+Barvinok--Lee--Novik conjecture for all $k\le440$ (both parities; computer-assisted, ball arithmetic), together with the monotonicity of
+$\phi_k$ in that range. We also prove it, analytically but with an ineffective threshold, for all sufficiently large $k$. The splits far from
+balanced are excluded by the sharp asymptotics. For near-balanced splits we show that the criterion is strictly concave in the exponent: its second
+derivative is at most $-4\delta/N+O(N^{-2})$ with $N\delta\asymp\log k$. This is proved with Stein identities for the weights
+$\sin^au\,\sin^b(\ell-u)$ and a moving-frame treatment of the kink $|\sin(u-s)|$. The same estimates, used to first order in the other exponent, show that $\phi_k$ is strictly decreasing for all
+sufficiently large $k$. This answers BLN's monotonicity question asymptotically. The conjecture thus remains open only on a finite but
+unspecified range $440<k<K_0$. We also isolate an ``endpoint monotonicity'' conjecture which implies $\phi_{k+1}<\phi_k$.
+\end{abstract}
+\maketitle
+
+\section{Introduction}
+
+Let $\Sph=\R/2\pi\mathbb Z$ and $B_k=\operatorname{conv}U_k(\Sph)\subset\R^{2k}$, the Barvinok--Novik orbitope \cite{BN08,SSS}.
+A \emph{raked trigonometric polynomial} of degree $\le2k-1$ is $f(t)=c+\sum_{j=1}^k(a_j\cos(2j-1)t+b_j\sin(2j-1)t)$, i.e.\
+$f=c+\langle C,U_k\rangle$. Faces of $B_k$ through $U(t_1),\dots,U(t_n)$ correspond to nonnegative raked polynomials vanishing at the $t_i$.
+
+\begin{definition}[\cite{BLN}]
+$\phi_k$ is the largest number such that for every open arc $\Gamma\subset\Sph$ of length $\phi_k$ and all distinct
+$t_1,\dots,t_n\in\Gamma$, $n\le k$, the set $\operatorname{conv}\{U(t_1),\dots,U(t_n)\}$ is a face of $B_k$.
+\end{definition}
+
+\noindent\textbf{Known.} Barvinok--Novik \cite{BN08}: $\phi_k>0$. Lee: $\phi_k>\sqrt6\,k^{-3/2}$.
+Barvinok--Lee--Novik \cite{BLN}: $\pi/2<\phi_k<\pi$ and $\phi_k\to\pi/2$; $\phi_2=2\pi/3$, $\phi_3=\pi-\arccos\frac{3-\sqrt5}2$,
+and $\phi_4\approx1.8706585$ in closed form. They also give a characterization (Theorem~\ref{thm:BLN} below).
+Edges of $B_k$ were determined in \cite{BN08,Vin}. The facial structure of $B_3$ is unknown.
+
+\begin{conjecture}[\cite{BLN}]\label{conj:BLN}
+In Theorem~\ref{thm:BLN}(2) one can take $m_a=m_b=k$ if $k$ is even and $\{m_a,m_b\}=\{k-1,k+1\}$ if $k$ is odd.
+For even $k$ this is equivalent to $\phi_k=2\alpha_k$, where $\alpha_k$ is the smallest positive root of
+$\cos\alpha+1+\sum_{j=1}^{k-1}(-1)^j\frac{(2j-1)!!}{(2j)!!}\tan^{2j}\alpha=0$.
+\end{conjecture}
+
+BLN also write that their computations suggest $\phi_k$ is decreasing, but they could not prove it.
+
+\subsection*{Results}
+For a \emph{split} $(p,q)$, $p,q\ge1$, $p+q=k$, and $L\in(0,\pi)$, let $f_{p,q,L}$ be the unique raked polynomial of degree $\le2k-1$
+with constant term $1$, a root of multiplicity $2p$ at $0$ and of multiplicity $2q$ at $L$ \cite[Cor.~3.5]{BLN}. Let $L(p,q)\in(0,\pi]$
+be the first $L$ at which $f_{p,q,L}$ acquires an additional root ($L(p,q)=\pi$ if none). Put $a=2p-1$, $b=2q-1$.
+
+\begin{theorem}[integral criterion]\label{thm:crit}
+For $L\in(0,\pi)$ let $A(u)=\sin^au\,\sin^b(L-u)$ on $(0,L)$, let $s\in(0,L)$ be the argument of $\int_0^LA(u)e^{iu}du$, and put
+\[
+I_{\rm in}=\int_0^sA(u)\sin(s-u)\,du=\tfrac12\int_0^LA(u)|\sin(u-s)|\,du,\qquad
+I_{\rm out}=\int_L^\pi\sin^au\,\sin^b(u-L)\,\sin(u-s)\,du .
+\]
+Then $f_{p,q,L}\ge0$ on $\Sph$ iff $I_{\rm out}\ge I_{\rm in}$, and $f_{p,q,L}$ is $\ge0$ and has a root outside $\{0,L\}$ iff $I_{\rm out}=I_{\rm in}$.
+Consequently, $f_{p,q,L}$ has a root outside $\{0,L\}$ iff $I_{\rm out}\le I_{\rm in}$.
+Moreover $\Delta_{p,q}(L):=I_{\rm out}-I_{\rm in}$ is positive on $(0,L(p,q))$, vanishes at $L(p,q)$ if $L(p,q)<\pi$, and is negative on
+$(L(p,q),\pi)$. Finally $\phi_k=\min_{p+q=k}L(p,q)$ and $L(p,q)=L(q,p)$.
+\end{theorem}
+
+\begin{theorem}[upper bounds]\label{thm:upper}
+(i) For even $k\ge4$: $\displaystyle\phi_k\le L(\tfrac k2,\tfrac k2)<\frac\pi2+\frac{\log\big(8\pi(k+\tfrac12)\big)}{4(k-1)}$.\\
+(ii) For odd $k\ge13$: $\displaystyle\phi_k<\frac\pi2+\frac{\log\big(64\sqrt\pi\,(k-1)\sqrt{k-1/2}\big)}{2k-8}=\frac\pi2+\frac{3\log k+O(1)}{4k}$.
+\end{theorem}
+
+\begin{theorem}[lower bounds]\label{thm:lower}
+(i) $\liminf_{k\to\infty}\big(4k(\phi_k-\tfrac\pi2)-\log k\big)\ge2\log2$.\\
+(ii) $\phi_k>\frac\pi2+\frac{\log k}{4k}$ for every $k\ge2$.
+\end{theorem}
+
+The proof of (ii) is analytic for $k>2\cdot10^4$. For $301\le k\le2\cdot10^4$ it consists of certifying in ball arithmetic, for each of the
+$\approx10^8$ splits, the sign of an explicit closed form in Gamma functions (Proposition~\ref{prop:Phi}). For $k\le300$ it follows from the
+enclosures of Theorem~\ref{thm:cert}.
+
+\begin{theorem}[effective upper bound]\label{thm:oddsharp}
+$\phi_k<\frac\pi2+\frac{\log k+4.1}{4k}$ for every $k\ge2$.
+\end{theorem}
+\noindent For even $k\ge302$ this follows from Theorem~\ref{thm:upper}(i), and for $k\le300$ from Theorem~\ref{thm:cert}. For odd $k\ge301$
+it comes from an explicit criterion for the split $(\frac{k-1}2,\frac{k+1}2)$ (Proposition~\ref{prop:upgen}). That criterion is certified in ball
+arithmetic for $k\le200001$ and verified by hand beyond. Together with Theorem~\ref{thm:lower}(ii),
+\[
+\frac\pi2+\frac{\log k}{4k}<\phi_k<\frac\pi2+\frac{\log k+4.1}{4k}\qquad\text{for every }k\ge2 .
+\]
+
+\begin{theorem}[sharp asymptotics]\label{thm:sharp}
+$\displaystyle\lim_{k\to\infty}\Big(4k\big(\phi_k-\tfrac\pi2\big)-\log k\Big)=\log(8\pi)$, i.e.\
+$\phi_k=\frac\pi2+\frac{\log k+\log(8\pi)}{4k}+o\big(\frac1k\big)$.
+\end{theorem}
+\noindent This is exactly the asymptotics of the balanced split. It is what Conjecture~\ref{conj:BLN} predicts, but it does not imply the
+conjecture: a non-balanced split could still win at order $o(1/k)$. The proof (\S\ref{sec:sharp}) is analytic but does not give an explicit
+rate. The cruder bounds of Theorems~\ref{thm:upper}, \ref{thm:lower}(ii) and \ref{thm:oddsharp} hold for every $k$ in their stated
+ranges; Theorem~\ref{thm:lower}(i) is an asymptotic statement.
+
+\begin{theorem}[computer-assisted, rigorous]\label{thm:cert}
+For every $2\le k\le440$, the balanced split is the unique minimizer in Theorem~\ref{thm:BLN}(2). That is, Conjecture~\ref{conj:BLN}
+holds, in both parities, and $\phi_k=L(\lfloor k/2\rfloor,\lceil k/2\rceil)$. Moreover $\phi_{k+1}<\phi_k$ for $2\le k<440$, and
+$L(p,q+1)<L(p,q)$ for all $p+q<200$. Each $\phi_k$ is enclosed in an interval of half-width $1.01\cdot10^{-12}$ about a floating-point
+value, printed to $12$ decimals (files \texttt{numerics/rigorous\_200.txt}, \texttt{numerics/rigorous\_201\_300.txt},
+\texttt{numerics/rigorous\_301\_400.txt} and \texttt{numerics/rigorous\_401\_440.txt}).
+\end{theorem}
+\noindent BLN proved $k\le4$. The proof is in \S\ref{sec:cert}: Theorem~\ref{thm:crit} turns each comparison into the sign of an explicit
+closed-form expression at a rational point, and these signs are certified in ball arithmetic (Arb).
+
+\begin{theorem}[all sufficiently large $k$]\label{thm:large}
+There is $K_0$ such that for every $k\ge K_0$ the balanced split is the unique minimizer in Theorem~\ref{thm:BLN}(2), up to $p\leftrightarrow q$.
+That is, Conjecture~\ref{conj:BLN} holds for all $k\ge K_0$.
+\end{theorem}
+\begin{theorem}[monotonicity for large $k$]\label{thm:mono}
+There is $K_2$ such that $\phi_{k+1}<\phi_k$ for all $k\ge K_2$. Moreover, endpoint monotonicity $L(p,q+1)<L(p,q)$ (Conjecture~\ref{conj:EM} below)
+holds for all $k=p+q\ge K_2$ with $0.42k\le p\le0.58k$.
+\end{theorem}
+\noindent The proofs (\S\ref{sec:large}) are analytic but ineffective: we do not compute $K_0$ or $K_2$. Together with Theorem~\ref{thm:cert}, the conjecture
+holds for $k\le440$ and for $k\ge K_0$. The splits far from balanced are handled by the sharp asymptotics. For near-balanced splits we prove that the
+criterion $\log I_{\rm in}-\log I_{\rm out}$ is strictly concave in the (real) exponent $2p-1$ at $L=L(\lfloor\frac k2\rfloor,\lceil\frac k2\rceil)$.
+Its second derivative is at most $-4\delta/N+O(N^{-2})$ with $N\delta\asymp\log k$.
+
+In floating point (\S\ref{sec:num}) we also find, for $k\le300$, that $p\mapsto L(p,k-p)$ is strictly decreasing on $p\le k/2$, and that
+$4k(\phi_k-\pi/2)-\log k$ approaches $\log(8\pi)=3.2242$, the value of the upper bound in Theorem~\ref{thm:upper}(i).
+So the upper bound (i) is asymptotically sharp if the conjecture holds. We also propose:
+
+\begin{conjecture}[endpoint monotonicity]\label{conj:EM}
+$L(p,q+1)<L(p,q)$ for all $p,q\ge1$.
+\end{conjecture}
+
+Conjecture~\ref{conj:EM} implies $\phi_{k+1}\le L(p_*,q_*+1)<L(p_*,q_*)=\phi_k$, where $(p_*,q_*)$ attains $\phi_k$. So it answers BLN's
+monotonicity question. It is rigorously verified for $p+q<200$ (Theorem~\ref{thm:cert}).
+
+\medskip\noindent\emph{Relation to the source paper.} On an arc of length $<\pi$ the curve $U_k$ meets every hyperplane at most $2k$
+times, counting multiplicity \cite[Thm.~3.1]{BLN}; that is, it is a convex curve. The configurations in Theorem~\ref{thm:crit} are the
+endpoint principal representations, the analogue in even dimension of the upper and lower hulls in the source paper's Theorem~2.1.
+$\phi_k$ is the first time the corresponding supporting hyperplane of the convex hull of the \emph{arc} stops supporting the whole
+closed curve. The criterion follows the source paper's method: factor the derivative of the support function into explicit sines, and
+read off signs from integrals of positive functions.
+
+\section{Facts from \cite{BLN}}
+
+\begin{theorem}[\cite{BLN}, Thm.~3.1, Cor.~3.5]\label{thm:roots}
+(a) A nonzero raked $f$ of degree $\le2k-1$ has at most $4k-2$ roots on $\Sph$ counting multiplicity. If its constant term is $0$, then
+$f(t+\pi)=-f(t)$, and it has at most $2k-1$ roots in any open semicircle.
+(b) If distinct $t_i$ lie in an open semicircle and $\sum m_i=2k$, there is a unique raked $f$ of degree $\le2k-1$ with constant term $1$
+having a root of multiplicity exactly $m_i$ at $t_i$.
+\end{theorem}
+
+\begin{theorem}[\cite{BLN}, Thm.~5.1, Lemma~5.7]\label{thm:BLN}
+(1) For arcs of length $<\phi_k$: if $t_1,\dots,t_n\in\Gamma$ are distinct and $m_i$ are positive even integers with $\sum m_i=2k$,
+then the polynomial of Theorem~\ref{thm:roots}(b) has no other roots and is $\ge0$. $\phi_k$ is the largest length with this property.
+(2) For an arc of length $\phi_k$ with endpoints $a,b$ there are positive even $m_a+m_b=2k$ such that the polynomial with roots of
+multiplicities $m_a,m_b$ at $a,b$ is $\ge0$ and has a root in $\Gamma+\pi$.
+(3) Let $\Gamma$ be an open arc of length $<\pi$ with endpoint $a$, and fix positive even $m_a,m_b$ with $m_a+m_b=2k$. For $b\in\Gamma$ let
+$f_b$ be the polynomial of Theorem~\ref{thm:roots}(b) with roots of multiplicities $m_a$ at $a$ and $m_b$ at $b$. Let $x,y,z\in\Gamma$, with
+$x$ between $a$ and $y$ and $y$ between $a$ and $z$. If $f_y\ge0$ and $f_y$ has a root in $\Gamma+\pi$, then $f_x>0$ off $\{a,x\}$, and $f_z$
+is negative somewhere.
+\end{theorem}
+
+\section{The two-cluster criterion: proof of Theorem~\ref{thm:crit}}
+
+\begin{lemma}\label{lem:factor}
+Let $g$ be a raked polynomial of degree $\le2k-1$ with zero constant term, i.e.\ an odd-harmonic trigonometric polynomial.
+If $g$ has roots of multiplicity $\ge\mu_j$ at points $r_j$ that are distinct mod $\pi$, with $\sum\mu_j=2k-1$, then
+$g(t)=C\prod_j\sin^{\mu_j}(t-r_j)$.
+\end{lemma}
+\begin{proof}
+$\cos((2j-1)t)$ and $\sin((2j-1)t)$ are homogeneous polynomials of degree $2j-1$ in $(\cos t,\sin t)$. Multiplying by
+$(\cos^2t+\sin^2t)^{k-j}$, odd-harmonic polynomials of degree $\le2k-1$ are exactly the restrictions $F(\cos t,\sin t)$ of binary forms $F$ of
+degree $2k-1$. A root of order $\mu$ at $t=r$ means the linear form $\ell_r(x,y)=x\sin r-y\cos r$ divides $F$ to order $\mu$, and
+$\ell_r(\cos t,\sin t)=-\sin(t-r)$. Distinct $r_j$ mod $\pi$ give non-proportional linear forms. Hence $\prod\ell_{r_j}^{\mu_j}$,
+of degree $2k-1$, divides $F$, and $F$ is a scalar multiple of it.
+\end{proof}
+
+\begin{proof}[Proof of Theorem~\ref{thm:crit}]
+Write $f=f_{p,q,L}$. Then $f'$ is odd-harmonic of degree $\le2k-1$, with roots of multiplicity exactly $2p-1$ at $0$ and $2q-1$ at $L$
+(Theorem~\ref{thm:roots}(b)). Its antipodes are roots as well, since $f'(t+\pi)=-f'(t)$. By Rolle's theorem there is a further root
+$\sigma\in(0,L)$. Lemma~\ref{lem:factor} gives $f'(t)=K\,g(t)$ with $g(t)=\sin^at\,\sin^b(t-L)\sin(t-\sigma)$. Since $f(0)=f(L)=0$,
+$\int_0^Lg=0$. On $(0,L)$, $g=-A(u)\sin(u-\sigma)$ ($b$ is odd), so $\operatorname{Im}\big(e^{-i\sigma}\int_0^LAe^{iu}\big)=0$.
+The point $\int_0^LAe^{iu}du/\int_0^LA$ lies in the closed circular segment bounded by the arc $\{e^{iu}:0\le u\le L\}$ and its chord. This
+is a convex set not containing $0$, since $L<\pi$. The point is not one of the extreme points $1$, $e^{iL}$, because $A>0$ on $(0,L)$. The only
+points of the segment with argument $0$ or $L$ are $1$ and $e^{iL}$, so $s\in(0,L)$. The condition above says $\sigma\equiv s\pmod\pi$, and since
+$\sigma,s\in(0,L)$ with $L<\pi$, $\sigma=s$. Put $F(t)=\int_0^tg$. On $(0,s)$, $g>0$; on $(s,L)$, $g<0$; on $(L,\pi)$, $g>0$, since every
+factor is positive there ($u-s\in(0,\pi)$). Hence $F>0$ on $(0,L)\cup(L,\pi]$ and $F(\pi)=\int_L^\pi g=I_{\rm out}>0$.
+Since $g(t+\pi)=-g(t)$, we get $F(t+\pi)=F(\pi)-F(t)$, and $F$ has mean $F(\pi)/2>0$. By uniqueness, $f=2F/F(\pi)$.
+On $[0,\pi]$, $F\ge0$ with maximum $\max(F(s),F(\pi))$. On $[\pi,2\pi]$, $F=F(\pi)-F(\cdot-\pi)\ge0$ iff $F(s)\le F(\pi)$, with an
+extra zero exactly when $F(s)=F(\pi)$. If $F(s)>F(\pi)$, then $F(\pi+s)=F(\pi)-F(s)<0<F(\pi)$, so $F$ vanishes somewhere in $(\pi,\pi+s)$, which
+contains neither $0$ nor $L$. Finally $F(s)=I_{\rm in}$, and $F(\pi)=I_{\rm out}$.
+
+\emph{Sign pattern.} Suppose $\Delta(y)=0$ for some $y\in(0,\pi)$. Then $f_{p,q,y}\ge0$, and its extra root $s+\pi$ lies in $(\pi,\pi+y)$.
+Given $0<x<y<z<\pi$, choose $\gamma\in(z,\pi)$ and apply Theorem~\ref{thm:BLN}(3) with $a=0$, $\Gamma=(0,\gamma)$, $m_a=2p$, $m_b=2q$; note
+$(\pi,\pi+y)\subset\Gamma+\pi$. It gives $\Delta(x)>0$ and $\Delta(z)<0$. So $\Delta$ has at most one zero, and if $\Delta(y)=0$ then
+$\Delta>0$ before $y$ and $\Delta<0$ after $y$. By Theorem~\ref{thm:BLN}(1), $\Delta>0$ for small $L$. $\Delta$ is continuous in $L$, because
+$A$, $s$ and the integrals are. This gives the sign pattern.
+
+\emph{$\phi_k=\min L(p,q)$.} If $L<\phi_k$, the configuration $\{0,L\}$ lies in an open arc of length $<\phi_k$, so by
+Theorem~\ref{thm:BLN}(1) $\Delta_{p,q}(L)>0$ for every split, and $L(p,q)\ge\phi_k$. By (2), some split has $\Delta_{p,q}(\phi_k)=0$.
+\emph{Symmetry.} $t\mapsto f_{p,q,L}(L-t)$ is raked with constant term $1$, so it equals $f_{q,p,L}$.
+\end{proof}
+
+\section{Upper bounds}
+
+\begin{proposition}[balanced split]\label{prop:bal}
+Let $k$ be even, $p=q=k/2$, and $c=\cos(L/2)$. Then
+\[
+\Delta(L)=c^{2k-1}B(\tfrac12,k)-J_k(c),\qquad J_k(c):=\int_c^1(x^2-c^2)^{k-1}\,dx .
+\]
+\end{proposition}
+\begin{proof}
+Here $a=b=k-1$, and $A$ is symmetric about $L/2$, so $s=L/2$. Substituting $u=L/2-w$, we have $\sin u\sin(L-u)=\cos^2w-c^2$, and
+$I_{\rm in}=\int_0^{L/2}(\cos^2w-c^2)^{k-1}\sin w\,dw=J_k(c)$. Substituting $u=\frac{L+\pi}2+w$, we have
+$\sin u\sin(u-L)=c^2-\sin^2w$ and $\sin(u-s)=\cos w$. Hence $I_{\rm out}=\int_{-c}^c(c^2-y^2)^{k-1}dy=c^{2k-1}B(\frac12,k)$.
+\end{proof}
+
+\begin{lemma}\label{lem:J}
+$J_m(c)\ge(1-c^2)^m/(2m)$ for $c\in(0,1)$, $m\ge1$.
+\end{lemma}
+\begin{proof}
+With $x=1-y$: $x^2-c^2\ge(1-c^2)-2y\ge0$ for $0\le y\le(1-c^2)/2\le1-c$. Integrate $((1-c^2)-2y)^{m-1}$ over $[0,(1-c^2)/2]$.
+\end{proof}
+
+\begin{lemma}[Wendel \cite{Wen}]\label{lem:wendel}
+For $x>0$: $x/\sqrt{x+1/2}\le\Gamma(x+\frac12)/\Gamma(x)\le\sqrt x$.
+\end{lemma}
+
+\begin{proof}[Proof of Theorem~\ref{thm:upper}(i)]
+By Theorem~\ref{thm:crit} it suffices to show $\Delta(\frac\pi2+\delta)<0$ for $\delta=\delta_+:=\log(8\pi(k+\frac12))/(4(k-1))$,
+which satisfies $\delta_+\le0.4$ for $k\ge4$. By Proposition~\ref{prop:bal} and Lemma~\ref{lem:J} it suffices that
+$c^{2k-1}B(\frac12,k)<(1-c^2)^k/(2k)$, i.e.
+\[
+2k\log\tan\alpha>\log\big(2kB(\tfrac12,k)/c\big),\qquad\alpha=\tfrac\pi4+\tfrac\delta2,\ c=\cos\alpha .
+\]
+We have $\log\tan\alpha=2\operatorname{artanh}\tan\frac\delta2\ge\delta$ and $c=(\cos\frac\delta2-\sin\frac\delta2)/\sqrt2\ge(1-\delta)/\sqrt2$.
+By Lemma~\ref{lem:wendel}, $B(\frac12,k)=\sqrt\pi\,\Gamma(k)/\Gamma(k+\frac12)\le\sqrt{\pi(k+\frac12)}/k$. So the right side is at most
+$\frac12\log(8\pi(k+\frac12))-\log(1-\delta)\le\frac12\log(8\pi(k+\frac12))+2\delta$. This is $\le2k\delta$ for $\delta\ge\delta_+$.
+Since $\log\tan\alpha>\delta$ strictly for $\delta>0$, the required strict inequality holds at $\delta=\delta_+$.
+\end{proof}
+
+\subsection*{Odd $k$: a three-cluster configuration}
+Let $k$ be odd and $\alpha\in(0,\pi/2)$. Consider roots of multiplicity $k-1$ at $\pm\alpha$ and $2$ at $0$. All multiplicities are
+even, they sum to $2k$, and they lie in an arc of length $2\alpha$. By Theorem~\ref{thm:BLN}(1), if the corresponding $f$ is negative
+somewhere, then $\phi_k\le2\alpha$.
+
+\begin{proposition}\label{prop:3cl}
+Let $c=\cos\alpha$, $w(y)=(y^2-c^2)^{k-2}$ on $[c,1]$, and $c_\sigma^2=\int_c^1wy^2/\int_c^1w$. Then $f\ge0$ on $\Sph$ iff
+\[
+\mathrm{LHS}:=\int_{c_\sigma}^1w(y)(y^2-c_\sigma^2)\,dy\ \le\ \mathrm{RHS}:=2\int_0^c(c^2-y^2)^{k-2}(c_\sigma^2-y^2)\,dy .
+\]
+\end{proposition}
+\begin{proof}
+By uniqueness $f$ is even. $f'$ is odd-harmonic of degree $\le2k-1$, with roots of multiplicity $k-2$ at $\pm\alpha$ and $1$ at $0$, so it
+is divisible by $(\sin^2t-\sin^2\alpha)^{k-2}\sin t$ in the binary-form sense. The quotient $Q$ is a quadratic form, i.e.\
+$Q=A+B\cos2t+C\sin2t$, and it is even, so $C=0$. Rolle's theorem on $(0,\alpha)$ gives a root $\sigma$, so $Q\propto\sin^2t-\sin^2\sigma$.
+With $y=\cos u$: $f(t)=K\int_{\cos t}^1g$, where $g(y)=(c^2-y^2)^{k-2}(c_\sigma^2-y^2)$. The condition $f(\alpha)=0$ is
+$\int_c^1g=0$, which gives the formula for $c_\sigma$ (recall $k-2$ is odd). The sign of $g$ is $+$ on $|y|<c$, $-$ on $c<|y|<c_\sigma$,
+and $+$ on $|y|>c_\sigma$. Also $f(\pi)=2K\int_0^cg>0$ equals twice the mean, so $K>0$. Tracking $\int_x^1g$ for $x$ from $1$ down to
+$-1$, its only possible negative value is at $x=-c_\sigma$, where it equals $2\int_0^cg-\int_{c_\sigma}^1g$, and
+$\int_{c_\sigma}^1g=\mathrm{LHS}$. By evenness this settles $[-\pi,0]$ as well.
+\end{proof}
+
+\begin{proof}[Proof of Theorem~\ref{thm:upper}(ii)]
+First, $\mathrm{RHS}\le c^{2k-3}B(\frac12,k-1)$. For LHS: let $Y=y^2$ with $y\sim w/Z$ on $[c,1]$, $Z=J_{k-1}(c)$. Then
+$\mathrm{LHS}=Z\,\mathbb E(Y-\mathbb EY)_+=\frac Z2\mathbb E|Y-\mathbb EY|$. For any density with maximum $f_{\max}$,
+$\mathbb E|Y-\mathbb EY|\ge1/(4f_{\max})$, since $\mathbb P(|Y-\mathbb EY|<r)\le2rf_{\max}$. Here
+$f_Y(v)=w(\sqrt v)/(2\sqrt vZ)\le(1-c^2)^{k-2}/(2cZ)$. With Lemma~\ref{lem:J} this gives
+$\mathrm{LHS}\ge cZ^2/(4(1-c^2)^{k-2})\ge c(1-c^2)^k/(16(k-1)^2)$. So $f$ is negative somewhere if
+$2k\log\tan\alpha>\log\big(16(k-1)^2B(\frac12,k-1)\big)-4\log c$. Put $\alpha=\frac\pi4+\frac\delta2$ and use $\log\tan\alpha\ge\delta$,
+$-4\log c\le2\log2+8\delta$ for $\delta\le1/2$, and $B(\frac12,k-1)\le\sqrt{\pi(k-\frac12)}/(k-1)$. It suffices that
+$(2k-8)\delta>\log(64\sqrt\pi(k-1)\sqrt{k-1/2})$. The resulting $\delta$ is $\le1/2$ for $k\ge13$.
+Strictness: put $\delta_0=\log(64\sqrt\pi(k-1)\sqrt{k-1/2})/(2k-8)$. At $\delta=\delta_0$ the sufficient inequality still holds strictly,
+because $\log\tan\alpha>\delta$ for $\delta>0$. So $f$ is negative somewhere at $\alpha_0=\frac\pi4+\frac{\delta_0}2$. The coefficients of $f$ solve a
+linear system (constant term $1$, and roots of multiplicity at least $k-1,2,k-1$ at $-\alpha,0,\alpha$) whose matrix is continuous in $\alpha$. It is
+invertible: a kernel vector would be a nonzero raked polynomial with zero constant term and at least $2k$ roots in the open semicircle
+$(-\frac\pi2,\frac\pi2)$, which Theorem~\ref{thm:roots}(a) excludes. So $f$
+depends continuously on $\alpha$, and negativity is an open condition in $\alpha$. Hence $f$ is negative somewhere at some $\alpha'<\alpha_0$,
+and $\phi_k\le2\alpha'<\frac\pi2+\delta_0$.
+\end{proof}
+
+\subsection*{Odd $k$: the sharp order of magnitude}
+For odd $k$ the three-cluster bound loses a factor $3$ in front of $\log k$. The near-balanced split $p=\frac{k-1}2$, $q=\frac{k+1}2$
+recovers the factor $1$. The tools are those of \S5 below, used in the opposite direction.
+
+\begin{proposition}[general-split upper criterion]\label{prop:upgen}
+Let $2\le p<q$ with $b-a=2$, and put $N=a+b$, $L=\frac\pi2+\delta$, $t=\tan\delta$, $w=N^{-1/3}$. Assume
+$\frac L2-\frac2a-w>0$, $\frac L2+\frac2a+w\le\frac\pi2$, and $\kappa:=(\sqrt a+\sqrt b)^2/(1+\sin\delta)>4$. Put
+\[
+K_w=\frac a{\sin^2(\frac L2-\frac2a-w)}+\frac b{\sin^2(\frac L2-w)},\qquad
+E_{\rm low}=\tfrac14\sqrt{2\pi/K_w}\,\big(1-\operatorname{erfc}(w\sqrt{K_w/2})\big)-\tfrac16(152/\kappa^2)^{3/4}.
+\]
+Let $D_1=2\Gamma(p+\frac12)\Gamma(q+\frac12)/(\Gamma(p)\Gamma(q))$ as in Lemma~\ref{lem:M}(c). If $E_{\rm low}>0$ and
+$(\delta+t)D_1+b\log\cos\delta-\frac{bt^2p}{2(q-1)}>\log2-\log E_{\rm low}$, then $\Delta_{p,q}(L)<0$, and hence $\phi_k\le L(p,q)<L$.
+\end{proposition}
+\begin{proof}
+We use the notation $M_{x,y}(\ell)=\int_0^\ell\sin^xu\,\sin^y(\ell-u)\,du$ and Lemmas~\ref{lem:Iin} and \ref{lem:M} of \S5 below; their proofs do not use
+this subsection.
+\emph{Outer integral.} $I_{\rm out}\le M_{a,b}(\pi-L)$ since $\sin\le1$, and by log-concavity (Lemma~\ref{lem:M}(a),(c))
+$\log M_{a,b}(\frac\pi2-\delta)\le\log M_{a,b}(\frac\pi2)-\delta D_1$.
+
+\emph{Inner mass.} Dropping $u\in(\frac\pi2,L)$, we get $M_{a,b}(L)\ge\cos^b\delta\,M_{a,b}(\frac\pi2)\,\mathbb E_0(1+tT)^b$, where
+$u\sim\sin^au\cos^bu$ on $(0,\frac\pi2)$ and $T=\tan u$. By Jensen and $\log(1+x)\ge x-x^2/2$,
+$\mathbb E_0(1+tT)^b\ge\exp(tb\mathbb E_0T-\frac{bt^2}2\mathbb E_0T^2)$, with $b\mathbb E_0T=bB(p+\frac12,q-\frac12)/B(p,q)=D_1$ (as in the proof of
+Lemma~\ref{lem:M}(c)) and $\mathbb E_0T^2=B(p+1,q-1)/B(p,q)=p/(q-1)$.
+
+\emph{Mean absolute deviation.} $I_{\rm in}=\frac12M_{a,b}(L)\,\mathbb E|\sin(u-s)|$ for $u\sim A/M$ on $(0,L)$, $A=e^{-V}$.
+Let $u_1$ be the mode, so $V'(u_1)=0$. Since $V'(\frac L2)=(b-a)\cot\frac L2>0$ and
+$V'(\frac L2-\eta)\le-2a\eta+(b-a)$ (because $\cot(x-\eta)-\cot(x+\eta)\ge2\eta$ and $\cot(\frac L2+\eta)\le1$), we have
+$u_1\in(\frac L2-\frac2a,\frac L2)$. On $|u-u_1|\le w$ we have $V''\le K_w$ by the two assumptions on the window. Hence
+$A(u)\ge A(u_1)e^{-K_w(u-u_1)^2/2}$ there, and the maximal density satisfies $A(u_1)/M\le1/\int_{-w}^we^{-K_wx^2/2}dx$.
+Since $\mathbb P(|u-s|<r)\le2rA(u_1)/M$, $\mathbb E|u-s|\ge M/(4A(u_1))$.
+Integrating $(u-u_1)^{2j-1}V'(u)$ by parts, with $V''\ge\kappa$ (proof of Lemma~\ref{lem:Iin}), gives $\mathbb E(u-u_1)^2\le1/\kappa$ and
+$\mathbb E(u-u_1)^4\le3/\kappa^2$. Hence $\mathbb E\cos(u-u_1)\ge1-\frac1{2\kappa}\ge\frac12$ and $|\mathbb E\sin(u-u_1)|\le\mathbb E|u-u_1|\le\kappa^{-1/2}<\frac12$,
+since $\kappa>4$. The angle $s$ maximizes $\sigma\mapsto\mathbb E\cos(u-\sigma)$, so $\mathbb E\cos(u-s)\ge\mathbb E\cos(u-u_1)$. If $|s-u_1|\ge\frac\pi2$, then
+$\mathbb E\cos(u-s)=\cos(s-u_1)\mathbb E\cos(u-u_1)+\sin(s-u_1)\mathbb E\sin(u-u_1)\le|\mathbb E\sin(u-u_1)|<\frac12\le\mathbb E\cos(u-u_1)$, a contradiction.
+So $|s-u_1|<\frac\pi2$. From $\mathbb E\sin(u-s)=0$ we get $\tan(s-u_1)=\mathbb E\sin(u-u_1)/\mathbb E\cos(u-u_1)$, hence
+$|s-u_1|\le|\tan(s-u_1)|\le\kappa^{-1/2}/(1-\frac1{2\kappa})\le2\kappa^{-1/2}$. Thus $\mathbb E(u-s)^4\le8(3+16)/\kappa^2$.
+Finally $\mathbb E|\sin(u-s)|\ge\mathbb E|u-s|-\frac16\mathbb E|u-s|^3\ge E_{\rm low}$.
+Combining, $\log I_{\rm in}-\log I_{\rm out}\ge(\delta+t)D_1+b\log\cos\delta-\frac{bt^2p}{2(q-1)}-\log2+\log E_{\rm low}>0$.
+\end{proof}
+
+\begin{proof}[Proof of Theorem~\ref{thm:oddsharp}]
+Put $C=4.1$ and $\delta_k=(\log k+C)/(4k)$.
+
+\emph{$2\le k\le300$.} The enclosures of Theorem~\ref{thm:cert} give $\phi_k<\frac\pi2+\delta_k$, compared in ball arithmetic. The smallest
+margin is $7.2\cdot10^{-4}$, at $k=300$ (\texttt{numerics/bln\_odd\_upper\_arb.py}, output \texttt{numerics/odd\_upper\_arb.txt}).
+
+\emph{Even $k\ge302$.} By Theorem~\ref{thm:upper}(i), $4k(\phi_k-\frac\pi2)-\log k<g(k):=\log(8\pi)+\log(1+\frac1{2k})+\frac{\log(8\pi(k+1/2))}{k-1}$.
+Both $k$-dependent terms decrease in $k$; for the last one,
+\[
+\frac{d}{dx}\,\frac{\log(8\pi(x+\frac12))}{x-1}=\frac{(x-1)/(x+\frac12)-\log(8\pi(x+\frac12))}{(x-1)^2}<0 .
+\]
+Hence $g(k)\le g(302)<3.26<C$.
+
+\emph{Odd $301\le k\le200001$.} Apply Proposition~\ref{prop:upgen} with $p=\frac{k-1}2$, $q=\frac{k+1}2$ (so $a=k-2$, $b=k$) and $\delta=\delta_k$.
+For each of these $99851$ values of $k$, its four hypotheses and its final inequality were certified in Arb ball arithmetic (precision $96$
+bits). The smallest certified margin in the final inequality is $0.0257$, at $k=301$ (same script).
+
+\emph{Odd $k\ge200003$.} We verify the hypotheses and the inequality of Proposition~\ref{prop:upgen} by hand. Let $N=2k-2$ and $w=N^{-1/3}$, and
+put $\varepsilon_1=\frac2a+w$. Then $\delta:=\delta_k\le2.04\cdot10^{-5}$ and $\varepsilon_1\le0.0135821$, and both decrease in $k$. So
+$\frac L2-\frac2a-w=\frac\pi4+\frac\delta2-\varepsilon_1>0$ and $\frac L2+\frac2a+w<\frac\pi2$; and $\kappa\ge4a/(1+\delta)>4$, since $b>a$.
+Both arguments of $\sin$ in $K_w$ lie in $[\frac\pi4-\varepsilon_1,\frac\pi2]$. Moreover
+$\sin(\frac\pi4-\varepsilon)=(\cos\varepsilon-\sin\varepsilon)/\sqrt2\ge s(\varepsilon)/\sqrt2$, where $s(\varepsilon)=1-\varepsilon-\varepsilon^2/2$. Hence
+$K_w\le2N/s(\varepsilon_1)^2$, and $\frac14\sqrt{2\pi/K_w}\ge\frac14\sqrt{\pi/N}\,s(\varepsilon_1)$.
+Since $\sin^2\le1$, $K_w\ge a+b=N$, so $\operatorname{erfc}(w\sqrt{K_w/2})\le e_1:=\operatorname{erfc}(N^{1/6}/\sqrt2)<10^{-16}$.
+From $\kappa\ge4a/(1+\delta)$ we get $\frac16(152/\kappa^2)^{3/4}\le0.902\,a^{-3/2}\le\frac14\sqrt{\pi/N}\cdot\frac{2.9}a$, using $N=2a+2$. Therefore
+\[
+E_{\rm low}\ge\tfrac14\sqrt{\pi/N}\,(1-\eta),\qquad \eta:=\varepsilon_1+\tfrac12\varepsilon_1^2+e_1+\tfrac{2.9}a\le0.01369 .
+\]
+In particular $E_{\rm low}>0$, and since $N<2k$,
+$\log2-\log E_{\rm low}<\frac12\log k+\frac12\log\frac{128}\pi-\log(1-\eta)$.
+On the other side, Lemma~\ref{lem:wendel} gives $D_1\ge2pq/\sqrt{(p+\frac12)(q+\frac12)}=(k^2-1)/\sqrt{k(k+2)}\ge k-1$. Since $\delta\le t\le2\delta$,
+$\log\cos\delta\ge-\delta^2$ and $q-1=p$, the left side of the inequality in Proposition~\ref{prop:upgen} is at least
+$2\delta(k-1)-k\delta^2-\frac k2t^2\ge\frac12(\log k+C)-2\delta-3k\delta^2$. The quantity $3k\delta^2=3(\log k+C)^2/(16k)$ decreases in $k$ and is
+$\le2.5\cdot10^{-4}$. So the margin in the inequality of Proposition~\ref{prop:upgen} is at least
+\[
+\tfrac C2-\tfrac12\log\tfrac{128}\pi+\log(1-\eta)-2\delta-3k\delta^2\ \ge\ 2.05-1.85366-0.01379-0.00005-0.00025\ >\ 0.18 .
+\]
+In all cases Proposition~\ref{prop:upgen} or the preceding cases give $\phi_k<\frac\pi2+\delta_k$.
+\end{proof}
+
+\begin{remark}
+Letting $C\downarrow\log(128/\pi)$ in the last step shows that Proposition~\ref{prop:upgen} alone gives
+$\limsup_{k\ \rm odd}\big(4k(\phi_k-\frac\pi2)-\log k\big)\le\log(128/\pi)=3.707$. Theorem~\ref{thm:sharp} gives the sharp value $\log(8\pi)=3.224$
+for both parities. The explicit lower bounds on the margin used in the last step are compared with the exact criterion at
+$k=200003$, $10^6+1$, $10^8+1$ and $10^{12}+1$ in the same script.
+\end{remark}
+
+\section{Lower bound: proof of Theorem~\ref{thm:lower}}
+
+Throughout, $p\le q$ (by symmetry), $a=2p-1$, $b=2q-1$, $L=\frac\pi2+\delta$ with $0<\delta\le0.2$, $t=\tan\delta$, and
+$M_{x,y}(\ell)=\int_0^\ell\sin^xu\,\sin^y(\ell-u)\,du$.
+
+\begin{lemma}[variance]\label{lem:var}
+Let $\mu=e^{-V}du$ be a probability measure on an interval, $V\in C^2$, $V''\ge\kappa>0$, and $(u-m)e^{-V}\to0$ at the endpoints,
+where $m=\int u\,d\mu$. Then $\operatorname{Var}_\mu(u)\le1/\kappa$. If moreover the interval has length $<\pi$ and $s=\arg\int e^{iu}d\mu$,
+then $\int\sin^2(u-s)\,d\mu\le\operatorname{Var}_\mu(u)$.
+\end{lemma}
+\begin{proof}
+Integrating by parts, $\int(u-m)V'(u)\,d\mu=1$. Also $\int(u-m)V'(m)\,d\mu=0$, and $(u-m)(V'(u)-V'(m))\ge\kappa(u-m)^2$. Hence
+$\kappa\operatorname{Var}\le1$. Next, $\sigma\mapsto\int\cos(u-\sigma)d\mu=|\int e^{iu}d\mu|\cos(\sigma-s)$ is maximal at $\sigma=s$. Hence
+$\int\sin^2(u-s)\le2\int(1-\cos(u-s))\le2\int(1-\cos(u-m))\le\int(u-m)^2$.
+\end{proof}
+
+\begin{lemma}\label{lem:Iin}
+$I_{\rm in}\le\frac12M_{a,b}(L)\,\kappa_\delta^{-1/2}$ with $\kappa_\delta=(\sqrt a+\sqrt b)^2/(1+\sin\delta)$.
+\end{lemma}
+\begin{proof}
+Apply Lemma~\ref{lem:var} to $A/M_{a,b}(L)=e^{-V}$, with $V''=a/\sin^2u+b/\sin^2(L-u)$. By Cauchy--Schwarz, $V''$ is at least
+$(\sqrt a+\sqrt b)^2/(\sin^2u+\sin^2(L-u))$, and $\sin^2u+\sin^2(L-u)=1-\cos L\cos(2u-L)\le1+\sin\delta$. Then
+$I_{\rm in}=\frac12M\int|\sin(u-s)|\le\frac12M(\int\sin^2(u-s))^{1/2}$.
+\end{proof}
+
+\begin{lemma}\label{lem:Iout}
+$I_{\rm out}\ge M_{a+1,b+1}(\pi-L)$.
+\end{lemma}
+\begin{proof}
+For $u\in[L,\pi]$ we have $u-s\in[u-L,u]\subset[0,\pi]$, so by concavity of $\sin$,
+$\sin(u-s)\ge\min(\sin u,\sin(u-L))\ge\sin u\sin(u-L)$. Substitute $v=u-L$ and use $\sin(L+v)=\sin(\pi-L-v)$.
+\end{proof}
+
+\begin{lemma}\label{lem:M}
+(a) $\ell\mapsto M_{x,y}(\ell)$ is log-concave on $(0,\pi)$ for $x,y\ge0$.
+(b) $M_{a,b}(\pi/2)=\frac12B(p,q)$, $M_{a+1,b+1}(\pi/2)=\frac12B(p+\frac12,q+\frac12)$.
+(c) $D_1:=(\log M_{a,b})'(\pi/2)=2\frac{\Gamma(p+1/2)\Gamma(q+1/2)}{\Gamma(p)\Gamma(q)}\le2\sqrt{pq}$.
+(d) Let $u\sim\sin^{a+1}u\cos^{b+1}u\,du$ on $(0,\pi/2)$ and $T=\tan u$. Then $(b+1)\mathbb E T=D_2:=2\frac{\Gamma(p+1)\Gamma(q+1)}{\Gamma(p+1/2)\Gamma(q+1/2)}$,
+and $\sin^2u\sim\mathrm{Beta}(p+\frac12,q+\frac12)$.
+\end{lemma}
+\begin{proof}
+(a) $M_{x,y}=h_x*h_y$ with $h_x=\sin^x\cdot1_{(0,\pi)}$ log-concave, and a convolution of log-concave functions is log-concave (Pr\'ekopa's theorem \cite{Pre}). (b),(d) are Beta integrals:
+$\int_0^{\pi/2}\sin^xu\cos^yu\,du=\frac12B(\frac{x+1}2,\frac{y+1}2)$. (c) $M'_{a,b}(\ell)=b\int\sin^au\sin^{b-1}(\ell-u)\cos(\ell-u)$, which at
+$\ell=\pi/2$ gives $bB(p+\frac12,q-\frac12)/B(p,q)$; simplify, and use Lemma~\ref{lem:wendel}.
+\end{proof}
+
+\begin{proposition}[explicit safety criterion]\label{prop:Phi}
+Let $\tau=(4/5)^{p-1/2}(1/5)^{q+1/2}/B(p+\frac12,q+\frac12)$ and suppose $\tau<1$, $t<1/2$. Define
+\[
+\Phi(p,q,\delta)=\log\tfrac{B(p,q)}{B(p+\frac12,q+\frac12)}+\delta D_1+\frac{tD_2}{(1-2t)(1-\tau)}-(b+1)\log\cos\delta-\log(1-\tau)-\log2-\tfrac12\log\kappa_\delta .
+\]
+If $\Phi(p,q,\delta)<0$, then $\Delta_{p,q}(\frac\pi2+\delta)>0$, and hence $L(p,q)>\frac\pi2+\delta$.
+\end{proposition}
+\begin{proof}
+By Lemmas~\ref{lem:Iin} and \ref{lem:Iout} it suffices that
+$\log M_{a,b}(\frac\pi2+\delta)-\log M_{a+1,b+1}(\frac\pi2-\delta)<\log2+\frac12\log\kappa_\delta$.
+By Lemma~\ref{lem:M}(a), $\log M_{a,b}(\frac\pi2+\delta)\le\log M_{a,b}(\frac\pi2)+\delta D_1$.
+Next, $M_{a+1,b+1}(\frac\pi2-\delta)=\int_0^{\pi/2-\delta}\sin^{a+1}u\cos^{b+1}(u+\delta)du$, and
+$\cos(u+\delta)=\cos\delta\cos u(1-tT)$. So $M_{a+1,b+1}(\frac\pi2-\delta)=\cos^{b+1}\delta\,M_{a+1,b+1}(\frac\pi2)\,\mathbb E(1-tT)_+^{b+1}$.
+On $\{T\le2\}$, $\log(1-tT)\ge-tT/(1-2t)$. By Jensen on the conditional law,
+$\mathbb E(1-tT)_+^{b+1}\ge P_0\exp(-(b+1)t\mathbb ET/((1-2t)P_0))$ with $P_0=\mathbb P(T\le2)$. Moreover
+$1-P_0=\mathbb P(\sin^2u>4/5)\le\tau$: the $\mathrm{Beta}(p+\frac12,q+\frac12)$ density is decreasing on $[4/5,1]$ because $p\le q$.
+Combine with Lemma~\ref{lem:M}(b),(d).
+\end{proof}
+
+\begin{proof}[Proof of Theorem~\ref{thm:lower}(i)]
+Fix $c<2\log2$ and put $\delta=(\log k+c)/(4k)$. We show $\max_{p\le q}\Phi<0$ for large $k$. Lemma~\ref{lem:wendel} gives
+$\log\frac{B(p,q)}{B(p+1/2,q+1/2)}\le\log k-\frac12\log(pq)+\frac12\log\big((1+\frac1{2p})(1+\frac1{2q})\big)$,
+$D_2\le2\sqrt{(p+\frac12)(q+\frac12)}$, and $D_1\le2\sqrt{pq}$. Also $\tau\le C\sqrt k\,(0.8)^k$ uniformly in $p\le q$, using
+$1/B(\alpha,\beta)\le2^{\alpha+\beta-1}\sqrt{(\alpha+\beta)/(2\pi)}$ (log-convexity of $\Gamma$ and duplication). Further
+$-\log\cos\delta\le\delta^2$, and $\frac t{\delta(1-2t)(1-\tau)}=1+O(\delta+\tau)$. Finally $\delta\sqrt{pq}\,(\frac1p)\le\delta\sqrt k\to0$,
+$k\delta^2\to0$, and $\delta k\,(\delta+\tau)\to0$. So, uniformly in $p$,
+\[
+\Phi\le F+o(1),\qquad F=-\log y+(\log k+c)y-\log2-\log(\sqrt a+\sqrt b)+\tfrac12\log(1+\tfrac1{2p}),\qquad y=\tfrac{\sqrt{pq}}k\in(0,\tfrac12].
+\]
+Since $(\sqrt a+\sqrt b)^2=2k-2+2\sqrt{(2p-1)(2q-1)}\ge2k(1+2y)-2-2/y$ and $1/y\le k/\sqrt{k-1}$, we have
+$\log(\sqrt a+\sqrt b)\ge\frac12\log(2k)+\frac12\log(1+2y)-o(1)$. Thus $F\le h(y)+\frac12\log(1+\frac1{2p})+o(1)$, where
+$h(y)=-\log y+(\log k+c)y-\frac12\log k-\frac32\log2-\frac12\log(1+2y)$ is convex.
+We have $h(\frac12)=\frac c2-\log2<0$, $h(y_{\min})=-\frac32\log2+o(1)$ with $y_{\min}=\sqrt{k-1}/k$, and
+$h(k^{-1/4})=-\frac14\log k-\frac32\log2+o(1)$. On $[k^{-1/4},\frac12]$, $p\ge ky^2\ge\sqrt k$, so the extra term is $o(1)$, and by convexity
+$h\le\max(h(k^{-1/4}),h(\frac12))<0$. On $[y_{\min},k^{-1/4}]$, the extra term is at most $\frac12\log\frac32<0.203$ and
+$h\le-\frac32\log2+o(1)<-1.03$. Hence $\Phi<0$ for all splits when $k$ is large. Proposition~\ref{prop:Phi} and Theorem~\ref{thm:crit}
+give $\phi_k>\frac\pi2+\delta$ for large $k$.
+\end{proof}
+
+\begin{proof}[Proof of Theorem~\ref{thm:lower}(ii)]
+Take $c=0$. For $k>2\cdot10^4$ the error terms in the previous proof are explicitly small. Here $\delta\le1.3\cdot10^{-4}$,
+$(1+3\delta)\delta\sqrt k/2\le0.009$ (the $1/p$ part of the $D_2$ correction, including the factor $\frac t{(1-2t)(1-\tau)}\le(1+3\delta)\delta$),
+$3k\delta^2\le10^{-3}$ (the $O(\delta)$ part),
+$2k\delta^2=(\log k)^2/(8k)\le7\cdot10^{-4}$ (the $\log\cos\delta$ term), the $\log(\sqrt a+\sqrt b)$ correction is
+$\le(1+k/\sqrt{k-1})/k<0.008$, and $\tau<10^{-900}$. The remaining terms are also small: $\frac12\log(1+\sin\delta)\le\delta/2$;
+$\frac12\log(1+\frac1{2q})\le\frac1{2k}$ (as $q\ge k/2$); the $1/q$ and $1/(pq)$ parts of the $D_2$ correction, at most
+$\frac{t}{(1-2t)(1-\tau)}\cdot2\sqrt{pq}\,(\frac1{4q}+\frac1{16pq})\le\delta$; and $-\log(1-\tau)\le2\tau$. Together they contribute $<3\cdot10^{-4}$.
+All these bounds decrease in $k$, and their total is $<0.02$.
+On the other side, $h(\frac12)=-\log2$, $h(k^{-1/4})\le-2.7$, and on the small-$p$ branch $h\le h(y_{\min})\le-0.976$, so even after
+adding $\frac12\log\frac32$ it stays $\le-0.77$. On the large-$p$ branch, $p\ge\sqrt k$ and the extra term $\frac12\log(1+\frac1{2p})$ is
+$\le\frac1{4\sqrt k}<0.002$. So in every case the error total is $<0.025$, against a margin of at least $0.69$. Hence $\Phi<0$.
+
+For $301\le k\le2\cdot10^4$ we certified $\Phi(p,k-p,\frac{\log k}{4k})<0$, together with the hypotheses $\tau<1$ and $t<\frac12$ of
+Proposition~\ref{prop:Phi}, in Arb ball arithmetic (precision $96$ bits) for each of the $99977500$ pairs $(k,p)$ with $p\le k/2$.
+All Gamma arguments are multiples of $\frac12$, so $\log\Gamma(n/2)$ is tabulated once. The largest upper endpoint of the certified enclosures of $\Phi$ is
+$-0.6127$, at $k=301$, $p=1$ (\texttt{numerics/bln\_lower\_arb.py}, output \texttt{numerics/lower\_arb.txt}; about $80$ seconds on $8$ cores).
+For $2\le k\le300$, the enclosures of Theorem~\ref{thm:cert} give $\phi_k-\frac\pi2-\frac{\log k}{4k}>0$; the smallest margin is $0.0026$, at
+$k=300$ (same script).
+\end{proof}
+
+\section{Sharp asymptotics: proof of Theorem~\ref{thm:sharp}}\label{sec:sharp}
+
+\begin{lemma}[Laplace bounds for strongly log-concave laws]\label{lem:laplace}
+Let $\mu=e^{-V}du/Z$ be a probability measure on an open interval $J$, $V\in C^2(J)$, $V''\ge\kappa>0$, and $e^{-V}\to0$ at the
+endpoints. Let $V'(u_1)=0$, $K=V''(u_1)$, $y=u-u_1$. Suppose $|V''-K|\le\eta K$ on $[u_1-w,u_1+w]\subset J$ with $\eta\le\frac12$, and
+put $\lambda=(1-\eta)Kw^2/2\ge1$. Then, with an absolute constant $C$:
+\[
+\Big|\mathbb E|y|-\sqrt{2/(\pi K)}\Big|\le C(\eta+e^{-\lambda})K^{-1/2},\qquad |\mathbb Ey|\le C(\eta+e^{-\lambda})K^{-1/2},\qquad
+\mathbb Ey^2\le\kappa^{-1},\quad\mathbb Ey^4\le3\kappa^{-2}.
+\]
+\end{lemma}
+\begin{proof}
+Let $\varphi(y)=V(u_1+y)-V(u_1)$ and $K_\pm=(1\pm\eta)K$. For $|y|\le w$, Taylor's formula gives $K_-y^2/2\le\varphi\le K_+y^2/2$. For
+$|y|>w$, convexity and $\varphi'(\pm w)\gtrless\pm K_-w$ give $\varphi(y)\ge K_-w(|y|-w/2)$. Hence the parts of $\int e^{-\varphi}$ and
+$\int|y|e^{-\varphi}$ over $|y|>w$ are at most $\frac2{K_-w}e^{-\lambda}$ and $\frac{2e^{-\lambda}}{K_-w}(w+\frac1{K_-w})$. Over $|y|\le w$
+they lie between the corresponding Gaussian integrals with $K_+$ and $K_-$, namely $\sqrt{2\pi/K_\pm}\,(1-O(e^{-\lambda}))$ and
+$\frac2{K_\pm}(1-O(e^{-\lambda}))$. Taking ratios gives the first bound. For the second, compare $\int_0^wye^{-\varphi}$ and
+$\int_{-w}^0|y|e^{-\varphi}$; both lie in $[\frac1{K_+}(1-e^{-\lambda}),\frac1{K_-}]$. The last two bounds come from integrating
+$y^{2j-1}V'(u_1+y)\ge\kappa y^{2j}$ by parts ($j=1,2$).
+\end{proof}
+
+Fix $\epsilon=\frac15$ and call a split \emph{central} if $\epsilon k\le p\le q$ and \emph{extreme} if $p<\epsilon k$ (with $p\le q$).
+Throughout, $o(1)$ is uniform over central splits as $k\to\infty$, and $0\le\delta\le2\log k/k$, $L=\frac\pi2+\delta$, $L'=\pi-L$.
+Write $u_1(\ell)$ for the mode of $A_\ell=\sin^au\sin^b(\ell-u)$ on $(0,\ell)$, and $r_{ab}=2\sqrt{ab}/(a+b)$.
+
+\begin{lemma}[central splits]\label{lem:central}
+(a) $\tan^2u_1(\frac\pi2)=a/b$, $|u_1'(\ell)|\le1$, and $K(\ell):=V_\ell''(u_1(\ell))=2N(1+O(|\ell-\frac\pi2|))$. Moreover $|V_\ell'''|=O(N)$ within distance $0.1$ of $u_1(\ell)$.
+(b) $I_{\rm in}=\frac12M_{a,b}(L)(\pi N)^{-1/2}(1+o(1))$.
+(c) $I_{\rm out}=M_{a,b}(L')\,r_{ab}(1+o(1))$.
+(d) $\Psi:=\log M_{a,b}(L)-\log M_{a,b}(L')=2\delta D_1+O(N\delta^2)+o(1)$, and $D_1=2\sqrt{pq}(1+O(1/k))$.
+\end{lemma}
+\begin{proof}
+(a) $u_1$ solves $F(u,\ell):=a\cot u-b\cot(\ell-u)=0$, and $u_1'=-\partial_\ell F/\partial_uF=\frac{b\csc^2(\ell-u)}{a\csc^2u+b\csc^2(\ell-u)}\in(0,1)$.
+At $\ell=\frac\pi2$, $\sin^2u_1=a/N$, so $K=a\cdot\frac Na+b\cdot\frac Nb=2N$. For central splits $\tan^2u_1(\frac\pi2)\in[\frac18,1]$, so
+$u_1$ and $\ell-u_1$ stay at distance $\ge0.25$ from $0$ for $|\ell-\frac\pi2|\le0.05$. On that range $\csc^2$ and $\csc^2\cdot\cot$ are
+bounded, which gives the remaining claims.
+(b) Apply Lemma~\ref{lem:laplace} to $A_L/M$, with $\kappa\ge N/2$ (Lemma~\ref{lem:Iin}), $w=N^{-1/3}$, $\eta=O(N^{-1/3})$ and
+$\lambda\asymp N^{1/3}$. We get $\mathbb E|y|=(\pi N)^{-1/2}(1+o(1))$ and $\mathbb Ey=o(N^{-1/2})$. From $\mathbb E\sin(u-s)=0$,
+$\tan(s-u_1)=\mathbb E\sin y/\mathbb E\cos y$, and $|\mathbb E\sin y-\mathbb Ey|\le\mathbb E|y|^3=O(N^{-3/2})$. To pass to $s-u_1$ itself,
+note that $\mathbb E\cos y\ge1-\frac12\mathbb Ey^2\ge1-\frac1N$. Also $s$ maximizes $\sigma\mapsto\mathbb E\cos(u-\sigma)$, so
+$\mathbb E\cos(u-s)\ge\mathbb E\cos y$. If $|s-u_1|\ge\frac\pi2$, then $\mathbb E\cos(u-s)\le|\mathbb E\sin y|\le\mathbb E|y|<\mathbb E\cos y$, a contradiction.
+Hence $|s-u_1|<\frac\pi2$, and $s-u_1=\arctan(\mathbb E\sin y/\mathbb E\cos y)=o(N^{-1/2})$.
+Hence $\mathbb E|\sin(u-s)|=\mathbb E|y|+O(|s-u_1|+\mathbb E|y|^3+|s-u_1|^3)=(\pi N)^{-1/2}(1+o(1))$, and
+$I_{\rm in}=\frac12M\,\mathbb E|\sin(u-s)|$.
+(c) The substitution $v=\pi-u$ maps the outer density to $A_{L'}$ and $\sin(u-s)$ to $\sin(v+s)$. By (a) and Lemma~\ref{lem:laplace},
+$\mathbb E|v-u_1(L')|=O(N^{-1/2})$. Also $v_1+s=u_1(L')+u_1(L)+o(1)=2u_1(\frac\pi2)+O(\delta)+o(1)$, and
+$\sin2u_1(\frac\pi2)=\frac{2\sqrt{a/b}}{1+a/b}=r_{ab}$, and $r_{ab}\ge0.79$ for central splits once $k$ is large (the limit value at
+$p=\epsilon k$ is $0.8$). Hence $\mathbb E\sin(v+s)=r_{ab}(1+o(1))$.
+(d) Upper bound: $\log M(\frac\pi2+\delta)\le\log M(\frac\pi2)+\delta D_1$ by concavity. Also $M(\frac\pi2-\delta)=\cos^b\delta\,M(\frac\pi2)\,\mathbb E_0(1-tT)_+^b$,
+and on $\{T\le1/(2t)\}$, $(1-tT)^b\ge e^{-btT-bt^2T^2}$. By Jensen, with $b\mathbb E_0T=D_1$, $\mathbb E_0T^2=\frac p{q-1}\le2$, and
+$\mathbb P(T>\frac1{2t})\le\mathbb E_0T^{b}(2t)^{b}$ super-polynomially small, we get
+$\log M(\frac\pi2-\delta)\ge\log M(\frac\pi2)-tD_1-O(N\delta^2)$. Lower bound: by concavity
+$\log M(\frac\pi2-\delta)\le\log M(\frac\pi2)-\delta D_1$; and as in Proposition~\ref{prop:upgen},
+$\log M(\frac\pi2+\delta)\ge\log M(\frac\pi2)+tD_1-O(N\delta^2)$. Since $t-\delta=O(\delta^3)$, (d) follows; the bound on $D_1$ is Lemma~\ref{lem:wendel}.
+\end{proof}
+
+\begin{proof}[Proof of Theorem~\ref{thm:sharp}]
+By Theorem~\ref{thm:crit}, a split is safe at $L$ iff $\log I_{\rm out}>\log I_{\rm in}$. For central splits, by Lemma~\ref{lem:central},
+this is iff $\Psi<\log(2r_{ab}\sqrt{\pi N})+o(1)$. Put $\delta=(\log k+c)/(4k)$ and $r=2\sqrt{pq}/k\in[0.8,1]$. Then $r_{ab}=r(1+O(1/k))$,
+$N=2k-2$, and $N\delta^2=o(1)$. So the condition reads
+\[
+\tfrac r2(\log k+c)<\tfrac12\log k+\tfrac12\log(8\pi)+\log r+o(1).\tag{$\ast$}
+\]
+\emph{Upper bound.} The balanced split ($p=\lfloor k/2\rfloor$) has $r=1-O(k^{-2})$. By $(\ast)$ it is unsafe for $c>\log8\pi$ and $k$ large.
+Hence $\phi_k\le L(\lfloor\frac k2\rfloor,\lceil\frac k2\rceil)\le\frac\pi2+\frac{\log k+\log8\pi+o(1)}{4k}$.
+\emph{Lower bound, central splits.} Let $c=\log8\pi-\epsilon'$. Using $\log r\ge-(1-r)/r\ge-\frac54(1-r)$, the right side of $(\ast)$ minus the
+left side is at least $(1-r)\big(\frac12\log k+\frac12\log8\pi-\frac54\big)+\frac r2\epsilon'-o(1)\ge0.4\epsilon'-o(1)>0$. So every central split
+is safe for large $k$.
+\emph{Lower bound, extreme splits.} The proof of Theorem~\ref{thm:lower}(i) applies verbatim with $c=\log8\pi$ in the range
+$y=\sqrt{pq}/k\le\sqrt{p/k}<\sqrt\epsilon$. There $h(\sqrt\epsilon)=(\sqrt\epsilon-\frac12)\log k+O(1)\to-\infty$ and
+$h(y_{\min})\to-\frac32\log2$, so by convexity $\Phi<0$ for large $k$, uniformly over extreme splits.
+Hence $\phi_k=\min_pL(p,k-p)\ge\frac\pi2+\frac{\log k+\log8\pi-\epsilon'}{4k}$ for large $k$, for every $\epsilon'>0$.
+\end{proof}
+
+\section{All sufficiently large $k$: proof of Theorem~\ref{thm:large}}\label{sec:large}
+
+Write $L_{\rm bal}=L(\lfloor\frac k2\rfloor,\lceil\frac k2\rceil)$. By symmetry we only consider $p\le q$.
+
+\begin{lemma}[far-from-balanced splits]\label{lem:outer}
+There is $K_A$ such that for $k\ge K_A$ every split with $p\le q$ and $p\le0.41k$ satisfies $L(p,k-p)>L_{\rm bal}$.
+\end{lemma}
+\begin{proof}
+By the upper-bound part of the proof of Theorem~\ref{thm:sharp}, $L_{\rm bal}<\frac\pi2+\frac{\log k+\log8\pi+1/40}{4k}$ for large $k$. Let
+$c_+=\log8\pi+\frac1{20}$ and $\delta_+=(\log k+c_+)/(4k)$. For a central split ($p\ge k/5$) with $p\le0.41k$ we have $r=2\sqrt{pq}/k\in[0.8,0.984]$. At $c=c_+$ the right side of
+$(\ast)$ minus the left side equals $\frac{1-r}2(\log k+\log8\pi)-\frac r{40}+\log r\ge0.008\log k-\frac14$. This tends to $\infty$, so the split is safe at $\delta_+$ for large $k$. For
+extreme splits ($p<k/5$) we repeat the proof of Theorem~\ref{thm:lower}(i) with $c=c_+$, in the range $y=\sqrt{pq}/k<0.4$. The restriction $c<2\log2$ in that proof is used
+only at $y=\frac12$, which lies outside this range. Here $h(0.4)=(0.4-\frac12)\log k+O(1)\to-\infty$ and $h(y_{\min})\to-\frac32\log2$. Since $h$ is convex, $\Phi\le\max h+\frac12\log\frac32+o(1)<0$, and
+Proposition~\ref{prop:Phi} shows these splits are safe at $\delta_+$. In both cases $L(p,q)>\frac\pi2+\delta_+>L_{\rm bal}$.
+\end{proof}
+
+\subsection*{Setting for near-balanced splits}
+For the rest of this section $a,b>0$ are real, $N=a+b$, $x=a/N\in[0.4,0.6]$, and $\ell\in\Lambda:=[\frac\pi2-\frac1{10},\frac\pi2+\frac1{10}]$.
+(For the splits of $k$ we have $N=2k-2$.)
+Let $\mu=\mu_{a,\ell}$ be the probability measure on $(0,\ell)$ with density $A_\ell/M_{a,b}(\ell)$, where $A_\ell(u)=\sin^au\,\sin^b(\ell-u)=e^{-V(u)}$. Write $E$, $\operatorname{Var}$, $\operatorname{Cov}$ for its
+moments, $u_1$ for its mode ($V'(u_1)=0$), and $\psi_\ell(u)=\log\sin u-\log\sin(\ell-u)$, so that $\partial_aV=-\psi_\ell$ when $b=N-a$ with $N$ fixed,
+and $\partial_bV=-\log\sin(\ell-u)$ when $a$ is fixed. Put
+$\Theta(u)=1+|\log\sin u|+|\log\sin(\ell-u)|+|\cot u|+|\cot(\ell-u)|$, $B=[u_1-\frac14,u_1+\frac14]$ and $B_1=[u_1-\frac1{14},u_1+\frac1{14}]$.
+Constants $C,C_m,c_0$ and the implied constants in $O(\cdot)$ do not depend on $a,\ell,N$. All statements hold for $N\ge N_1$, where $N_1$ may depend on the
+number of moments used.
+
+\begin{lemma}[geometry]\label{lem:geo}
+(i) $u_1,\ \ell-u_1\in[0.58,0.99]$. (ii) $V''\ge N$ on $(0,\ell)$. (iii) On $B$: $\sin u,\sin(\ell-u)\ge0.32$, $V''\le10N$, $|V^{(j)}|\le CN$ and
+$|\psi_\ell^{(j)}|\le C$ for $j\le5$. (iv) On $(0,\ell)$: $|\psi_\ell^{(j)}|\le C\Theta^{j+1}$ and $|V^{(j)}|\le CN\Theta^{j}$ for $1\le j\le5$.
+\end{lemma}
+\begin{proof}
+$u_1$ solves $a\cot u=b\cot(\ell-u)$, and $0<\partial_\ell u_1<1$ (proof of Lemma~\ref{lem:central}(a)). At $\ell=\frac\pi2$, $\tan^2u_1=a/b\in[\frac23,\frac32]$,
+so $u_1$ and $\frac\pi2-u_1$ lie in $[0.684,0.887]$; this gives (i). (ii) holds because $\csc^2\ge1$. On $B$ both $u$ and $\ell-u$ lie in $[0.33,1.24]$, which gives (iii). (iv) holds
+because the derivatives of $\log\sin$ are polynomials in $\cot$.
+\end{proof}
+
+\begin{lemma}[tails and moments]\label{lem:mom}
+(i) $Z:=\int_0^\ell e^{-(V-V(u_1))}du\ge c_0N^{-1/2}$, so the density of $\mu$ is at most $C\sqrt N$. (ii) $E|u-u_1|^m\le C_mN^{-m/2}$.
+(iii) $E[\Theta^m;\,u\notin B_1]\le C_me^{-N/700}$.
+\end{lemma}
+\begin{proof}
+(i) On $B$, $V-V(u_1)\le5N(u-u_1)^2$. (ii) By Lemma~\ref{lem:geo}(ii), $V(u)-V(u_1)\ge\frac N2(u-u_1)^2$, so
+$E|u-u_1|^m\le Z^{-1}\int|y|^me^{-Ny^2/2}dy$. (iii) Off $B_1$ we have $V-V(u_1)\ge N/392$. With $\theta=1/600$,
+$e^{-(V-V(u_1))}\le e^{-(1-\theta)N/392}e^{\theta V(u_1)}A_\ell^{\theta}$, and $e^{\theta V(u_1)}\le(\sin0.58)^{-\theta N}\le e^{0.61\theta N}$. Hence the left side is at
+most $Z^{-1}e^{-0.00153N}\int_0^\ell\Theta^mA_\ell^\theta\,du$, and the last integral is bounded once $\theta a,\theta b\ge m+2$.
+\end{proof}
+
+\begin{lemma}[Stein identities]\label{lem:stein}
+(i) If $g\in C^1(0,\ell)$ and $|g|+|g'|\le C\Theta^m$, then $E\,g'(u)=E[g(u)V'(u)]$.
+(ii) Let $|c-u_1|\le C/N$ and $y=u-c$. Then $Ey=O(N^{-1})$, $Ey^2=V''(c)^{-1}+O(N^{-2})$, $Ey^3=O(N^{-2})$, and $E|y|^m=O(N^{-m/2})$.
+\end{lemma}
+\begin{proof}
+(i) Integrate by parts on $(\epsilon,\ell-\epsilon)$; the boundary terms vanish because $e^{-V}$ vanishes to order $\ge0.4N$ at $0$ and $\ell$.
+(ii) The moment bound follows from Lemma~\ref{lem:mom}(ii). By Lemma~\ref{lem:geo}, $|V'(c)|=|V'(c)-V'(u_1)|\le C$, and on $B_1$
+$V'(u)=V'(c)+V''(c)y+\frac12V'''(c)y^2+R$ with $|R|\le CN|y|^3$. The contributions of $u\notin B_1$ to the identities below are
+$O(e^{-N/800})$ by Lemma~\ref{lem:mom}(iii), since $|V'|\le N\Theta$. Applying (i) with $g=1$, $g=y^2$ and $g=y$:
+$0=V'(c)+V''(c)Ey+O(NEy^2)$, so $Ey=O(N^{-1})$. Next $2Ey=V'(c)Ey^2+V''(c)Ey^3+O(NEy^4)$, so $Ey^3=O(N^{-2})$. Finally
+$1=V'(c)Ey+V''(c)Ey^2+\frac12V'''(c)Ey^3+O(NEy^4)$, so $Ey^2=V''(c)^{-1}+O(N^{-2})$.
+\end{proof}
+
+\begin{lemma}[smooth functionals]\label{lem:func}
+Let $F,G\in C^3(0,\ell)$, possibly depending on $a$ and $\ell$, with $|F^{(j)}|,|G^{(j)}|\le C$ on $B$ for $j\le3$ and $|F|,|G|\le C\Theta^m$ on $(0,\ell)$. Then
+$EF=F(u_1)+O(N^{-1})$, $\operatorname{Cov}(F,G)=F'(u_1)G'(u_1)/V''(u_1)+O(N^{-2})$ (in particular $\operatorname{Cov}(F,G)=O(N^{-1})$ and
+$\operatorname{Var}F=F'(u_1)^2/V''(u_1)+O(N^{-2})$), and $\kappa(F,G,G):=E[(F-EF)(G-EG)^2]=O(N^{-2})$.
+\end{lemma}
+\begin{proof}
+Let $y=u-u_1$ and $Y=y-Ey$. By Lemma~\ref{lem:stein} with $c=u_1$: $Ey=O(N^{-1})$, $EY^3=Ey^3-3EyEy^2+2(Ey)^3=O(N^{-2})$, and
+$\operatorname{Var}y=V''(u_1)^{-1}+O(N^{-2})$. On $B_1$ write $F=F(u_1)+F'(u_1)y+R_F$ with $|R_F|\le Cy^2$, and $R_F=\frac12F''(u_1)y^2+R'_F$ with
+$|R'_F|\le C|y|^3$; similarly for $G$. Contributions from $u\notin B_1$ are exponentially small by Lemma~\ref{lem:mom}(iii). The first claim follows.
+Next, $\operatorname{Cov}(F,G)=F'G'\operatorname{Var}y+F'\operatorname{Cov}(y,R_G)+G'\operatorname{Cov}(y,R_F)+\operatorname{Cov}(R_F,R_G)$. Here
+$\operatorname{Cov}(y,R_F)=\frac12F''\operatorname{Cov}(y,y^2)+\operatorname{Cov}(y,R'_F)=O(N^{-2})$, since $\operatorname{Cov}(y,y^2)=Ey^3-EyEy^2$. The same holds
+for $G$, and $|\operatorname{Cov}(R_F,R_G)|\le(ER_F^2\,ER_G^2)^{1/2}=O(N^{-2})$. Finally $F-EF=F'(u_1)Y+Q_F$ with $|Q_F|\le C(y^2+N^{-1})$ on $B_1$, and similarly for $G$. Expanding,
+$\kappa=F'G'^2EY^3+E\,O(Y^2|Q|+|Y||Q|^2+|Q|^3)$, where $|Q|=|Q_F|+|Q_G|$, and this is $O(N^{-2})$.
+\end{proof}
+
+\begin{lemma}[odd functions]\label{lem:odd}
+Let $|c-u_1|\le C/N$. Suppose that for $|y|\le\frac1{15}$ we have $g(c+y)=-g(c-y)$ and $|g(c+y)|\le|y|^m$, and that $|g|\le C\Theta^{m'}$ on $(0,\ell)$. Then $Eg(u)=O(N^{-(m+1)/2})$.
+\end{lemma}
+\begin{proof}
+Let $\Xi(y)=V(c+y)-V(c)$, so $Eg=\int g(c+y)e^{-\Xi(y)}dy\big/\int e^{-\Xi(y)}dy$. For $|y|\le\frac1{15}$ we have $c+y\in B_1$. There
+$|\Xi'(0)|=|V'(c)|\le C$, $N\le\Xi''\le10N$ and $|\Xi'''|\le CN$, so $-C|y|+\frac N2y^2\le\Xi(\pm y)\le C|y|+5Ny^2$ and $|\Xi(y)-\Xi(-y)|\le C(|y|+N|y|^3)$.
+Hence $\int e^{-\Xi}\ge c_0N^{-1/2}$. By oddness,
+\begin{align*}
+\Big|\int_{-1/15}^{1/15}g(c+y)e^{-\Xi(y)}dy\Big|&=\Big|\int_0^{1/15}g(c+y)\big(e^{-\Xi(y)}-e^{-\Xi(-y)}\big)dy\Big|\\
+&\le C\int_0^\infty y^m(y+Ny^3)e^{Cy-Ny^2/2}dy=O(N^{-\frac{m+2}2}).
+\end{align*}
+The rest of the domain contributes $O(e^{-N/800})\int e^{-\Xi}$: on $B_1$ because $\Xi(y)\ge-C|y|+\frac N2y^2$ with $|y|>\frac1{15}$, and off $B_1$ by Lemma~\ref{lem:mom}(iii).
+\end{proof}
+
+\begin{lemma}[the angular mean]\label{lem:s}
+Let $\ell=L$ and let $s=s(a)\in(0,L)$ be defined by $E\sin(u-s)=0$, as in Theorem~\ref{thm:crit}. Then $|s-u_1|=O(N^{-1})$, $s'(a)=\psi_L'(s)/V''(s)+O(N^{-2})$ (in particular
+$s'=O(N^{-1})$), and $s''(a)=O(N^{-2})$. Here derivatives are taken in $a$ with $b=N-a$ and $L$ fixed. Also $\partial_bs=O(N^{-1})$ when $a$ and $L$ are fixed.
+\end{lemma}
+\begin{proof}
+With $y_1=u-u_1$, $s-u_1$ is an argument of $Ee^{iy_1}$, since $s=\arg Ee^{iu}$. Moreover $E\cos y_1\ge\frac12$, so $\operatorname{Re}Ee^{iy_1}>0$, and $|s-u_1|<L<\frac{3\pi}2$.
+Hence $s-u_1$ is the principal argument, $\tan(s-u_1)=E\sin y_1/E\cos y_1$, and $|s-u_1|\le C|E\sin y_1|=O(N^{-1})$ because $E\sin y_1=Ey_1+O(E|y_1|^3)$.
+The $a$-derivative of the log-density of $\mu$ is $\psi-E\psi$, with $\psi=\psi_L$. Differentiating $E\sin(u-s(a))=0$ gives $s'=P/Q$ with
+$P=\operatorname{Cov}(\sin(u-s),\psi)$ and $Q=E\cos(u-s)=1+O(N^{-1})$. Put $y=u-s$ and Taylor-expand $\psi$ at $s$ on $B_1$:
+\[
+P=(\psi(s)-E\psi)E\sin y+\psi'(s)E[y\sin y]+\tfrac12\psi''(s)E[y^2\sin y]+O(Ey^4)=\psi'(s)Ey^2+O(N^{-2}).
+\]
+This uses $E\sin y=0$, $E[y\sin y]=Ey^2+O(Ey^4)$ and $E[y^2\sin y]=Ey^3+O(E|y|^5)=O(N^{-2})$ (Lemma~\ref{lem:stein}(ii) with $c=s$). Since $Ey^2=V''(s)^{-1}+O(N^{-2})$,
+the formula for $s'$ follows. Next, $P'=\kappa(\sin(u-s),\psi,\psi)-s'\operatorname{Cov}(\cos(u-s),\psi)=O(N^{-2})$ and
+$Q'=\operatorname{Cov}(\cos(u-s),\psi)+s'E\sin(u-s)=O(N^{-1})$, both by Lemma~\ref{lem:func}. So $s''=(P'Q-PQ')/Q^2=O(N^{-2})$.
+Finally, differentiating $E\sin(u-s)=0$ in $b$ gives $\partial_bs=\operatorname{Cov}(\sin(u-s),\log\sin(L-u))/Q=O(N^{-1})$.
+\end{proof}
+
+\subsection*{The three terms}
+Fix $L=\frac\pi2+\delta\in\Lambda$ with $\delta\ge0$, and $L'=\pi-L$. Let $\mu=\mu_{a,L}$ (variable $u$) and $\mu'=\mu_{a,L'}$ (variable $v$), with
+expectations $E$ and $E'$. Theorem~\ref{thm:crit}, together with the substitution $v=\pi-u$ in $I_{\rm out}$, gives $I_{\rm in}=\frac12M_{a,b}(L)\,E|\sin(u-s)|$ and
+$I_{\rm out}=M_{a,b}(L')\,E'\sin(v+s)$. Hence
+\[
+G(a):=\log I_{\rm in}-\log I_{\rm out}=T_1+T_2-T_3-\log2,
+\]
+\[
+T_1=\log\frac{M_{a,b}(L)}{M_{a,b}(L')},\qquad T_2=\log E|\sin(u-s)|,\qquad T_3=\log E'\sin(v+s),
+\]
+with $b=N-a$ and $s=s(a)$. Primes denote derivatives in $a$.
+
+\begin{proposition}[mass term]\label{prop:T1}
+$T_1''\le-4\delta/N+C(\delta^3N^{-1}+N^{-2})$.
+\end{proposition}
+\begin{proof}
+$\partial_a^2\log M_{a,N-a}(\ell)=\operatorname{Var}_{\mu_{a,\ell}}(\psi_\ell)$. By Lemma~\ref{lem:func} this equals $q(x,\ell)/N+O(N^{-2})$, where
+$q=\psi_\ell'(u_1)^2/K$ and $K=V''(u_1)/N=x\csc^2u_1+(1-x)\csc^2(\ell-u_1)$. Put $\gamma=\cot u_1$. The mode equation $x\cot u_1=(1-x)\cot(\ell-u_1)$ gives
+$\psi_\ell'(u_1)=\gamma/(1-x)$, $K=1+x\gamma^2/(1-x)$ and $q=\gamma^2/\big((1-x)(1-x+x\gamma^2)\big)$. Hence $\partial q/\partial\gamma=2\gamma/(1-x+x\gamma^2)^2$,
+$\partial_\ell u_1=(1-x)\csc^2(\ell-u_1)/K$ and $\partial_\ell\gamma=-\csc^2u_1\,\partial_\ell u_1$. At $\ell=\frac\pi2$ we have $\gamma^2=(1-x)/x$, $K=2$ and $\partial_\ell u_1=\frac12$, so
+\[
+\partial_\ell q(x,\tfrac\pi2)=-\frac\gamma{2(1-x)^2}\cdot\frac1{2x}=-\frac1{4\,(x(1-x))^{3/2}}\le-2 .
+\]
+Since $q$ is real-analytic on $[0.4,0.6]\times\Lambda$, $q(x,L)-q(x,L')=2\delta\,\partial_\ell q(x,\frac\pi2)+O(\delta^3)$, and
+$T_1''=(q(x,L)-q(x,L'))/N+O(N^{-2})$.
+\end{proof}
+
+\begin{proposition}[outer term]\label{prop:T3}
+$|T_3''|\le CN^{-2}$.
+\end{proposition}
+\begin{proof}
+Let $F_a(v)=\sin(v+s(a))$ and $\chi=\psi_{L'}$. On the set $B$ of $\mu'$ we have $v+s\in[0.9,2.24]$ by Lemmas~\ref{lem:geo}(i) and \ref{lem:s}, so
+$F_a\ge0.78$ there and $E'F_a\ge\frac12$. The $a$-derivative of the log-density of $\mu'$ is $\chi-E'\chi$. Therefore
+\begin{align*}
+(E'F_a)'&=\operatorname{Cov}'(F_a,\chi)+s'E'\cos(v+s),\\
+(E'F_a)''&=\kappa'(F_a,\chi,\chi)+2s'\operatorname{Cov}'(\cos(v+s),\chi)+s''E'\cos(v+s)-s'^2E'F_a .
+\end{align*}
+By Lemmas~\ref{lem:func} and \ref{lem:s}, $(E'F_a)'=O(N^{-1})$ and $(E'F_a)''=O(N^{-2})$, so
+$T_3''=(E'F_a)''/E'F_a-((E'F_a)'/E'F_a)^2=O(N^{-2})$.
+\end{proof}
+
+\begin{proposition}[inner term]\label{prop:T2}
+$|T_2''|\le CN^{-2}$.
+\end{proposition}
+\begin{proof}
+We work in the frame that moves with $s$. Let $q_a(y)=A_L(s(a)+y)/M_{a,b}(L)$ for $y\in(-s,L-s)$, extended by $0$; this is the density of $y=u-s$.
+Then $h(a):=E|\sin(u-s)|=\int|\sin y|\,q_a(y)\,dy$, and since $\partial_aV=-\psi$ and $\partial_a\log M_{a,b}(L)=E\psi$,
+\begin{align*}
+S_a(y)&:=\partial_a\log q_a(y)=\psi(s+y)-E\psi-s'V'(s+y),\\
+\partial_aS_a(y)&=2s'\psi'(s+y)-\operatorname{Var}\psi-s''V'(s+y)-s'^2V''(s+y).
+\end{align*}
+$A_L$ vanishes to order $\ge0.4N$ at $0$ and $L$. Hence $q_a(y)$ and its first two $a$-derivatives (which equal $q_aS_a$ and
+$q_a(S_a^2+\partial_aS_a)$ inside the support) extend continuously by $0$. They are bounded uniformly on $\{|y|\le L\}\times[a_0-\eta,a_0+\eta]$ for
+small $\eta>0$, so we may differentiate under the integral sign. This gives
+$E_q[S_a]=0$ and $E_q[S_a^2+\partial_aS_a]=0$ (differentiate $\int q_a=1$ twice), together with
+\[
+(\log h)''=\operatorname{Var}_w(S_a)+E_w[\partial_aS_a],\qquad E_w[f]:=E_q[|\sin y|\,f]/h .
+\]
+\emph{Size of $S_a$.} By Lemma~\ref{lem:func}, $E\psi=\psi(u_1)+O(N^{-1})$. By Lemma~\ref{lem:s}, $|s-u_1|=O(N^{-1})$, $|V'(s)|\le C$ and
+$s'=\psi'(s)/V''(s)+O(N^{-2})$. Hence $S_a(0)=O(N^{-1})$, $\partial_yS_a(0)=\psi'(s)-s'V''(s)=O(N^{-1})$, and
+$\partial_y^2S_a=\psi''-s'V'''=O(1)$ on $B_1-s$. So $|S_a(y)|\le C(N^{-1}+y^2)$ for $s+y\in B_1$, while $|S_a|\le CN\Theta(s+y)^2$ everywhere.
+\emph{Lower bound for $h$.} The density of $u$ is at most $C\sqrt N$ (Lemma~\ref{lem:mom}(i)). With $t=c_0N^{-1/2}$ small enough we get $\mathbb P(|y|\le t)\le\frac12$.
+Since $|y|<L<1.7$ we have $|\sin y|\ge\frac12\min(|y|,1)$, hence $h\ge\frac12E\min(|y|,1)\ge\frac t4\ge cN^{-1/2}$.
+\emph{Variance part.} $\operatorname{Var}_w(S_a)\le E_q[|\sin y|S_a^2]/h\le C\,E_q[|y|(N^{-1}+y^2)^2]/h+O(e^{-N/800})=O(N^{-2})$.
+\emph{Drift part.} Let $D(y)=\partial_aS_a(y)-\partial_aS_a(0)$. Since $E_w-E_q$ annihilates constants,
+$E_w[\partial_aS_a]=E_q[\partial_aS_a]+(E_w-E_q)[D]$, and $E_q[\partial_aS_a]=-E_q[S_a^2]=O(N^{-2})$. On $B_1-s$, using $s'=O(N^{-1})$,
+$s''=O(N^{-2})$ and Lemma~\ref{lem:geo}(iii), we have $D(y)=\beta y+D_2(y)$ with $\beta=2s'\psi''(s)-s''V''(s)-s'^2V'''(s)=O(N^{-1})$ and $|D_2(y)|\le Cy^2/N$.
+Everywhere $|D|\le C\Theta(s+y)^4$. Moreover $E_qy=Eu-s=O(N^{-1})$, and $E_wy=E[|\sin(u-s)|(u-s)]/h=O(N^{-3/2})/h=O(N^{-1})$ by
+Lemma~\ref{lem:odd} with $m=2$. Also $E_wy^2+E_qy^2=O(N^{-1})$. Hence $(E_w-E_q)[D]=\beta(E_wy-E_qy)+O(N^{-2})=O(N^{-2})$.
+So $(\log h)''=O(N^{-2})$, and $T_2=\log h$.
+\end{proof}
+
+\begin{proof}[Proof of Theorem~\ref{thm:large}]
+Let $L=L_{\rm bal}$ and $\delta=L-\frac\pi2$. Then $\delta\ge\phi_k-\frac\pi2>\frac{\log k}{4k}$ for large $k$ by Theorem~\ref{thm:lower}(i). The upper-bound part of the proof of
+Theorem~\ref{thm:sharp} gives $\delta\le\frac{\log k+\log8\pi+1}{4k}\le\frac{2\log k}k$ for large $k$, so $L\in\Lambda$.
+By Lemma~\ref{lem:outer} it remains to treat splits with $0.41k<p\le q$. For these $a=2p-1\in[0.4N,0.6N]$ when $k\ge10$.
+By Propositions~\ref{prop:T1}--\ref{prop:T2}, for all real $a\in[0.4N,0.6N]$,
+\[
+G''(a)\le-\frac{4\delta}N+C\Big(\frac{\delta^3}N+\frac1{N^2}\Big)\le-\frac{\log k}{kN}+\frac{C'}{N^2}<0\qquad(k\ge K_B).
+\]
+Moreover $G(a)=G(N-a)$. Indeed, $u\mapsto L-u$ and $s\mapsto L-s$ exchange $a$ and $b$ in $I_{\rm in}$, and $u\mapsto\pi+L-u$ does so in $I_{\rm out}$.
+The balanced exponents $a_{\rm bal}=2\lfloor\frac k2\rfloor-1$ and $N-a_{\rm bal}$ satisfy $G=0$ at $L$.
+If $k$ is even, then $a_{\rm bal}=\frac N2$ is the maximum point of the strictly concave symmetric function $G$, so $G(a)<0$ for every other $a$ in the window.
+If $k$ is odd, then $G(\frac N2\pm1)=0$ and strict concavity gives $G<0$ outside $[\frac N2-1,\frac N2+1]$; every other admissible $a=2p-1$ satisfies $|a-\frac N2|\ge3$.
+In both cases every non-balanced split in the window has $I_{\rm out}>I_{\rm in}$ at $L$, i.e.\ $\Delta_{p,q}(L)>0$, and hence $L(p,q)>L_{\rm bal}$ by Theorem~\ref{thm:crit}.
+Take $K_0=\max(K_A,K_B,10)$.
+\end{proof}
+
+\subsection*{Monotonicity}
+\begin{proposition}[derivatives in $b$]\label{prop:Tb}
+Let $L=\frac\pi2+\delta\in\Lambda$ with $\delta\ge0$, and let $T_1,T_2,T_3$ be as above, now regarded as functions of $b$ with $a$ and $L$ fixed.
+Then $\partial_bT_1\ge0.22\,\delta-C\delta/N$ and $|\partial_bT_2|+|\partial_bT_3|\le C/N$.
+\end{proposition}
+\begin{proof}
+\emph{$T_1$.} We have $\partial_b\log M_{a,b}(\ell)=m_\ell:=E_\ell\log\sin(\ell-u)$, and $\partial_bT_1=m_L-m_{L'}$. The log-density of $\mu_{a,b,\ell}$ has
+$\ell$-derivative $b\cot(\ell-u)-E\,b\cot(\ell-u)$, and $A_\ell$ vanishes to order $b$ at $u=\ell$. Hence
+$\partial_\ell m_\ell=E\cot(\ell-u)+b\operatorname{Cov}(\log\sin(\ell-u),\cot(\ell-u))$. By Lemma~\ref{lem:func}, and since
+$\partial_\ell u_1=b\csc^2(\ell-u_1)/V''(u_1)$ (proof of Proposition~\ref{prop:T1}),
+\[
+\partial_\ell m_\ell=\cot(\ell-u_1)-\frac{b\cot(\ell-u_1)\csc^2(\ell-u_1)}{V''(u_1)}+O(N^{-1})
+=\cot(\ell-u_1)\,(1-\partial_\ell u_1)+O(N^{-1}).
+\]
+By Lemma~\ref{lem:geo}(i), $\cot(\ell-u_1)\ge\cot0.99\ge0.65$. Also $1-\partial_\ell u_1=x\csc^2u_1/K$, and this is at least
+$0.4\csc^2(0.99)/\csc^2(0.58)\ge0.17$. So
+$\partial_\ell m_\ell\ge0.11-C/N$ on $\Lambda$, and $m_L-m_{L'}\ge2\delta(0.11-C/N)$.
+\emph{$T_3$.} The $b$-derivative of the log-density of $\mu'$ is $\log\sin(L'-v)-E'\log\sin(L'-v)$. So
+$\partial_bE'\sin(v+s)=\operatorname{Cov}'(\sin(v+s),\log\sin(L'-v))+\partial_bs\,E'\cos(v+s)=O(N^{-1})$ by Lemmas~\ref{lem:func}
+and \ref{lem:s}, and $E'\sin(v+s)\ge\frac12$.
+\emph{$T_2$.} As in Proposition~\ref{prop:T2}, $\partial_b\log h=E_w[S^b]$ with $S^b(y)=\log\sin(L-s-y)-E\log\sin(L-u)-\partial_bs\,V'(s+y)$.
+By Lemmas~\ref{lem:func} and \ref{lem:s}, $S^b(0)=O(N^{-1})$, $\partial_yS^b(0)=O(1)$ and $|\partial_y^2S^b|\le C$ on $B_1-s$. Hence
+$E_w[S^b]=S^b(0)+\partial_yS^b(0)\,E_wy+O(E_wy^2)+O(e^{-N/800})=O(N^{-1})$, because $E_wy=O(N^{-1})$ (Lemma~\ref{lem:odd}) and $E_wy^2=O(N^{-1})$.
+\end{proof}
+
+\begin{proof}[Proof of Theorem~\ref{thm:mono}]
+Let $(p,q)$ be a split of $k$ with $0.42k\le p\le0.58k$, and put $a=2p-1$, $b_0=2q-1$, $L=L(p,q)$, $\delta=L-\frac\pi2$. Then $\delta\ge\phi_k-\frac\pi2>\frac{\log k}{4k}$
+for large $k$ (Theorem~\ref{thm:lower}(i)). Also $\delta\le\frac{\log k}k$ for large $k$. Indeed, apply Lemma~\ref{lem:central} to $(\min(p,q),\max(p,q))$, using $L(p,q)=L(q,p)$.
+At $\delta=\frac{\log k}k$ it gives $\Psi=2r\log k+o(\log k)$, which exceeds $\log(2r_{ab}\sqrt{\pi N})+o(1)$, so the split is unsafe there.
+For $b\in[b_0,b_0+2]$ we have $a/(a+b)\in[0.4,0.6]$ once $k$ is large. Let $g(b)=\log I_{\rm in}-\log I_{\rm out}$, computed at $L$ with exponents $(a,b)$. Then $g(b_0)=0$, and by
+Proposition~\ref{prop:Tb},
+\[
+g'(b)=\partial_bT_1+\partial_bT_2-\partial_bT_3\ge0.22\,\delta-\frac CN>\frac{0.05\log k}k-\frac C{2k-2}>0\qquad(k\ge K_2').
+\]
+So $g(b_0+2)>0$, i.e.\ $\Delta_{p,q+1}(L)<0$, and $L(p,q+1)<L$ by Theorem~\ref{thm:crit}. This proves endpoint monotonicity for $k\ge K_2'$.
+Now take $K_2=\max(K_0,K_2')$. For $k\ge K_2$ we have $\phi_k=L(p_*,q_*)$ with
+$(p_*,q_*)=(\lfloor\frac k2\rfloor,\lceil\frac k2\rceil)$ (Theorem~\ref{thm:large}). Since $(p_*,q_*+1)$ is a split of $k+1$,
+$\phi_{k+1}\le L(p_*,q_*+1)<L(p_*,q_*)=\phi_k$.
+\end{proof}
+
+\noindent\emph{Numerical check of the three terms} (\texttt{numerics/bln\_decomp.py}, \texttt{numerics/decomp.txt}). At $a=\frac N2$ and $L=L_{\rm bal}$, as $N$ runs from $40$ to $1280$:
+$N^2T_1''$ runs from $-11.7$ to $-19.3$, against $-4N\delta$ from $-12.1$ to $-19.4$; $N^2T_2''$ runs from $0.06$ to $0.005$; $N^2T_3''\to-4$; and $N^2G''$ runs from $-7.9$ to $-15.3$.
+These are consistent with the propositions above. For Proposition~\ref{prop:Tb} (\texttt{numerics/bln\_decomp\_b.py}, \texttt{numerics/decomp\_b.txt}),
+at the balanced split for $k=20,\dots,640$: $N\partial_bT_1$ agrees with $2N\delta\cdot\frac12\sqrt{x/(1-x)}$ to three decimals (from $2.98$ to $4.84$),
+$N\partial_bT_2\to-\frac12$, and $N\partial_bT_3\to0$. These numbers concern only near-balanced splits. They say nothing about the size of $K_0$
+or $K_2$, which also depend on the $o(1)$ terms in Lemma~\ref{lem:outer}, and we did not make the constants explicit.
+
+\section{Rigorous verification for $k\le440$: proof of Theorem~\ref{thm:cert}}\label{sec:cert}
+
+Fix a split with $a=2p-1$, $b=2q-1$, and a rational $L\in(0,\pi)$. Expanding by the binomial theorem,
+\[
+P(u):=\sin^au\,\sin^b(u-L)=(2i)^{-a-b}\sum_{j=0}^a\sum_{l=0}^b\binom aj\binom bl(-1)^{a+b-j-l}e^{-i(2l-b)L}\,e^{i(2j-a+2l-b)u}.
+\]
+Put $F_1(t)=\int_0^tP\sin$ and $F_2(t)=\int_0^tP\cos$. These are finite sums of $\int_0^te^{inu}du=(e^{int}-1)/(in)$ with $n$ odd.
+In the notation of the proof of Theorem~\ref{thm:crit}, $F=\cos s\,F_1-\sin s\,F_2$. Since $P<0$ on $(0,L)$,
+$s=\operatorname{atan2}(-F_1(L),-F_2(L))$, and
+\[
+\Delta_{p,q}(L)=F(\pi)-F(s)=\cos s\,(F_1(\pi)-F_1(s))-\sin s\,(F_2(\pi)-F_2(s)).
+\]
+Every quantity here is evaluated in Arb ball arithmetic (python-flint, precision $200+6k$ bits, which absorbs the $2^{a+b}$ cancellation),
+giving a rigorous enclosure of $\Delta_{p,q}(L)$. By the sign pattern of Theorem~\ref{thm:crit}, a certified $\Delta_{p,q}(L)>0$ proves
+$L(p,q)>L$, and a certified $\Delta_{p,q}(L)<0$ proves $L(p,q)<L$.
+
+For each $k$ we take a rational $L^*$ (denominator $\le10^{12}$) halfway between the floating-point values of $L_{\rm bal}$ and
+$\min_{p<\lfloor k/2\rfloor}L(p,k-p)$. We certify $\Delta_{\rm bal}(L^*)<0$ and $\Delta_{p,k-p}(L^*)>0$ for every other $p\le k/2$, which gives
+$L_{\rm bal}<L^*<L(p,k-p)$. The other comparisons in Theorem~\ref{thm:cert} use separating rational points in the same way. The
+enclosures of $\phi_k$ come from certified signs at rational points within $5\cdot10^{-15}$ of $L_f\pm10^{-12}$. The floating-point values only choose the test points; correctness
+rests on the certified signs. Code: \texttt{numerics/bln\_rigorous.py}; the run for $k\le200$ (all three claims) takes about 50 minutes on one core (output \texttt{numerics/rigorous\_200.txt}), and the run
+\texttt{bln\_rigorous.py 201 300} (the conjecture for $201\le k\le300$ and $\phi_{k+1}<\phi_k$ for $200\le k<300$) about 40 minutes (\texttt{numerics/rigorous\_201\_300.txt}).
+The range $301\le k\le400$ was run in four chunks, \texttt{bln\_rigorous.py} with arguments $301\ 337$, $338\ 363$, $364\ 383$ and $384\ 400$, in parallel.
+Each chunk also certifies $\phi_{k+1}<\phi_k$ across its lower seam. This took about $85$ minutes of wall time, at roughly $80$ seconds per $k$ near
+$k=350$ (\texttt{numerics/rigorous\_301\_400.txt}). Near the balanced split the quantities compared are of size about $2^{-(a+b)/2}$, so the rational test
+points are converted to balls at $4000$ bits; with fewer bits the first $k$ of a run above $k\approx370$ was not certified.
+The range $401\le k\le440$ (and $\phi_{k+1}<\phi_k$ for $400\le k<440$) was run as \texttt{bln\_rigorous.py 401 440} on one core, at about $12$ minutes per $k$
+(\texttt{numerics/rigorous\_401\_440.txt}).
+
+\noindent\emph{Two further certificates.} Theorems~\ref{thm:lower}(ii) and \ref{thm:oddsharp} use Theorem~\ref{thm:cert} for $k\le300$. Above that, on a finite
+range, they use the explicit closed forms of Propositions~\ref{prop:Phi} and \ref{prop:upgen}. These are certified in Arb by
+\texttt{numerics/bln\_lower\_arb.py} (all $99977500$ pairs $(k,p)$ with $301\le k\le2\cdot10^4$; output \texttt{numerics/lower\_arb.txt}) and by
+\texttt{numerics/bln\_odd\_upper\_arb.py} (odd $301\le k\le200001$; output \texttt{numerics/odd\_upper\_arb.txt}). Both scripts read the enclosures of
+Theorem~\ref{thm:cert} from the output files above. \texttt{bln\_rigorous.py} certifies $\phi_k\in(L_f-1.01\cdot10^{-12},L_f+1.01\cdot10^{-12})$ and
+prints $L_f$ rounded to $12$ decimals, so the scripts use the printed value $\pm2\cdot10^{-12}$.
+
+\section{Numerical evidence}\label{sec:num}
+
+\noindent\textbf{Computation of $L(p,q)$} (\texttt{numerics/bln\_fast.py}). The quantities $s$, $I_{\rm in}$ and $I_{\rm out}$ of
+Theorem~\ref{thm:crit} are integrals of positive functions. We evaluate them in log scale with $1200$-point Gauss--Legendre rules split at
+the peaks, and solve $\log I_{\rm out}=\log I_{\rm in}$ by Brent's method. Doubling the number of nodes changes $L$ by at most
+$6\cdot10^{-14}$. The method reproduces $\phi_2=2\pi/3$, $\phi_3=1.962719002$ and $\phi_4=1.870658532$ to all digits.
+
+\noindent\textbf{Results} (\texttt{numerics/sweep\_300.txt}). For every $2\le k\le300$: the minimizing split is the balanced one
+(Conjecture~\ref{conj:BLN}, both parities); $p\mapsto L(p,k-p)$ is strictly decreasing on $1\le p\le k/2$, with the smallest gap
+$1.3\cdot10^{-7}$; and $\phi_k$ is strictly decreasing in $k$. Conjecture~\ref{conj:EM} is rigorously verified for $p+q<200$ (Theorem~\ref{thm:cert}).
+
+\begin{center}\small
+\begin{tabular}{rcccc}
+\toprule
+$k$ & $\phi_k$ (numerical) & $4k(\phi_k-\frac\pi2)-\log k$ & lower (Prop.~\ref{prop:Phi}) & upper (Prop.~\ref{prop:bal}) \\
+\midrule
+10 & 1.7115206092 & 3.3264 & $+0.457$ & 3.383\\
+20 & 1.6493102586 & 3.2854 & $+0.923$ & 3.312\\
+100 & 1.5904114962 & 3.2409 & $+1.242$ & 3.246\\
+300 & 1.5782417442 & 3.2307 & $+1.322$ & 3.232\\
+$10^4$ & -- & -- & $+1.382$ & 3.2245\\
+\bottomrule
+\end{tabular}
+\end{center}
+The last two columns are in the normalization $4k\delta-\log k$. The first gives the largest $c$ such that $\Phi<0$ for all splits at
+$\delta=(\log k+c)/(4k)$. The second gives the smallest $\delta$ satisfying the sufficient inequality
+$2k\log\tan\alpha>\log(2kB(\frac12,k)/c)$ in the proof of Theorem~\ref{thm:upper}(i), for even $k$. The limit $\log(8\pi)=3.22417$ is matched by the heuristic Laplace expansion of the criterion. For a split
+with $\rho=p/k$ and $r=2\sqrt{\rho(1-\rho)}$, one has $I_{\rm in}\approx M(L)/(2\sqrt{\pi N})$ ($N=2k-2$),
+$I_{\rm out}\approx rM(\pi-L)$, and $\log M(\frac\pi2+\delta)-\log M(\frac\pi2-\delta)\approx4\sqrt{pq}\,\delta$. This predicts
+$L(p,q)\approx\frac\pi2+\frac{\log k+\log8\pi+2\log r}{4kr}$, which is minimized at $r=1$ on the admissible range $r\ge2/\sqrt k$. The
+predicted gaps $L(p,k-p)-L(\frac k2,\frac k2)\approx(\frac{\log k+\log8\pi}2-1)\frac{(\rho-1/2)^2}k$ match the observed ones (for example
+$1.1\cdot10^{-7}$ predicted against $1.3\cdot10^{-7}$ observed at $k=300$). The proof of Theorem~\ref{thm:large} does not use this expansion. Instead it
+controls the second derivative of the criterion in the exponent (\S\ref{sec:large}).
+
+\begin{thebibliography}{9}
+\bibitem{BN08} A.~Barvinok, I.~Novik, \emph{A centrally symmetric version of the cyclic polytope}, Discrete Comput.\ Geom.\ 39 (2008) 76--99.
+\bibitem{BLN} A.~Barvinok, S.~J.~Lee, I.~Novik, \emph{Neighborliness of the symmetric moment curve}, Mathematika 59 (2013) 223--249; arXiv:1104.5168.
+\bibitem{SSS} R.~Sanyal, F.~Sottile, B.~Sturmfels, \emph{Orbitopes}, Mathematika 57 (2011) 275--314.
+\bibitem{Vin} C.~Vinzant, \emph{Edges of the Barvinok--Novik orbitope}, Discrete Comput.\ Geom.\ 46 (2011) 479--487.
+\bibitem{Wen} J.~G.~Wendel, \emph{Note on the gamma function}, Amer.\ Math.\ Monthly 55 (1948) 563--564.
+\bibitem{Pre} A.~Pr\'ekopa, \emph{On logarithmic concave measures and functions}, Acta Sci.\ Math.\ (Szeged) 34 (1973) 335--343.
+\bibitem{DIM} J.~de Dios Pont, P.~Ivanisvili, J.~Madrid, \emph{A new proof of the description of the convex hull of space curves with totally positive torsion}, Michigan Math.\ J.\ 76 (2026) 1043--1089.
+\end{thebibliography}
+\end{document}

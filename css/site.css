@@ -337,3 +337,9 @@ footer.site p { margin: 0.12rem 0; }
   ul.coauthors { grid-template-columns: 1fr; }
 }
 
+
+/* AI proofs list (ai-proofs/index.html): fixed entry numbers, newest first */
+ol.papers li[data-n]::before { content: attr(data-n); }
+.ap-meta { color: var(--mute); font-size: 0.82rem; white-space: nowrap; }
+.ap-meta::before { content: "— "; }
+.ap-files { font-size: 0.85rem; }

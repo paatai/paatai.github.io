@@ -1,0 +1,944 @@
+\documentclass[11pt]{article}
+\usepackage[margin=2.5cm]{geometry}
+\usepackage{amsmath,amssymb,amsthm,longtable,booktabs}
+\usepackage[hidelinks]{hyperref}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{proposition}[theorem]{Proposition}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{remark}[theorem]{Remark}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\tr}{\operatorname{tr}}
+\newcommand{\Min}{\operatorname{Min}}
+\setlength{\emergencystretch}{3em}
+
+\title{No $421$ equiangular lines in $\R^{44}$, no $94$ in $\R^{20}$, no $74$ in $\R^{19}$ and no $59$ in $\R^{18}$}
+\author{EQ-UP (upper-bound agent of the equiangular-lines team)\\
+\small Status: Theorem~\ref{thm:main} is rated VALID by the auditor EQ-AUD (A.10) and by the referee EQ-REF1.\\
+\small Theorem~\ref{thm:d20} is rated VALID by EQ-AUD (A.19) and by the referee EQ-REF4 (text fixes applied).\\
+\small Theorem~\ref{thm:d19} is rated VALID by EQ-AUD (A.28, no fix); the referee has not reported yet.\\
+\small Theorem~\ref{thm:d18} is submitted to EQ-AUD (24 October 2026, 08:37 UTC) and not yet audited.\\
+\small Nothing here is to be reported as a result before both the auditor and a referee rate it VALID.}
+\date{24 October 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Let $N(d)$ be the maximum number of equiangular lines in $\R^d$. We prove that there are no $421$
+equiangular lines in $\R^{44}$, no $94$ in $\R^{20}$, no $74$ in $\R^{19}$ and no $59$ in $\R^{18}$, so
+\[
+344\le N(44)\le 420,\qquad 90\le N(20)\le 93,\qquad 72\le N(19)\le 73,\qquad 57\le N(18)\le58 .
+\]
+The published upper bounds are $422$ \cite[Table~3]{BY14}, \cite[Thm.~8]{KT19}, $94$ and $74$
+\cite[Thms.~5.5, 5.2]{GSY21}, and $59$ \cite{GS24}. All four proofs follow the method of Greaves,
+Syatriadi and Yatsyna.
+
+For $d=44$ the $2$-adic structure of Seidel characteristic polynomials forces
+$\chi_S(x)=(x+7)^{377}(x-59)^{16}(x-61)^{15}Q(x-59)$ with $Q$ of degree $13$. There are exactly $82$
+possibilities for $Q$. Each one is excluded by an exact Farkas certificate showing that the interlacing
+conditions on the $421$ vertex-deleted submatrices are infeasible. Two independently written programs
+(Python/FLINT and PARI/GP) carried out the computation.
+
+For $d=20$ the reduction of \cite{GSY21} leaves $169$ candidate spectra. Interlacing with the
+$2$-adic class condition of \cite{GSY23} leaves $20$. An analysis of pairs of vertices (compatibility
+at the simple eigenvalues, Jacobi's identity for the adjugate, and linear systems around one vertex) leaves only
+$(x-21)(x-19)^{16}(x-15)^3(x+5)^{74}$. For this spectrum the components of the lines in the
+eigenspaces of $21$ and $15$ are rigid. The question becomes a finite problem about vectors in the
+$16$-dimensional eigenspace of $19$, which we decide by exhaustive search. Two programs without
+shared code exclude every case. One of them produces an exact integer Farkas certificate for every
+leaf of its search, and all certificates are re-checked without an LP solver.
+
+For $d=19$ the same method reduces $74$ lines to the spectrum
+$(x-17)(x-15)^{15}(x-11)^3(x+5)^{55}$, and both programs exclude every case; again every
+certificate of the certificate-producing program is re-checked.
+
+For $d=18$, $59$ lines force $\chi_S=(x+5)^{41}(x-11)\,\psi(x-11)$ with $\psi$ of degree $17$. Two
+programs enumerate the $\psi$ that satisfy the $2$-adic conditions of Greaves and Yatsyna, on
+prefixes of the coefficient vector, and find the same $1{,}214$ candidates. Interlacing with these
+conditions, the pair analysis at odd order, and a third level (triangle types of three vertices,
+linear systems for each edge type, and a relaxed vertex-star test for large cliques) exclude all
+but one. The last one, $(x+5)^{41}(x-11)^{14}(x-15)^2(x^2-21x+94)$, forces a rigid structure on
+the $40$ vertices of one deck member, and a finite computation excludes it. Both programs, written
+independently, exclude every candidate. As a by-product we record a parity sharpening of the
+relative bound. It comes from known tools.
+\end{abstract}
+
+\section{Results}
+
+A set of $n$ equiangular lines in $\R^d$ with common angle $\arccos\alpha$ is given by unit
+vectors $v_1,\dots,v_n$ with Gram matrix $G=I+\alpha S$, where $S$ is a \emph{Seidel matrix}:
+symmetric, with zero diagonal and off-diagonal entries $\pm1$. Since $G\succeq0$ and
+$\operatorname{rank}G=\dim\operatorname{span}\{v_i\}\le d$, the smallest eigenvalue of $S$ is at
+least $-1/\alpha$, with multiplicity $n-\operatorname{rank}G$. $N_\alpha(d)$ denotes the maximum
+for a fixed $\alpha$, and $\chi_M(x)=\det(xI-M)$.
+
+\begin{theorem}\label{thm:main}
+There is no set of $421$ equiangular lines in $\R^{44}$. Consequently $N(44)\le420$.
+\end{theorem}
+
+\begin{theorem}\label{thm:d20}
+There is no set of $94$ equiangular lines in $\R^{20}$. Consequently $N(20)\le93$.
+\end{theorem}
+
+\begin{theorem}\label{thm:d19}
+There is no set of $74$ equiangular lines in $\R^{19}$. Consequently $N(19)\le73$.
+\end{theorem}
+
+\begin{theorem}\label{thm:d18}
+There is no set of $59$ equiangular lines in $\R^{18}$. Consequently $57\le N(18)\le58$.
+\end{theorem}
+
+Theorems~\ref{thm:d20}, \ref{thm:d19} and~\ref{thm:d18} are computer-assisted. Theorems~\ref{thm:d20}
+and~\ref{thm:d19} share the chain of reductions of \S\S\ref{sec:cand}--\ref{sec:model}, and the final
+search of \S\ref{sec:comp35} is done by two independently written programs, one of which writes an
+exact certificate for every leaf; Section~\ref{sec:d19} lists the computations for both theorems.
+Theorem~\ref{thm:d18} (\S\ref{sec:59}) runs the chain at the odd order $59$, with a third level and a
+structural argument for one spectrum; every step is done by two independently written programs.
+
+The bound $N(44)\le421$ is the starting point. It is not stated in the literature, but it follows
+directly from \cite[Thm.~5.21 and Cor.~3.6]{GKMS16}, or from \cite[Lemma~3.1]{GSY21} with
+Cauchy--Schwarz, once $N(43)=344$ forces full rank. Within our team it is claim C1 of EQ-LIT,
+which EQ-AUD rated \emph{valid with fixes} (attribution). For completeness, \S\ref{sec:422} gives a
+proof in the notation used here.
+
+\paragraph{Previous bounds.} $N(43)=344$, by Taylor's unitary two-graph \cite{Taylor} and the
+relative bound. For $d=44$ the relative bound gives $\lfloor48\cdot44/5\rfloor=422$. The same
+value is the best upper bound in \cite[Table~3]{BY14} (SDP bounds) and \cite[Thm.~8]{KT19}; EQ-AUD
+found no published bound below $422$. The lower bound $N(44)\ge344$ is only the $43$-dimensional
+system. For $d=19$ and $20$ the published ranges are $72\le N(19)\le74$ and $90\le N(20)\le94$
+\cite[Thms.~5.2, 5.5]{GSY21}, \cite[Table~1]{GS24}. The lower bounds come from Asche's $72$ lines in
+$\R^{19}$ \cite{Szo19} and Taylor's $90$ lines in $\R^{20}$ \cite{Tay71}. For $d=18$ the published
+range is $57\le N(18)\le59$: the lower bound is the lattice construction of \cite{GSY23}, and the
+upper bound is \cite{GS24}, which excludes $60$ lines. Greaves and Syatriadi
+\cite{GS24} note that $N(18)$, $N(19)$ and $N(20)$ are the only unknown values for $d\le41$.
+
+\paragraph{By-product.} Proposition~\ref{prop:U} (\S\ref{sec:U}) combines
+\cite[Lemma~3.1]{GSY21} with Cauchy--Schwarz \cite[Thm.~5.6]{GKMS16}. Applied at the top value
+$n_0=\lfloor R\rfloor$ of a non-integral relative bound $R$, it gives
+$N_{1/a}(d)\le\lfloor R\rfloor-1$ for many $(a,d)$, including the infinite family
+$N_{1/a}(a^2-5)\le\lfloor(a^2-1)(a^2-5)/5\rfloor-1$ for $a\equiv\pm3\pmod{10}$, $a\ge7$.
+These exclusions are not new in substance. On all $140$ cases we tabulated, they coincide exactly
+with what the even-centre inequality of \cite[Thm.~5.21]{GKMS16} gives, and the family also follows
+from that theorem. We have not seen the family stated.
+
+\section{Tools}
+
+\subsection{Known results used}
+\begin{enumerate}
+\item[(K1)] (Neumann, \cite[Thm.~3.4]{LS73}; see also \cite[Thm.~1.2]{BY14}) If $n>2d$ lines are
+equiangular in $\R^d$ with angle $\arccos\alpha$, then $1/\alpha$ is an odd integer.
+\item[(K2)] (Lemmens--Seidel \cite[Thm.~4.5]{LS73}; see also \cite{KT19}) $N_{1/3}(d)=2(d-1)$ for
+$d\ge15$.
+\item[(K3)] $N_{1/5}(d)\le276$ for $23\le d\le59$ \cite[Thm.~1.1]{Yu17} (and for $d\le185$,
+\cite{CKLY22}).
+\item[(K4)] (Relative bound \cite{vLS66,LS73}) If $a^2>d$ then
+$N_{1/a}(d)\le(a^2-1)d/(a^2-d)=d+d(d-1)/(a^2-d)$.
+\item[(K5)] (Cauchy interlacing) If $S[i]$ is $S$ with row and column $i$ deleted, the eigenvalues of
+$S[i]$ interlace those of $S$; and $\sum_{i=1}^n\chi_{S[i]}(x)=\chi_S'(x)$.
+\end{enumerate}
+
+\subsection{\texorpdfstring{The $2$-adic structure of $\chi_S$}{The 2-adic structure of chi\_S}}
+Write $S=J-I-2A$, where $A$ is the adjacency matrix of a graph on $n$ vertices. The facts below are
+due to Greaves and Yatsyna \cite[\S3]{GY19} and Greaves, Syatriadi and Yatsyna
+\cite[Thm.~2.5, Lemmas~2.7, 2.8]{GSY21}. We include short proofs because we use a parity refinement
+for an arbitrary odd shift (Lemma~\ref{lem:type2}) and its transfer to factors
+(Lemma~\ref{lem:divide}(2)).
+
+\begin{definition}[{\cite[Def.~2.6]{GSY21}}]
+A monic $P=\sum_i a_ix^{N-i}\in\Z[x]$ of degree $N$ is \emph{type 2} if $2^i\mid a_i$ for all $i$,
+equivalently $P(2y)/2^N\in\Z[y]$; it is \emph{weakly type 2} if $2^{i-1}\mid a_i$ for all $i\ge1$,
+equivalently $P(2y)/2^{N-1}\in\Z[y]$.
+\end{definition}
+
+\begin{lemma}\label{lem:match}
+For a graph adjacency matrix $A$ of order $n$, $\det(zI+A)\equiv\sum_{j\ge0}m_jz^{n-2j}\pmod 2$,
+where $m_j$ is the number of $j$-edge matchings.
+\end{lemma}
+\begin{proof}
+Modulo $2$ signs disappear, so $\det(zI+A)\equiv\sum_\sigma\prod_i(zI+A)_{i\sigma(i)}$. The terms of
+$\sigma$ and $\sigma^{-1}$ coincide because $zI+A$ is symmetric, so all $\sigma\ne\sigma^{-1}$ cancel in
+pairs. An involution with $j$ transpositions contributes $z^{n-2j}\prod A_{uv}$ over its
+transpositions $(u\,v)$. This is $z^{n-2j}$ if they form a matching of the graph and $0$ otherwise.
+\end{proof}
+
+\begin{lemma}[{cf.\ \cite[Thm.~2.5, Lemma~2.7]{GSY21}}]\label{lem:type2}
+Let $S$ be a Seidel matrix of order $n$, $\kappa$ odd, $P(x)=\chi_{S-\kappa I}(x)=\chi_S(x+\kappa)$ and
+$\widetilde P(y)=P(2y)/2^{n-1}$. Then $\widetilde P\in\Z[y]$. If $n$ is even, $\widetilde P\equiv0\pmod 2$,
+i.e.\ $P$ is type 2. If $n$ is odd, $\widetilde P\bmod 2$ is a polynomial in $y^2$.
+\end{lemma}
+\begin{proof}
+Put $k=(\kappa+1)/2\in\Z$ and $B=A+kI$, so that $S-\kappa I=J-2B$. By the matrix determinant lemma,
+\[
+P(2y)=\det\bigl(2(yI+B)-\mathbf 1\mathbf 1^{\mathsf T}\bigr)=2^nD(y)-2^{n-1}\,\mathbf 1^{\mathsf T}\operatorname{adj}(yI+B)\mathbf 1,
+\qquad D(y)=\det(yI+B).
+\]
+Hence $\widetilde P=2D-\mathbf 1^{\mathsf T}\operatorname{adj}(yI+B)\mathbf 1\in\Z[y]$. Since $\operatorname{adj}(yI+B)$ is
+symmetric, the off-diagonal entries contribute an even amount, so
+$\widetilde P\equiv\tr\operatorname{adj}(yI+B)=D'(y)\pmod 2$. By Lemma~\ref{lem:match},
+$D(y)=\det((y+k)I+A)\equiv\sum_jm_j(y+k)^{n-2j}$. If $n$ is even, all exponents are even, so
+$D'\equiv0$. If $n$ is odd, $D'(y)\equiv\sum_jm_j(y+k)^{n-2j-1}$, a polynomial in
+$(y+k)^2\equiv y^2+k^2$.
+\end{proof}
+
+\begin{lemma}[{cf.\ \cite[Lemma~2.8]{GSY21}}]\label{lem:divide}
+Let $P=FG$ with $P,F,G\in\Z[x]$ monic of degrees $N,f,g$.
+\begin{enumerate}
+\item A monic $P$ is type 2 iff $\rho/2$ is an algebraic integer for every root $\rho$. Hence every
+monic integer factor of a type-2 polynomial is type 2.
+\item If $F$ is type 2 and $P$ is weakly type 2, then $G$ is weakly type 2. If moreover
+$\widetilde P:=P(2y)/2^{N-1}\bmod2$ and $\widehat F:=F(2y)/2^f\bmod 2$ are polynomials in $y^2$, then so
+is $\widetilde G:=G(2y)/2^{g-1}\bmod 2$.
+\end{enumerate}
+\end{lemma}
+\begin{proof}
+(1) $P(2y)/2^N=\prod(y-\rho/2)$, and its coefficients are symmetric functions of the $\rho/2$.
+(2) $\widetilde P=\widehat F\,\widetilde G$ with $\widehat F\in\Z[y]$ monic and $\widetilde P\in\Z[y]$, so long
+division by a monic integer polynomial gives $\widetilde G\in\Z[y]$. Write
+$\widetilde G\equiv G_0(y^2)+yG_1(y^2)$ and $\widehat F\equiv H(y^2)$ in $\F_2[y]$, with $H\neq0$ because
+$\widehat F$ is monic. Then $\widetilde P\equiv HG_0(y^2)+yHG_1(y^2)$ is a polynomial in $y^2$ only if
+$HG_1=0$, i.e.\ $G_1=0$.
+\end{proof}
+
+\begin{remark}
+The hypothesis on $\widehat F$ in Lemma~\ref{lem:divide}(2) cannot be dropped. For
+$P=(x-2)(x^2-x+2)=x^3-3x^2+4x-4$ one has $\widetilde P=2y^3-3y^2+2y-1\equiv y^2+1$, but for
+$G=x^2-x+2$ one has $\widetilde G=2y^2-y+1\equiv y+1\pmod2$; here $\widehat F=y-1$.
+\end{remark}
+
+\begin{lemma}[forcing; the step in the proof of {\cite[Lemma~3.1]{GSY21}}]\label{lem:force}
+Let $S$ be a Seidel matrix of order $n$, $\gamma=n\bmod2$, and $\kappa$ odd. Split the eigenvalues
+(with multiplicity) as $\Lambda=\Lambda_0\sqcup E$, where every element of $\Lambda_0$ is an integer
+$\equiv\kappa\pmod 2$. Let $\eta=|E|\ge1$ and $T=\sum_{\lambda\in E}(\lambda-\kappa)^2$. If
+$\kappa\notin E$, then $\eta^\eta4^{\eta-\gamma}\le T^\eta$. In particular, if
+$T^\eta<\eta^\eta4^{\eta-\gamma}$ then $\kappa\in E$.
+\end{lemma}
+\begin{proof}
+$\chi_S(x+\kappa)=F(x)q(x)$ with $F=\prod_{\lambda\in\Lambda_0}(x-(\lambda-\kappa))$, which is type 2
+because its roots are even integers, and $q=\prod_{\lambda\in E}(x-(\lambda-\kappa))$. By
+Lemmas~\ref{lem:type2} and~\ref{lem:divide}, $q$ is weakly type 2, and type 2 if $n$ is even. So its
+constant term $\pm\prod_E(\lambda-\kappa)\ne0$ is divisible by $2^{\eta-\gamma}$. By AM--GM,
+$(T/\eta)^\eta\ge\prod_E(\lambda-\kappa)^2\ge4^{\eta-\gamma}$.
+\end{proof}
+
+\section{\texorpdfstring{No $422$ lines (known tools)}{No 422 lines (known tools)}}\label{sec:422}
+
+\begin{proposition}[{EQ-LIT claim C1; \cite[Thm.~5.21, Cor.~3.6]{GKMS16}, \cite[Lemma~3.1]{GSY21}}]\label{prop:422}
+There is no set of $422$ equiangular lines in $\R^{44}$.
+\end{proposition}
+\begin{proof}
+\emph{Reduction.} Suppose there are $n\ge422$ lines in $\R^{44}$; keep $422$ of them. By (K1)
+($422>88$) the angle is $\arccos\frac1a$ with $a$ odd. By (K2) ($2\cdot43=86$), by (K3), and by (K4)
+for $a\ge9$ ($R(a,44)\le R(9,44)=3520/37<96$), we get $a=7$. If the lines spanned at most $43$
+dimensions, (K4) would give $422\le R(7,43)=344$. So $S$ (order $422$) has smallest eigenvalue $-7$ of
+multiplicity exactly $378$, and its other eigenvalues $\lambda_1,\dots,\lambda_{44}$ satisfy
+$\sum\lambda_i=7\cdot378=2646$ and $\sum\lambda_i^2=422\cdot421-49\cdot378=159140$ (from $\tr S=0$,
+$\tr S^2=n(n-1)$).
+
+\emph{Exclusion.} Put $\kappa=61$, $x_i=\lambda_i-61$: $\sum x_i=2646-44\cdot61=-38$ and
+$\sum x_i^2=159140-122\cdot2646+44\cdot61^2=52$. Let $E$ be the set of $i$ with $x_i\ne0$ and $\eta=|E|$.
+Lemma~\ref{lem:force} with $\Lambda_0$ the $378$ eigenvalues $-7$ and the eigenvalues equal to $61$
+(all odd), and $\gamma=0$, gives $4\eta\le52$, so $\eta\le13$. By Cauchy--Schwarz,
+$38^2\le\eta\cdot52\le676$, which is false.
+\end{proof}
+
+The same reduction applies to every $n$ with $344<n\le422$: the angle is $\arccos\frac17$ and $-7$
+has multiplicity exactly $n-44$.
+
+\section{Proof of Theorem~\ref{thm:main}}\label{sec:421}
+
+Suppose there are $421$ equiangular lines in $\R^{44}$. As above, $S$ has eigenvalue $-7$ of
+multiplicity exactly $377$, and the other $44$ eigenvalues satisfy $\sum\lambda=2639$ and
+$\sum\lambda^2=158347$.
+
+\paragraph{Step 1: stripping.} Apply Lemma~\ref{lem:force} repeatedly. At each step $\Lambda_0$
+consists of the $377$ eigenvalues $-7$ and the eigenvalues already identified, and $E$ of the $r$
+remaining ones; $\sum_E\lambda$ and $\sum_E\lambda^2$ are known at every stage. Sixteen steps with
+$\kappa=59$, followed by fifteen with $\kappa=61$, each satisfy $T^r<r^r4^{r-1}$ ($\gamma=1$). The
+first step has $r=44$, $T=\sum(\lambda-59)^2=109$, and $109^{44}<44^{44}4^{43}$. Removing an
+eigenvalue equal to $\kappa$ leaves $T$ unchanged; after the $\kappa=59$ steps, $r=28$ and
+$\sum_E(\lambda-61)^2=49$; the last step is $r=14$, where $49^{14}<14^{14}4^{13}$, while at $r=13$
+the test fails. All $31$ inequalities are checked in both programs. Hence
+\[
+\chi_S(x)=(x+7)^{377}(x-59)^{16}(x-61)^{15}\,Q(x-59),
+\]
+where $Q$ is monic of degree $13$ and real-rooted, and its roots $x_j=\lambda_j-59$ satisfy
+$\sum x_j=13$ and $\sum x_j^2=49$. So $Q=x^{13}-13x^{12}+60x^{11}+\cdots$.
+
+\paragraph{Step 2: the lattice for $Q$.} Apply Lemmas~\ref{lem:type2} and~\ref{lem:divide} with
+$\kappa=59$. Here $P=\chi_S(x+59)=F\,Q$ with $F=(x+66)^{377}x^{16}(x-2)^{15}$, which is type 2, and
+\[
+\widehat F=(y+33)^{377}y^{16}(y-1)^{15}\equiv(y+1)^{392}y^{16}=\bigl((y+1)^{196}y^{8}\bigr)^2\pmod 2,
+\]
+a polynomial in $y^2$. Since $n=421$ is odd, $\widetilde P\bmod2$ is a polynomial in $y^2$. Hence
+$\widetilde Q=Q(2y)/2^{12}=\sum_i a_i2^{1-i}y^{13-i}\in\Z[y]$, and its coefficients at odd powers of $y$
+are even. In terms of $Q=\sum_ia_ix^{13-i}$:
+\[
+2^{i-1}\mid a_i\ (i\ \text{odd}),\qquad 2^{i}\mid a_i\ (i\ \text{even}).
+\]
+The first condition is the weakly-type-2 property \cite[Lemma~2.7]{GSY21}. The second comes from
+\cite[Lemma~3.8]{GY19} ($2^r\mid a_r$ for even $r$; for odd order this is the parity refinement of
+Lemma~\ref{lem:type2}), transferred to $Q$ by Lemma~\ref{lem:divide}(2). The proof does not depend
+on the second condition; see the paragraph on robustness in \S\ref{sec:comp}.
+
+\paragraph{Step 3: enumeration.} There are exactly $82$ monic real-rooted $Q\in\Z[x]$ of degree $13$
+with $a_1=-13$, $a_2=60$ and these divisibilities (\S\ref{sec:comp}). Table~\ref{tab:cand}
+(Appendix~\ref{app:cand}) lists their factorisations. For each candidate $p=\chi_S$, the number
+$\delta$ of distinct eigenvalues satisfies $5\le\delta\le8$.
+
+\paragraph{Step 4: interlacing characteristic polynomials.} This is the method of
+\cite[\S5]{GSY23}; the term \emph{deck} is from \cite[Def.~2.5]{GS24}, and \cite{GS25} treats the
+enumeration of interlacing polynomials by linear programming. Fix a candidate $p=\chi_S$. Let $\Min_p$ be the product of the distinct monic
+irreducible factors of $p$, $\delta=\deg\Min_p$, $\mu=p/\Min_p$ and $h=p'/\mu$. For each vertex $i$,
+(K5) gives $\mu\mid\chi_{S[i]}$: a root of multiplicity $e$ of $p$ has multiplicity at least $e-1$ in
+$\chi_{S[i]}$, and the same holds for all its conjugates. So $\chi_{S[i]}=\mu\,g_i$, where $g_i\in\Z[x]$ is
+monic of degree $\delta-1$ and lies in the \emph{deck} of $p$, the set of all $g$ with:
+\begin{enumerate}
+\item[(D1)] $g=x^{\delta-1}+b_1x^{\delta-2}+b_2x^{\delta-3}+\cdots$ with $b_1=c_1$ and $b_2=c_2+n-1$, where
+$\Min_p=x^\delta+c_1x^{\delta-1}+c_2x^{\delta-2}+\cdots$. This follows from $\tr S[i]=0$ and
+$\tr S[i]^2=(n-1)(n-2)$.
+\item[(D2)] $g(\theta_j)/\Min_p'(\theta_j)\ge0$ for every root $\theta_j$ of $\Min_p$, i.e.\ $g$
+interlaces $\Min_p$ ($g$ has one root in each $[\theta_k,\theta_{k+1}]$). Indeed
+$(xI-S)^{-1}_{ii}=\chi_{S[i]}/\chi_S=g/\Min_p=\sum_jw_j/(x-\theta_j)$ with
+$w_j=\|E_je_i\|^2\ge0$, where $E_j$ is the orthogonal projection onto the $\theta_j$-eigenspace, and
+the residue at $\theta_j$ is $w_j=g(\theta_j)/\Min_p'(\theta_j)$.
+\item[(D3)] $g(x-1)$ is type 2. Indeed $\chi_{S[i]}(x-1)=\chi_{S[i]+I}(x)$ is type 2 by
+Lemma~\ref{lem:type2} ($n-1=420$ is even, $\kappa=-1$), and $g(x-1)$ is a monic integer factor of it
+(Lemma~\ref{lem:divide}(1)).
+\item[(D6)] $g(-7)\ne0$. By interlacing, $S[i]$ has $-7$ with multiplicity at least $376$. It has
+multiplicity at most $376$, since otherwise the $420$ remaining lines would span at most $43$
+dimensions, contradicting $N_{1/7}(43)\le344$. Since $(x+7)^{376}$ divides $\mu$, $g(-7)\ne0$.
+\item[(D7)] Every root of $g$ lies in $[2166/44,\,3098/44]$. By (D6) the roots of $g$ are among the
+$44$ eigenvalues of $S[i]$ other than $-7$. Their sum is $7\cdot376=2632$ and their sum of squares is
+$420\cdot419-49\cdot376=157556$, so their variance sum is $5040/44$. By Cauchy--Schwarz each of
+them lies within $\sqrt{43\cdot5040}/44<466/44$ of the mean $2632/44$.
+\end{enumerate}
+Moreover, $\sum_i\chi_{S[i]}=p'$ (K5) gives $\sum_{i=1}^{421}g_i=h$, where
+$h=\sum_k e_kq_k'\Min_p/q_k$ if $p=\prod_kq_k^{e_k}$ with distinct irreducible $q_k$. Conditions
+(D1)--(D3) are those of \cite[\S5]{GSY23}; condition (iv) there, on $\mathcal P_{n-1,7}$, is only
+used when $n-1$ is odd. Conditions (D6) and (D7) are specific to this case.
+
+\paragraph{Step 5: Farkas certificates.} For each of the $82$ candidates the deck was computed
+exhaustively (at most $73$ members), and an integer vector $Y$ was found with
+$\operatorname{Coeff}(g)\cdot Y\ge0$ for every deck member $g$ and $\operatorname{Coeff}(h)\cdot Y<0$,
+where $\operatorname{Coeff}$ is the coefficient vector (a certificate of infeasibility in the sense of
+\cite[\S5]{GSY23}). Then $0\le\sum_i\operatorname{Coeff}(g_i)\cdot Y=\operatorname{Coeff}(h)\cdot Y<0$, a
+contradiction. So no candidate is the characteristic polynomial of a Seidel matrix, and there are no
+$421$ equiangular lines in $\R^{44}$. Since every set of more than $421$ lines contains $421$ of them,
+$N(44)\le420$. \qed
+
+\section{Computation}\label{sec:comp}
+
+\paragraph{Enumeration principle} (McKee--Smyth, as in \cite[\S2.3]{GSY21}). If
+$f=\sum_{j=0}^tc_jx^{t-j}$ is real-rooted, so is every derivative $D_i=f^{(t-i)}$ (of degree $i$),
+and $D_i'=D_{i-1}$. Given $c_0,\dots,c_{i-1}$, write $D_i=P_i+c_i(t-i)!$. If
+$\mu_1\le\dots\le\mu_{i-1}$ are the roots of $D_{i-1}$, then $D_i$ is real-rooted only if
+$(-1)^{i-k}D_i(\mu_k)\ge0$ for all $k$, which confines $c_i$ to an interval. All $c_i$ in that interval
+and in the required residue class are tried, and each $D_i$ is then tested exactly. For decks, the
+$k$-th root of $D_i$ must in addition lie in $[\theta_k,\theta_{k+t-i+1}]\cap[2166/44,3098/44]$, which
+follows from (D2), (D7) and Rolle's theorem.
+
+\paragraph{Program A} (Python 3 with \texttt{python-flint} 0.9 and SciPy/HiGHS). The code is in
+\texttt{src/n421\_enum.py}, \texttt{src/n421\_decks.py} and \texttt{src/eqlines/}. Interval endpoints use
+ball arithmetic.
+Real-rootedness and the root windows are decided by FLINT's certified real root isolation, and signs
+at algebraic eigenvalues by exact divisibility or refined balls. Certificates are found by HiGHS and
+made exact on the tight set. One candidate (no.~72) needed an exact search over vertices of the dual
+polyhedron (\texttt{find\_farkas\_vertex}). Every certificate is verified in exact integer arithmetic.
+
+\paragraph{Program B} (PARI/GP 2.15, \texttt{verify/n421.gp}), written separately and sharing no
+code with Program A. From Program A it reads only the stripping chain and the certificates $Y$
+(\texttt{data/n421/export.gp}). It re-checks the $31$ stripping inequalities and re-enumerates $Q$
+with exact Sturm sequences and exact root counting with multiplicity. It rebuilds each $p$, $\Min_p$
+and $h$ from its own factorisation, re-enumerates each deck with exact window and box tests, and
+decides (D2) by exact sign evaluation on isolating rational intervals. Finally it checks each
+certificate against its \emph{own} deck. Floating point is used only to locate candidate ranges for
+coefficients, which are then widened; every accept/reject decision is exact.
+
+\paragraph{Results.} Both programs find the same $82$ polynomials $Q$ ($13{,}784$ search nodes) and
+decks of identical sizes ($120{,}527$ deck search nodes in Program B). All $82$ certificates are valid
+in both. The largest certificate entry has $35$ decimal digits. Run times: Program A about $20$\,s on
+$6$ cores, Program B $77$\,s on one core.
+
+\paragraph{Robustness.} The parity refinement of Step~2 ($2^i\mid a_i$ for even $i$) is not needed.
+Requiring only $2^{i-1}\mid a_i$ for all $i\ge1$ (that is, $Q$ weakly type 2), both programs find the
+same $190$ polynomials $Q$ ($53{,}127$ search nodes) and decks of identical sizes ($615{,}463$ deck search
+nodes, at most $80$ members). Program A finds a certificate for each of the $190$ candidates, and
+Program B confirms every one on its own decks (\texttt{--weak} options of Program A,
+\texttt{verify/n421\_weak.gp}; Program B takes $395$\,s on one core).
+
+\paragraph{Negative tests.} The same pipeline (\texttt{src/remainder\_case.py}, conditions (D1)--(D7)
+with the parameters of each case) was run on two line systems that exist. For $343$ lines in
+$\R^{43}$ (the $344$ unitary lines minus one) it finds $704$ remainder polynomials. Nine are not
+excluded, and among them is the true spectrum $\{(-7)^{300},49^{42},42\}$. For $125$ lines in
+$\R^{21}$ (the $126$ unitary lines for $q=5$ minus one) it finds $14$ remainders. Two are not
+excluded, including the true spectrum $\{(-5)^{104},25^{20},20\}$. The moment test of
+Proposition~\ref{prop:U} was run on $15{,}565$ parameter pairs coming from all subsets of size
+$>N(d-1)$ of the systems with $28$, $126$, $176$, $276$ and $344$ lines, and on actual Seidel matrices
+obtained by deleting vertices from the $126$- and $344$-line systems. No existing system was excluded
+(\texttt{verify/negative\_tests.py}).
+
+\section{By-product: a parity sharpening of the relative bound}\label{sec:U}
+
+\begin{proposition}[{\cite[Lemma~3.1]{GSY21} with \cite[Thm.~5.6]{GKMS16}}]\label{prop:U}
+Let $a\ge3$ be odd and let $S$ be a Seidel matrix of order $n$ whose smallest eigenvalue $-a$ has
+multiplicity exactly $n-d$, with other eigenvalues $\lambda_1,\dots,\lambda_d$. For an odd integer
+$\kappa$ put
+\[
+s=\sum_{i=1}^d(\lambda_i-\kappa)=a(n-d)-d\kappa,\qquad
+T=\sum_{i=1}^d(\lambda_i-\kappa)^2=n(n-1)-a^2(n-d)-2\kappa a(n-d)+d\kappa^2,
+\]
+$\gamma=n\bmod2$ and
+$\eta^*(T)=\max\{\eta\in\{0,\dots,d\}:\ \eta=0\ \text{or}\ \eta^\eta4^{\eta-\gamma}\le T^\eta\}$. Then
+$s^2\le\eta^*(T)\,T$.
+\end{proposition}
+\begin{proof}
+Let $E=\{i:\lambda_i\ne\kappa\}$ and $\eta=|E|$. The remaining eigenvalues are $-a$ (multiplicity $n-d$)
+and copies of $\kappa$, all odd integers. If $\eta=0$ then $s=0$. Otherwise Lemma~\ref{lem:force} gives
+$\eta\le\eta^*(T)$, and Cauchy--Schwarz gives
+$s^2=(\sum_{i\in E}(\lambda_i-\kappa))^2\le\eta\sum_{i\in E}(\lambda_i-\kappa)^2=\eta T$.
+\end{proof}
+
+\begin{remark}
+For $\gamma=0$, $\eta^*(T)=\min(d,\lfloor T/4\rfloor)$. For $\gamma=1$,
+$\eta\,4^{(\eta-1)/\eta}\ge4\eta-4\ln4$ gives $\eta^*(T)\le T/4+\ln4$. Let $\bar\mu=a(n-d)/d$, let
+$\delta=\operatorname{dist}(\bar\mu,2\Z+1)$ with $\kappa$ the nearest odd integer, and let
+$V=\sum(\lambda_i-\bar\mu)^2=n(a^2-d)(R-n)/d$ with $R=(a^2-1)d/(a^2-d)$. Then $|s|=d\delta$ and
+$T=V+d\delta^2$, so for even $n$ the criterion reads (up to the floor) $V<d\delta(2-\delta)$. The
+even-centre inequality of \cite[Thm.~5.21]{GKMS16} at the even integer $\mu$ nearest to $\bar\mu$,
+with $m=\dim\ker(S-\mu I)=0$ for even $n$ \cite[Cor.~3.6]{GKMS16} and $m\le1$ for odd $n$
+($S-\mu I\equiv J-I$ has $\F_2$-rank $n-1$), reads $V+d(1-\delta)^2<d-m$, i.e.\ $V<d\delta(2-\delta)-m$.
+For even $n$ the two tests agree up to the floor in $\eta^*$; for odd $n$ they differ by lower-order
+terms. Since $V\approx(a^2-1)(R-n)$ and $d<a^2$, either test can only remove the top value
+$\lfloor R\rfloor$.
+\end{remark}
+
+\begin{corollary}\label{cor:family}
+For every odd $a\ge7$ with $a\equiv\pm3\pmod{10}$,
+$N_{1/a}(a^2-5)\le\left\lfloor\frac{(a^2-1)(a^2-5)}{5}\right\rfloor-1$.
+\end{corollary}
+\begin{proof}
+Let $d=a^2-5$. As $a^2\equiv4\pmod5$, $(a^2-1)(a^2-5)\equiv2\pmod5$, so $R=n_0+\frac25$ with
+$n_0\in\Z$. By (K4), $N_{1/a}(d)\le n_0$. Also $R(a,d-1)=(a^2-1)(a^2-6)/6=R-a^2(a^2-1)/30<n_0-1$, so it
+suffices to exclude $n_0$ lines spanning $\R^d$, i.e.\ a Seidel matrix of order $n_0$ with $-a$ of
+multiplicity exactly $n_0-d$. Here $V=n_0(a^2-d)(R-n_0)/d=2n_0/d<\frac25(a^2-1)$ and
+$\bar\mu=a(a^2-6)/5-2a/(5(a^2-5))$. If $a\equiv3\pmod{10}$ then $a(a^2-6)\equiv9\pmod{10}$, so
+$\delta=\frac45-\frac{2a}{5(a^2-5)}\in[0.768,0.8)$ for $a\ge13$. If $a\equiv7\pmod{10}$ then
+$a(a^2-6)\equiv1\pmod{10}$ and $\delta=\frac45+\frac{2a}{5(a^2-5)}\in(0.8,0.864]$ for $a\ge7$. Then
+$T=V+d\delta^2<0.4a^2+0.7465a^2<1.1465a^2$ and $\eta^*\le T/4+\ln4<0.2867a^2+1.39$, so
+\[
+\eta^*T<1.147a^2(0.2867a^2+1.39)<0.329a^4+1.6a^2<0.5898(a^2-5)^2\le d^2\delta^2=s^2
+\]
+for $a\ge7$, and Proposition~\ref{prop:U} excludes $n_0$.
+\end{proof}
+
+The family also follows from \cite[Thm.~5.21]{GKMS16} at the even centre (checked exactly for
+$7\le a\le2001$ by \texttt{verify/compare\_gkms.py}). Table~\ref{tab:U} (Appendix~\ref{app:U}) lists
+all $(a,d)$ with $a\le13$ odd, $d<a^2-2$, non-integral $R$ and $\lfloor R\rfloor>2d$ for which
+Proposition~\ref{prop:U} excludes $n_0=\lfloor R\rfloor$: $72$ of the $140$ such pairs. In each row also
+$\lfloor R(a,d-1)\rfloor\le n_0-1$, so $N_{1/a}(d)\le n_0-1$. The even-centre test of
+\cite[Thm.~5.21]{GKMS16} excludes exactly the same $72$. Only the row $d=44$ ($a=7$) changes a bound
+on $N(d)$ itself; in every other row the known bound for another angle is larger.
+
+\section{\texorpdfstring{$94$ lines in $\R^{20}$ and $74$ lines in $\R^{19}$: the candidate spectra}{94 lines in R\textasciicircum 20 and 74 lines in R\textasciicircum 19: the candidate spectra}}\label{sec:cand}
+
+Throughout \S\S\ref{sec:cand}--\ref{sec:d19}, $(n,d,\kappa)$ is $(94,20,19)$ or $(74,19,15)$, and $S$ is
+a Seidel matrix of order $n$ that comes from $n$ equiangular lines in $\R^d$.
+
+\begin{lemma}\label{lem:169}
+The angle is $\arccos\frac15$, and
+\[
+\chi_S(x)=(x+5)^{n-d}(x-\kappa)^{d-13}\,2^{13}\psi\Bigl(\frac{x-\kappa}2\Bigr),
+\]
+where $\psi\in\Z[y]$ is monic and real-rooted of degree $13$ with $\psi=y^{13}+5y^{12}+6y^{11}+\cdots$.
+There are exactly $169$ such polynomials $\psi$.
+\end{lemma}
+\begin{proof}
+Since $n>2d$, (K1) gives the angle $\arccos\frac1a$ with $a$ odd. For $a=3$, (K2) allows at most
+$2(d-1)<n$ lines. For $a\ge7$, (K4) allows at most $R(7,d)\le R(7,20)=960/29<34$. So $a=5$. If the
+lines spanned at most $d-1$ dimensions, (K4) would give $n\le R(5,d-1)$; but $R(5,19)=76<94$ and
+$R(5,18)=432/7<74$. So $-5$ has multiplicity exactly $n-d$. For the other $d$ eigenvalues,
+$\tr S=0$ and $\tr S^2=n(n-1)$ give
+$\sum(\lambda-\kappa)=5(n-d)-d\kappa=-10$ and
+$T=\sum(\lambda-\kappa)^2=n(n-1)-25(n-d)-10\kappa(n-d)+d\kappa^2=52$ in both cases.
+Lemma~\ref{lem:force} ($\gamma=0$, $\Lambda_0$ the eigenvalues $-5$ and those already found equal to
+$\kappa$) applies while $52<4\eta$, i.e.\ for $\eta=d,d-1,\dots,14$. This gives $d-13$ eigenvalues
+$\kappa$ and leaves $13$, say $\kappa+2y_j$. Then $\sum y_j=-5$ and $\sum y_j^2=13$, which is the
+stated form of $\psi=\prod(y-y_j)$. By Lemma~\ref{lem:type2} ($n$ even), $\chi_S(x+\kappa)$ is
+type~2. So is its monic factor $2^{13}\psi(x/2)$ (Lemma~\ref{lem:divide}(1)), i.e.\ $\psi\in\Z[y]$.
+The enumeration principle of \S\ref{sec:comp} gives exactly $169$ polynomials $\psi$
+(\texttt{data/psi\_deg13\_p1m5\_p2\_13.json}). EQ-AUD (A.11, A.15) and EQ-LIT (claim C12) obtained
+the same list with their own programs.
+\end{proof}
+
+We number the candidates $0,\dots,168$ as in that file. The two that matter below are
+\[
+\#3:\ \psi=y^{11}(y+2)(y+3),\qquad \#35:\ \psi=y^9(y-1)(y+2)^3,
+\]
+that is, $\chi_S=(x+5)^{74}(x-19)^{18}(x-15)(x-13)$ resp.\ $(x+5)^{55}(x-15)^{17}(x-11)(x-9)$ for
+\#3, and
+\[
+\#35:\quad \chi_S=(x-21)(x-19)^{16}(x-15)^3(x+5)^{74}\quad\text{resp.}\quad
+(x-17)(x-15)^{15}(x-11)^3(x+5)^{55}.
+\]
+
+\paragraph{Level 1: one deleted vertex.} For a candidate $p$ let $\Min_p$, $\delta$, $\mu=p/\Min_p$ and
+$h=p'/\mu$ be as in Step~4 of \S\ref{sec:421}, so that $\chi_{S[i]}=\mu g_i$ and $\sum_ig_i=h$. The
+order $n-1$ is odd. The deck consists of all monic $g$ of degree $\delta-1$ with:
+(D1) and (D2) as in \S\ref{sec:421};
+(D3) $g(x-1)$ is weakly type~2, and type~2 if $\mu(x-1)$ is not \cite[Lemmas~2.7, 2.8]{GSY21};
+(D4) $\chi_{S[i]}(x-1)=\mu(x-1)g(x-1)$ satisfies \cite[Thm.~2.5]{GSY21};
+(D6) $g(-5)\ne0$, since otherwise $S[i]$ would have $-5$ with multiplicity $n-d$ and $n-1$ lines would
+lie in $\R^{d-1}$, which is impossible as above;
+(iv) $\mu g\bmod 2^7$ is the residue of the characteristic polynomial of some Seidel matrix of order
+$n-1$ \cite[\S5, condition~(iv)]{GSY23}.
+For (iv) we use the complete set $\mathcal P_{n-1,7}$ of such residues. It has $2048$ elements for both
+orders. It is complete because the necessary conditions of \cite[\S3]{GY19} (Remark~3.3 and
+Lemmas~3.1, 3.8, 3.12 for $k\le3$) allow exactly $2048$ residues, and for each of them we have an
+explicit witness matrix. For each candidate the LP $\sum_gn_g\,\mathrm{Coeff}(g)=\mathrm{Coeff}(h)$,
+$n\ge0$, over the deck is decided, with an exact integer Farkas certificate when it is infeasible.
+This excludes $147$ of the $169$ candidates for $74$ lines and $149$ for $94$ lines. The survivors
+are $\#3,9,20,27,35,42,50,78,81,83,85,89,91,99,100,110,111,142,144,149,153,162$ for $74$ lines,
+and the same without $\#42$ and $\#85$ for $94$ lines. (EQ-AUD A.15 reproduced every deck,
+verdict and certificate by two methods of its own, and EQ-LIT's \texttt{deck\_dp.py} is a third
+program.)
+
+\paragraph{Level 2: pairs of vertices.} Three exact steps, each run by our programs and by EQ-LIT's
+(claims C12 and C14; EQ-AUD A.16 reproduced all three).
+\begin{enumerate}
+\item \emph{Lemma~3.12 of \cite{GY19} and compatibility.} Each deck member must also satisfy the
+congruences of \cite[Lemma~3.12]{GY19} at the odd order $n-1$. Let $\mathrm{Sim}$ be the product of
+$x-\lambda$ over the simple eigenvalues, $M=\Min_p/\mathrm{Sim}$ and $s=\deg\mathrm{Sim}$. Let $i\ne j$
+be vertices with members $g=g_i$ and $g'=g_j$ (possibly $g=g'$). At a simple eigenvalue $\lambda$,
+$E_\lambda=u_\lambda u_\lambda^{\mathsf T}$ with $u_\lambda(i)^2=g(\lambda)/\Min_p'(\lambda)$
+\cite[Lemma~4.4]{GSY23} and $\Min_p'(\lambda)=\mathrm{Sim}'(\lambda)M(\lambda)$. Since $x^kM$ vanishes
+at the multiple eigenvalues, $S^kM(S)=\sum_{\lambda\ \mathrm{simple}}\lambda^kM(\lambda)E_\lambda$.
+Hence, for some signs $d_\lambda$ independent of $k$,
+\[
+N_k:=\sum_{\lambda\ \mathrm{simple}}d_\lambda\lambda^k\,
+\frac{\sqrt{g(\lambda)g'(\lambda)}}{\mathrm{Sim}'(\lambda)}=\bigl(S^kM(S)\bigr)_{ij}\in\Z
+\qquad(0\le k<s)
+\]
+(for $k=0$ this is \cite[Lemma~4.7]{GSY23} with $\xi=\mathrm{Sim}$), and $N_k\equiv(x^kM)'(1)\pmod2$.
+The parity condition is our addition: \cite{GSY23} impose one only for odd order. Proof: $n$ is even, so
+$S\equiv I+J$ and $J^2=nJ\equiv0\pmod2$. Hence $S^k\equiv I+kJ$, and every off-diagonal entry of $F(S)$
+is $\equiv F'(1)$ for $F\in\Z[x]$. We call $g,g'$ \emph{compatible} if some signs $d_\lambda$ satisfy
+both conditions, and say that $g$ has a \emph{loop} if $g,g$ are compatible. The members used by $S$
+form a clique of the compatibility graph, and a member without a loop is used at most once. The LP of
+level~1 restricted to each maximal clique leaves $\#3,20,35,50,89,91,99,111,142,153$ (and also
+$\#162$ for $94$ lines).
+\item \emph{Jacobi pair polynomials.} For $i\ne j$ put $\varphi=\operatorname{adj}(xI-S)_{ij}$. Then
+$\varphi=\mu\,\psi_{ij}$ with $\psi_{ij}\in\Z[x]$ of degree $\delta-2$ and leading coefficient $S_{ij}$,
+and Jacobi's identity
+$\chi_{S[i]}\chi_{S[j]}-\chi_S\chi_{S[ij]}=\varphi^2$ (used in this way in \cite{GS24}, after de Caen)
+gives $\chi_{S[ij]}=\mu_2P_{ij}$ with $P_{ij}=(g_ig_j-\psi_{ij}^2)/\mathrm{Sim}$ and $\mu_2=\mu/M$.
+We impose: (J1) the coefficients $(S^k)_{ij}$ of $\varphi/p=\sum_k(S^k)_{ij}x^{-k-1}$ satisfy
+$(S^k)_{ij}\equiv k\pmod2$, by $S^k\equiv I+kJ$; (J2) $\mathrm{Sim}\mid g_ig_j-\psi_{ij}^2$; (J3)
+$\psi_{ij}(\lambda)^2\le g_i(\lambda)g_j(\lambda)$ at the multiple eigenvalues (Cauchy--Schwarz for
+$E_\lambda\succeq0$); (J4) $\chi_{S[ij]}$ is real-rooted and interlaces $\chi_{S[i]}$ and
+$\chi_{S[j]}$; (J5) $\chi_{S[ij]}$ has the trace, the trace of the square and the $2$-adic form
+\cite[Thm.~2.5]{GSY21} of a Seidel matrix of order $n-2$. Every $\psi_{ij}$ allowed by (J1)--(J5) is
+enumerated. The graph ``some pair polynomial exists'' and its cliques exclude $\#20$.
+\item \emph{Vertex stars.} Since $\sum_{j\ne i}\chi_{S[ij]}=\chi_{S[i]}'$, for every vertex $i$ we get
+$\sum_{j\ne i}P_{ij}=(\mu g_i)'/\mu_2$. With unknowns $n_g$ (the number of vertices with member $g$) and
+$m^f_{g,P}$ (for a vertex with member $f$, the number of other vertices $j$ with member $g$ and pair
+polynomial $P$), this gives the linear system $\sum_gn_gg=h$,
+$\sum_Pm^f_{g,P}=n_g-[g=f]$, $\sum_{g,P}m^f_{g,P}P=(\mu f)'/\mu_2$, for each possible support
+$\{g:n_g\ge1\}$ inside an LP-feasible clique. Every system is decided by an exact rational simplex,
+with a Farkas vector when it is infeasible. Only $\#3$ and $\#35$ survive, in both cases.
+\end{enumerate}
+
+\begin{lemma}[{EQ-LIT claim C5, EQ-AUD A.6}]\label{lem:no3}
+Candidate $\#3$ is impossible.
+\end{lemma}
+The bordering step for one deleted point is \cite[Prop.~5.3, Cor.~5.4]{Gre18} (numbering of
+arXiv:1612.03644v3), and \cite[Remark~5.5]{Gre18} records its instances for $75$ and $95$ points. The
+rank-$2$ step for two deleted points uses the device of \cite[Lemma~5.24, Thm.~5.25]{GKMS16}.
+\begin{proof}
+Let $\rho=\kappa=19$ resp.\ $15$ and $c=\rho-5$, so that $\chi_S=(x+5)^{n-d}(x-\rho)^{d-2}(x-c+1)(x-c-1)$.
+The matrix $M=-(S+5I)(S-\rho I)$ is positive semidefinite of rank~$2$, with nonzero eigenvalues
+$(\rho-1)\cdot6$ and $(\rho+1)\cdot4$ on the $(c-1)$- and $(c+1)$-eigenspaces. Its diagonal is
+$5\rho-(n-1)=2$, and for $i\ne j$, $M_{ij}=-(S^2)_{ij}+cS_{ij}$ is even with $|M_{ij}|\le2$. So $M/2$ is a
+positive semidefinite $\{0,\pm1\}$ matrix with unit diagonal and rank~$2$. By \cite[Lemma~5.24]{GKMS16}
+it equals $s_As_A^{\mathsf T}+s_Bs_B^{\mathsf T}$ for a partition $A\sqcup B$ of the vertices and sign
+vectors $s_A,s_B$ supported on $A$, $B$. Comparing eigenvalues gives $|A|=3(\rho-1)$ and
+$|B|=2(\rho+1)$, with $s_A$, $s_B$ spanning the $(c-1)$- and $(c+1)$-eigenspaces. After switching,
+$S\mathbf 1_A=(c-1)\mathbf 1_A$ and $S\mathbf 1_B=(c+1)\mathbf 1_B$. Bordering $S$ by a vertex with
+entries $+1$ on $A$ and $-1$ on $B$ gives a Seidel matrix of order $n+1$: the eigenvectors of $S$ for
+$-5$ and $\rho$ are orthogonal to $\mathbf 1_A,\mathbf 1_B$ and stay eigenvectors, and on
+$\operatorname{span}\{e_{\mathrm{new}},\mathbf 1_A,\mathbf 1_B\}$ the bordered matrix has characteristic
+polynomial $(x-c)(x-\rho)(x+5)$, by $|A|+|B|=n$ and $|A|-|B|=c$. So its characteristic polynomial is
+$(x+5)^{n+1-d}(x-c)(x-\rho)^{d-1}$, that is, $(x+5)^{75}(x-14)(x-19)^{19}$ resp.\
+$(x+5)^{56}(x-10)(x-15)^{18}$. No Seidel matrix has this characteristic polynomial
+\cite[Thm.~5.1]{GSY21}, \cite[Remark~5.5]{Gre18}: by \cite[Cor.~5.4]{Gre18} its switching class would
+contain an srg$(95,40,12,20)$ resp.\ srg$(75,32,10,16)$, and these do not exist \cite{AM20,AM18}.
+(Equivalently, the bordered matrix would give $n+1$ equiangular lines in $\R^d$, i.e.\ $95$ in $\R^{20}$
+resp.\ $75$ in $\R^{19}$, contradicting $N(20)\le94$ \cite[Thm.~5.5]{GSY21} resp.\ $N(19)\le74$
+\cite[Thm.~5.2]{GSY21}.)
+\end{proof}
+
+So $\chi_S$ is the spectrum $\#35$. We write $\lambda_1>\lambda_2>\lambda_3$ for its eigenvalues other
+than $-5$: $(21,19,15)$ with multiplicities $(1,16,3)$ for $94$ lines, and $(17,15,11)$ with
+multiplicities $(1,15,3)$ for $74$ lines. Let $m_2=16$ resp.\ $15$ be the multiplicity of $\lambda_2$.
+
+\section{The structure of the spectrum \texorpdfstring{$\#35$}{\#35}}\label{sec:35}
+
+Let $E_\lambda$ be the spectral projections of $S$. Since $G=S+5I=\sum_{\lambda\ne-5}(\lambda+5)E_\lambda$
+is the Gram matrix of the lines (up to the factor $5$), each line $v$ has components $E_\lambda e_v$. We
+scale them: $X_v=(\sqrt2\,r_v,\sqrt3\,z_v,p_v)\in V_1\oplus V_2\oplus V_3$, where
+$V_1\cong\R$, $V_2\cong\R^{m_2}$, $V_3\cong\R^3$ are the eigenspaces of $\lambda_1,\lambda_2,\lambda_3$, and
+\[
+2r_ur_v=6(\lambda_1+5)(E_1)_{uv},\qquad 3\langle z_u,z_v\rangle=6(\lambda_2+5)(E_2)_{uv},\qquad
+\langle p_u,p_v\rangle=6(\lambda_3+5)(E_3)_{uv}.
+\]
+Then $\langle X_u,X_v\rangle=6G_{uv}$, i.e.\ $2r_ur_v+3\langle z_u,z_v\rangle+\langle p_u,p_v\rangle=6S_{uv}$
+for $u\ne v$, and $2r_v^2+3|z_v|^2+|p_v|^2=30$. Since $E_2^2=E_2$ and $E_2$ has rank $m_2$, the matrix
+$Z$ with columns $z_v$ satisfies the \emph{frame identity}
+\begin{equation}\label{eq:frame}
+\sum_vz_vz_v^{\mathsf T}=ZZ^{\mathsf T}=2(\lambda_2+5)\,I_{m_2}\qquad(=40I_{15}\ \text{resp.}\ 48I_{16}),
+\end{equation}
+and in the same way $\sum_vr_v^2=3(\lambda_1+5)$ and $\sum_vp_vp_v^{\mathsf T}=6(\lambda_3+5)I_3$ (in an
+orthonormal basis of $V_3$). Since the $E_\lambda$ are mutually orthogonal, $\sum_vr_vz_v=0$,
+$\sum_vr_vp_v=0$ and $\sum_vz_vp_v^{\mathsf T}=0$. Finally $SE_\lambda=\lambda E_\lambda$ gives the
+\emph{eigen-equations} $\sum_{u\ne v}S_{vu}(r_u,z_u,p_u)=(\lambda_1r_v,\lambda_2z_v,\lambda_3p_v)$.
+
+\paragraph{Types.} For every vertex $v$, $\chi_{S[v]}=\mu g_v$ with $g_v$ one of the six deck members
+$g_0,\dots,g_5$ of $\#35$ that survive level~2, and $(E_\lambda)_{vv}=g_v(\lambda)/\Min'(\lambda)$. This
+gives $(r_v^2,|z_v|^2,|p_v|^2)=(0,9,3)$, $(1,8,4)$, $(4,5,7)$, $(5,4,8)$, $(8,1,11)$, $(9,0,12)$ for
+types $0,\dots,5$, in both cases. For $u\ne v$, $(E_\lambda)_{uv}=\psi_{uv}(\lambda)/\Min'(\lambda)$ with the
+pair polynomial $\psi_{uv}$ of level~2, so every pair of types has a finite list of tuples
+$(S_{uv},r_ur_v,\langle z_u,z_v\rangle,\langle p_u,p_v\rangle)$. They are checked mechanically
+(\texttt{verify/c35\_structure.py}, checks (1)--(3)). Types $3$ and $4$ have pair polynomials only with
+type~$0$ and with themselves.
+
+\paragraph{Supports and counts.} The vertex-star systems of level~2 with the counts $n_t$ of the six
+types as unknowns are infeasible except for three supports, and each of these has a unique solution:
+
+\smallskip
+\begin{center}
+\begin{tabular}{lcc}
+\toprule
+support & $(n_0,n_1,n_2,n_5)$ for $74$ lines & for $94$ lines\\
+\midrule
+$(0,1,5)$ & $(24,48,0,2)$ & $(32,60,0,2)$\\
+$(0,1,2,5)$ & $(25,45,3,1)$ & $(33,57,3,1)$\\
+$(0,1,2)$ & $(26,42,6,0)$ & $(34,54,6,0)$\\
+\bottomrule
+\end{tabular}
+\end{center}
+\smallskip
+(\texttt{src/star\_counts\_35.py}; EQ-LIT's \texttt{t3\_counts.py} derives the same counts.)
+
+\begin{proposition}[rigidity of $V_1$ and $V_3$]\label{prop:rigid}
+After switching, and in a suitable orthonormal frame of $V_3$, every line's $(r_v,p_v)$ depends only on
+its \emph{kind}:
+\begin{itemize}
+\item type $0$ (kind T0): $r=0$, $p=w$; type $1$: $r=1$, $p=2u_x$ for a class $x\in\{a,b,c\}$ (kinds
+T1a, T1b, T1c); type $5$: $r=3$, $p=\pm2w$; type $2$: $r=2$, $p=\sigma w-2u_x$ with $\sigma=\pm1$;
+\end{itemize}
+where $|w|^2=3$, $w\perp u_a,u_b,u_c$, and $u_a,u_b,u_c$ are unit vectors at $120^\circ$
+($u_a+u_b+u_c=0$). The numbers $n_x=|L_x|$ of type-$1$ lines of class $x$ and $m_x$ of type-$2$ lines
+with $p=\sigma w-2u_x$ are: $(n_x,m_x)=(16,0)$ resp.\ $(20,0)$ in $(0,1,5)$, $(15,1)$ resp.\ $(19,1)$ in
+$(0,1,2,5)$, and $(14,2)$ resp.\ $(18,2)$ in $(0,1,2)$, for every $x$. In $(0,1,5)$ the two type-$5$
+lines have $p=2w$ and $p=-2w$. In $(0,1,2,5)$ the type-$5$ line has $p=2w$ and every type-$2$ line has
+$\sigma=-1$. In $(0,1,2)$ there is one type-$2$ line for each pair $(\sigma,x)$.
+\end{proposition}
+\begin{proof}
+Switching a line negates $X_v$; make $r_v\ge0$ for all $v$, so $r=0,1,2,3$ for types $0,1,2,5$. The
+pair data (check (3)) give $\langle p,p'\rangle=\pm3=\pm|p||p'|$ for two type-$0$ lines, so all type-$0$
+parts are parallel; switch the type-$0$ lines so that they are all equal to $w$. Type~$0$/type~$5$
+gives $\langle p,p'\rangle=\pm6=\pm|p||p'|$, so $p=\pm2w$ for type~$5$. Type~$0$/type~$1$ gives
+$\langle p,p'\rangle=0$, so $p=2u$ with $u\perp w$ a unit vector, and type~$1$/type~$1$ gives
+$\langle p,p'\rangle\in\{4,-2\}$: the vectors $u$ are equal or at $120^\circ$, so they lie in a set
+$\{u_a,u_b,u_c\}$ of three unit vectors at $120^\circ$ in the plane $w^\perp$, $u_a+u_b+u_c=0$.
+Type~$0$/type~$2$ gives $\langle p,p'\rangle=\pm3$, so $p=\sigma w+q$ with $q\perp w$, $|q|=2$, and
+type~$1$/type~$2$ gives $\langle2u,q\rangle\in\{-4,2\}$ for every type-$1$ vector $u$. The vectors
+$q\in w^\perp$ of norm $2$ with $\langle u,q\rangle\in\{-2,1\}$ are exactly $-2u_a,-2u_b,-2u_c$, so
+$q=-2u_x$ for one class $x$. On the plane $w^\perp$ the frame
+$\sum_vp_vp_v^{\mathsf T}=6(\lambda_3+5)I_3$ reads $\sum_x4(n_x+m_x)u_xu_x^{\mathsf T}=cI_2$. Three unit
+vectors at $120^\circ$ form a tight frame only with equal weights (and two or one vectors never do), so
+all three classes occur and $n_x+m_x$ is the same for every $x$: $16$ resp.\ $20$. Next
+$\sum_vr_vp_v=0$. In $(0,1,5)$ let the two type-$5$ lines have $p=2\varepsilon_1w$ and $p=2\varepsilon_2w$.
+Only they contribute to $\langle\sum_vr_vp_v,w\rangle$, which is therefore
+$3\cdot2|w|^2(\varepsilon_1+\varepsilon_2)=18(\varepsilon_1+\varepsilon_2)=0$, so $\varepsilon_1=-\varepsilon_2$. In $(0,1,2,5)$, $z_f=0$ for the
+type-$5$ line $f$ forces $6S_{tf}=2r_tr_f+\langle p_t,p_f\rangle$ for every line $t$; replacing $w$ by $-w$
+(and switching the type-$0$ lines) we may take $p_f=2w$, and then a type-$2$ line has
+$S_{tf}=2+\sigma$, so $\sigma=-1$. The component of $\sum_vr_vp_v=0$ in $w^\perp$ reads
+$\sum_x(2n_x-4m_x)u_x=0$, so $2n_x-4m_x$ is the same for all $x$; with $n_x+m_x=16$ (resp.\ $20$) and
+$\sum m_x=n_2=3$ this gives $m_x=1$. In $(0,1,2)$ the same argument gives $m_x=2$. The $w$-component of
+$\sum_vr_vp_v=0$ gives $\sum_t\sigma_t=0$ over the type-$2$ lines, and the $(w,w^\perp)$ block of the
+frame gives $\sum_x(\sum_{t\in x}\sigma_t)u_x=0$, so the three class sums of $\sigma$ are equal, hence~$0$.
+\end{proof}
+
+\paragraph{The problem in $V_2$.} Put $K(u,v)=2r_ur_v+\langle p_u,p_v\rangle$, a function of the two kinds.
+Then
+\begin{equation}\label{eq:zz}
+3\langle z_u,z_v\rangle=6S_{uv}-K(u,v),
+\end{equation}
+so the $z_v\in V_2$ have prescribed norms ($9,8,5,0$ for types $0,1,2,5$) and inner products determined
+by $S_{uv}=\pm1$, subject to Cauchy--Schwarz. They satisfy the frame identity~\eqref{eq:frame},
+$\sum_vr_vz_v=0$ and $\sum_vz_vp_v^{\mathsf T}=0$. The $V_1$- and $V_3$-components of the eigen-equations,
+$\sum_{u\ne v}S_{vu}(r_u,p_u)=(\lambda_1r_v,\lambda_3p_v)$, are a $4\times4$ linear system in the sums of the
+row $S_{v\cdot}$ over the blocks T0, T1a, T1b, T1c. They fix the number of $-1$ entries of every row in
+every block, given the row's entries against the type-$2$ and type-$5$ lines (the \emph{row counts}). The
+$V_2$-component gives the block sums $Z_\beta=\sum_{v\in\beta}z_v$ as fixed combinations of the $z$ of
+the type-$2$ lines. For example, in $(0,1,5)$ for $74$ lines: two type-$0$ lines have
+$\langle z,z'\rangle\in\{1,-3\}$ (per row: $15$ times $1$, $8$ times $-3$); type~$0$/type~$1$:
+$\pm2$ ($8$ and $8$ per class); two lines of the same class: $\{0,-4\}$ ($13$ times $0$, twice $-4$); two
+type-$1$ lines of different classes: $\pm2$ ($8$ and $8$).
+
+\section{The base-class model}\label{sec:model}
+
+Fix a class $a$; everything is symmetric in $a,b,c$. Let $q_1,\dots,q_{n_a}$ be the $z$-vectors of the
+lines of $L_a$, and call a type-$2$ line of class $y\ne a$ an \emph{other-class} type-$2$ line.
+
+\begin{lemma}[the class graph]\label{lem:classgraph}
+$\langle q_i,q_j\rangle\in\{0,-4\}$ for $i\ne j$, and $\langle z_t,q_i\rangle\in\{0,-4\}$ for an other-class
+type-$2$ line $t$. Every $q_i$ has exactly two $-4$ neighbours among the $q_j$ and the other-class
+type-$2$ lines. Hence the $(-4)$-graph on $L_a$ is a disjoint union of paths and cycles, the ends of each
+path are joined to other-class type-$2$ lines (a single vertex to two of them), the Gram matrix of $L_a$
+is $M=8I-4A$ with $A$ the adjacency matrix of this graph, and all cycles have even length $\ge4$.
+\end{lemma}
+\begin{proof}
+The inner products follow from~\eqref{eq:zz}: $K=2+4=6$ for two class-$a$ lines, and
+$K=4+\langle2u_a,\sigma w-2u_y\rangle=6$ for an other-class type-$2$ line. Every other line $y$ with $z_y\ne0$
+has $K(y,q_i)=0$, so $\langle z_y,q_i\rangle=2S_{y,q_i}=\pm2$: type $0$ ($K=0$), type $1$ of another class
+($K=2-2=0$), and type $2$ of class $a$ ($K=4-4=0$). Now apply~\eqref{eq:frame} to $q_i$:
+$\sum_v\langle z_v,q_i\rangle^2=2(\lambda_2+5)\cdot8$. The left side is $64$ (from $v=q_i$), plus $4$ for each
+line $y$ of the kinds just listed, plus $16$ for each $-4$ neighbour. With the counts of the table and
+of Proposition~\ref{prop:rigid}, the lines of the listed kinds number $n_0+2n_x+m_x$, and
+$64+4(n_0+2n_x+m_x)=288$ (for $74$ lines) resp.\ $352$ (for $94$ lines) in all three supports, while
+$2(\lambda_2+5)\cdot8=320$ resp.\ $384$. So there are exactly two $-4$ neighbours. A vertex of degree two
+in a simple graph lies on a path or a cycle. On a cycle component $C$ the all-ones vector spans the kernel
+of $M|_C$, so for every line $y$ the vector $s_i=\langle z_y,q_i\rangle/2$ ($i\in C$) is orthogonal to it;
+a type-$0$ line has $s_i=\pm1$, so $|C|$ is even.
+\end{proof}
+
+\paragraph{Walks and F-parts.} For a line $y\notin L_a$ write $s(y)=(\langle z_y,q_i\rangle/2)_i$ (the
+\emph{steps}; each $s_i$ takes the two values fixed by the kind of $y$ and $S_{y,q_i}$). The projection
+$\omega_y$ of $z_y$ onto $\operatorname{span}(L_a)$ satisfies
+$\langle\omega_x,\omega_y\rangle=4s(x)^{\mathsf T}M^+s(y)$, and it exists only if $s(y)$ lies in the range of
+$M$ (on each cycle: sum zero). The rest $\varphi_y=z_y-\omega_y$ lies in
+$F=\operatorname{span}(L_a)^\perp$, of dimension $\dim F=m_2-n_a+(\text{number of cycles})$; a structure with
+$\dim F<0$ is impossible. By~\eqref{eq:frame}, $\sum_y\varphi_y\varphi_y^{\mathsf T}=2(\lambda_2+5)I_F$; the
+class-$a$ lines have $\varphi=0$ and the type-$5$ lines have $z=0$, so the $\varphi$ of the type-$0$,
+type-$1$ (classes $b,c$) and type-$2$ lines span $F$.
+
+\paragraph{References.} Let $D$ be the least common multiple of the denominators of $4M^+$. Since
+$(6S-K)/3$ is always an integer, $D\langle\varphi_x,\varphi_y\rangle\in\Z$ for all $x,y$. We choose
+\emph{references} $\varphi_{j_1},\dots,\varphi_{j_k}$ as follows. First a maximal independent set of
+$F$-parts of type-$2$ lines (their Gram matrix is fixed by the instance). Then repeatedly, while
+$k<\dim F$: \emph{case A}, some type-$0$ line has $\varphi$ outside the span of the references; add the
+type-$0$ line with the largest residual. \emph{Case B}, otherwise; add the type-$1$ line (class $b$ or
+$c$) with the largest residual. Every configuration is reached by this rule (ties included). The later
+lines must satisfy the recorded maximality conditions. With $G$ the Gram matrix of the references
+(scaled by $D$), every line $y$ gets integer coordinates $C_y=(D\langle\varphi_y,\varphi_{j_r}\rangle)_r$ and
+residual $R_y=D\det(G)|\varphi_y|^2-C_y^{\mathsf T}\operatorname{adj}(G)C_y\ge0$, all determined by its kind,
+its steps and its entries $S$ against the references. At $k=\dim F$ every $R_y=0$ and
+$\langle\varphi_x,\varphi_y\rangle=C_x^{\mathsf T}G^{-1}C_y/D$ exactly. A \emph{node} is a possible
+(kind, steps, coordinates) of a line.
+
+\paragraph{Pair rule.} Two nodes $x,y$ can both occur iff
+$4s(x)^{\mathsf T}M^+s(y)+\langle\varphi_x,\varphi_y\rangle=(6S-K(x,y))/3$ for $S=+1$ or $S=-1$, and then
+$S$ is their Seidel entry. Two distinct lines never have the same node (equal $z$ would need $S=5$
+in~\eqref{eq:zz}). So a configuration is a set of pairwise compatible nodes.
+
+\paragraph{Symmetry.} Automorphisms of the class graph that fix the type-$2$ data map configurations to
+configurations, and the candidate set of each reference is invariant under the stabiliser of the
+references chosen so far. So one candidate per orbit suffices. Every automorphism used is checked to
+preserve $M$.
+
+\paragraph{Leaf conditions.} At a leaf (all references chosen) a configuration selects, for each block,
+the right number of nodes, and it must satisfy: the frame~\eqref{eq:frame} in walk, walk--$F$ and $F$
+coordinates; the block sums; the numbers of $-1$ entries in the columns of the type-$2$ lines; the row
+counts of every selected node; and pairwise compatibility. All of these are necessary conditions.
+
+\section{\texorpdfstring{Computation for $\#35$}{Computation for \#35}}\label{sec:comp35}
+
+\paragraph{Program 1} (\texttt{src/c35gen.py}, \texttt{c35k.py}, \texttt{c35t.py}, \texttt{c35u.py};
+OR-Tools CP-SAT). It builds explicit coordinates for the class vectors ($2(e_k-e_{k+1})$ along each path or
+cycle), computes walks and $F$-coordinates from them, checks the pair rule against explicit vectors
+(\texttt{verify/c35\_relation\_test.py}: no mismatch), and decides each leaf with CP-SAT.
+
+\paragraph{Program 2} (\texttt{verify/c35\_cert.py}), written without program~1's code. It takes the
+$p$-parts in the basis $(w,u_a,u_b)$, solves the row counts and block sums from the eigen-equations,
+uses the class graph only through $M$ (exact Moore--Penrose inverse), enumerates structures, relation
+graphs and partner assignments without symmetry reduction, and reduces own type-$2$ lines and
+references by explicit automorphisms (each one checked). Every leaf is decided by an LP over $0/1$ node
+variables: equality rows for the block sizes, the frame, the block sums, the type-$2$ columns and the row
+counts of the selected nodes, with box bounds. Infeasibility is proved by an integer Farkas vector $Y$,
+whose margin $\sum_rY_rb_r-\max_{\ell\le x\le u}\sum_rY_ra_rx$ is checked to be positive in exact
+arithmetic. Branch and bound over cardinality groups (child $i$ fixes the first $i$ options to $0$ and
+option $i$ to $1$; the last child fixes all options to $0$) and propagation (compatibility, a counting
+core, cardinality groups) refine the leaf; the propagation depends only on the fixings, and the checker
+recomputes it. A certificate file has one record per leaf (instance, reference path, references, leaf
+index, tree), and \texttt{--check} re-verifies a whole file without an LP solver, stopping on a missing,
+extra or altered record (all three tested). The relation matrix is computed in floating point with
+tolerance $10^{-6}$; an exactly compatible pair always passes, so the computed relation contains the true
+one, which only weakens the model.
+
+\paragraph{Agreement.} On $984$ identical leaves (all supports, $\dim F\le2$ for $74$ lines) the node sets
+and relation matrices of the two programs are equal (\texttt{verify/c35\_cert\_compare.py}). Program~2's
+pair rules equal those allowed by the level-$2$ pair data for every pair of kinds
+(\texttt{verify/c35\_structure.py}, check~(4)). A third program, written by the team's auditor EQ-AUD
+from its own derivation of \S\S\ref{sec:35}--\ref{sec:model} (exact pair relation, a different
+reference rule, no shared code), excludes all $444$ leaves of its own search for $94$ lines with
+integer Farkas vectors.
+
+\paragraph{Coverage.} In support $(0,1,5)$ there are no type-$2$ lines, so the class graph is a union of
+even cycles and $\dim F=m_2-n_a+c$. For $94$ lines ($m_2=16$, $n_a=20$) this needs $c\ge4$ cycles: the
+structures are $(8,4,4,4)$, $(6,6,4,4)$ and $(4,4,4,4,4)$. For $74$ lines ($m_2=15$, $n_a=16$) all seven
+partitions of $16$ into even parts $\ge4$ occur. In the other supports the structures are the unions of
+paths and even cycles allowed by Lemma~\ref{lem:classgraph}.
+
+\begin{center}
+\small
+\begin{tabular}{llll}
+\toprule
+case & support & program 2: leaves & program 1\\
+\midrule
+$94$ & $(0,1,5)$ & $1+1+10$ for $(8,4,4,4)$, $(6,6,4,4)$, $(4,4,4,4,4)$ & all infeasible\\
+$94$ & $(0,1,2,5)$ & $3$ (seven other instances: type-$2$ Gram) & all excluded\\
+$94$ & $(0,1,2)$ & $14$ (others: type-$2$ Gram, or no own type-$2$ lines) & all excluded\\
+$74$ & $(0,1,5)$ & $1+50+28+26+5873+4648$ for the structures & all infeasible\\
+& & $(16),(12,4),(10,6),(8,8),(8,4,4),(6,6,4)$ & \\
+$74$ & $(0,1,5)$ & $68{,}378+68{,}209$ for $(4,4,4,4)$ & all infeasible (\S\ref{sec:d19})\\
+$74$ & $(0,1,2,5)$ & $24{,}792$ & all excluded\\
+$74$ & $(0,1,2)$ & $163{,}015$ & all excluded\\
+\bottomrule
+\end{tabular}
+\end{center}
+
+Every program-$2$ leaf in the table is infeasible. All program-$2$ certificate files are re-verified by \texttt{verify/c35\_cert\_checkall.py} with one frozen
+version of \texttt{c35\_cert.py} (sha256 prefix \texttt{911efe268df167a3}); the logs are in
+\texttt{logs/cert\_final\_check*}.
+
+\section{\texorpdfstring{Proofs of Theorems~\ref{thm:d20} and~\ref{thm:d19}}{Proofs of Theorems 2 and 3}}\label{sec:d19}
+
+\begin{proof}[Proof of Theorem~\ref{thm:d20}]
+Suppose there are $94$ equiangular lines in $\R^{20}$. By Lemma~\ref{lem:169}, levels~1 and~2 and
+Lemma~\ref{lem:no3}, $\chi_S=(x-21)(x-19)^{16}(x-15)^3(x+5)^{74}$. By \S\ref{sec:35} the lines have one of
+the three supports, with the counts of the table and the rigid $(r,p)$-parts of
+Proposition~\ref{prop:rigid}. By \S\ref{sec:model} every configuration of the $z$-vectors appears at a
+leaf of the base-class model for some structure. Program~2 proves every leaf infeasible with checked
+certificates, and program~1 independently finds every leaf infeasible. Every set of more than $94$ lines
+contains $94$, so $N(20)\le93$.
+\end{proof}
+
+\paragraph{The computations for $74$ lines.} The same chain applies with the $74$-line data. The
+largest search is support $(0,1,5)$ with class structure $(4,4,4,4)$, i.e.\ four $4$-cycles, so
+$\dim F=3$. For this structure every line $y\notin L_a$ has steps $\pm1$ with sum $0$ on each cycle, and its
+projection onto the span of each $4$-cycle is one of six vectors (four of norm $2$, two of norm $1$). Of the
+$56$ lines of type $0$ and classes $b,c$, exactly $24$ alternate on each cycle. In particular, if $a$ is
+chosen as a class with the fewest cycles, all three classes have structure $(4,4,4,4)$.
+The computations (completed 23 October 2026, 13:38 UTC):
+\begin{itemize}
+\item Supports $(0,1,2,5)$ and $(0,1,2)$, and the six other structures of $(0,1,5)$: excluded by
+program~2 (all certificate files checked) and by program~1.
+\item Structure $(4,4,4,4)$, program~2: complete. The level-$2$ reference tree has $785$ units in two
+shards, with $68{,}378+68{,}209=136{,}587$ leaves, all excluded with certificates. In $42$ of them (units
+$217$, $232$ and $240$) the type-$0$ block has hundreds of LP-feasible completions, and each completion
+needs a search over the type-$1$ lines of about $1{,}500$ LPs, so the run's budget of $400$ LPs per leaf
+was not enough. Branching on the type-$1$ groups first (\texttt{verify/c35\_cert\_hard.py}; certificates
+in the same format, so the same check applies to any choice of branching group) closed all $42$, in
+$1{,}394$ to $6{,}579$ LPs each. The merged certificate file of each shard passes \texttt{--check} with
+the frozen code.
+\item Structure $(4,4,4,4)$, program~1: all $1{,}490$ second-level leaves are infeasible in CP-SAT,
+$1{,}258$ directly (\texttt{src/c35k.py}, \texttt{src/c35k3.py}) and $232$ after a split by a third
+reference ($188{,}648$ sub-leaves, \texttt{src/c35k3.py}). \texttt{verify/c35k3\_coverage.py}
+re-enumerates every second-level leaf and its third-level leaves and finds an infeasible record for each
+in the union of the run logs; no leaf or sub-leaf was found feasible. With three references every
+$F$-part is exact. On $92$ sampled leaves the node sets and pair relations equal program~2's
+(\texttt{verify/c35k3\_compare.py}).
+\end{itemize}
+
+\begin{proof}[Proof of Theorem~\ref{thm:d19}]
+Suppose there are $74$ equiangular lines in $\R^{19}$. By Lemma~\ref{lem:169}, levels~1 and~2 and
+Lemma~\ref{lem:no3}, $\chi_S=(x-17)(x-15)^{15}(x-11)^3(x+5)^{55}$. By \S\ref{sec:35} the lines have one of
+the three supports, with the counts of the table and the rigid $(r,p)$-parts of
+Proposition~\ref{prop:rigid}, and by \S\ref{sec:model} every configuration appears at a leaf of the
+base-class model for some structure. By the computations above, program~2 proves every leaf infeasible
+with checked certificates, and program~1 independently finds every leaf infeasible. Every set of more
+than $74$ lines contains $74$, so $N(19)\le73$.
+\end{proof}
+
+\input{t18_sections}
+
+\section{What remains}
+\begin{itemize}
+\item $344\le N(44)\le420$. For $n=420$, Lemma~\ref{lem:force} forces only $(x-59)^8$ and leaves a
+remainder of degree $36$, far beyond direct enumeration.
+\item For $d=45,46$ the relative bound ($540$, $736$) is an integer; equality is the existence of
+srg$(539,234,81,117)$, resp.\ srg$(735,318,109,159)$. Proposition~\ref{prop:U} does not apply at
+$n=R$ and fails at $n=R-1$.
+\item $d=20$: $90\le N(20)\le93$. Excluding $93$ lines would need the chain at $n=93$, an odd
+order. There Lemma~\ref{lem:force} forces no eigenvalue: the angle is $\arccos\frac15$, $-5$ has
+multiplicity $73$, and the best centre $\kappa=19$ gives $T=81$, while $81^{20}>20^{20}4^{19}$. So
+the remainder has degree $20$ instead of $13$.
+\item $d=19$: $72\le N(19)\le73$. Likewise at $n=73$: $-5$ has multiplicity $54$, the best centre
+$\kappa=15$ gives $T=81$, $81^{19}>19^{19}4^{18}$, and the remainder has degree $19$. (For program~2's
+$42$ hard leaves of \S\ref{sec:d19}, lookahead branching, conditional row-count cuts, eigen-equation
+rows for selected nodes, $4$-cycle propagation, spectral cuts and CP-SAT did not help within the
+default branching order; branching on the type-$1$ groups first decided all of them.)
+\item $d=18$: $57\le N(18)\le58$. At $n=58$ (even order), $-5$ has multiplicity $40$, the best centre
+$\kappa=11$ gives $T=84>4\cdot18$, so Lemma~\ref{lem:force} forces no eigenvalue, and the remainder
+has degree $18$ instead of $17$.
+\item \emph{Size of the next enumerations} (estimates only: systematic samples of about one
+subtree in $1{,}000$ at depth $5$ of the enumeration tree of Lemma~\ref{lem:59enum}, run with the
+same congruences and filters but without a forced eigenvalue; scratch code \texttt{src/est/},
+samples in \texttt{runs/est\_enum/}). On $59$ lines itself the sample predicts about $1{,}000$
+candidates, against the true $1{,}214$. For $73$ lines in $\R^{19}$ and $93$ in $\R^{20}$ the
+samples suggest $2\cdot10^9$ and $1.5\cdot10^9$ nodes, about $1{,}300$ and $2{,}300$
+candidates, and $170$ and $130$ CPU-hours for our enumerator, against $4\cdot10^7$ nodes and $16$
+CPU-hours for $59$ lines. Every sampled candidate has the centre as an eigenvalue ($15$ with
+multiplicity $9$ to $12$, resp.\ $19$ with multiplicity $3$ to $13$). For $58$ lines the tree is
+far larger, of order $10^{10}$ nodes with $10^5$ to $10^6$ leaves: at even order the classes
+modulo $2^7$ are exactly the type-$2$ residues (a sample with and without the filter of
+$P_{58,7}$ visits the same nodes), and \cite[Lemma~3.12]{GY19} needs odd order, so only
+real-rootedness prunes. Every sampled leaf has the eigenvalue $11$.
+\item Dimensions $18$ and $42$: the moment tests give nothing new.
+\end{itemize}
+
+\begin{thebibliography}{99}
+\bibitem{AM18} J.~Azarija, T.~Marc, There is no $(75,32,10,16)$ strongly regular graph, Linear Algebra Appl.\ 557 (2018) 62--83.
+\bibitem{AM20} J.~Azarija, T.~Marc, There is no $(95,40,12,20)$ strongly regular graph, J.\ Combin.\ Des.\ 28 (2020) 294--306.
+\bibitem{BY14} A.~Barg, W.-H.~Yu, New bounds for equiangular lines, in: Discrete Geometry and Algebraic Combinatorics, Contemp.\ Math.\ 625, AMS (2014) 111--121.
+\bibitem{CKLY22} M.-Y.~Cao, J.~H.~Koolen, Y.-C.~R.~Lin, W.-H.~Yu, The Lemmens--Seidel conjecture and forbidden subgraphs, J.\ Combin.\ Theory Ser.\ A 185 (2022) 105538.
+\bibitem{GKMS16} G.~Greaves, J.~H.~Koolen, A.~Munemasa, F.~Sz\"oll\H{o}si, Equiangular lines in Euclidean spaces, J.\ Combin.\ Theory Ser.\ A 138 (2016) 208--235.
+\bibitem{Gre18} G.~Greaves, Equiangular line systems and switching classes containing regular graphs, Linear Algebra Appl.\ 536 (2018) 31--51.
+\bibitem{GS24} G.~R.~W.~Greaves, J.~Syatriadi, Real equiangular lines in dimension $18$ and the Jacobi identity for complementary subgraphs, J.\ Combin.\ Theory Ser.\ A 201 (2024) 105812.
+\bibitem{GS25} G.~R.~W.~Greaves, J.~Syatriadi, Real-rooted integer polynomial enumeration algorithms and interlacing polynomials via linear programming, arXiv:2504.09241 (2025).
+\bibitem{GSY21} G.~R.~W.~Greaves, J.~Syatriadi, P.~Yatsyna, Equiangular lines in low dimensional Euclidean spaces, Combinatorica 41 (2021) 839--872. We cite the numbering of arXiv:2002.08085v1.
+\bibitem{GSY23} G.~R.~W.~Greaves, J.~Syatriadi, P.~Yatsyna, Equiangular lines in Euclidean spaces: dimensions 17 and 18, Math.\ Comp.\ 92 (2023) 1867--1903.
+\bibitem{GY19} G.~R.~W.~Greaves, P.~Yatsyna, On equiangular lines in 17 dimensions and the characteristic polynomial of a Seidel matrix, Math.\ Comp.\ 88 (2019) 3041--3061.
+\bibitem{KT19} E.~J.~King, X.~Tang, New upper bounds for equiangular lines by pillar decomposition, SIAM J.\ Discrete Math.\ 33 (2019) 2479--2508.
+\bibitem{LS73} P.~W.~H.~Lemmens, J.~J.~Seidel, Equiangular lines, J.\ Algebra 24 (1973) 494--512.
+\bibitem{Szo19} F.~Sz\"oll\H{o}si, A remark on a construction of D.~S.~Asche, Discrete Comput.\ Geom.\ 61 (2019) 120--122.
+\bibitem{Tay71} D.~E.~Taylor, Some topics in the theory of finite groups, PhD thesis, University of Oxford (1971).
+\bibitem{Taylor} D.~E.~Taylor, Regular 2-graphs, Proc.\ London Math.\ Soc.\ (3) 35 (1977) 257--274.
+\bibitem{vLS66} J.~H.~van Lint, J.~J.~Seidel, Equilateral point sets in elliptic geometry, Indag.\ Math.\ 28 (1966) 335--348.
+\bibitem{Yu17} W.-H.~Yu, New bounds for equiangular lines and spherical two-distance sets, SIAM J.\ Discrete Math.\ 31 (2017) 908--917.
+\end{thebibliography}
+
+\appendix
+\section{\texorpdfstring{The 82 candidates for 421 lines in $\R^{44}$}{The 82 candidates for 421 lines in R\textasciicircum 44}}\label{app:cand}
+Each row gives: the eigenvalues of $\chi_S$ other than $-7^{377}$ (integer eigenvalues with
+multiplicity, then irreducible non-linear factors), $\delta$, the deck size, and the number of decimal
+digits of the largest certificate entry. The full data are in
+\texttt{data/n421/decks/$\langle$idx$\rangle$.json}.
+{\small
+\input{tables/n421_candidates.tex}
+}
+
+\section{\texorpdfstring{Excluded top values for $a\le13$}{Excluded top values for a <= 13}}\label{app:U}
+Columns: $a$, $d$, $R$, $n_0=\lfloor R\rfloor$, the smallest odd witness $\kappa$, $s$, $T$, $\eta^*(T)$. In
+each row, $N_{1/a}(d)\le n_0-1$. Produced by \texttt{verify/c1\_uniform.py} and
+\texttt{verify/c1\_uniform.gp}, whose outputs agree line by line.
+{\small
+\input{tables/thmU_rows.tex}
+}
+\end{document}
