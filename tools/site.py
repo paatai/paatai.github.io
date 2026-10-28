@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Site maintenance.  Run from the repo root.
 
-  python3 tools/site.py nav        rewrite the primary nav on every page
+  python3 tools/site.py nav        rewrite the primary nav on every page and the year links on talks.html
   python3 tools/site.py ai-proofs  rebuild ai-proofs/index.html from ai-proofs/entries.json
   python3 tools/site.py all        both
 """
@@ -49,6 +49,16 @@ def fix_nav():
         if k != 1: print("WARNING: %d navs in %s" % (k, rel)); continue
         if t != s: open(p, "w", encoding="utf-8").write(t); n += 1
     print("nav updated on %d pages" % n)
+
+
+def fix_years():
+    p = os.path.join(ROOT, "talks.html"); s = open(p, encoding="utf-8").read()
+    years = re.findall(r'<h2 class="year" id="t(\d{4})">', s)
+    links = "".join('<li><a href="#t%s">%s</a></li>' % (y, y) for y in years)
+    t, k = re.subn(r'(<nav class="jump" aria-label="Years"><ul>).*?(</ul></nav>)', lambda m: m.group(1) + links + m.group(2), s)
+    if k != 1: print("WARNING: no year links found in talks.html"); return
+    if t != s: open(p, "w", encoding="utf-8").write(t)
+    print("talks: %d year links" % len(years))
 
 
 MONTHS = "January February March April May June July August September October November December".split()
@@ -112,4 +122,4 @@ def build_ai_proofs():
 if __name__ == "__main__":
     cmd = sys.argv[1] if len(sys.argv) > 1 else "all"
     if cmd in ("ai-proofs", "all"): build_ai_proofs()
-    if cmd in ("nav", "all"): fix_nav()
+    if cmd in ("nav", "all"): fix_nav(); fix_years()

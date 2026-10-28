@@ -28,6 +28,8 @@ Content was transferred from the Google Site https://sites.google.com/view/paata
 
 The primary nav is duplicated on every page. To change it, edit `NAV` in `tools/site.py` and run `python3 tools/site.py nav`; it rewrites every page with the right `../` prefix and `aria-current`. On wide screens `css/site.css` lays the eleven items out in six columns, i.e. rows of six and five (`repeat(6, auto)` under `nav.primary ul`); revisit that if the number of items changes.
 
+The year links under the title of `talks.html` are rebuilt by the same command from the year headings (`<h2 class="year" id="t2027">2027</h2>`), so after adding a new year, run `python3 tools/site.py nav`.
+
 ## Clock on the home page
 
 The home page shows `clock/` in an iframe as `clock/#embed=1`. With `embed=1` the clock uses the site's dark background, lets vertical swipes scroll the page (drag a ball sideways to spin it), pauses while scrolled out of view, and snaps instead of rotating when the visitor prefers reduced motion. Opened directly, `clock/` is unchanged.
