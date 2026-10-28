@@ -52,22 +52,46 @@ def fix_nav():
 
 
 MONTHS = "January February March April May June July August September October November December".split()
+STATUSES = ("refereed", "partial result", "raw draft", "polished")   # badge styles live in css/site.css
+
+
+def problems(e, seen):
+    if any(k not in e for k in ("n", "date", "title", "status", "pdf")):
+        return ["needs n, date, title, status and pdf"]
+    out = [] if e["n"] not in seen else ["number %d is used twice" % e["n"]]
+    seen.add(e["n"])
+    try: date.fromisoformat(e["date"])
+    except ValueError: out.append("date %r is not YYYY-MM-DD" % e["date"])
+    if e["status"] not in STATUSES: out.append("status %r is not one of %s" % (e["status"], ", ".join(STATUSES)))
+    out += ["missing file ai-proofs/" + h for _, h in [("PDF", e["pdf"])] + e.get("files", [])
+            if not os.path.isfile(os.path.join(ROOT, "ai-proofs", h))]
+    return out
+
+
+def entry_html(e):
+    y, m, d = map(int, e["date"].split("-"))
+    files = [("PDF", e["pdf"])] + [tuple(f) for f in e.get("files", [])]
+    links = " · ".join('<a href="%s">%s</a>' % (html.escape(h), t) for t, h in files)
+    note = e["line"] + " " if e.get("line") else ""
+    return ('<li id="{n}" value="{n}"><a class="ap-n" href="#{n}">{n}</a>'
+            '<a class="ap-title" href="{pdf}">{title}</a>'
+            '<span class="ap-side"><time datetime="{date}">{when}</time> <span class="badge {cls}">{status}</span></span>'
+            '<span class="ap-note">{note}<span class="ap-files">[{links}]</span></span></li>').format(
+        n=e["n"], pdf=html.escape(e["pdf"]), title=e["title"], date=e["date"], when="%s %d, %d" % (MONTHS[m - 1][:3], d, y),
+        cls=e["status"].replace(" ", "-"), status=e["status"], note=note, links=links)
 
 
 def build_ai_proofs():
     entries = json.load(open(os.path.join(ROOT, "ai-proofs/entries.json"), encoding="utf-8"))
-    entries.sort(key=lambda e: (e["date"], e["n"]), reverse=True)   # newest first
-    rows = []
+    seen = set()
     for e in entries:
-        y, m, d = map(int, e["date"].split("-"))
-        when = "%s %d, %d" % (MONTHS[m - 1][:3], d, y)
-        files = [("PDF", e["pdf"])] + [tuple(f) for f in e.get("files", [])]
-        links = " · ".join('<a href="%s">%s</a>' % (html.escape(h), t) for t, h in files)
-        rows.append('<li data-n="%d"><a href="%s">%s</a> <span class="ap-meta">%s · %s</span> %s <span class="ap-files">[%s]</span></li>'
-                    % (e["n"], html.escape(e["pdf"]), e["title"], when, e["status"], e["line"], links))
+        for msg in problems(e, seen): print("WARNING: entry %s: %s" % (e.get("n", "?"), msg))
+    entries.sort(key=lambda e: (e["date"], e["n"]), reverse=True)   # newest first
+    rows = [entry_html(e) for e in entries]
+    block = ('<p class="ap-count">%d entries, newest first</p>\n<ol class="ap-list">\n%s\n</ol>\n'
+             % (len(rows), "\n".join(rows)))
     p = os.path.join(ROOT, "ai-proofs/index.html"); s = open(p, encoding="utf-8").read()
-    s = re.sub(r"(<!-- BEGIN ENTRIES[^>]*-->\n).*?(<!-- END ENTRIES -->)",
-               lambda m: m.group(1) + '<ol class="papers ai-proofs">\n' + "\n".join(rows) + "\n</ol>\n" + m.group(2), s, flags=re.S)
+    s = re.sub(r"(<!-- BEGIN ENTRIES[^>]*-->\n).*?(<!-- END ENTRIES -->)", lambda m: m.group(1) + block + m.group(2), s, flags=re.S)
     open(p, "w", encoding="utf-8").write(s)
     print("ai-proofs: %d entries" % len(rows))
 
