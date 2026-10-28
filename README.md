@@ -22,8 +22,14 @@ Content was transferred from the Google Site https://sites.google.com/view/paata
 2. Append one object to `ai-proofs/entries.json` with the next number `n`:
    `{"n": 19, "date": "YYYY-MM-DD", "title": "...", "status": "refereed | partial result | raw draft | polished", "line": "one honest sentence: what is proved, what is open", "pdf": "<slug>/<file>.pdf", "files": [["TeX", "<slug>/<file>.tex"], ["code", "<slug>/code.zip"]]}`
    Paths are relative to `ai-proofs/`. Use `refereed` only if an independent referee rated the proof valid.
-3. Run `python3 tools/site.py ai-proofs` and commit. The page lists entries newest first; numbers never change.
+3. Run `python3 tools/site.py ai-proofs` and commit. The page lists entries newest first; numbers never change, and each entry has a permanent link `ai-proofs/#<n>`. The script first checks every entry (all fields present, a whole-number `n` used once, a real `YYYY-MM-DD` date, a known status, `files` as label/path pairs, every file present); if anything is wrong it prints what and leaves the page unchanged.
 
 ## Navigation
 
-The primary nav is duplicated on every page. To change it, edit `NAV` in `tools/site.py` and run `python3 tools/site.py nav`; it rewrites every page with the right `../` prefix and `aria-current`.
+The primary nav is duplicated on every page. To change it, edit `NAV` in `tools/site.py` and run `python3 tools/site.py nav`; it rewrites every page with the right `../` prefix and `aria-current`. On wide screens `css/site.css` lays the eleven items out in six columns, i.e. rows of six and five (`repeat(6, auto)` under `nav.primary ul`); revisit that if the number of items changes.
+
+The year links under the title of `talks.html` are rebuilt by the same command from the year headings (`<h2 class="year" id="t2027">2027</h2>`), so after adding a new year, run `python3 tools/site.py nav`.
+
+## Clock on the home page
+
+The home page shows `clock/` in an iframe as `clock/index.html#embed=1`. With `embed=1` the clock uses the site's dark background, lets vertical swipes scroll the page (drag a ball sideways to spin it), pauses while scrolled out of view, and snaps instead of rotating when the visitor prefers reduced motion. Opened directly, `clock/` is unchanged.
