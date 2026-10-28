@@ -24,6 +24,8 @@ html {
 }
 body {
   margin: 0;
+  /* Landscape iPhones: keep everything clear of the notch; the black background still runs under it */
+  padding: 0 env(safe-area-inset-right, 0px) 0 env(safe-area-inset-left, 0px);
   background: var(--bg);
   color: var(--text);
   font-family: var(--font);
@@ -61,15 +63,11 @@ strong, b { font-weight: 700; }
   text-decoration: none;
 }
 
-/* One centred column straight on the black page; the gutters grow into the notch insets */
+/* One centred column straight on the black page */
 .folio {
   max-width: calc(var(--col) + 2 * var(--gutter));
   margin: 0 auto;
-  padding:
-    env(safe-area-inset-top, 0px)
-    max(var(--gutter), env(safe-area-inset-right, 0px))
-    max(3rem, calc(env(safe-area-inset-bottom, 0px) + 2rem))
-    max(var(--gutter), env(safe-area-inset-left, 0px));
+  padding: env(safe-area-inset-top, 0px) var(--gutter) max(3rem, calc(env(safe-area-inset-bottom, 0px) + 2rem));
 }
 .band {
   display: flex;
@@ -119,11 +117,12 @@ strong, b { font-weight: 700; }
 .meta { margin: 0.3rem 0 0; font-size: 0.95rem; color: var(--mute); }
 .meta a { text-decoration: none; }
 .meta a:hover { text-decoration: underline; }
-.dept { margin: 0.65rem 0 0; font-size: 0.95rem; color: var(--mute); }
+.dept { margin: 0.65rem 0 0; font-size: 0.95rem; color: var(--mute); text-wrap: balance; }
 
 /* Primary nav as X-style tabs: grey labels, the current page white with a blue bar under its label.
-   Eleven items: two aligned rows (six and five) on wide screens, wrapping rows on phones. */
+   Eleven items: two aligned rows (six and five) on wide screens, balanced wrapping rows on phones. */
 nav.primary {
+  --tab-pad: 0.6rem;
   grid-column: 1 / -1;
   margin: 0;
   border-top: 1px solid var(--line);
@@ -132,7 +131,7 @@ nav.primary {
 nav.primary ul {
   list-style: none;
   padding: 0;
-  margin: 0 -0.6rem;
+  margin: 0 calc(-1 * var(--tab-pad));
   display: grid;
   grid-template-columns: repeat(6, auto);
   justify-content: space-between;
@@ -146,7 +145,7 @@ nav.primary a {
   justify-content: center;
   align-items: center;
   min-height: 2.9rem;
-  padding: 0 0.6rem;
+  padding: 0 var(--tab-pad);
   color: var(--mute);
   font-size: 0.94rem;
   font-weight: 600;
@@ -407,7 +406,7 @@ footer.site p { margin: 0.15rem 0; }
   max-width: 100rem;
   min-height: max(50vh, 20rem);
   min-height: max(50svh, 20rem);
-  padding: 0 env(safe-area-inset-right, 0px) env(safe-area-inset-bottom, 0px) env(safe-area-inset-left, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
 }
 .clock iframe {
   display: block;
@@ -499,9 +498,13 @@ a.ap-n:hover { color: var(--link-hover); text-decoration: underline; }
 .ap-files { display: inline-block; }
 .ap-files a { white-space: nowrap; }
 
-@media (max-width: 600px) {
-  nav.primary ul { display: flex; flex-wrap: wrap; justify-content: flex-start; }
-  nav.primary li { flex: 0 0 auto; }
+/* Narrow screens: the tabs wrap like words in balanced rows, so none is left alone on the last row.
+   On phones they shrink a little with the width to stay in three rows. */
+@media (max-width: 660px) {
+  nav.primary { --tab-pad: clamp(0.4rem, 3.2vw - 0.28rem, 0.6rem); }
+  nav.primary ul { display: block; text-wrap: balance; }
+  nav.primary li { display: inline-flex; vertical-align: top; }
+  nav.primary a { font-size: clamp(0.8125rem, 0.29rem + 2.6vw, 0.94rem); }
 }
 
 @media (max-width: 720px) {
@@ -521,11 +524,6 @@ a.ap-n:hover { color: var(--link-hover); text-decoration: underline; }
     column-gap: 0.7rem;
   }
   .ap-side { flex-direction: row; align-items: baseline; gap: 0.6rem; margin-top: 0.35rem; }
-}
-
-/* Smallest phones: keeps the nav to three rows */
-@media (max-width: 359px) {
-  nav.primary a { padding: 0 0.45rem; font-size: 0.875rem; }
 }
 
 /* High Contrast: forced colours drop backgrounds, so repaint the bars and bullets */
