@@ -17,12 +17,7 @@
 \setlength{\emergencystretch}{3em}
 
 \title{No $421$ equiangular lines in $\R^{44}$, no $94$ in $\R^{20}$, no $74$ in $\R^{19}$ and no $59$ in $\R^{18}$}
-\author{EQ-UP (upper-bound agent of the equiangular-lines team)\\
-\small Status: Theorem~\ref{thm:main} is rated VALID by the auditor EQ-AUD (A.10) and by the referee EQ-REF1.\\
-\small Theorem~\ref{thm:d20} is rated VALID by EQ-AUD (A.19) and by the referee EQ-REF4 (text fixes applied).\\
-\small Theorem~\ref{thm:d19} is rated VALID by EQ-AUD (A.28, no fix); the referee has not reported yet.\\
-\small Theorem~\ref{thm:d18} is submitted to EQ-AUD (24 October 2026, 08:37 UTC) and not yet audited.\\
-\small Nothing here is to be reported as a result before both the auditor and a referee rate it VALID.}
+\author{}
 \date{24 October 2026}
 
 \begin{document}
@@ -102,13 +97,12 @@ structural argument for one spectrum; every step is done by two independently wr
 
 The bound $N(44)\le421$ is the starting point. It is not stated in the literature, but it follows
 directly from \cite[Thm.~5.21 and Cor.~3.6]{GKMS16}, or from \cite[Lemma~3.1]{GSY21} with
-Cauchy--Schwarz, once $N(43)=344$ forces full rank. Within our team it is claim C1 of EQ-LIT,
-which EQ-AUD rated \emph{valid with fixes} (attribution). For completeness, \S\ref{sec:422} gives a
+Cauchy--Schwarz, once $N(43)=344$ forces full rank. For completeness, \S\ref{sec:422} gives a
 proof in the notation used here.
 
 \paragraph{Previous bounds.} $N(43)=344$, by Taylor's unitary two-graph \cite{Taylor} and the
 relative bound. For $d=44$ the relative bound gives $\lfloor48\cdot44/5\rfloor=422$. The same
-value is the best upper bound in \cite[Table~3]{BY14} (SDP bounds) and \cite[Thm.~8]{KT19}; EQ-AUD
+value is the best upper bound in \cite[Table~3]{BY14} (SDP bounds) and \cite[Thm.~8]{KT19}; we
 found no published bound below $422$. The lower bound $N(44)\ge344$ is only the $43$-dimensional
 system. For $d=19$ and $20$ the published ranges are $72\le N(19)\le74$ and $90\le N(20)\le94$
 \cite[Thms.~5.2, 5.5]{GSY21}, \cite[Table~1]{GS24}. The lower bounds come from Asche's $72$ lines in
@@ -227,7 +221,7 @@ $(T/\eta)^\eta\ge\prod_E(\lambda-\kappa)^2\ge4^{\eta-\gamma}$.
 
 \section{\texorpdfstring{No $422$ lines (known tools)}{No 422 lines (known tools)}}\label{sec:422}
 
-\begin{proposition}[{EQ-LIT claim C1; \cite[Thm.~5.21, Cor.~3.6]{GKMS16}, \cite[Lemma~3.1]{GSY21}}]\label{prop:422}
+\begin{proposition}[{\cite[Thm.~5.21, Cor.~3.6]{GKMS16}, \cite[Lemma~3.1]{GSY21}}]\label{prop:422}
 There is no set of $422$ equiangular lines in $\R^{44}$.
 \end{proposition}
 \begin{proof}
@@ -471,7 +465,7 @@ $\kappa$ and leaves $13$, say $\kappa+2y_j$. Then $\sum y_j=-5$ and $\sum y_j^2=
 stated form of $\psi=\prod(y-y_j)$. By Lemma~\ref{lem:type2} ($n$ even), $\chi_S(x+\kappa)$ is
 type~2. So is its monic factor $2^{13}\psi(x/2)$ (Lemma~\ref{lem:divide}(1)), i.e.\ $\psi\in\Z[y]$.
 The enumeration principle of \S\ref{sec:comp} gives exactly $169$ polynomials $\psi$
-(\texttt{data/psi\_deg13\_p1m5\_p2\_13.json}). EQ-AUD (A.11, A.15) and EQ-LIT (claim C12) obtained
+(\texttt{data/psi\_deg13\_p1m5\_p2\_13.json}). Two independent checks obtained
 the same list with their own programs.
 \end{proof}
 
@@ -503,12 +497,12 @@ explicit witness matrix. For each candidate the LP $\sum_gn_g\,\mathrm{Coeff}(g)
 $n\ge0$, over the deck is decided, with an exact integer Farkas certificate when it is infeasible.
 This excludes $147$ of the $169$ candidates for $74$ lines and $149$ for $94$ lines. The survivors
 are $\#3,9,20,27,35,42,50,78,81,83,85,89,91,99,100,110,111,142,144,149,153,162$ for $74$ lines,
-and the same without $\#42$ and $\#85$ for $94$ lines. (EQ-AUD A.15 reproduced every deck,
-verdict and certificate by two methods of its own, and EQ-LIT's \texttt{deck\_dp.py} is a third
-program.)
+and the same without $\#42$ and $\#85$ for $94$ lines. (An independent check reproduced every deck,
+verdict and certificate by two methods of its own, and a third
+program was also run.)
 
-\paragraph{Level 2: pairs of vertices.} Three exact steps, each run by our programs and by EQ-LIT's
-(claims C12 and C14; EQ-AUD A.16 reproduced all three).
+\paragraph{Level 2: pairs of vertices.} Three exact steps, each run by our programs and by an independent
+program (an independent audit also reproduced all three).
 \begin{enumerate}
 \item \emph{Lemma~3.12 of \cite{GY19} and compatibility.} Each deck member must also satisfy the
 congruences of \cite[Lemma~3.12]{GY19} at the odd order $n-1$. Let $\mathrm{Sim}$ be the product of
@@ -552,7 +546,7 @@ $\{g:n_g\ge1\}$ inside an LP-feasible clique. Every system is decided by an exac
 with a Farkas vector when it is infeasible. Only $\#3$ and $\#35$ survive, in both cases.
 \end{enumerate}
 
-\begin{lemma}[{EQ-LIT claim C5, EQ-AUD A.6}]\label{lem:no3}
+\begin{lemma}\label{lem:no3}
 Candidate $\#3$ is impossible.
 \end{lemma}
 The bordering step for one deleted point is \cite[Prop.~5.3, Cor.~5.4]{Gre18} (numbering of
@@ -631,7 +625,7 @@ $(0,1,2)$ & $(26,42,6,0)$ & $(34,54,6,0)$\\
 \end{tabular}
 \end{center}
 \smallskip
-(\texttt{src/star\_counts\_35.py}; EQ-LIT's \texttt{t3\_counts.py} derives the same counts.)
+(\texttt{src/star\_counts\_35.py}; an independent program derives the same counts.)
 
 \begin{proposition}[rigidity of $V_1$ and $V_3$]\label{prop:rigid}
 After switching, and in a suitable orthonormal frame of $V_3$, every line's $(r_v,p_v)$ depends only on
@@ -784,7 +778,7 @@ one, which only weakens the model.
 \paragraph{Agreement.} On $984$ identical leaves (all supports, $\dim F\le2$ for $74$ lines) the node sets
 and relation matrices of the two programs are equal (\texttt{verify/c35\_cert\_compare.py}). Program~2's
 pair rules equal those allowed by the level-$2$ pair data for every pair of kinds
-(\texttt{verify/c35\_structure.py}, check~(4)). A third program, written by the team's auditor EQ-AUD
+(\texttt{verify/c35\_structure.py}, check~(4)). A third program, written independently
 from its own derivation of \S\S\ref{sec:35}--\ref{sec:model} (exact pair relation, a different
 reference rule, no shared code), excludes all $444$ leaves of its own search for $94$ lines with
 integer Farkas vectors.
@@ -866,7 +860,415 @@ with checked certificates, and program~1 independently finds every leaf infeasib
 than $74$ lines contains $74$, so $N(19)\le73$.
 \end{proof}
 
-\input{t18_sections}
+% --- begin t18_sections.tex ---
+% Sections for 59 equiangular lines in R^18 (Theorem thm:d18), input by MAIN_RESULT.tex.
+
+\section{\texorpdfstring{$59$ lines in $\R^{18}$}{59 lines in R\textasciicircum 18}}\label{sec:59}
+
+This section proves Theorem~\ref{thm:d18}. The published range is $57\le N(18)\le59$
+\cite{GSY23,GS24}. In this section $S$ is a Seidel matrix
+of order $n=59$ that comes from $59$ equiangular lines in $\R^{18}$. The chain is that of
+\S\S\ref{sec:cand}--\ref{sec:d19} up to level~2, followed by a third level. Since $n$ is odd, three
+things change: the parity of the powers of $S$, the $2$-adic conditions (Lemma~\ref{lem:type2} gives
+the weak form at the odd orders $59$, $57$ and type~2 at the even orders $58$, $56$), and an extra rule
+for even eigenvalues.
+
+\subsection{The candidate spectra}
+
+\begin{lemma}\label{lem:59red}
+The angle is $\arccos\frac15$, and
+\[
+\chi_S(x)=(x+5)^{41}(x-11)\,\psi(x-11),
+\]
+where $\psi=\sum_{k=0}^{17}c_ky^{17-k}\in\Z[y]$ is monic and real-rooted with $c_1=-7$, $c_2=-8$ and
+\[
+\text{(E)}\qquad 2^{k}\mid c_k\ \ (k\ \text{even}),\qquad 2^{k-1}\mid c_k\ \ (k\ \text{odd}).
+\]
+\end{lemma}
+\begin{proof}
+Since $59>2\cdot18$, (K1) gives the angle $\arccos\frac1a$ with $a$ odd. For $a=3$, (K2) allows at
+most $34$ lines. For $a\ge7$, (K4) allows at most $R(7,18)=864/31<28$. So $a=5$. By (K4),
+$N_{1/5}(17)\le R(5,17)=51<59$, so the lines span $\R^{18}$ and $-5$ has multiplicity exactly $41$. For
+the other $18$ eigenvalues, $\tr S=0$ and $\tr S^2=59\cdot58$ give $\sum\lambda=205$ and
+$\sum\lambda^2=2397$, so $\sum(\lambda-11)=7$ and $T=\sum(\lambda-11)^2=65$.
+Lemma~\ref{lem:force} with $\gamma=1$, $\kappa=11$ and $\eta=18$ applies because
+$65^{18}<18^{18}4^{17}$, so $11$ is an eigenvalue. (At $\eta=17$ the test fails:
+$65^{17}>17^{17}4^{16}$.) Write the other $17$ eigenvalues as $11+y_j$ and put
+$\psi=\prod_j(y-y_j)$. Then $\chi_S(y+11)=(y+16)^{41}y\,\psi(y)$, so $\psi\in\Z[y]$ (division by a
+monic integer polynomial). $\sum y_j=7$ and $\sum y_j^2=65$ give $c_1=-7$ and
+$c_2=\frac12(49-65)=-8$.
+
+For (E) apply Lemmas~\ref{lem:type2} and~\ref{lem:divide}(2) with $\kappa=11$. Here
+$P=\chi_S(x+11)=F\psi$ with $F=(x+16)^{41}x$, which is type~2 since its roots are even integers, and
+$\widehat F=(y+8)^{41}y\equiv y^{42}\pmod2$ is a polynomial in $y^2$. Since $n$ is odd, $\widetilde P\bmod2$
+is a polynomial in $y^2$. Hence $\widetilde\psi=\psi(2y)/2^{16}=\sum_kc_k2^{1-k}y^{17-k}\in\Z[y]$, and its
+coefficients at the odd powers $y^{17-k}$ (that is, $k$ even) are even. This is (E).
+\end{proof}
+
+Two more necessary conditions on $\chi_S$ are applied during the enumeration.
+\begin{enumerate}
+\item[(P)] $\chi_S\bmod2^7$ lies in $\mathcal P_{59,7}$, the set of residues modulo $2^7$ of the
+characteristic polynomials of Seidel matrices of order $59$ \cite[\S3]{GY19}, \cite[\S5]{GSY23}. By
+\cite[Cor.~3.13]{GY19}, $|\mathcal P_{59,7}|\le2^{\binom52+1}=2048$. Both programs found $2048$
+distinct residues of explicit Seidel matrices of order $59$ (\texttt{src/gen\_classes.py};
+\texttt{verify/classes.gp}, from $15{,}472$ random matrices of its own), so their common list is
+$\mathcal P_{59,7}$.
+\item[(L)] The congruences of \cite[Lemma~3.12]{GY19} for $\chi_{S+I}=\chi_S(x-1)$ (an odd order),
+together with \cite[Remark~3.3, Lemmas~3.1, 3.8]{GY19}. The lemma is stated for $J-2A$ with $A$ an
+Euler graph. $\chi_{S+I}$ is a switching invariant, and for odd $n$ every switching class contains an
+Euler graph, so it holds for every $S$ of odd order.
+\end{enumerate}
+Both conditions can be tested on prefixes of $(c_0,c_1,\dots)$. Indeed
+$\chi_S=\sum_ic_iv_i$ with $v_i=(x+5)^{41}(x-11)^{18-i}$ and $\chi_{S+I}=\sum_ic_iw_i$ with
+$w_i=(x+4)^{41}(x-12)^{18-i}$. So the coefficients of $x^{59},\dots,x^{59-j}$ involve only
+$c_0,\dots,c_j$. After $c_j$ is chosen, the positions $0,\dots,j$ of $\chi_S\bmod2^7$ are final, and
+after $c_7$ the whole residue is final, because $c_i\equiv0\pmod{2^7}$ for $i\ge8$ by (E). Similarly,
+after $c_{2k+1}$ the congruences of (L) at all levels $\le k$ are final.
+
+\begin{lemma}\label{lem:59enum}
+There are exactly $1{,}214$ polynomials $\psi$ as in Lemma~\ref{lem:59red} that satisfy (P), and (L)
+at the levels $k\le8$.
+\end{lemma}
+\begin{proof}[Computation]
+This is the enumeration principle of \S\ref{sec:comp}, with the residue classes of (E). After each
+$c_j$ the prefix of (P) is tested, and after each $c_j$ with $j\ge9$ odd, (L) at the levels
+$\le(j-1)/2$. Program~2 (\texttt{verify/enum59.gp}, PARI/GP, written from these statements only)
+visits $42{,}473{,}735$ nodes in $16$ shards and finds $1{,}214$ leaves. Program~1
+(\texttt{src/enum59.py}, Python with \texttt{python-flint}, ball arithmetic) splits the tree at the
+same level in the same order. On each of the $16$ shards the two programs visit the same number of
+nodes at every level and find the same leaves in the same order
+(\texttt{verify/enum59\_summary\_cmp.py}). On two test shards of $400$ they
+also agree node for node, and \texttt{verify/enum59\_l312\_cmp.py} checks on
+three shards that the leaves found with the prefix test of (L) are exactly the leaves found without it
+that satisfy (L) at the levels $k\le8$.
+\end{proof}
+
+\subsection{Level 1 at odd order}
+Fix a candidate $p=\chi_S$, and let $\Min_p$, $\delta$, $\mu=p/\Min_p$ and $h=p'/\mu$ be as in Step~4
+of \S\ref{sec:421}. Two rules apply to $p$ itself.
+\begin{enumerate}
+\item[(F1)] \emph{An even integer $\lambda$ is an eigenvalue of multiplicity at most $1$.} Indeed
+$S-\lambda I\equiv J+I\pmod2$. Over $\F_2$, $(J+I)v=0$ means $v=(\sum_iv_i)\mathbf 1$, and
+$(J+I)\mathbf 1=(n+1)\mathbf 1=0$ since $n$ is odd. So the kernel over $\F_2$ is spanned by $\mathbf 1$,
+$\operatorname{rank}_{\F_2}(S-\lambda I)=n-1$, and $\operatorname{rank}_{\mathbb Q}(S-\lambda I)\ge n-1$,
+because a minor that is odd is nonzero.
+\item[(F2)] (L) at every level $k\le29$.
+\end{enumerate}
+For a vertex $i$, $\chi_{S[i]}=\mu g_i$ with $g_i$ in the deck of $p$: (D1) and (D2) as in
+\S\ref{sec:421}, and
+\begin{enumerate}
+\item[(D3)] $g(x-1)$ is type~2: $\chi_{S[i]}(x-1)$ is type~2 by Lemma~\ref{lem:type2} (order $58$ is
+even), and $g(x-1)$ is a monic integer factor of it (Lemma~\ref{lem:divide}(1));
+\item[(D6)] $g(-5)\ne0$. Otherwise $\chi_{S[i]}=\mu g$ has $-5$ with multiplicity at least $41$, because
+$(x+5)^{40}\mid\mu$. Then $I+\frac15S[i]$ has rank at most $17$, and the $58$ remaining lines would
+lie in $\R^{17}$, against $N_{1/5}(17)\le51$.
+\end{enumerate}
+Each member is also flagged by condition (iv) of \cite[\S5]{GSY23}: $\mu g\bmod2^7\in\mathcal P_{58,7}$.
+This list is complete for the same reason as in (P): it has $2^{\binom52}=1024$ elements, the bound of
+\cite[Cor.~3.4]{GY19} for even order, all realised by explicit matrices in both programs. With
+$\sum_ig_i=h$, an integer vector $Y$ with $\operatorname{Coeff}(g)\cdot Y\ge0$ on (A) the full deck or
+(B) the members that pass (iv), and $\operatorname{Coeff}(h)\cdot Y<0$, excludes $p$ as in Step~5 of
+\S\ref{sec:421}.
+
+\subsection{Level 2 at odd order}
+Level~2 works on the members that pass (iv), with the three steps of \S\ref{sec:cand}, adapted to odd
+order as follows.
+\begin{enumerate}
+\item \emph{Compatibility.} $S\equiv J+I\pmod2$, and $J^2=nJ\equiv J$, so $S^k\equiv I+J$ for
+$k\ge1$ and $r(S)\equiv r(1)I+(r(1)-r(0))J\pmod2$ for $r\in\Z[x]$. So the integers
+$N_k=(S^kM(S))_{ij}$ of \S\ref{sec:cand} satisfy $N_k\equiv r(1)-r(0)\pmod2$ with $r=x^kM$ (for
+$k=0$ this is condition~(2) of \cite[\S4]{GSY23} with $\xi=\mathrm{Sim}$), and $\Min_p$ must satisfy
+$\Min_p(0)\equiv\Min_p(1)\equiv0\pmod2$. On each maximal clique
+of the compatibility graph, the LP $\sum_fn_fg_f=h$, $n\ge0$, with $n_f\le1$ for members without a loop,
+is decided exactly (a box-form Farkas vector when it is infeasible).
+\item \emph{Pair polynomials.} (J1): $(S^k)_{ij}$ is odd for every $k\ge1$. (J2)--(J4) as in
+\S\ref{sec:cand}. (J5): $S[ij]$ has odd order $57$, so by Lemma~\ref{lem:type2} ($\kappa=-1$)
+$\chi_{S[ij]}(x-1)=\sum_ia_ix^{57-i}$ has $2^{i-1}\mid a_i$ for $i\ge1$ and $2^i\mid a_i$ for even $i$
+\cite[Thm.~2.5]{GSY21}, besides trace $0$ and trace of the square $57\cdot56$. (J6): $P_{ij}(-5)\neq0$. Otherwise $-5$ has
+multiplicity at least $40$ in $\chi_{S[ij]}=\mu_2P_{ij}$, and $57$ lines would lie in $\R^{17}$.
+\item \emph{Vertex stars} as in \S\ref{sec:cand}, for every nonempty support $U$ inside an LP-feasible
+clique $K$ of the pair graph with $|K|\le12$. Larger cliques go to stage~R (\S\ref{sec:59l3}).
+Here a floating-point LP first proposes a Farkas vector or a feasible point. It counts only after an
+exact check, and when neither check succeeds the exact rational simplex decides (its answer, a
+feasible point or a Farkas vector, is checked exactly as well).
+\end{enumerate}
+
+\subsection{Level 3: triangle types, edge systems, and stage R}\label{sec:59l3}
+Write $R(x)=(xI-S)^{-1}$, so that $R_{ii}=g_i/\Min_p$ and $R_{ij}=\psi_{ij}/\Min_p$ for $i\ne j$, and
+put $\widehat\psi_{ij}=S_{ij}\psi_{ij}$, a function of the pair type of $\{i,j\}$. For distinct
+$i,j,k$ let $\tau_{ijk}=S_{ij}S_{jk}S_{ki}$. Let $\mathrm{Sim}$, $\mathrm{Dbl}$, $L_3$ be the products of
+the distinct irreducible factors of $p$ of multiplicity $1$, $2$, $\ge3$, and
+$\mu_3=\prod_{m_q\ge3}q^{m_q-3}$.
+
+\paragraph{Triangle types.} By Jacobi's complementary-minor identity,
+$\chi_{S[ijk]}=\chi_S\det R[\{i,j,k\}]$. Expanding the $3\times3$ determinant, and using
+$\psi_{ij}\psi_{jk}\psi_{ki}=\tau_{ijk}u_{ij}u_{jk}u_{ik}$ and $\psi_{ij}^2=u_{ij}^2$ with
+$u=\widehat\psi$, gives
+\[
+\chi_{S[ijk]}=\mu_3Q,\qquad Q=\frac{B}{\mathrm{Sim}^2\,\mathrm{Dbl}},\qquad
+B=g_ig_jg_k+2\tau u_{ij}u_{jk}u_{ik}-g_iu_{jk}^2-g_ju_{ik}^2-g_ku_{ij}^2,
+\]
+since $\chi_S/\Min_p^3=\mu_3/(\mathrm{Sim}^2\mathrm{Dbl})$. A triangle type (three members, three pair
+types and $\tau$) is \emph{allowed} if (T1) $\mathrm{Sim}^2\mathrm{Dbl}\mid B$; (T2) $\mu_3Q$ is monic of
+degree $56$ with trace $0$ and trace of the square $56\cdot55$; (T3) $(\mu_3Q)(x-1)$ is type~2
+(Lemma~\ref{lem:type2}, order $56$); (T4) $Q(-5)\ne0$ (otherwise $56$ lines in $\R^{17}$); and (T5)
+$\mu_3Q$ interlaces $\chi_{S[ij]}=\mu_2P_{ij}$ for each of the three edges (Cauchy). Every triangle
+of $S$ has an allowed type.
+
+\paragraph{Edge systems.} Fix an edge type $(a,b,u)$: a vertex $i$ of member $a$, a vertex $j$ of
+member $b$, $\widehat\psi_{ij}=u$. Let $c_{h,u_1,u_2,\tau}$ be the number of $k\ne i,j$ of member $h$
+with $\widehat\psi_{ik}=u_1$, $\widehat\psi_{jk}=u_2$, $\tau_{ijk}=\tau$, over the allowed triangle types.
+Besides the counts, $\sum_{u_1,u_2,\tau}c_{h,u_1,u_2,\tau}=n_h-[h=a]-[h=b]$, the identities
+$(RS)_{ij}=(SR)_{ij}=xR_{ij}$ and $R(x)R(y)=(R(x)-R(y))/(y-x)$, read at the entry $(i,j)$ and
+multiplied by $S_{ij}\Min_p(x)$, resp.\ $S_{ij}\Min_p(x)\Min_p(y)$, give
+\begin{align*}
+\text{(La)}\quad&\textstyle\sum c\,\tau\,u_1(x)=xu(x)-g_a(x),\qquad
+\text{(Lb)}\quad\sum c\,\tau\,u_2(x)=xu(x)-g_b(x),\\
+\text{(Q)}\quad&\textstyle\sum c\,\tau\,u_1(x)u_2(y)=\dfrac{u(x)\Min_p(y)-u(y)\Min_p(x)}{y-x}-g_a(x)u(y)-u(x)g_b(y).
+\end{align*}
+The counts are linked to the vertex stars of $i$ and $j$: $\sum_{u_2,\tau}c_{h,u_1,u_2,\tau}=m^i_{h,u_1}-[h=b,\ u_1=u]$,
+and symmetrically for $j$. Here $m^i_{h,w}$ is the number of $k\ne i$ of member $h$ with
+$\widehat\psi_{ik}=w$, and it satisfies the vertex-star rows of \S\ref{sec:cand} together with the
+resolvent rows of the diagonal entry,
+\begin{align*}
+\text{(L)}\quad&\textstyle\sum_{h,w}m^i_{h,w}w(x)=xg_a(x)-\Min_p(x),\\
+\text{(Q)}\quad&\textstyle\sum_{h,w}m^i_{h,w}w(x)w(y)=\dfrac{g_a(x)\Min_p(y)-g_a(y)\Min_p(x)}{y-x}-g_a(x)g_a(y).
+\end{align*}
+Every identity has degree $<\delta$ in each variable. It is imposed modulo each irreducible factor of
+$\Min_p$, or at $x=\theta$ when the eigenvalue $\theta$ is rational. An exact Farkas vector for the
+system of an edge type (with the deck identity $\sum_hn_hg_h=h$ and $n_h\ge1$ on the support) shows
+that the edge type does not occur, and it is deleted. After every deletion the systems are decided
+again, and so is the vertex-star system of the support. A support $U$ is excluded when two distinct
+members of $U$ have no pair type left, or when its vertex-star system is infeasible. When the LP cascade
+stops, the LP-feasible edge systems are decided over the integers by exact branch and bound, with a
+Farkas vector at every leaf, and the cascade resumes after any deletion. The deletions are recorded
+in order, each certificate referring to the pair types left at that point.
+
+\paragraph{Stage R.} Let $K$ be an LP-feasible clique of the pair graph with more than $12$ members
+(too many supports). For $f\in K$, a configuration whose support $U$ satisfies $f\in U\subseteq K$
+gives, from any vertex of member $f$, a solution of the \emph{relaxed vertex-star system}: unknowns
+$n_g$ ($g\in K$) and $m_{g,w}\ge0$ ($w$ a pair type of $\{f,g\}$), with $\sum_{g\in K}n_gg=h$,
+$\sum_wm_{g,w}=n_g-[g=f]$, the rows (L) and (Q) of a vertex of member $f$, $n_f\ge1$, $n_g\ge0$ for
+$g\ne f$, and $n_g\le1$ for every member $g$ without a loop (so $n_f=1$ if $f$ has none). Members
+outside $U$ get $n_g=0$, which the relaxation allows. If an exact box-form Farkas vector shows this system infeasible, no support
+inside $K$ contains $f$, and $f$ is removed. The rounds repeat on the remaining members. If $K$
+becomes empty, no support lies in $K$. Since the support of every configuration is a clique of the
+pair graph, it lies in some maximal clique, and so a candidate is excluded once every open support
+of stage (S) is excluded at level~3 and every clique of stage~R is emptied.
+
+\subsection{The candidate left open by level 3}\label{sec:59x}
+In both programs, levels 1--3 exclude every candidate but one, leaf $25$ of shard $5$:
+\[
+p=(x+5)^{41}(x-11)^{14}(x-15)^2\,q,\qquad q=x^2-21x+94,\qquad \Min_p=(x+5)(x-11)(x-15)\,q,
+\]
+so $\delta=5$, and $q$ has the roots $\theta_\pm=\frac12(21\pm\sqrt{65})$. Compatibility certifies every
+maximal clique but one, which has four members, and the pair graph on these four is complete. Stage (S)
+excludes $14$ of the $15$ supports inside it, and level~3 does not exclude the last one,
+$\{g_1,g_2,g_3\}$, where $g_t=x^4-42x^3+628x^2-b_tx+c_t$ with
+\[
+(b_1,c_1)=(3926,8715),\qquad(b_2,c_2)=(3918,8611),\qquad(b_3,c_3)=(3910,8475).
+\]
+On this support the deck identity $\sum_fn_fg_f=h$ has the unique solution $(n_1,n_2,n_3)=(17,40,2)$.
+As in \S\ref{sec:35}, $(E_\lambda)_{ii}=g_i(\lambda)/\Min_p'(\lambda)$, and
+$S_{ij}(E_\lambda)_{ij}=\widehat\psi_{ij}(\lambda)/\Min_p'(\lambda)$ for $i\ne j$. Exact evaluation gives:
+\begin{enumerate}
+\item[(a)] $(E_{15})_{ii}=0$ at the vertices of $g_1$ and $g_3$; at a vertex of $g_2$,
+$(E_{15})_{ii}=\frac1{20}$, $(E_{11})_{ii}=\frac{15}{64}$ and $(E_{\theta_\pm})_{ii}>0$.
+\item[(b)] The pair types $\widehat\psi$ of $\{g_2,g_2\}$ (level~2) are the six polynomials below. Each
+satisfies $\widehat\psi\equiv\tau g_2\pmod q$ with $\tau=\pm1$, and, with
+$e=20\,\widehat\psi(15)/\Min_p'(15)\in\{-1,0,1\}$,
+\[
+64\,\widehat\psi(11)/\Min_p'(11)=4-4e-\tau.
+\]
+\end{enumerate}
+\smallskip
+\begin{center}
+\begin{tabular}{lrrr}
+\toprule
+$\widehat\psi$ & $e$ & $\tau$ & $64\,\widehat\psi(11)/\Min_p'(11)$\\
+\midrule
+$x^3-41x^2+523x-2011$ & $-1$ & $1$ & $7$\\
+$x^3-39x^2+463x-1561$ & $-1$ & $-1$ & $9$\\
+$x^3-37x^2+439x-1635$ & $0$ & $1$ & $3$\\
+$x^3-35x^2+379x-1185$ & $0$ & $-1$ & $5$\\
+$x^3-33x^2+355x-1259$ & $1$ & $1$ & $-1$\\
+$x^3-31x^2+295x-809$ & $1$ & $-1$ & $1$\\
+\bottomrule
+\end{tabular}
+\end{center}
+\smallskip
+For a set $Z$ of vertices, a vector is \emph{balanced} on $Z$ if its entries on $Z$ sum to $0$.
+
+\begin{lemma}\label{lem:s525}
+Suppose $\chi_S=p$, and let $V$ be the set of the $40$ vertices of member $g_2$. After switching and
+renumbering the following hold.
+\begin{enumerate}
+\item[(i)] $V=A\cup B$ with $|A|=|B|=20$, and for $i,j\in V$, $(E_{15})_{ij}=\frac1{20}$ if $i,j$ lie in the
+same group and $0$ otherwise.
+\item[(ii)] On $A=\{0,\dots,19\}$ the graph $\{ij:S_{ij}=-1\}$ is the union of the five $4$-cycles
+$Z_c=(4c,4c+1,4c+2,4c+3)$, $0\le c\le4$. On $B$ it is the union of five $4$-cycles $Z'_0,\dots,Z'_4$.
+\item[(iii)] There is $w\in\{\pm1\}^V$ with $S_{ij}w_iw_j=\tau_{ij}$ for $i\ne j$ in $V$, where $\tau_{ij}$
+is the sign $\tau$ of the pair type of $\{i,j\}$. In cyclic order, $w$ is $(+,+,-,-)$ on $Z_0,Z_1,Z_2$
+and $(+,-,+,-)$ on $Z_3,Z_4$; we write $\omega=w|_A$. On three of the $Z'_c$, $w$ is a rotation of
+$(+,+,-,-)$, and on the other two a rotation of $(+,-,+,-)$.
+\item[(iv)] Let $C$ be the adjacency matrix of the cycles $Z_c$, $P$ the involution of $A$ that exchanges
+opposite vertices of each $Z_c$, and $\beta=5I-C-3P$. For $k\in B$ let $\sigma^k=(S_{ik})_{i\in A}$. Then
+$\sigma^k$ is balanced on every $Z_c$, $\sigma^k\beta\omega=32w_k$, and for $k,l\in B$,
+$\sigma^k\beta\sigma^l$ is $128$ if $k=l$, $-64$ if $k,l$ are adjacent on a cycle $Z'_c$, and $0$
+otherwise.
+\end{enumerate}
+\end{lemma}
+\begin{proof}
+(i) Let $u_i\in\R^2$ be the rows of a matrix whose columns are an orthonormal basis of the
+$15$-eigenspace. Then $(E_{15})_{ij}=\langle u_i,u_j\rangle$ and $\sum_iu_iu_i^{\mathsf T}=I_2$. By (a),
+$u_i=0$ outside $V$ and $|u_i|^2=\frac1{20}$ on $V$. By (b), $20\langle u_i,u_j\rangle=S_{ij}e\in\{0,\pm1\}$
+for $i\ne j$ in $V$, so any two of these $u_i$ are parallel or orthogonal. They span $\R^2$, so they lie on
+two orthogonal lines. If $A$ and $B$ are the sets of $i$ on each line, then
+$I_2=\sum_iu_iu_i^{\mathsf T}=\frac1{20}(|A|\,\Pi_1+|B|\,\Pi_2)$ with the orthogonal projections $\Pi_1,\Pi_2$
+onto the two lines, so $|A|=|B|=20$. Switching ($S\mapsto DSD$, $E_\lambda\mapsto DE_\lambda D$; deck
+members and pair types are invariant) makes the $u_i$ equal on $A$ and equal on $B$.
+
+(ii) Now $\mathbf 1_A$ is a multiple of a column of $E_{15}$, so $S\mathbf 1_A=15\cdot\mathbf 1_A$. At
+$i\in A$ this says $\sum_{j\in A\setminus i}S_{ij}=15$: exactly two $j\in A$ have $S_{ij}=-1$. So the graph
+$C_A=\{ij\subseteq A:S_{ij}=-1\}$ is $2$-regular, a union of cycles, and so is $C_B$. We use the same
+letters for the adjacency matrices.
+
+(iii) The eigenvalue $\theta=\theta_+$ is simple, so $E_\theta=vv^{\mathsf T}$, and by (a) $v_i=w_i\sqrt d$
+on $V$ with $d=g_2(\theta)/\Min_p'(\theta)>0$ and $w_i=\pm1$. By (b),
+$S_{ij}v_iv_j=\widehat\psi_{ij}(\theta)/\Min_p'(\theta)=\tau_{ij}d$, that is, $S_{ij}w_iw_j=\tau_{ij}$. Next, for
+$i\ne j$ in $V$, (b) and (i) give $64(E_{11})_{ij}=S_{ij}(4-4e_{ij}-\tau_{ij})=4S_{ij}-4[\text{same
+group}]-w_iw_j$, since $S_{ij}e_{ij}=20(E_{15})_{ij}$; and $64(E_{11})_{ii}=15$. So $F=64E_{11}[V]$ has the
+blocks
+\[
+F_{AA}=16H_A-w_Aw_A^{\mathsf T},\qquad F_{BB}=16H_B-w_Bw_B^{\mathsf T},\qquad
+F_{AB}=4S[A,B]-w_Aw_B^{\mathsf T},\qquad H_A=I-\tfrac12C_A,
+\]
+and $F\succeq0$, $\operatorname{rank}F\le14$, because $E_{11}$ is a projection of rank $14$. On a cycle of
+length $m$, $I-\frac12C$ has the eigenvalues $1-\cos(2\pi k/m)$, so $H_A\succeq0$ and $\ker H_A$ is
+spanned by the indicator vectors of the cycles of $C_A$. Since $F_{AA}\succeq0$, $w_A\perp\ker H_A$: $w$
+is balanced on every cycle. So every cycle has even length, there are $t\le5$ cycles, and
+$w_A^{\mathsf T}(16H_A)^+w_A\le1$, with $\operatorname{rank}F_{AA}=20-t$ or $19-t$, the latter exactly in
+the case of equality. As $\operatorname{rank}F_{AA}\le14$, $t=5$ and equality holds. So $C_A$ consists of
+five $4$-cycles, and $w_A^{\mathsf T}\beta_Aw_A=128$ for $\beta_A=8H_A^+$, which is $5I-C-3P$ on each
+$4$-cycle: there, $(I-\frac12C)(5I-C-3P)=8I-2J$ and $(5I-C-3P)\mathbf 1=0$. A balanced $\pm1$ vector on
+a $4$-cycle is, in cyclic order, a rotation of $(+,+,-,-)$, with $w^{\mathsf T}\beta w=32$, or of
+$(+,-,+,-)$, with $w^{\mathsf T}\beta w=16$. So $32a+16(5-a)=128$ gives $a=3$ cycles of the first kind
+and $2$ of the second. Numbering each cycle of $A$ from a suitable vertex gives (ii) and (iii) on $A$, and
+the argument for $B$ is the same.
+
+(iv) $\operatorname{rank}F=\operatorname{rank}F_{AA}=14$. For a positive semidefinite block matrix this
+means that the columns of $F_{AB}$ lie in the range of $F_{AA}$ and $F_{BB}=F_{BA}F_{AA}^+F_{AB}$. Since
+$16H_A\beta\omega=128\,\omega$ and $\omega^{\mathsf T}\beta\omega=128$, $F_{AA}\beta\omega=0$, so
+$\ker F_{AA}$ is spanned by the $\mathbf 1_{Z_c}$ and $\beta\omega$, and the range of $F_{AA}$ consists of the
+vectors $y$ balanced on every $Z_c$ with $y^{\mathsf T}\beta\omega=0$. The column of $F_{AB}$ at $k$ is
+$4\sigma^k-w_k\omega$. Hence $\sigma^k$ is balanced on every $Z_c$, and $4\sigma^k\beta\omega=w_k\,\omega^{\mathsf
+T}\beta\omega=128w_k$. For $y,y'$ in the range, $z=\beta y'/128$ satisfies $F_{AA}z=y'$ (because $16H_A\beta
+y'=128y'$ and $\omega^{\mathsf T}\beta y'=0$), so $y^{\mathsf T}F_{AA}^+y'=y^{\mathsf T}\beta y'/128$. Therefore
+$(F_{BB})_{kl}=(4\sigma^k-w_k\omega)^{\mathsf T}\beta(4\sigma^l-w_l\omega)/128=\sigma^k\beta\sigma^l/8-w_kw_l$,
+and comparison with $F_{BB}=16H_B-w_Bw_B^{\mathsf T}$ gives $\sigma^k\beta\sigma^l=128(H_B)_{kl}$.
+\end{proof}
+
+\begin{proposition}\label{prop:s525}
+Let $A$, $Z_c$, $\beta$ and $\omega$ be as in Lemma~\ref{lem:s525}. For $\varepsilon=\pm1$ let $\Pi_\varepsilon$
+be the set of $\sigma\in\{\pm1\}^A$ that are balanced on every $Z_c$ and satisfy $\sigma\beta\sigma=128$
+and $\sigma\beta\omega=32\varepsilon$. A \emph{cycle assignment} of kind \emph{adj} (resp.\ \emph{alt})
+is a tuple $(\sigma_1,\dots,\sigma_4)$ with $\sigma_j\in\Pi_{\varepsilon_j}$ for
+$\varepsilon=(+,+,-,-)$ (resp.\ $(+,-,+,-)$) and $\sigma_j\beta\sigma_l=128$, $-64$, $0$ for
+$j-l\equiv0$, $\pm1$, $2\pmod 4$. Its \emph{span} is the linear span of $\sigma_1,\dots,\sigma_4$. Then
+$|\Pi_+|=|\Pi_-|=248$. There are $7{,}920$ assignments of kind adj, with $1{,}980$ distinct spans, and
+$24{,}000$ of kind alt, with $3{,}000$ distinct spans, all of dimension $3$. No three spans of kind adj
+and one of kind alt are pairwise $\beta$-orthogonal.
+\end{proposition}
+\begin{proof}[Computation]
+Program~1 (\texttt{src/s525\_59.py}, Python with exact integers and fractions) enumerates the $6^5$
+vectors balanced on every $Z_c$ and finds the assignments by a depth-first search along the cycle. It
+identifies spans by their reduced row echelon forms over $\mathbb Q$ and tests two spans for
+orthogonality on three spanning vectors of each. Program~2 (\texttt{verify/s525\_59.gp}, PARI/GP) works
+with $z=T\sigma\in\Z^{15}$, where $\beta=T^{\mathsf T}T$ ($T$ has the rows $2(e_0-e_2)$, $2(e_1-e_3)$ and
+$e_0-e_1+e_2-e_3$ on each cycle). It searches the assignments in another order ($\sigma_1,\sigma_3$
+first) and keys a span $W$ by the orthogonal projection $P_W$ onto $TW$, which does not depend on a basis.
+It checks that the Hermite normal forms of the lattices $W\cap\Z^{20}$ give the same partition, tests
+orthogonality by $\tr(P_WP_{W'})=0$, and counts the configurations starting from the alt span. Both
+programs find the counts of the statement and the same intermediate counts: $168{,}300$ orthogonal pairs
+of adj spans, $601{,}560$ of an adj and an alt span, $325{,}080$ of alt spans, $64{,}800$ pairwise
+orthogonal triples of adj spans, and $194{,}400$ pairwise orthogonal (adj, adj, alt) triples, none of which
+extends by a third adj span.
+\end{proof}
+
+\begin{corollary}\label{cor:s525}
+The candidate $p=(x+5)^{41}(x-11)^{14}(x-15)^2(x^2-21x+94)$ is not the characteristic polynomial of a
+Seidel matrix of $59$ equiangular lines in $\R^{18}$.
+\end{corollary}
+\begin{proof}
+Suppose it is. Since level~3 leaves only the support $\{g_1,g_2,g_3\}$, Lemma~\ref{lem:s525} applies.
+Number each cycle $Z'_c$ of $B$ as $(k_1,k_2,k_3,k_4)$ in cyclic order, starting so that
+$(w_{k_1},\dots,w_{k_4})$ is $(+,+,-,-)$ or $(+,-,+,-)$. By (iv), $(\sigma^{k_1},\dots,\sigma^{k_4})$ is a
+cycle assignment of kind adj resp.\ alt, and the spans of different cycles are $\beta$-orthogonal. By
+(iii), three cycles of $B$ have kind adj and two have kind alt. This contradicts
+Proposition~\ref{prop:s525}.
+\end{proof}
+
+Both programs of Proposition~\ref{prop:s525} (stage~X in \texttt{verify/tally59.py}) first check the
+input of the argument on their own records: the factorization of $p$, that level~3 leaves exactly the
+support above open, the unique counts, (a), and (b) for the program's own list of pair types.
+Program~1 reads its level-1 to level-3 records.
+Program~2 re-runs \texttt{verify/lv23\_59.gp} on this leaf, on its own level-1 deck, and requires no
+mismatch and no certificate failure. An independent audit found the same structure and closes the last
+step by a backtracking search and CP-SAT instead.
+
+\subsection{Computation}\label{sec:59comp}
+\paragraph{Program 1} (Python~3, \texttt{python-flint}, HiGHS): \texttt{src/enum59.py},
+\texttt{src/run\_level1\_59.py} (decks in \texttt{src/eqlines/deck.py}, certificates in
+\texttt{lpcert.py}), \texttt{src/level2\_59.py} (\texttt{compat.py}, \texttt{jacobi.py},
+\texttt{star.py}), \texttt{src/level3\_59.py} (\texttt{triples.py}, \texttt{star.RelaxedStar},
+\texttt{farkas.py}), and \texttt{src/s525\_59.py} (\S\ref{sec:59x}). Interval endpoints use ball arithmetic. FLINT's certified complex root isolation
+decides whether a candidate $D_i$ in the enumerations is real-rooted. In the runs started after
+23 October 2026, 23:33 UTC, a certified test comes first. Floating-point roots, refined by Newton
+steps, only propose points. If $D_i$ changes sign, in ball arithmetic, between two exact dyadic
+points around each of $\deg D_i$ disjoint proposals, then all roots of $D_i$ are real and simple,
+and each is enclosed. Only when this fails is the root isolation called. Floating-point LPs only propose; every infeasibility is an
+exact Farkas vector, checked in exact arithmetic. The exact simplex (\texttt{exactlp.py}) is a
+phase-1 simplex over $\mathbb Q$; in the runs started after 24 October 2026, 06:24 UTC, it is a
+revised simplex with exact basis solves (FLINT), Dantzig's rule, and Bland's rule after $50$ pivots
+without a strict decrease, so it terminates. The earlier version used a dense rational tableau and
+Bland's rule throughout. Both return only answers that pass the exact check, so the version affects
+the running time, not the verdicts. \texttt{src/cert59.py} exports the level-2 and
+level-3 certificates in a
+point form (rows at the points $-6,\dots,\delta-7$), after an exact self-check that rebuilds every row
+from its definition.
+
+\paragraph{Program 2} (PARI/GP), written from the statements above without program~1's code:
+\texttt{verify/enum59.gp}, \texttt{verify/classes.gp}, \texttt{verify/deck59.gp} (level~1),
+\texttt{verify/lv23\_59.gp} (levels~2, 3 and stage~R), \texttt{verify/s525\_59.gp}
+(\S\ref{sec:59x}). From program~1 it reads only the
+certificates (\texttt{verify/p2\_export\_leaf.py}, \texttt{verify/json2gp.py}). It recomputes the deck
+(real roots by PARI's \texttt{polrootsreal}), $h$,
+the class flags, the compatibility graph and its maximal cliques, every pair polynomial, and the star,
+edge and relaxed systems on its own variables, and checks each certificate against its own system.
+It reports every certificate that fails and every difference from program~1 in decks, verdicts,
+cliques or pair types; a leaf counts as excluded only if there is neither. \texttt{src/sched59.py}
+runs both programs leaf by leaf, and \texttt{verify/tally59.py} tallies their verdicts leaf by leaf.
+
+\paragraph{Controls.} \texttt{verify/triples\_negative.py} (random Seidel matrices, clique unions,
+and deletions from the unitary $U_3(3)$, $U_3(5)$ systems: all $1{,}055$ true triangles are allowed,
+$\mu_3Q$ equals the directly computed characteristic polynomial, the true counts satisfy every row,
+and no true edge type is certified), \texttt{verify/relaxed\_negative.py} ($192$ true vertex stars,
+with and without a fake absent member, satisfy every row exactly and are never certified), and
+\texttt{verify/lv23\_negative.py} ($45$ perturbed exports of three leaves, all rejected by
+program~2).
+
+\paragraph{Result} (completed 24 October 2026, 08:36 UTC). Both programs exclude all $1{,}214$
+candidates, each at the same stage, with no disagreement in decks, cliques, pair types, open
+supports or certificates: $572$ at level~1, $526$ at (C), $33$ at (J), $53$ at (S), $17$ by stage~R (every other support of these leaves is closed by (S)), $11$ at level~3, one (s2/14) at level~3 together with stage~R, and one (s5/25) by stage~X. (Program~1 runs stage~R inside its level~3, so its label for the $17$ stage-R leaves is L3+R where program~2 writes S+R.) An independently written pipeline excludes every
+candidate as well.
+
+\begin{proof}[Proof of Theorem~\ref{thm:d18}]
+Suppose there are $59$ equiangular lines in $\R^{18}$. By Lemmas~\ref{lem:59red} and~\ref{lem:59enum},
+$\chi_S$ is one of the $1{,}214$ candidates. Each is excluded by a level-1 Farkas vector, by level~2, by
+level~3 with stage~R, or by Corollary~\ref{cor:s525}, and each exclusion is verified by both programs.
+Every set of more than $59$ lines contains $59$, so $N(18)\le58$.
+\end{proof}
+% --- end t18_sections.tex ---
 
 \section{What remains}
 \begin{itemize}
@@ -887,19 +1289,6 @@ default branching order; branching on the type-$1$ groups first decided all of t
 \item $d=18$: $57\le N(18)\le58$. At $n=58$ (even order), $-5$ has multiplicity $40$, the best centre
 $\kappa=11$ gives $T=84>4\cdot18$, so Lemma~\ref{lem:force} forces no eigenvalue, and the remainder
 has degree $18$ instead of $17$.
-\item \emph{Size of the next enumerations} (estimates only: systematic samples of about one
-subtree in $1{,}000$ at depth $5$ of the enumeration tree of Lemma~\ref{lem:59enum}, run with the
-same congruences and filters but without a forced eigenvalue; scratch code \texttt{src/est/},
-samples in \texttt{runs/est\_enum/}). On $59$ lines itself the sample predicts about $1{,}000$
-candidates, against the true $1{,}214$. For $73$ lines in $\R^{19}$ and $93$ in $\R^{20}$ the
-samples suggest $2\cdot10^9$ and $1.5\cdot10^9$ nodes, about $1{,}300$ and $2{,}300$
-candidates, and $170$ and $130$ CPU-hours for our enumerator, against $4\cdot10^7$ nodes and $16$
-CPU-hours for $59$ lines. Every sampled candidate has the centre as an eigenvalue ($15$ with
-multiplicity $9$ to $12$, resp.\ $19$ with multiplicity $3$ to $13$). For $58$ lines the tree is
-far larger, of order $10^{10}$ nodes with $10^5$ to $10^6$ leaves: at even order the classes
-modulo $2^7$ are exactly the type-$2$ residues (a sample with and without the filter of
-$P_{58,7}$ visits the same nodes), and \cite[Lemma~3.12]{GY19} needs odd order, so only
-real-rootedness prunes. Every sampled leaf has the eigenvalue $11$.
 \item Dimensions $18$ and $42$: the moment tests give nothing new.
 \end{itemize}
 
@@ -931,7 +1320,103 @@ multiplicity, then irreducible non-linear factors), $\delta$, the deck size, and
 digits of the largest certificate entry. The full data are in
 \texttt{data/n421/decks/$\langle$idx$\rangle$.json}.
 {\small
-\input{tables/n421_candidates.tex}
+% --- begin tables/n421_candidates.tex ---
+\begin{longtable}{rlp{6.2cm}rrr}
+\caption{Candidates $\chi_S=(x+7)^{377}(x-59)^{16}(x-61)^{15}Q(x-59)$.}\label{tab:cand}\\
+\toprule
+\# & integer eigenvalues & other factors & $\delta$ & deck & $|Y|$ \\
+\midrule
+\endfirsthead
+\toprule
+\# & integer eigenvalues & other factors & $\delta$ & deck & $|Y|$ \\
+\midrule
+\endhead
+\bottomrule
+\endlastfoot
+0 & $55, 59^{19}, 60, 61^{23}$ & -- & 5 & 7 & 8 \\
+1 & $59^{18}, 61^{23}$ & $(x^{3} - 174x^{2} + 10085x - 194704)$ & 6 & 6 & 9 \\
+2 & $59^{18}, 61^{23}$ & $(x^{3} - 174x^{2} + 10085x - 194708)$ & 6 & 6 & 10 \\
+3 & $59^{20}, 61^{22}$ & $(x^{2} - 117x + 3412)$ & 5 & 15 & 35 \\
+4 & $56, 57, 59^{18}, 61^{24}$ & -- & 5 & 3 & 8 \\
+5 & $59^{18}, 61^{22}$ & $(x^{4} - 235x^{3} + 20699x^{2} - 809897x + 11877416)$ & 7 & 21 & 11 \\
+6 & $59^{20}, 61^{21}$ & $(x^{3} - 178x^{2} + 10549x - 208136)$ & 6 & 28 & 21 \\
+7 & $57^{3}, 59^{16}, 60, 61^{24}$ & -- & 5 & 3 & 8 \\
+8 & $57, 59^{18}, 60, 61^{22}$ & $(x^{2} - 118x + 3473)$ & 7 & 26 & 11 \\
+9 & $59^{19}, 61^{22}$ & $(x^{3} - 176x^{2} + 10315x - 201316)$ & 6 & 32 & 32 \\
+10 & $59^{18}, 60, 61^{21}$ & $(x^{2} - 120x + 3595)$, $(x^{2} - 116x + 3359)$ & 8 & 15 & 24 \\
+11 & $59^{20}, 60, 61^{21}$ & $(x^{2} - 118x + 3469)$ & 6 & 41 & 10 \\
+12 & $57^{2}, 59^{17}, 61^{23}$ & $(x^{2} - 119x + 3536)$ & 6 & 6 & 10 \\
+13 & $59^{19}, 61^{21}$ & $(x^{2} - 119x + 3536)$, $(x^{2} - 118x + 3473)$ & 7 & 15 & 22 \\
+14 & $57, 59^{18}, 61^{22}$ & $(x^{3} - 178x^{2} + 10553x - 208384)$ & 7 & 22 & 22 \\
+15 & $59^{19}, 61^{21}$ & $(x^{4} - 237x^{3} + 21051x^{2} - 830535x + 12280512)$ & 7 & 40 & 23 \\
+16 & $59^{20}, 61^{21}$ & $(x^{3} - 178x^{2} + 10549x - 208144)$ & 6 & 47 & 11 \\
+17 & $59^{18}, 61^{21}$ & $(x^{2} - 120x + 3595)$, $(x^{3} - 176x^{2} + 10319x - 201548)$ & 8 & 12 & 19 \\
+18 & $57, 59^{19}, 61^{22}$ & $(x^{2} - 119x + 3532)$ & 6 & 22 & 21 \\
+19 & $59^{19}, 61^{21}$ & $(x^{4} - 237x^{3} + 21051x^{2} - 830539x + 12280748)$ & 7 & 60 & 12 \\
+20 & $59^{20}, 61^{21}$ & $(x^{3} - 178x^{2} + 10549x - 208148)$ & 6 & 41 & 11 \\
+21 & $57^{2}, 59^{18}, 61^{22}$ & $(x^{2} - 121x + 3656)$ & 6 & 18 & 10 \\
+22 & $59^{20}, 61^{20}$ & $(x^{2} - 118x + 3473)$, $(x^{2} - 121x + 3656)$ & 7 & 40 & 17 \\
+23 & $59^{19}, 61^{21}$ & $(x^{4} - 237x^{3} + 21051x^{2} - 830543x + 12280984)$ & 7 & 63 & 23 \\
+24 & $56, 59^{21}, 61^{21}, 63$ & -- & 5 & 45 & 35 \\
+25 & $57, 59^{18}, 60, 61^{20}$ & $(x^{2} - 120x + 3595)^{2}$ & 7 & 16 & 17 \\
+26 & $59^{20}, 61^{20}$ & $(x^{4} - 239x^{3} + 21407x^{2} - 851645x + 12697532)$ & 7 & 62 & 22 \\
+27 & $57^{2}, 59^{19}, 60, 61^{21}, 63$ & -- & 6 & 25 & 10 \\
+28 & $59^{21}, 60, 61^{19}, 63$ & $(x^{2} - 118x + 3473)$ & 7 & 66 & 18 \\
+29 & $59^{20}, 61^{21}$ & $(x^{3} - 178x^{2} + 10549x - 208156)$ & 6 & 43 & 10 \\
+30 & $59^{20}, 60, 61^{20}$ & $(x^{3} - 179x^{2} + 10667x - 211625)$ & 7 & 22 & 23 \\
+31 & $59^{19}, 61^{19}$ & $(x^{2} - 119x + 3536)$, $(x^{2} - 120x + 3595)^{2}$ & 7 & 8 & 22 \\
+32 & $59^{20}, 61^{19}$ & $(x^{2} - 120x + 3595)$, $(x^{3} - 180x^{2} + 10791x - 215456)$ & 8 & 51 & 23 \\
+33 & $57, 59^{20}, 61^{20}, 63$ & $(x^{2} - 119x + 3536)$ & 7 & 44 & 17 \\
+34 & $59^{21}, 61^{19}, 63$ & $(x^{3} - 178x^{2} + 10553x - 208384)$ & 7 & 54 & 18 \\
+35 & $59^{20}, 61^{19}$ & $(x^{5} - 300x^{4} + 35986x^{3} - 2157476x^{2} + 64648349x - 774563344)$ & 8 & 65 & 24 \\
+36 & $59^{20}, 61^{21}$ & $(x^{3} - 178x^{2} + 10549x - 208160)$ & 6 & 54 & 22 \\
+37 & $59^{21}, 61^{20}$ & $(x^{3} - 180x^{2} + 10787x - 215216)$ & 6 & 59 & 11 \\
+38 & $59^{22}, 61^{19}, 63$ & $(x^{2} - 119x + 3532)$ & 6 & 40 & 20 \\
+39 & $59^{20}, 61^{19}$ & $(x^{5} - 300x^{4} + 35986x^{3} - 2157480x^{2} + 64648837x - 774578212)$ & 8 & 73 & 25 \\
+40 & $59^{20}, 61^{19}$ & $(x^{5} - 300x^{4} + 35986x^{3} - 2157480x^{2} + 64648837x - 774578228)$ & 8 & 73 & 24 \\
+41 & $57, 59^{20}, 61^{21}$ & $(x^{2} - 121x + 3652)$ & 6 & 40 & 34 \\
+42 & $59^{21}, 61^{19}$ & $(x^{4} - 241x^{3} + 21767x^{2} - 873227x + 13128428)$ & 7 & 59 & 18 \\
+43 & $59^{20}, 61^{20}$ & $(x^{4} - 239x^{3} + 21407x^{2} - 851653x + 12697988)$ & 7 & 59 & 12 \\
+44 & $59^{20}, 61^{18}$ & $(x^{2} - 121x + 3656)$, $(x^{2} - 120x + 3595)^{2}$ & 7 & 8 & 18 \\
+45 & $57, 59^{21}, 61^{19}, 63$ & $(x^{2} - 121x + 3656)$ & 7 & 44 & 18 \\
+46 & $59^{20}, 61^{19}$ & $(x^{2} - 120x + 3595)$, $(x^{3} - 180x^{2} + 10791x - 215464)$ & 8 & 51 & 24 \\
+47 & $59^{22}, 61^{19}$ & $(x^{3} - 182x^{2} + 11029x - 222520)$ & 6 & 54 & 21 \\
+48 & $59^{20}, 61^{19}$ & $(x^{5} - 300x^{4} + 35986x^{3} - 2157484x^{2} + 64649309x - 774592136)$ & 8 & 65 & 25 \\
+49 & $57, 59^{20}, 61^{20}$ & $(x^{3} - 182x^{2} + 11033x - 222776)$ & 7 & 54 & 18 \\
+50 & $59^{21}, 61^{20}$ & $(x^{3} - 180x^{2} + 10787x - 215224)$ & 6 & 59 & 22 \\
+51 & $59^{21}, 60, 61^{17}, 63$ & $(x^{2} - 120x + 3595)^{2}$ & 7 & 16 & 19 \\
+52 & $57, 59^{22}, 60, 61^{18}, 63^{2}$ & -- & 6 & 25 & 10 \\
+53 & $59^{21}, 61^{19}$ & $(x^{4} - 241x^{3} + 21767x^{2} - 873235x + 13128932)$ & 7 & 62 & 23 \\
+54 & $59^{22}, 61^{19}$ & $(x^{3} - 182x^{2} + 11029x - 222524)$ & 6 & 43 & 10 \\
+55 & $57, 59^{20}, 60, 61^{20}$ & $(x^{2} - 122x + 3713)$ & 7 & 66 & 18 \\
+56 & $59^{21}, 60, 61^{19}$ & $(x^{3} - 181x^{2} + 10907x - 218815)$ & 7 & 22 & 21 \\
+57 & $59^{23}, 61^{17}, 63^{2}$ & $(x^{2} - 119x + 3536)$ & 6 & 18 & 10 \\
+58 & $59^{22}, 61^{18}$ & $(x^{4} - 243x^{3} + 22131x^{2} - 895297x + 13574224)$ & 7 & 63 & 23 \\
+59 & $59^{21}, 61^{19}$ & $(x^{2} - 119x + 3536)$, $(x^{2} - 122x + 3713)$ & 7 & 40 & 18 \\
+60 & $57, 59^{22}, 61^{20}, 64$ & -- & 5 & 45 & 7 \\
+61 & $59^{23}, 61^{18}, 63$ & $(x^{2} - 121x + 3652)$ & 6 & 22 & 20 \\
+62 & $59^{22}, 61^{17}$ & $(x^{2} - 120x + 3595)$, $(x^{3} - 184x^{2} + 11279x - 230332)$ & 8 & 12 & 19 \\
+63 & $59^{22}, 61^{18}$ & $(x^{4} - 243x^{3} + 22131x^{2} - 895301x + 13574468)$ & 7 & 60 & 12 \\
+64 & $59^{22}, 61^{19}$ & $(x^{3} - 182x^{2} + 11029x - 222532)$ & 6 & 41 & 11 \\
+65 & $59^{24}, 61^{16}, 63^{2}$ & $(x^{2} - 121x + 3656)$ & 6 & 6 & 10 \\
+66 & $59^{23}, 61^{17}, 63$ & $(x^{3} - 182x^{2} + 11033x - 222776)$ & 7 & 22 & 21 \\
+67 & $59^{22}, 61^{18}$ & $(x^{2} - 122x + 3713)$, $(x^{2} - 121x + 3656)$ & 7 & 15 & 23 \\
+68 & $59^{22}, 61^{18}$ & $(x^{4} - 243x^{3} + 22131x^{2} - 895305x + 13574712)$ & 7 & 40 & 21 \\
+69 & $59^{22}, 61^{19}$ & $(x^{3} - 182x^{2} + 11029x - 222536)$ & 6 & 47 & 11 \\
+70 & $59^{25}, 60, 61^{15}, 63^{3}$ & -- & 5 & 3 & 8 \\
+71 & $59^{23}, 60, 61^{17}, 63$ & $(x^{2} - 122x + 3713)$ & 7 & 26 & 22 \\
+72 & $59^{22}, 60, 61^{17}$ & $(x^{2} - 120x + 3595)$, $(x^{2} - 124x + 3839)$ & 8 & 15 & 15 \\
+73 & $59^{23}, 61^{18}$ & $(x^{3} - 184x^{2} + 11275x - 230084)$ & 6 & 32 & 19 \\
+74 & $59^{22}, 60, 61^{19}$ & $(x^{2} - 122x + 3709)$ & 6 & 41 & 10 \\
+75 & $59^{25}, 61^{17}, 63, 64$ & -- & 5 & 3 & 8 \\
+76 & $59^{23}, 61^{17}$ & $(x^{4} - 245x^{3} + 22499x^{2} - 917863x + 14035376)$ & 7 & 21 & 11 \\
+77 & $59^{22}, 61^{19}$ & $(x^{3} - 182x^{2} + 11029x - 222544)$ & 6 & 28 & 22 \\
+78 & $59^{24}, 61^{17}$ & $(x^{3} - 186x^{2} + 11525x - 237892)$ & 6 & 6 & 10 \\
+79 & $59^{23}, 61^{19}$ & $(x^{2} - 123x + 3772)$ & 5 & 15 & 33 \\
+80 & $59^{24}, 61^{17}$ & $(x^{3} - 186x^{2} + 11525x - 237896)$ & 6 & 6 & 9 \\
+81 & $59^{24}, 60, 61^{18}, 65$ & -- & 5 & 7 & 18 \\
+\end{longtable}
+% --- end tables/n421_candidates.tex ---
 }
 
 \section{\texorpdfstring{Excluded top values for $a\le13$}{Excluded top values for a <= 13}}\label{app:U}
@@ -939,6 +1424,92 @@ Columns: $a$, $d$, $R$, $n_0=\lfloor R\rfloor$, the smallest odd witness $\kappa
 each row, $N_{1/a}(d)\le n_0-1$. Produced by \texttt{verify/c1\_uniform.py} and
 \texttt{verify/c1\_uniform.gp}, whose outputs agree line by line.
 {\small
-\input{tables/thmU_rows.tex}
+% --- begin tables/thmU_rows.tex ---
+\begin{longtable}{rrrrrrrr}
+\caption{Excluded top values of Proposition~\ref{prop:U}.}\label{tab:U}\\
+\toprule
+$a$ & $d$ & $R$ & $n_0$ & $\kappa$ & $s$ & $T$ & $\eta^*$ \\
+\midrule
+\endfirsthead
+\toprule
+$a$ & $d$ & $R$ & $n_0$ & $\kappa$ & $s$ & $T$ & $\eta^*$ \\
+\midrule
+\endhead
+\bottomrule
+\endlastfoot
+7 & 26 & 54.261 & 54 & 7 & 14 & 20 & 5 \\
+7 & 39 & 187.200 & 187 & 25 & 61 & 105 & 27 \\
+7 & 40 & 213.333 & 213 & 29 & 51 & 81 & 21 \\
+7 & 44 & 422.400 & 422 & 59 & 50 & 76 & 19 \\
+9 & 42 & 86.154 & 86 & 9 & 18 & 20 & 5 \\
+9 & 44 & 95.135 & 95 & 9 & 63 & 101 & 26 \\
+9 & 46 & 105.143 & 105 & 11 & 25 & 25 & 7 \\
+9 & 50 & 129.032 & 129 & 13 & 61 & 77 & 20 \\
+9 & 52 & 143.448 & 143 & 15 & 39 & 65 & 17 \\
+9 & 55 & 169.231 & 169 & 17 & 91 & 169 & 43 \\
+9 & 56 & 179.200 & 179 & 19 & 43 & 49 & 13 \\
+9 & 59 & 214.545 & 214 & 23 & 38 & 68 & 17 \\
+9 & 62 & 261.053 & 261 & 27 & 117 & 225 & 57 \\
+9 & 64 & 301.176 & 301 & 33 & 21 & 21 & 6 \\
+9 & 68 & 418.462 & 418 & 45 & 90 & 156 & 39 \\
+9 & 70 & 509.091 & 509 & 55 & 101 & 153 & 39 \\
+9 & 74 & 845.714 & 845 & 93 & 57 & 101 & 26 \\
+11 & 62 & 126.102 & 126 & 11 & 22 & 20 & 5 \\
+11 & 63 & 130.345 & 130 & 11 & 44 & 72 & 18 \\
+11 & 65 & 139.286 & 139 & 11 & 99 & 185 & 47 \\
+11 & 69 & 159.231 & 159 & 13 & 93 & 153 & 39 \\
+11 & 72 & 176.327 & 176 & 15 & 64 & 96 & 24 \\
+11 & 80 & 234.146 & 234 & 21 & 14 & 20 & 5 \\
+11 & 83 & 262.105 & 262 & 23 & 60 & 56 & 14 \\
+11 & 85 & 283.333 & 283 & 25 & 53 & 73 & 19 \\
+11 & 87 & 307.059 & 307 & 27 & 71 & 65 & 17 \\
+11 & 90 & 348.387 & 348 & 31 & 48 & 72 & 18 \\
+11 & 93 & 398.571 & 398 & 35 & 100 & 176 & 44 \\
+11 & 95 & 438.462 & 438 & 39 & 68 & 104 & 26 \\
+11 & 98 & 511.304 & 511 & 45 & 133 & 217 & 55 \\
+11 & 100 & 571.429 & 571 & 51 & 81 & 117 & 30 \\
+11 & 102 & 644.211 & 644 & 57 & 148 & 240 & 60 \\
+11 & 103 & 686.667 & 686 & 61 & 130 & 244 & 61 \\
+11 & 104 & 734.118 & 734 & 65 & 170 & 292 & 73 \\
+11 & 105 & 787.500 & 787 & 71 & 47 & 81 & 21 \\
+11 & 107 & 917.143 & 917 & 83 & 29 & 25 & 7 \\
+11 & 112 & 1493.333 & 1493 & 135 & 71 & 85 & 22 \\
+11 & 114 & 1954.286 & 1954 & 177 & 62 & 68 & 17 \\
+13 & 86 & 174.072 & 174 & 13 & 26 & 20 & 5 \\
+13 & 87 & 178.244 & 178 & 13 & 52 & 72 & 18 \\
+13 & 103 & 262.182 & 262 & 19 & 110 & 148 & 37 \\
+13 & 109 & 305.200 & 305 & 23 & 41 & 49 & 13 \\
+13 & 110 & 313.220 & 313 & 23 & 109 & 145 & 37 \\
+13 & 112 & 330.105 & 330 & 25 & 34 & 28 & 7 \\
+13 & 114 & 348.218 & 348 & 25 & 192 & 360 & 90 \\
+13 & 120 & 411.429 & 411 & 31 & 63 & 105 & 27 \\
+13 & 121 & 423.500 & 423 & 31 & 175 & 337 & 85 \\
+13 & 122 & 436.085 & 436 & 33 & 56 & 40 & 10 \\
+13 & 123 & 449.217 & 449 & 33 & 179 & 297 & 75 \\
+13 & 125 & 477.273 & 477 & 35 & 201 & 369 & 93 \\
+13 & 126 & 492.279 & 492 & 37 & 96 & 120 & 30 \\
+13 & 128 & 524.488 & 524 & 39 & 156 & 272 & 68 \\
+13 & 131 & 579.158 & 579 & 43 & 191 & 305 & 77 \\
+13 & 132 & 599.351 & 599 & 45 & 131 & 189 & 48 \\
+13 & 134 & 643.200 & 643 & 49 & 51 & 53 & 14 \\
+13 & 135 & 667.059 & 667 & 51 & 31 & 17 & 5 \\
+13 & 137 & 719.250 & 719 & 55 & 31 & 49 & 13 \\
+13 & 139 & 778.400 & 778 & 59 & 106 & 148 & 37 \\
+13 & 140 & 811.034 & 811 & 61 & 183 & 245 & 62 \\
+13 & 142 & 883.556 & 883 & 67 & 119 & 193 & 49 \\
+13 & 144 & 967.680 & 967 & 73 & 187 & 357 & 90 \\
+13 & 146 & 1066.435 & 1066 & 81 & 134 & 196 & 49 \\
+13 & 147 & 1122.545 & 1122 & 85 & 180 & 312 & 78 \\
+13 & 149 & 1251.600 & 1251 & 95 & 171 & 297 & 75 \\
+13 & 150 & 1326.316 & 1326 & 101 & 138 & 180 & 45 \\
+13 & 151 & 1409.333 & 1409 & 107 & 197 & 313 & 79 \\
+13 & 152 & 1502.118 & 1502 & 115 & 70 & 52 & 13 \\
+13 & 153 & 1606.500 & 1606 & 123 & 70 & 116 & 29 \\
+13 & 158 & 2413.091 & 2413 & 185 & 85 & 61 & 16 \\
+13 & 159 & 2671.200 & 2671 & 205 & 61 & 57 & 15 \\
+13 & 160 & 2986.667 & 2986 & 229 & 98 & 172 & 43 \\
+13 & 164 & 5510.400 & 5510 & 423 & 126 & 164 & 41 \\
+\end{longtable}
+% --- end tables/thmU_rows.tex ---
 }
 \end{document}
