@@ -10,7 +10,7 @@ Static HTML/CSS only. Shared stylesheet: `css/site.css`. Shared nav is duplicate
 
 Root:
 
-- `index.html` — header (bio, links, sabbatical) and the point-cloud clock (`clock/#embed=1` in an iframe)
+- `index.html` — header (bio, links, sabbatical) and the point-cloud clock (`clock/index.html#embed=1` in an iframe)
 - `papers.html` — the numbered list of all papers (`<ol class="papers">`, oldest first)
 - `talks.html` — talks 2012–2026, including 2024 (no traveling due to childbirth)
 - `teaching.html` — courses with cleaned UCI / Canvas / NCSU URLs

@@ -32,4 +32,4 @@ The year links under the title of `talks.html` are rebuilt by the same command f
 
 ## Clock on the home page
 
-The home page shows `clock/` in an iframe as `clock/#embed=1`. With `embed=1` the clock uses the site's dark background, lets vertical swipes scroll the page (drag a ball sideways to spin it), pauses while scrolled out of view, and snaps instead of rotating when the visitor prefers reduced motion. Opened directly, `clock/` is unchanged.
+The home page shows `clock/` in an iframe as `clock/index.html#embed=1`. With `embed=1` the clock uses the site's dark background, lets vertical swipes scroll the page (drag a ball sideways to spin it), pauses while scrolled out of view, and snaps instead of rotating when the visitor prefers reduced motion. Opened directly, `clock/` is unchanged.
