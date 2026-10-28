@@ -491,6 +491,13 @@ a.ap-n:hover { text-decoration: underline; }
   nav.primary a { letter-spacing: 0.1em; }
 }
 
+/* High Contrast: forced colours paint transparent borders and drop painted bullets */
+@media (forced-colors: active) {
+  nav.primary a:not([aria-current]) { border-bottom-color: Canvas; }
+  .page ul > li::before, h2::before, h2.year::before { background: CanvasText; }
+  .page ul ul > li::before { background: Canvas; border: 1px solid CanvasText; }
+}
+
 @media print {
   body { background: none; }
   .stage { padding: 0; }
