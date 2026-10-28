@@ -26,7 +26,7 @@ Content was transferred from the Google Site https://sites.google.com/view/paata
 
 ## Navigation
 
-The primary nav is duplicated on every page. To change it, edit `NAV` in `tools/site.py` and run `python3 tools/site.py nav`; it rewrites every page with the right `../` prefix and `aria-current`. On wide screens `css/site.css` sets the eleven items in two rows of six (`repeat(6, auto)` under `nav.primary ul`); revisit that if the number of items changes.
+The primary nav is duplicated on every page. To change it, edit `NAV` in `tools/site.py` and run `python3 tools/site.py nav`; it rewrites every page with the right `../` prefix and `aria-current`. On wide screens `css/site.css` lays the eleven items out in six columns, i.e. rows of six and five (`repeat(6, auto)` under `nav.primary ul`); revisit that if the number of items changes.
 
 ## Clock on the home page
 
