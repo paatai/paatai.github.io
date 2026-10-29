@@ -1,0 +1,1102 @@
+\documentclass[11pt]{amsart}
+\usepackage[utf8]{inputenc}
+\usepackage[margin=1.1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\hypersetup{colorlinks=true,linkcolor=blue,citecolor=blue,urlcolor=blue,
+pdftitle={Correlated forward hypercontractivity with outer exponent alpha<1}}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{remark}[theorem]{Remark}
+
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Ent}{\operatorname{Ent}}
+\newcommand{\cS}{\mathcal{S}}
+\newcommand{\Id}{\mathrm{Id}}
+
+\title[Correlated forward hypercontractivity for \texorpdfstring{$\alpha<1$}{alpha<1}]{Correlated forward
+hypercontractivity with outer exponent \texorpdfstring{$\alpha<1$}{alpha<1}}
+\author{Paata Ivanisvili}
+\date{October 28, 2026}
+
+\begin{document}
+\sloppy
+\begin{abstract}
+Let $\xi=(\xi_1,\dots,\xi_n)$ be a Gaussian vector whose blocks $\xi_j$ are standard Gaussian vectors, let
+$\lambda$ be the smallest eigenvalue of its covariance, and let $T_x$ be the Ornstein--Uhlenbeck (Mehler) operator
+with real parameter $x\in[-1,1]$. Ivanisvili and Kalantzopoulos proved that the forward inequality
+$\|\prod_j(T_{r_j}f_j(\xi_j))^{p_j}\|_{\alpha}\le\|\prod_jf_j(\xi_j)^{p_j}\|_1$ holds for all positive $f_j$ if and
+only if an explicit covariance condition holds, for $\alpha\in(-\infty,0)\cup[1,\infty)$. Their flow method does not
+apply to $\alpha\in(0,1)$. We show that for equal parameters $r_j=x$ and equal exponents $p_j=p\ge1$ their condition
+remains necessary and sufficient for every $\alpha\in(0,1)$ and every covariance. Equivalently, for $p\ge1$ and
+$0<r<p$,
+\[
+\Big\|\prod_jT_xf_j(\xi_j)\Big\|_{L^r}\le\Big\|\prod_jf_j(\xi_j)\Big\|_{L^p}\ \text{ for all }f_j\ge0
+\quad\Longleftrightarrow\quad(1-x^2)+r\lambda x^2\le p\lambda .
+\]
+When $p\lambda<1$ this excludes a neighbourhood of $x=0$; exponentials along the bottom eigenvector are extremal. For
+$0<r<p<1$ the inequality fails for every $|x|<1$, so for $0<p<1$ (and $\lambda>0$) the covariance condition is not
+sufficient; for $p<0$ (and non-singular covariance) the forward inequality always holds. The range $p\lambda\ge1$ follows from their theorem at
+$\alpha=1$; the new range is $p\lambda<1$. For two functions with unequal parameters $r_1\ne r_2$ the condition is not
+sufficient in general, for any $\alpha\in(0,1)$: for every $\alpha p>2$ there are parameters where it holds while
+second-order perturbations in the second Wiener chaos violate the inequality, and certified examples are given. It is
+sufficient when $\alpha p=1$, and when $\alpha p\ge1$ and one of the two parameters vanishes; for $\alpha p\le1$ no
+second-order perturbation of the constants detects anything beyond it. For $\alpha p>1$, positive correlation and positive parameters, a flow with
+separate noise parameters gives a sufficient condition under which the covariance condition is sharp. It is a one-dimensional
+differential inequality that reduces to two closed-form inequalities. It holds exactly when some path of this flow
+reaches the threshold, and where the inequalities fail strictly no path comes near it; it is not known to be
+necessary for the inequality itself. It is verified in ball arithmetic at explicit points with $1<\alpha p\le2$, and
+numerically it holds at about $92\%$ of the sampled points of that range not already covered by the case $\alpha=1$. The
+proof combines a reverse correlated log-Sobolev inequality, which bounds
+$\Ent\big(\prod_j\Psi_j(\xi_j)\big)$ from below by $-\lambda\sum_{i<j}\E\big[\langle\nabla\Psi_i(\xi_i),
+B_{ij}\nabla\Psi_j(\xi_j)\rangle\prod_{l\ne i,j}\Psi_l(\xi_l)\big]$ for every symmetric $B\ge-\Id$ with zero diagonal
+blocks, with a flow in three parameters (exponent, correlation and noise) along which $(q(1-\theta)-1)s^2$ is the
+controlling quantity.
+\end{abstract}
+% --- AI disclosure (site) ---
+\noindent\begin{center}\small\itshape
+This proof was generated on October 28, 2026, by Grok Bot using Cursor’s agents, guided by several prompts from Paata Ivanisvili
+\end{center}\medskip
+% --- end AI disclosure ---
+\maketitle
+
+\section{Introduction and results}
+Let $\gamma_k$ be the standard Gaussian measure on $\R^k$. For $x\in[-1,1]$ and measurable $f:\R^k\to[0,\infty]$ put
+\[
+T_xf(y)=\E f\big(xy+\sqrt{1-x^2}\,G\big)\in[0,\infty],\qquad G\sim\gamma_k .
+\]
+This is the Ornstein--Uhlenbeck (Mehler) operator; on polynomials $T_xH_\beta=x^{|\beta|}H_\beta$. Products of values
+in $[0,\infty]$ are taken with $0\cdot\infty=0$, and negative powers with $\infty^{-a}=0$. Let
+$\xi=(\xi_1,\dots,\xi_n)$ be a centred Gaussian vector in $\R^{k_1}\times\dots\times\R^{k_n}$ with $\xi_j\sim\gamma_{k_j}$,
+and let $\Sigma=\mathrm{cov}(\xi)$; its diagonal blocks are identities. Ivanisvili and
+Kalantzopoulos~\cite[Thm.~9]{IK25} considered, for $r_j\in[-1,1]$ and $p_j\ne0$, the forward inequality
+\begin{equation}\label{eq:IK}
+\Big\|\prod_{j=1}^n\big(T_{r_j}f_j(\xi_j)\big)^{p_j}\Big\|_{\alpha}\le\Big\|\prod_{j=1}^nf_j(\xi_j)^{p_j}\Big\|_1,
+\qquad\|W\|_\alpha=(\E|W|^\alpha)^{1/\alpha},
+\end{equation}
+for all measurable $f_j:\R^{k_j}\to(0,\infty)$. They proved that for $\alpha\in(-\infty,0)\cup[1,\infty)$ it holds if
+and only if
+\begin{equation}\label{eq:IKcond}
+\mathrm{diag}\Big(\frac{1-r_j^2}{p_j}\,\Id_{k_j}\Big)_{j=1}^n\ \le\ \big((1-\alpha r_ur_v)\,\mathrm{cov}(\xi_u,\xi_v)\big)_{u,v=1}^n
+\end{equation}
+(\cite[(2.16), (2.17)]{IK25}). The range $\alpha\in(0,1)$ is excluded: their FB theorem needs
+$(t,y)\mapsto F''(t)y^2/|F'(t)|$ to be convex~\cite[(2.30)]{IK25}, and for $F(t)=t^\alpha$ this function is
+$(\alpha-1)\frac{y^2}t$ for $\alpha>0$, which is concave when $0<\alpha<1$. For the reverse inequality the range
+$\alpha\in(0,1]$ is covered~\cite[Thm.~9(ii)]{IK25}.
+
+We treat the forward inequality for $\alpha\in(0,1)$ with equal parameters and equal exponents. Write $r=\alpha p$;
+then~\eqref{eq:IK} with $r_j=x$ and $p_j=p$ is the $p$-th power of
+\begin{equation}\label{eq:main}
+\Big\|\prod_{j=1}^nT_xf_j(\xi_j)\Big\|_{L^r}\le\Big\|\prod_{j=1}^nf_j(\xi_j)\Big\|_{L^p},
+\end{equation}
+where $\|W\|_{L^r}=(\E|W|^r)^{1/r}$ also for $r<1$. Let $\lambda=\lambda_{\min}(\Sigma)$. Since the diagonal blocks of
+$\Sigma$ are identities, its eigenvalues average to $1$, so $\lambda\in[0,1]$, and $\lambda=1$ only if $\Sigma=\Id$.
+
+\begin{theorem}\label{thm:main}
+Let $\xi$ be as above, $x\in[-1,1]$, $p\in[1,\infty)$ and $r\in(0,p)$. Then~\eqref{eq:main} holds for all measurable
+$f_j:\R^{k_j}\to[0,\infty]$ if and only if
+\begin{equation}\label{eq:cond}
+(1-x^2)+r\lambda x^2\ \le\ p\lambda .
+\end{equation}
+If~\eqref{eq:cond} fails, then~\eqref{eq:main} fails for $f_j(y)=e^{\langle a_j,y\rangle}$, for every
+$a=(a_1,\dots,a_n)\ne0$ with $\Sigma a=\lambda a$.
+\end{theorem}
+
+\begin{proposition}\label{prop:psmall}
+Let $\xi$ be as above, $0<r<p<1$ and $|x|<1$. Then~\eqref{eq:main} fails for some $f_1$ with values in
+$[\frac12,\frac32]$ and $f_2=\dots=f_n=1$.
+\end{proposition}
+
+\begin{proposition}\label{prop:pneg}
+Let $\xi$ be as above with $\Sigma$ non-singular, $x\in[-1,1]$, $p<0$ and $\alpha\in(0,1)$. Then~\eqref{eq:IK} with
+$r_j=x$ and $p_j=p$ holds for all measurable $f_j:\R^{k_j}\to(0,\infty)$. (For $p<0$ the left side
+of~\eqref{eq:IKcond} is $\le0$, so~\eqref{eq:IKcond} holds as well.)
+\end{proposition}
+
+\begin{corollary}\label{cor:IK}
+Let $\xi$ be as above with $\Sigma$ non-singular, $x\in[-1,1]$, $p\ne0$ and $\alpha\in(0,1)$. Then~\eqref{eq:IK}
+with $r_j=x$ and $p_j=p$ holds for all measurable $f_j:\R^{k_j}\to(0,\infty)$ if and only if $|x|=1$, or
+$p\in(-\infty,0)\cup[1,\infty)$ and~\eqref{eq:IKcond} holds. So for equal parameters $r_j=x$ and exponents $p_j=p$
+with $p\in(-\infty,0)\cup[1,\infty)$ the characterisation of~\cite[Thm.~9(i)]{IK25} extends to $\alpha\in(0,1)$; for
+unequal parameters it does not (Proposition~\ref{prop:allr}). For $0<p<1$ it does not:
+\eqref{eq:IKcond} holds for $x$ close to $\pm1$, while~\eqref{eq:IK} fails for every $|x|<1$.
+\end{corollary}
+
+\begin{proof}
+With $r_j=x$ the right side of~\eqref{eq:IKcond} is $(1-\alpha x^2)\Sigma$, and $1-\alpha x^2>0$. So
+\eqref{eq:IKcond} says $\frac{1-x^2}p\le(1-\alpha x^2)\lambda$. For $p>0$ this is~\eqref{eq:cond} with $r=\alpha p$;
+for $p<0$ it holds automatically. Moreover,
+\eqref{eq:IK} is the $p$-th power of~\eqref{eq:main} when $p>0$. For $|x|=1$ and $p>0$, \eqref{eq:main} is
+Lyapunov's inequality. For $p\ge1$ apply Theorem~\ref{thm:main}, whose witnesses are positive, for $0<p<1$ apply
+Proposition~\ref{prop:psmall}, and for $p<0$ apply Proposition~\ref{prop:pneg}. If $0<p<1$ and $x^2=1$,
+then~\eqref{eq:cond} reads $r\lambda\le p\lambda$, which holds strictly since $\lambda>0$; so it holds for $x$ close
+to $\pm1$.
+\end{proof}
+
+\begin{remark}\label{rem:cases}
+(a) \emph{Examples.} If $\xi_j\in\R^k$ and $\mathrm{cov}(\xi_i,\xi_j)=\rho\Id_k$ for $i\ne j$, then $\lambda=1-\rho$ for
+$\rho\in[0,1)$ and $\lambda=1+(n-1)\rho$ for $\rho\in[-\frac1{n-1},0)$; for $n=2$, $\lambda=1-|\rho|$. For $n=1$,
+$\lambda=1$.
+
+(b) If $p\lambda\ge1$, then~\eqref{eq:cond} holds for every $x\in[-1,1]$, since its left side is a convex combination
+of $1$ and $r\lambda<p\lambda$. This case is not new. At $\alpha=1$, \eqref{eq:IKcond} with $r_j=x$, $p_j=p$ reads
+$\frac{1-x^2}p\le(1-x^2)\lambda$, which holds when $p\lambda\ge1$; so~\cite[Thm.~9(i)]{IK25} gives
+$\|\prod_jT_xf_j(\xi_j)\|_p\le\|\prod_jf_j(\xi_j)\|_p$, and Lyapunov's inequality gives~\eqref{eq:main}. For two
+$\rho$-correlated functions,~\cite[Prop.~1.4(a)]{MF} is proved in the same way, with~\cite[Thm.~1]{IK25} at $\alpha=1$ applied at an intermediate exponent $s\in[\max\{r,(1-|\rho|)^{-1}\},p]$ instead of $p$. At $x=0$, \eqref{eq:main} reads
+$\prod_j\E f_j\le\|\prod_jf_j(\xi_j)\|_p$, which is~\cite[Theorem~B]{IK25} (Chen--Dafnis--Paouris) with $p_j=p$.
+
+(c) If $p\lambda<1$, then $r\lambda<1$, and~\eqref{eq:cond} reads $x^2\ge\frac{1-p\lambda}{1-r\lambda}\in(0,1]$. So
+\eqref{eq:main} fails near $x=0$. For two $\rho$-correlated functions at $x=0$, for instance, $T_0f=\E f$, and
+$f_1=e^{y_1}$, $f_2=e^{-y_1}$ give $\E f_1\E f_2=e>e^{p(1-\rho)}=\|f_1(\xi_1)f_2(\xi_2)\|_p$ when $p(1-\rho)<1$.
+
+(d) Since $|T_xf|\le T_x|f|$ for complex-valued $f$, \eqref{eq:main} under~\eqref{eq:cond} also holds for
+complex-valued $f_j$, in particular for polynomials and for bounded functions. Necessity holds within each of these
+classes too. Truncations $\min\{e^{\langle a,y\rangle},M\}$ and the partial sums of the exponential series converge
+to $e^{\langle a,y\rangle}$ in every $L^s(\gamma_k)$, and so do their images under $T_x$. Moreover,
+$(f_j)_j\mapsto\prod_jf_j(\xi_j)$ is continuous from $\prod_jL^{ns}(\gamma_{k_j})$ to $L^s$ by H\"older's inequality.
+For $n=2$, \eqref{eq:main} is the real case $z=x$ of the two-function inequality studied in~\cite{MF,JB}.
+
+(e) \emph{Comparison with~\cite[Thm.~10]{IK25}.} For $q\ge p\ge1/\lambda$, Ivanisvili and Kalantzopoulos show
+that $\|\prod_jT_xf_j(\xi_j)\|_q\le\|\prod_jf_j(\xi_j)\|_p$ for all $f_j\ge0$ iff
+$x^2\le\frac{p\lambda-1}{q\lambda-1}$. Theorem~\ref{thm:main} (with $r=q<p$) says that for $p\ge1$ and $p\lambda<1$
+it holds iff $x^2\ge\frac{p\lambda-1}{q\lambda-1}$: the same threshold, with the inequality reversed. If $p\lambda\ge1$
+and $q<p$, every $x$ is admissible.
+
+(f) For $n=1$ and $p\ge1$, \eqref{eq:main} holds for every $x$, as $\|T_xf\|_r\le\|T_xf\|_{\max\{r,1\}}\le
+\|f\|_{\max\{r,1\}}\le\|f\|_p$. By Proposition~\ref{prop:psmall} the restriction $p\ge1$ in Theorem~\ref{thm:main}
+cannot be dropped. For $n=1$, expanding at $1+\varepsilon h$ with $h$ in the $m$-th Wiener chaos gives the necessary
+condition $(1-r)x^{2m}\ge1-p$; for $m=1$ (and $\lambda=1$) this is~\eqref{eq:cond}, for $p\ge1$ these conditions are
+empty, and for $p<1$ and large $m$ they fail at every $|x|<1$.
+\end{remark}
+
+The main tool is the following lower bound for the entropy $\Ent(W)=\E[W\log W]-\E W\log\E W$ of a product.
+
+\begin{lemma}[Reverse correlated log-Sobolev inequality]\label{lem:rlsi}
+Let $\xi=(\xi_1,\dots,\xi_n)$ be a centred Gaussian vector in $\R^{k_1}\times\dots\times\R^{k_n}$ with
+$\mathrm{cov}(\xi)\ge\lambda\Id$, $\lambda\ge0$. Let $B=(B_{ij})$ be a symmetric matrix with blocks
+$B_{ij}\in\R^{k_i\times k_j}$, $B_{jj}=0$ and $B\ge-\Id$. Let $\Psi_j:\R^{k_j}\to(0,\infty)$ be $C^1$, with $\Psi_j$ and
+$|\nabla\Psi_j|$ bounded and $\inf\Psi_j>0$. Then
+\begin{equation}\label{eq:rlsi}
+\Ent\Big(\prod_{j=1}^n\Psi_j(\xi_j)\Big)\ \ge\ -\lambda\sum_{i<j}
+\E\Big[\langle\nabla\Psi_i(\xi_i),B_{ij}\nabla\Psi_j(\xi_j)\rangle\prod_{l\ne i,j}\Psi_l(\xi_l)\Big].
+\end{equation}
+\end{lemma}
+
+The basic case is $B_{ij}=\Id$ for $i\ne j$ (blocks of equal size), which satisfies $B\ge-\Id$; then
+\eqref{eq:rlsi} involves $\sum_{i<j}\E[\langle\nabla\Psi_i,\nabla\Psi_j\rangle\prod_{l\ne i,j}\Psi_l]$. If
+$\Psi_j=e^{\langle a_j,\cdot\rangle}$, $Ba=-a$ and $\mathrm{cov}(\xi)a=\lambda a$, both sides of~\eqref{eq:rlsi} equal
+$\frac\lambda2|a|^2\E\prod_j\Psi_j$ (these $\Psi_j$ are unbounded, but the computation is explicit). Ivanisvili and
+Kalantzopoulos proved a correlated log-Sobolev inequality, which bounds the same entropy from
+above~\cite[Thm.~11]{IK25}. Lemma~\ref{lem:rlsi} is a lower bound of the opposite type.
+
+\section{Preliminaries}
+\subsection{The operator \texorpdfstring{$T_x$}{Tx}}
+For measurable $f\ge0$, $T_1f=f$, $T_0f=\E f$, $T_xT_yf=T_{xy}f$, and $T_{-x}f=T_x(f(-\,\cdot))$, since $-G\sim G$.
+Let $\cS$ be the set of $C^\infty$ functions $f$ on some $\R^k$ with $\inf f>0$ such that $f$ and all its derivatives are
+bounded. For $f\in\cS$ and $s\in(0,1]$ we have $T_sf\in\cS$, $\nabla T_sf=s\,T_s\nabla f$, and
+\begin{equation}\label{eq:dsT}
+\partial_sT_sf=-\tfrac1s\,LT_sf,\qquad L=\Delta-\langle y,\nabla\rangle .
+\end{equation}
+Indeed, with $c=\sqrt{1-s^2}$, $\partial_sT_sf(y)=\E\langle\nabla f(sy+cG),y-\tfrac scG\rangle$ for $s<1$, and Gaussian
+integration by parts gives $\E\langle\nabla f(sy+cG),G\rangle=c\,\E\Delta f(sy+cG)$. So
+$\partial_sT_sf=\langle y,T_s\nabla f\rangle-sT_s\Delta f=-\frac1s\big(\Delta T_sf-\langle y,\nabla T_sf\rangle\big)$,
+which extends continuously to $s=1$. If $f$ is bounded and $s<1$, then $T_sf$ is $C^\infty$ with bounded
+derivatives: differentiate the Gaussian density in $T_sf(y)=\int f(w)\,\phi_{c}(w-sy)\,dw$. If moreover $\inf f>0$,
+then $T_sf\in\cS$.
+
+\subsection{Gaussian calculus}
+Let $\zeta$ be a centred Gaussian vector in $\R^K$ with covariance $C$. For $C^1$ functions $h$ which, with their
+first derivatives, have polynomial growth, Gaussian integration by parts reads
+\begin{equation}\label{eq:ibp}
+\E\big[\zeta_a\,h(\zeta)\big]=\sum_bC_{ab}\,\E\big[\partial_bh(\zeta)\big].
+\end{equation}
+If $C=C(\theta)$ depends smoothly on $\theta$ and stays positive definite, then for $C^2$ functions $h$ which, with
+their derivatives up to order two, have polynomial growth,
+\begin{equation}\label{eq:interp}
+\frac{d}{d\theta}\E_{C(\theta)}\big[h(\zeta)\big]=\frac12\sum_{a,b}\dot C_{ab}\,\E_{C(\theta)}\big[\partial_a\partial_bh(\zeta)\big].
+\end{equation}
+This follows from the heat equation $\partial_\theta\phi_{C(\theta)}=\frac12\sum_{a,b}\dot C_{ab}\partial_a\partial_b\phi_{C(\theta)}$ for
+the Gaussian density (compare Fourier transforms, $\partial_\theta e^{-\omega^TC\omega/2}=-\frac12\omega^T\dot C\omega
+\,e^{-\omega^TC\omega/2}$), and two integrations by parts. If $\dot C$ has zero diagonal blocks and
+$h(\zeta)=\prod_jG_j(\zeta_j)$, then
+\begin{equation}\label{eq:drho}
+\frac{d}{d\theta}\E_{C(\theta)}\Big[\prod_jG_j(\zeta_j)\Big]=\sum_{i<j}\E_{C(\theta)}\Big[\big\langle\nabla G_i(\zeta_i),
+\dot C_{ij}\nabla G_j(\zeta_j)\big\rangle\prod_{l\ne i,j}G_l(\zeta_l)\Big].
+\end{equation}
+
+\subsection{The path of covariances and the case \texorpdfstring{$q=1$}{q=1}}
+Assume $0<\lambda<1$ and put $\beta=1-\lambda$, $\widehat B=(\Sigma-\Id)/\beta$ and
+\[
+\Sigma_\theta=\Id+\theta\widehat B,\qquad\theta\in[0,1).
+\]
+Then $\widehat B$ has zero diagonal blocks and $\lambda_{\min}(\widehat B)=-1$. So $\widehat B\ge-\Id$,
+$\lambda_{\min}(\Sigma_\theta)=1-\theta>0$, and $\Sigma_\beta=\Sigma$. We write $\E_\theta$ for expectations with
+respect to $\xi\sim N(0,\Sigma_\theta)$. For measurable $f_j\ge0$ and $s\in[0,1]$,
+$\prod_jT_sf_j(\xi_j)=\E\big[\prod_jf_j(s\xi_j+\sqrt{1-s^2}A_j)\,\big|\,\xi\big]$, with $A_j\sim\gamma_{k_j}$ independent
+of $\xi$ and of each other. The vector $(s\xi_j+\sqrt{1-s^2}A_j)_j$ has covariance
+$s^2\Sigma_\theta+(1-s^2)\Id=\Sigma_{s^2\theta}$. Hence, by Tonelli,
+\begin{equation}\label{eq:q1}
+\E_\theta\Big[\prod_jT_sf_j(\xi_j)\Big]=\E_{s^2\theta}\Big[\prod_jf_j(\xi_j)\Big].
+\end{equation}
+
+\section{Proof of Lemma~\ref{lem:rlsi}}
+\emph{One Gaussian.} Let $\nu=N(m,\sigma^2\Id_k)$ and let $\Psi>0$ be $C^1$ with $\Psi$, $|\nabla\Psi|$ bounded. For
+every $h$ with $\E_\nu e^h<\infty$, the entropy inequality $\E_\nu[\Psi h]\le\Ent_\nu(\Psi)+\E_\nu\Psi\log\E_\nu e^h$
+holds. With $h(w)=\langle\lambda',w-m\rangle$ we have $\E_\nu e^h=e^{\sigma^2|\lambda'|^2/2}$ and, by Gaussian
+integration by parts, $\E_\nu[\Psi(w)(w-m)]=\sigma^2\E_\nu\nabla\Psi$. Choosing $\lambda'=\E_\nu\nabla\Psi/\E_\nu\Psi$
+gives the following bound, which is the reverse local log-Sobolev inequality for the heat semigroup at time
+$\sigma^2$ (compare~\cite[Ch.~5]{BGL14}):
+\begin{equation}\label{eq:onegauss}
+\Ent_\nu(\Psi)\ \ge\ \frac{\sigma^2\,|\E_\nu\nabla\Psi|^2}{2\,\E_\nu\Psi}.
+\end{equation}
+
+\emph{Conditioning.} If $\lambda=0$, the right side of~\eqref{eq:rlsi} vanishes. Let $\lambda>0$ and write
+$\xi=\sqrt\lambda\,A+\eta$ with $A\sim\gamma_{K}$ ($K=\sum_jk_j$) independent of $\eta\sim N(0,\mathrm{cov}(\xi)-\lambda\Id)$.
+Given $\eta$, the blocks $\xi_j=\eta_j+\sqrt\lambda A_j$ are independent with laws $N(\eta_j,\lambda\Id_{k_j})$. Put
+$u_j(\eta_j)=\E[\Psi_j(\xi_j)\,|\,\eta]$; then $u_j$ is $C^1$, $\nabla u_j(\eta_j)=\E[\nabla\Psi_j(\xi_j)\,|\,\eta]$, and
+$u_j\ge\inf\Psi_j>0$. Put $b_j=\nabla u_j/u_j$, $b=(b_1,\dots,b_n)$ and $U=\prod_ju_j(\eta_j)$. The chain rule for
+entropy and its exact tensorisation for independent factors give
+\[
+\Ent\Big(\prod_j\Psi_j(\xi_j)\Big)=\E\Big[\Ent\Big(\prod_j\Psi_j(\xi_j)\,\Big|\,\eta\Big)\Big]+\Ent(U)
+\ \ge\ \E\Big[\sum_j\Ent\big(\Psi_j(\xi_j)\,\big|\,\eta\big)\prod_{l\ne j}u_l\Big].
+\]
+By~\eqref{eq:onegauss}, $\Ent(\Psi_j(\xi_j)\,|\,\eta)\ge\frac\lambda2|\nabla u_j|^2/u_j$, so the right side is at least
+$\frac\lambda2\E[U|b|^2]$. On the other hand, by conditional independence, and since $B$ has zero diagonal blocks,
+\[
+\sum_{i<j}\E\Big[\langle\nabla\Psi_i(\xi_i),B_{ij}\nabla\Psi_j(\xi_j)\rangle\prod_{l\ne i,j}\Psi_l(\xi_l)\Big]
+=\sum_{i<j}\E\big[U\langle b_i,B_{ij}b_j\rangle\big]=\frac12\E\big[U\,b^TBb\big].
+\]
+Since $B\ge-\Id$, $b^TBb\ge-|b|^2$, and so $\frac\lambda2\E[U|b|^2]\ge-\frac\lambda2\E[U\,b^TBb]$, which
+is~\eqref{eq:rlsi}.\qed
+
+\section{A flow in three parameters}
+Assume $0<\lambda<1$ and use $\Sigma_\theta$, $\widehat B$ from Section~2.3. Fix $f_j\in\cS$ on $\R^{k_j}$. For $q>0$,
+$\theta\in(0,1)$ and $s\in(0,1]$ put $F_j=T_sf_j$,
+\[
+W=\prod_jF_j(\xi_j)^q,\quad\Phi(q,\theta,s)=\frac1q\log\E_\theta W,\quad a_j=\frac{\nabla F_j}{F_j}(\xi_j),\quad
+S=\sum_{i<j}\langle a_i,\widehat B_{ij}a_j\rangle .
+\]
+Since $F_j\in\cS$ uniformly for $s$ in compact subsets of $(0,1]$, all integrands below are bounded by polynomials in
+$|\xi|$, and differentiation under the expectation is justified by dominated convergence. Note the pointwise
+inequality
+\begin{equation}\label{eq:pointwise}
+\sum_j|a_j|^2+2S=|a|^2+a^T\widehat Ba\ \ge\ 0 .
+\end{equation}
+
+\begin{lemma}\label{lem:deriv}
+$\Phi$ is $C^1$ (one-sided in $s$ at $s=1$), and
+\begin{gather*}
+q^2\E_\theta W\,\partial_q\Phi=\Ent(W),\qquad q^2\E_\theta W\,\partial_\theta\Phi=q^3\,\E_\theta[WS],\\
+q^2\E_\theta W\,\partial_s\Phi=\frac{q^2}s\,\E_\theta\Big[W\Big((q-1)\sum_j|a_j|^2+2\theta q\,S\Big)\Big].
+\end{gather*}
+\end{lemma}
+
+\begin{proof}
+First, $\partial_q\Phi=-\frac1{q^2}\log\E W+\frac1q\frac{\E[W\log\prod_jF_j]}{\E W}=\frac{\Ent(W)}{q^2\E W}$. Second,
+apply~\eqref{eq:drho} with $C(\theta)=\Sigma_\theta$, $\dot C=\widehat B$ and $G_j=F_j^q$, for which
+$\nabla G_j=qF_j^q\,\nabla F_j/F_j$. Third, by~\eqref{eq:dsT},
+$\partial_s\Phi=\E[W\sum_j\partial_sF_j/F_j]/\E W=-\frac1s\sum_j\E[\Psi^{(j)}LF_j(\xi_j)]/\E W$ with
+$\Psi^{(j)}=W/F_j(\xi_j)$. The off-diagonal blocks of $\Sigma_\theta$ are $\theta\widehat B_{jl}$. By~\eqref{eq:ibp}
+applied to $h=\Psi^{(j)}\partial_cF_j(\xi_j)$ and summed over $c$,
+\[
+\E\big[\Psi^{(j)}LF_j(\xi_j)\big]=-\E\Big[\big\langle\nabla_j\Psi^{(j)},\nabla F_j(\xi_j)\big\rangle
++\theta\sum_{l\ne j}\big\langle\nabla F_j(\xi_j),\widehat B_{jl}\nabla_l\Psi^{(j)}\big\rangle\Big].
+\]
+Here $\nabla_j\Psi^{(j)}=(q-1)\Psi^{(j)}a_j$ and $\nabla_l\Psi^{(j)}=q\Psi^{(j)}a_l$ for $l\ne j$, and
+$\Psi^{(j)}\nabla F_j(\xi_j)=Wa_j$. So $\E[\Psi^{(j)}LF_j]=-\E[W((q-1)|a_j|^2+\theta q\sum_{l\ne j}\langle a_j,\widehat B_{jl}a_l\rangle)]$.
+Summing over $j$, and using $\widehat B_{lj}=\widehat B_{jl}^T$, gives the third formula.
+\end{proof}
+
+Put $I(q,\theta,s)=(q(1-\theta)-1)\,s^2$. Call a continuous, piecewise $C^1$ path
+$t\mapsto(q(t),\theta(t),s(t))\in(0,\infty)\times(0,1)\times(0,1]$ \emph{admissible} if, on each piece, $\dot q\ge0$,
+$\dot\theta\ge0$, $\dot s\ge0$, $q\ge1$ wherever $\dot s>0$, and $\frac{d}{dt}I\ge0$.
+
+\begin{lemma}\label{lem:mono}
+Along an admissible path, $t\mapsto\Phi(q(t),\theta(t),s(t))$ is non-decreasing.
+\end{lemma}
+
+\begin{proof}
+By Lemma~\ref{lem:deriv}, $\Lambda:=q^2\E W\,\frac d{dt}\Phi$ equals
+\[
+\Lambda=\dot q\,\Ent(W)+q^3\dot\theta\,\E[WS]+\frac{q^2\dot s}s\,\E\Big[W\Big((q-1)\sum_j|a_j|^2+2\theta qS\Big)\Big].
+\]
+If $\E[WS]\ge0$, each term is non-negative; for the last one, $\dot s>0$ forces $q\ge1$. Let $\E[WS]<0$. By
+Lemma~\ref{lem:rlsi} with $\Psi_j=F_j^q$, $B=\widehat B$ and $\lambda=1-\theta$ (as $\Sigma_\theta\ge(1-\theta)\Id$),
+$\Ent(W)\ge-(1-\theta)q^2\E[WS]=(1-\theta)q^2|\E[WS]|$. If $\dot s>0$, then $q\ge1$, and~\eqref{eq:pointwise} gives
+$(q-1)\sum_j|a_j|^2+2\theta qS\ge-2(q(1-\theta)-1)S$. Hence, in all cases,
+\[
+\Lambda\ \ge\ q^2|\E[WS]|\Big(\dot q(1-\theta)-q\dot\theta+\frac{2\dot s}s\big(q(1-\theta)-1\big)\Big)
+=\frac{q^2|\E[WS]|}{s^2}\,\frac{d}{dt}I\ \ge\ 0 .\qedhere
+\]
+\end{proof}
+
+\section{Proof of Theorem~\ref{thm:main}}
+\subsection{Reductions}
+By $T_{-x}f=T_x(f(-\,\cdot))$ and $-\xi\sim\xi$ we may assume $x\ge0$. If $x=1$, \eqref{eq:main} is Lyapunov's
+inequality. If $\lambda=1$, then $\Sigma=\Id$, the $\xi_j$ are independent, and $\|T_xf_j\|_r\le
+\|T_xf_j\|_{\max\{r,1\}}\le\|f_j\|_{\max\{r,1\}}\le\|f_j\|_p$, while~\eqref{eq:cond} holds. If $\lambda=0$,
+\eqref{eq:cond} forces $x=1$. If $x=0$, \eqref{eq:cond} says $p\lambda\ge1$, so by Remark~\ref{rem:cases}(b) it holds
+for every $x$, and the case $x=0$ follows from $x\in(0,1)$ by letting $x\downarrow0$ (for $f_j\in\cS$,
+$T_xf_j\to\E f_j$ boundedly; then approximate as in Section~\ref{sec:approx}). So let $0<\lambda<1$ and
+$x\in(0,1)$, and put $\beta=1-\lambda$.
+
+\subsection{Sufficiency for \texorpdfstring{$f_j\in\cS$}{smooth f}}
+We have $\Phi(r,\beta,x)=\log\|\prod_jT_xf_j(\xi_j)\|_{L^r}$ and $\Phi(p,\beta,1)=\log\|\prod_jf_j(\xi_j)\|_{L^p}$. Put
+$I_0=I(r,\beta,x)=(r\lambda-1)x^2$ and $I_1=I(p,\beta,1)=p\lambda-1$; then~\eqref{eq:cond} is $I_0\le I_1$. We join
+the two points by admissible paths, using~\eqref{eq:q1} once when $r<1$. Each path below is admissible: the
+monotonicity of $q,\theta,s$ is clear from the formulas, $\theta$ stays in $(0,1)$, and $\frac{d}{dt}I$ is stated.
+Condition~\eqref{eq:cond} is used only in the case $r\ge1$, $r\lambda<1$ and in the subcase $\theta_1x^2\le\beta$, and
+there it also forces $p\ge1$. In the other two cases~\eqref{eq:cond} holds automatically (in the last one because
+$I_0=-\theta_1x^2<-\beta\le p\lambda-1$ when $p\ge1$), and $p\ge1$ is used only in the last leg of the subcase
+$\theta_1x^2>\beta$, which is where Proposition~\ref{prop:psmall} shows the argument must break.
+
+\emph{Case $r\ge1$, $r\lambda<1$.} First $s\mapsto(q(s),\beta,s)$, $s\in[x,1]$, with $q(s)=(1+I_0s^{-2})/\lambda$.
+Here $q(x)=r$, $q$ increases (as $I_0<0$), $q\ge1$, and $I\equiv I_0$. Then $(q,\beta,1)$ for $q$ from
+$q(1)=(1+I_0)/\lambda$ to $p$, with $\frac{d}{dt}I=\dot q\lambda\ge0$. This is possible since $q(1)\le p$ is
+$I_0\le I_1$.
+
+\emph{Case $r\ge1$, $r\lambda\ge1$.} First $(r,\beta,s)$, $s\in[x,1]$, with $\frac{d}{dt}I=2(r\lambda-1)s\dot s\ge0$;
+then $(q,\beta,1)$, $q\in[r,p]$.
+
+\emph{Case $r<1$.} Then $r\lambda<1$. Put $\theta_1=1-r\lambda\in(\beta,1)$, so that $I_0=-\theta_1x^2$.
+
+\emph{Subcase $\theta_1x^2\le\beta$.} First $(q,\,1-r\lambda/q,\,x)$ for $q\in[r,1]$: $\theta$ increases from $\beta$
+to $\theta_1$, $s$ is constant, and $I\equiv I_0$. By~\eqref{eq:q1}, $\Phi(1,\theta_1,x)=\Phi(1,\theta_1x^2,1)$. Then
+$(q,\,1-(1-\theta_1x^2)/q,\,1)$ for $q\in[1,q_3]$, $q_3=(1-\theta_1x^2)/\lambda\ge1$: $\theta$ increases from
+$\theta_1x^2>0$ to $\beta$, and $I\equiv-\theta_1x^2=I_0$. Finally $(q,\beta,1)$ for $q\in[q_3,p]$; here $q_3\le p$ is
+$I_0\le I_1$.
+
+\emph{Subcase $\theta_1x^2>\beta$.} Put $\theta_2=\beta/x^2\in(\beta,\theta_1)$. First $(q,\,1-r\lambda/q,\,x)$ for
+$q\in[r,q_4]$, $q_4=r\lambda/(1-\theta_2)<1$, with $I$ constant and $\theta$ increasing from $\beta$ to $\theta_2$.
+Then $(q,\theta_2,x)$ for $q\in[q_4,1]$, with $\frac{d}{dt}I=\dot q(1-\theta_2)x^2\ge0$. By~\eqref{eq:q1},
+$\Phi(1,\theta_2,x)=\Phi(1,\beta,1)$. Finally $(q,\beta,1)$ for $q\in[1,p]$.
+
+By Lemma~\ref{lem:mono} and~\eqref{eq:q1}, $\Phi(r,\beta,x)\le\Phi(p,\beta,1)$ in every case, which is~\eqref{eq:main}.
+
+\subsection{Approximation}\label{sec:approx}
+Let $f_j:\R^{k_j}\to[\varepsilon,M]$ be measurable, $0<\varepsilon<M<\infty$. For $\delta\in(0,1)$,
+$f_j^\delta:=T_{1-\delta}f_j\in\cS$, and $T_xf_j^\delta=T_{x(1-\delta)}f_j$. As $\delta\to0$, $T_{x(1-\delta)}f_j\to T_xf_j$
+pointwise (continuity of the Mehler kernel in its parameter, for $x<1$, and dominated convergence), and
+$f_j^\delta\to f_j$ in $L^2(\gamma_{k_j})$, hence in $\gamma_{k_j}$-probability. Since each $\xi_j\sim\gamma_{k_j}$ and all
+functions take values in $[\varepsilon,M]$, dominated convergence carries~\eqref{eq:main} from $f_j^\delta$ to $f_j$.
+For general measurable $f_j\ge0$ apply this to $\max\{\varepsilon,\min\{f_j,M\}\}$, let $\varepsilon\downarrow0$ (dominated
+convergence, all values in $[0,M+1]$) and then $M\uparrow\infty$ (monotone convergence on both sides).
+
+\subsection{Necessity}
+Let $\Sigma a=\lambda a$, $a\ne0$, and $f_j(y)=e^{\langle a_j,y\rangle}$. Then
+$T_xf_j(y)=e^{x\langle a_j,y\rangle+(1-x^2)|a_j|^2/2}$, and $V=\sum_j\langle a_j,\xi_j\rangle$ is centred Gaussian with
+variance $a^T\Sigma a=\lambda|a|^2$. Hence
+\[
+\log\Big\|\prod_jT_xf_j(\xi_j)\Big\|_{L^r}=\frac{(1-x^2)|a|^2}2+\frac{r\lambda x^2|a|^2}2,\qquad
+\log\Big\|\prod_jf_j(\xi_j)\Big\|_{L^p}=\frac{p\lambda|a|^2}2 .
+\]
+If~\eqref{eq:cond} fails, the first exceeds the second.\qed
+
+\subsection{Proof of Proposition~\ref{prop:psmall}}
+With $f_2=\dots=f_n=1$, \eqref{eq:main} reads $\|T_xf_1\|_{L^r(\gamma_{k_1})}\le\|f_1\|_{L^p(\gamma_{k_1})}$. Fix $m\ge1$ with
+$(1-r)x^{2m}<1-p$. Let $H_m$ be the $m$-th Hermite polynomial in the first coordinate, so $\E H_m=0$,
+$\E H_m^2=m!$ and $T_xH_m=x^mH_m$. For $M>0$ let $h_M=\varphi_M(H_m)-\E\varphi_M(H_m)$, with
+$\varphi_M(t)=\max\{-M,\min\{t,M\}\}$. As $M\to\infty$, $h_M\to H_m$ in $L^2(\gamma_{k_1})$, so $\E h_M^2\to m!$ and,
+$T_x$ being a contraction of $L^2$, $\E(T_xh_M)^2\to x^{2m}m!$. Fix $M$ with $(1-r)\E(T_xh)^2<(1-p)\E h^2$, where
+$h=h_M$. Then $h$ is bounded, $\E h=0$, and $T_xh$ is bounded by $\|h\|_\infty$ with $\E T_xh=0$.
+
+For $s>0$ and measurable $g$ with $\E g=0$ and $|g|\le1/2$, Taylor's formula for $(1+t)^s$ on $[-\frac12,\frac12]$
+gives $\E(1+g)^s=1+\frac{s(s-1)}2\E g^2+R$ with $|R|\le C_s\E|g|^3$. Hence
+$\|1+g\|_s=1+\frac{s-1}2\E g^2+O(\E|g|^3+(\E g^2)^2)$. Apply this with $g=\varepsilon T_xh$, $s=r$, and with
+$g=\varepsilon h$, $s=p$, for $0<\varepsilon\le1/(2\|h\|_\infty)$, and put $f_1=1+\varepsilon h\in[\frac12,\frac32]$. Then
+$T_xf_1=1+\varepsilon T_xh$, and
+\[
+\|T_xf_1\|_r-\|f_1\|_p=\frac{\varepsilon^2}2\Big((1-p)\E h^2-(1-r)\E(T_xh)^2\Big)+O(\varepsilon^3)>0
+\]
+for $\varepsilon$ small.\qed
+
+\subsection{Proof of Proposition~\ref{prop:pneg}}
+Taking logarithms in~\eqref{eq:IK} and multiplying by $1/p<0$ shows that~\eqref{eq:IK} is equivalent to
+$\Phi(\alpha p,\beta,x)\ge\Phi(p,\beta,1)$, with $\Phi(q,\theta,s)=\frac1q\log\E_\theta\prod_j(T_sf_j)(\xi_j)^q$ as in
+Section~4 and $\beta=1-\lambda$, so that $\Sigma_\beta=\Sigma$. If $\lambda=1$ we take $\widehat B=0$. Section~4
+assumed $q>0$ and $0<\lambda<1$; here $q<0$, $\lambda\in(0,1]$ and $\theta=\beta$ stays fixed, and the proof of
+Lemma~\ref{lem:deriv} applies verbatim. By symmetry we may assume $x\ge0$, and $x=0$ follows from $x>0$ by letting
+$x\downarrow0$. Let first $f_j\in\cS$. Along the path $t\mapsto(q,\theta,s)=(p+t(\alpha-1)p,\ \beta,\ 1-t(1-x))$,
+$t\in[0,1]$, we have $\dot q=(\alpha-1)p>0$, $\dot\theta=0$, $\dot s\le0$ and $q<0$. By Lemma~\ref{lem:deriv},
+\[
+q^2\E W\,\frac{d}{dt}\Phi=\dot q\,\Ent(W)+\frac{q^2\dot s}s\,\E\big[W\,a^T(q\Sigma-\Id)a\big]\ \ge\ 0,
+\]
+since $(q-1)\sum_j|a_j|^2+2\beta qS=a^T\big((q-1)\Id+q(\Sigma-\Id)\big)a$ and $q\Sigma-\Id$ is negative definite.
+Hence $\Phi(p,\beta,1)\le\Phi(\alpha p,\beta,x)$. For measurable $f_j$ with values in $[\varepsilon,M]$ we
+approximate by $T_{1-\delta}f_j$ as in Section~\ref{sec:approx}. All functions involved take values in
+$[\varepsilon,M]$, so both sides converge by dominated convergence.
+
+For general $f_j>0$ we use two monotone limits. First let $f_j\ge1/M$ and apply the bounded case to
+$\min\{f_j,K\}$. As $K\to\infty$, $T_x\min\{f_j,K\}\uparrow T_xf_j$. The negative powers are bounded by $M^{-p}$ and
+$M^{-\alpha p}$, so dominated convergence applies to both sides. Then apply this to $\max\{f_j,1/M\}$ and let
+$M\to\infty$. Now $\max\{f_j,1/M\}^p\uparrow f_j^p$, and $(T_x\max\{f_j,1/M\})^{\alpha p}\uparrow(T_xf_j)^{\alpha p}$
+pointwise (with $\infty^{\alpha p}=0$), so monotone convergence applies to both sides.\qed
+
+\section{Unequal parameters}\label{sec:unequal}
+In this section $n=2$, $(X,Y)$ is a pair of $\rho$-correlated standard Gaussian vectors in $\R^k$ (that is,
+$\mathrm{cov}(X,Y)=\rho\,\Id_k$), $\rho\in[0,1)$, $p\ge1$, $0<r<p$ and $x_1,x_2\in[-1,1]$, and we consider
+\begin{equation}\label{eq:unequal}
+\big\|T_{x_1}f(X)\,T_{x_2}g(Y)\big\|_{L^r}\le\big\|f(X)\,g(Y)\big\|_{L^p},
+\end{equation}
+which is~\eqref{eq:IK} with $r_j=x_j$, $p_j=p$ and $\alpha=r/p$, raised to the power $1/p$. For $m\ge1$ put
+\[
+M_m=\begin{pmatrix}p-1-(r-1)x_1^{2m}&(p-r(x_1x_2)^m)\rho^m\\(p-r(x_1x_2)^m)\rho^m&p-1-(r-1)x_2^{2m}\end{pmatrix},
+\qquad M=M_1 .
+\]
+For $k=1$, $f=e^{a\,\cdot}$ and $g=e^{b\,\cdot}$ give the log-ratio $-\frac12(a,b)M(a,b)^T$, and~\eqref{eq:IKcond} is
+$M\ge0$ (multiply~\eqref{eq:IKcond} by $p$). For $k>1$ the matrices are $M\otimes\Id_k$, and the statements below hold
+with $k=1$ replaced by any $k$.
+
+\begin{proposition}\label{prop:unequal}
+Let $r=1<p$. Then~\eqref{eq:unequal} holds for all measurable $f,g\ge0$ if and only if $1-x_1x_2\rho\le p(1-\rho)$,
+which is~\eqref{eq:IKcond}.
+\end{proposition}
+
+\begin{proof}
+By the argument of~\eqref{eq:q1}, $(x_1X+\sqrt{1-x_1^2}A_1,\ x_2Y+\sqrt{1-x_2^2}A_2)$, with $A_1,A_2\sim\gamma_k$
+independent of each other and of $(X,Y)$, is a $\rho'$-correlated pair with $\rho'=x_1x_2\rho$, so
+$\E[T_{x_1}f(X)T_{x_2}g(Y)]=\E_{\rho'}[f(X)g(Y)]$, where $\E_{\rho'}$ refers to a $\rho'$-correlated pair. Necessity is
+the exponential computation above.
+
+If $x_1x_2\ge0$, then $\E_{\rho'}[f(X)g(Y)]=\E[T_xf(X)T_xg(Y)]$ with $x=\sqrt{x_1x_2}$, and~\eqref{eq:unequal} with $r=1$ is
+the case $r=1$, $n=2$, $\lambda=1-\rho$ of Theorem~\ref{thm:main} with parameter $x$; there~\eqref{eq:cond} reads
+$(1-x_1x_2)+x_1x_2(1-\rho)\le p(1-\rho)$.
+
+If $x_1x_2<0$, put $s=1+|\rho'|=1-x_1x_2\rho$. Nelson's theorem in two-function form gives
+$\E_{\rho'}[f(X)g(Y)]\le\|f\|_{L^s}\|g\|_{L^s}$: indeed $\E_{\rho'}[F(X)G(Y)]=\E[F\,T_{\rho'}G]$ and
+$\|T_{\rho'}G\|_{L^{s'}}\le\|G\|_{L^s}$, since $(s'-1)\rho'^2=|\rho'|=s-1$. For bounded positive $f,g$,
+\cite[Theorem~B]{IK25} with $F_1=f^s$, $F_2=g^s$ and exponents $p/s$ gives
+$\|f\|_{L^s}^p\|g\|_{L^s}^p\le\E[f(X)^pg(Y)^p]$, because its covariance condition
+$\mathrm{diag}(\frac sp\Id,\frac sp\Id)\le\mathrm{cov}(X,Y)$ is $1-\frac sp\ge\rho$, i.e.\ $1-x_1x_2\rho\le p(1-\rho)$.
+For bounded $f,g\ge0$ apply this to $f+\varepsilon$, $g+\varepsilon$ and let $\varepsilon\to0$; for general $f,g\ge0$
+use $\min\{f,K\}$, $\min\{g,K\}$ and monotone convergence.
+\end{proof}
+
+So for two functions and $r=1$ condition~\eqref{eq:IKcond} is sharp, and for $x_1x_2\ge0$ unequal parameters reduce to
+equal ones. For $r\ne1$ this reduction is not available, and for $r>2$ condition~\eqref{eq:IKcond} is not sufficient
+(Propositions~\ref{prop:counter} and~\ref{prop:allr}). The mechanism is the following family of necessary conditions.
+
+\begin{proposition}\label{prop:chaos}
+Let $k=1$ and $m\ge1$. If~\eqref{eq:unequal} holds for all measurable $f,g$ with values in $[\frac12,\frac32]$, then
+$M_m\ge0$.
+\end{proposition}
+
+\begin{proof}
+Let $H_m$ be the $m$-th Hermite polynomial and, as in the proof of Proposition~\ref{prop:psmall},
+$h_K=\varphi_K(H_m)-\E\varphi_K(H_m)$ with $\varphi_K(t)=\max\{-K,\min\{t,K\}\}$. As $K\to\infty$, $h_K\to H_m$ in
+$L^2=L^2(\R,e^{-y^2/2}dy/\sqrt{2\pi})$. The quantities $\E h^2$, $\E[h(X)h(Y)]$, $\E(T_xh)^2$ and
+$\E[T_{x_1}h(X)T_{x_2}h(Y)]$ are continuous in $h\in L^2$: $T_x$ is a contraction of $L^2$, and $\E[u(X)v(Y)]=\E[u\,T_\rho v]$. Since $T_xH_m=x^mH_m$ and
+$\E[H_m(X)H_m(Y)]=\rho^m m!$, they tend to $m!$, $\rho^mm!$, $x^{2m}m!$ and $(x_1x_2)^m\rho^mm!$.
+
+Fix $(a,b)\in[-1,1]^2$ and $K$, put $h=h_K$, and let $0<\varepsilon\le1/(2\|h\|_\infty)$, $f=1+\varepsilon ah$ and
+$g=1+\varepsilon bh$; these take values in $[\frac12,\frac32]$. For $s>0$ and $|u|,|v|\le\frac12$, Taylor's formula gives
+$(1+u)^s(1+v)^s=1+s(u+v)+\frac{s(s-1)}2(u^2+v^2)+s^2uv+R$ with $|R|\le C_s(|u|^3+|v|^3)$. Apply it with $s=r$,
+$u=\varepsilon aT_{x_1}h(X)$, $v=\varepsilon bT_{x_2}h(Y)$, and with $s=p$, $u=\varepsilon ah(X)$, $v=\varepsilon bh(Y)$.
+All these variables have mean zero. Taking logarithms we get
+\[
+\log\|f(X)g(Y)\|_{L^p}-\log\|T_{x_1}f(X)\,T_{x_2}g(Y)\|_{L^r}=\frac{\varepsilon^2}2\,Q_K(a,b)+O(\varepsilon^3),
+\]
+where
+\begin{align*}
+Q_K(a,b)={}&(p-1)(a^2+b^2)\E h^2+2pab\,\E[h(X)h(Y)]\\
+&-(r-1)\big(a^2\E(T_{x_1}h)^2+b^2\E(T_{x_2}h)^2\big)-2rab\,\E[T_{x_1}h(X)T_{x_2}h(Y)].
+\end{align*}
+As $K\to\infty$, $Q_K(a,b)\to m!\,(a,b)M_m(a,b)^T$. If $M_m$ has a negative eigenvalue with unit eigenvector $(a,b)$,
+choose $K$ with $Q_K(a,b)<0$ and then $\varepsilon$ small: \eqref{eq:unequal} fails.
+\end{proof}
+
+For $m=1$ this is $M\ge0$. For $x_1=x_2$, Theorem~\ref{thm:main} shows that $M\ge0$ implies $M_m\ge0$ for all $m$. For
+unequal parameters this fails in general (Propositions~\ref{prop:counter} and~\ref{prop:allr}), although it holds for
+$r\le1$ (Proposition~\ref{prop:local}).
+
+\begin{proposition}\label{prop:counter}
+Let $k=1$.
+\begin{enumerate}[label=(\alph*)]
+\item In each of the cases
+\[
+\text{(E1)}\ (\rho,r,x_1,x_2,p)=\big(\tfrac{97}{100},5,1,\tfrac45,\tfrac{29}2\big),\qquad
+\text{(E2)}\ (\rho,r,x_1,x_2,p)=\big(\tfrac{49}{50},8,\tfrac{49}{50},\tfrac45,25\big),
+\]
+the matrix $M$ is positive definite, so that~\eqref{eq:IKcond} holds, but $\det M_2<0$. Consequently
+\eqref{eq:unequal} fails for some $f,g$ with values in $[\frac12,\frac32]$, i.e.\ \eqref{eq:IK} with $r_j=x_j$,
+$p_j=p$ and $\alpha=r/p$ ($=\frac{10}{29}$, resp.\ $\frac8{25}$) fails although~\eqref{eq:IKcond} holds. Explicitly,
+$f(y)=e^{-c_1y^2/2}$ and $g(y)=e^{-c_2y^2/2}$ with $(c_1,c_2)=(\frac{49}{100},-\frac{31}{100})$ in (E1) and
+$(\frac15,-\frac3{20})$ in (E2) give
+\[
+\log\big\|T_{x_1}f(X)\,T_{x_2}g(Y)\big\|_{L^r}-\log\big\|f(X)\,g(Y)\big\|_{L^p}=3.6672\ldots\cdot10^{-4},\ \text{resp.}\
+2.0526\ldots\cdot10^{-4}.
+\]
+\item In the case (E3) $(\rho,r,x_1,x_2,p)=\big(\tfrac{97}{100},8,\tfrac{19}{20},\tfrac12,47\big)$ every $M_m$, $m\ge1$, is
+positive definite, but $(c_1,c_2)=(-\frac{653}{2500},\frac{4373}{5000})$ gives the log-ratio $0.20181\ldots>0$. So even
+all second-order conditions at $f=g=1$ together do not imply~\eqref{eq:unequal}.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+In (E1), $\det M=\frac{7831}{40000}$ with $M_{11}=\frac{19}2$, and $\det M_2=-0.3578\ldots<0$; in (E2),
+$\det M=\frac{15710319}{39062500}$ with $M_{11}>0$, and $\det M_2=-1.2650\ldots<0$. These are rational numbers, and their
+signs were checked in exact arithmetic (\texttt{numerics/certify\_unequal\_counterexample.py}).
+Proposition~\ref{prop:chaos} with $m=2$ gives the first claim of (a). For the Gaussians, $T_xf(y)=D^{-1/2}e^{-by^2/2}$
+with $D=1+c(1-x^2)$ and $b=cx^2/D$, when $D>0$. For $W=(X,Y)$ with covariance
+$S=\begin{psmallmatrix}1&\rho\\\rho&1\end{psmallmatrix}$ and a diagonal matrix $A$ with $S^{-1}+A$ positive definite,
+$\E e^{-W^TAW/2}=\det(\Id+SA)^{-1/2}$. Hence the log-ratio equals
+\[
+-\tfrac12\log D_1-\tfrac12\log D_2-\tfrac1{2r}\log\det\big(\Id+S\,\mathrm{diag}(rb_1,rb_2)\big)
++\tfrac1{2p}\log\det\big(\Id+S\,\mathrm{diag}(pc_1,pc_2)\big).
+\]
+The script checks the conditions $D_j>0$, $S^{-1}+\mathrm{diag}(rb_1,rb_2)>0$ and $S^{-1}+\mathrm{diag}(pc_1,pc_2)>0$
+exactly, and evaluates the expression in Arb ball arithmetic ($256$ bits), with the values stated. In (E1) and (E2)
+direct Gauss--Hermite quadrature ($160\times160$ nodes) agrees to eleven digits. In (E3) the Gaussians are close to the
+boundary of integrability. There $M_m$ is checked to be positive definite exactly for $m\le3$; for $m\ge4$,
+$(M_m)_{jj}\ge p-1-(r-1)x_j^8$ (as $r>1$) and $|(M_m)_{12}|\le p\rho^4$ (as $0<r(x_1x_2)^m<p$), and
+$(46-7\cdot0.95^8)(46-7\cdot0.5^8)>(47\cdot0.97^4)^2$.
+\end{proof}
+
+The Gaussian $g$ in (a) grows. Replacing it by $\min\{g,K\}$ gives bounded counterexamples,
+since both sides converge monotonically as $K\to\infty$.
+
+On the faces where one parameter vanishes, the condition is sharp when $r\ge1$.
+
+\begin{proposition}\label{prop:face}
+Let $r\ge1$ and $x_2=0$. Then~\eqref{eq:unequal} holds for all measurable $f,g:\R^k\to(0,\infty)$ if and only if
+$M\ge0$, i.e.\ $p\ge s:=1+(r-1)x_1^2$ and $(p-s)(p-1)\ge p^2\rho^2$. The same holds with the roles of $x_1$ and $x_2$
+exchanged.
+\end{proposition}
+
+\begin{proof}
+Necessity is the exponential computation above. Let $M\ge0$. Then $1\le s\le r$, $T_0g=\E g$, and the left side
+of~\eqref{eq:unequal} is $\|T_{x_1}f\|_{L^r}\,\E g$. By Nelson's hypercontractivity theorem, $\|T_{x_1}f\|_{L^r}\le
+\|f\|_{L^s}$; for $s>1$ this is because $x_1^2=\frac{s-1}{r-1}$, and for $s=1$ it is trivial. By~\cite[Theorem~B]{IK25}
+applied to $F_1=f^s$ with exponent $p/s$ and $F_2=g$ with exponent $p$,
+\[
+\|f\|_{L^s}^p(\E g)^p=(\E F_1)^{p/s}(\E F_2)^p\le\E\big[F_1(X)^{p/s}F_2(Y)^p\big]=\E\big[f(X)^pg(Y)^p\big],
+\]
+because the covariance condition of that theorem, $\mathrm{diag}(\frac sp\Id,\frac1p\Id)\le\mathrm{cov}(X,Y)$, is
+$(1-\frac sp)(1-\frac1p)\ge\rho^2$ with $s\le p$, which is $M\ge0$. Combining the two bounds gives~\eqref{eq:unequal}.
+\end{proof}
+
+The examples of Proposition~\ref{prop:counter}(a) are not isolated: sufficiency fails for every $r>2$.
+
+\begin{proposition}\label{prop:allr}
+Let $k=1$, $r>2$ and $p>\max\{r,\,2+\frac2{r-2}\}$. Then there are $\rho,x_2\in(0,1)$ such that, with $x_1=1$,
+$M\ge0$ and $\det M_2<0$. Hence~\eqref{eq:IKcond} holds while~\eqref{eq:unequal} fails for some $f,g$ with values
+in $[\frac12,\frac32]$. After a small increase of $p$ and a small decrease of $x_1$, $M$ is positive definite and
+still $\det M_2<0$. In particular, for every $\alpha\in(0,1)$ condition~\eqref{eq:IKcond} is not sufficient
+for~\eqref{eq:IK} with unequal parameters: take $r\ge2+\sqrt2$ and $p=r/\alpha$, so that $p>r\ge2+\frac2{r-2}$.
+\end{proposition}
+
+\begin{proof}
+Put $A=p-r>0$ and $\Gamma=2-(p-2)(r-2)<0$. For $\sigma>0$ and $\kappa>0$ let $\rho=e^{-\sigma}$ and
+$x_2=e^{-\kappa\sigma}$. With $x_1=1$ the entry $(M_m)_{11}=A$ does not depend on $m$, and
+\[
+D_m(\sigma,\kappa):=\det M_m=A\big(A+(r-1)(1-e^{-2m\kappa\sigma})\big)-\big(A+r(1-e^{-m\kappa\sigma})\big)^2e^{-2m\sigma}.
+\]
+This is an entire function of $(\sigma,\kappa)$ with $D_m(0,\kappa)=0$. Inserting
+$1-e^{-2m\kappa\sigma}=2m\kappa\sigma-2m^2\kappa^2\sigma^2+O(\sigma^3)$,
+$1-e^{-m\kappa\sigma}=m\kappa\sigma-\frac12m^2\kappa^2\sigma^2+O(\sigma^3)$ and
+$e^{-2m\sigma}=1-2m\sigma+2m^2\sigma^2+O(\sigma^3)$ gives
+\[
+D_m(\sigma,\kappa)=2mA(A-\kappa)\,\sigma+m^2q(\kappa)\,\sigma^2+O(\sigma^3),\qquad
+q(\kappa)=(2A-Ar-r^2)\kappa^2+4Ar\kappa-2A^2,
+\]
+uniformly for $\kappa$ in compact sets. The function $G=D_1/\sigma$ extends analytically to $\sigma=0$, with
+$G(0,\kappa)=2A(A-\kappa)$ and $\partial_\kappa G(0,A)=-2A\ne0$. By the implicit function theorem there is an
+analytic $\kappa(\sigma)$ for small $\sigma$ with $\kappa(0)=A$ and $D_1(\sigma,\kappa(\sigma))=0$, and comparing
+coefficients gives $\kappa(\sigma)=A+\frac{q(A)}{2A}\sigma+O(\sigma^2)$. Therefore
+\[
+D_2(\sigma,\kappa(\sigma))=4A\big(A-\kappa(\sigma)\big)\sigma+4q(\kappa(\sigma))\sigma^2+O(\sigma^3)
+=2q(A)\,\sigma^2+O(\sigma^3),
+\]
+and $q(A)=A^2(2A-Ar-r^2+4r-2)=A^2\Gamma<0$. So for small $\sigma>0$ we have $\rho,x_2\in(0,1)$, $\det M=D_1=0$ and
+$M_{11}=A>0$, hence $M\ge0$, while $\det M_2<0$. Proposition~\ref{prop:chaos} with $m=2$ gives the failure. Increasing
+$p$ adds a positive multiple of $\begin{psmallmatrix}1&\rho\\\rho&1\end{psmallmatrix}$ to $M$, which makes it positive
+definite. A small change of $p$ and $x_1$ keeps $\det M_2<0$ by continuity. For the last sentence,
+$r\ge2+\sqrt2$ gives $2+\frac2{r-2}\le2+\sqrt2\le r<p$.
+\end{proof}
+
+In the regime of this proof the sign of $\det M_2$ is that of $\Gamma=2-(p-2)(r-2)$, which is positive for all $r\le2$
+and $p\ge1$ (it is at least $r$). So this mechanism needs $r>2$ (\texttt{numerics/forward\_unequal\_asymptotics.py}
+checks the expansion and the limit $2A^2\Gamma$ in 50-digit arithmetic).
+
+For $r\le1$ the chaos conditions give nothing beyond~\eqref{eq:IKcond}.
+
+\begin{proposition}\label{prop:local}
+Let $0<r\le1$, $p>r$, $p\ge1$, $\rho\in[0,1)$ and $x_1,x_2\in[-1,1]$. If $M\ge0$, then $M_m\ge0$ for every $m\ge1$.
+\end{proposition}
+
+\begin{proof}
+Put $P_0=p-1$ and $c=r-1\le0$. The diagonal entries $P_0-cx_j^{2m}\ge P_0\ge0$ of $M_m$ are non-negative, so it suffices
+to show $\det M_m\ge0$. Replacing $p$ by $p+\varepsilon$ adds $\varepsilon\begin{psmallmatrix}1&\rho\\\rho&1\end{psmallmatrix}$
+to $M$ and makes it positive definite, an open condition; so, by continuity of $M_m$ in all parameters, we may assume
+$\rho,|x_1|,|x_2|\in(0,1)$. Write $\rho=e^{-\sigma}$, $x_1^2=e^{-u}$, $x_2^2=e^{-v}$ with $\sigma,u,v>0$, and put
+\[
+\phi(s)=\log\big(P_0-ce^{-s}\big),\qquad\chi(s)=\log\big(p-re^{-s}\big),\qquad\tilde\chi(s)=\log\big(p+re^{-s}\big)
+\qquad(s\ge0).
+\]
+Here $\chi$ and $\tilde\chi$ are well defined since $p>r$, and $\phi$ since $P_0\ge0\ge c$ with $(P_0,c)\ne(0,0)$.
+The diagonal of $M_m$ is $(e^{\phi(mu)},e^{\phi(mv)})$, and its off-diagonal entry satisfies
+$|(M_m)_{12}|\le e^{\hat\chi(m(u+v)/2)-m\sigma}$, with $\hat\chi=\chi$ if $x_1x_2\ge0$ and $\hat\chi=\tilde\chi$ if
+$x_1x_2<0$, with equality for $m=1$. So $\det M\ge0$ means $\sigma\ge\hat\sigma(u,v)$, and $\det M_m\ge0$ follows from
+$m\sigma\ge\hat\sigma(mu,mv)$, where $\hat\sigma(u,v)=\hat\chi(\frac{u+v}2)-\frac12\phi(u)-\frac12\phi(v)$.
+
+First let $\hat\chi=\chi$ and $\sigma^*:=\hat\sigma$. We have $\chi''<0$ and, because $c\le0$, $\phi''\ge0$. Hence
+$\ell(\tau)=\sigma^*(\tau u,\tau v)$ is concave on $[0,\infty)$, and $\ell(0)=0$ since $\phi(0)=\chi(0)=\log(p-r)$. A
+concave function $\ell$ on $[0,\infty)$ with $\ell(0)=0$ satisfies $\ell(m)\le m\ell(1)$ for $m\ge1$. So
+$\sigma^*(mu,mv)\le m\sigma^*(u,v)\le m\sigma$. If $x_1x_2<0$, then $\hat\sigma=\sigma^*+\psi(\frac{u+v}2)$ with
+$\psi=\tilde\chi-\chi=\log\frac{p+re^{-s}}{p-re^{-s}}$, which is non-negative and decreasing. Hence
+$\hat\sigma(mu,mv)\le m\sigma^*(u,v)+\psi(\frac{u+v}2)\le m\hat\sigma(u,v)\le m\sigma$.
+\end{proof}
+
+For $r\ge1$ and $x_1x_2\le0$ the implication $M\ge0\Rightarrow M_m\ge0$ is immediate: the diagonal entries of $M_m$ do not
+decrease with $m$, and $|(M_m)_{12}|\le(p+r|x_1x_2|^m)\rho^m\le|M_{12}|$. So every failure of the chaos conditions has
+$r>1$ and $x_1x_2>0$. For $r\le1$ no perturbation of the constants $f=g=1$ at second order detects anything
+beyond~\eqref{eq:IKcond}, while for every $r>2$ the second chaos does (Proposition~\ref{prop:allr}). For $1<r\le2$ the
+same reduction applies, but $\phi$ is concave and the concavity argument fails. Numerically
+$\sigma^*(mu,mv)\le m\sigma^*(u,v)$ still holds there: the derivative of $\det M$ along the dilation
+$(\sigma,u,v)\mapsto t(\sigma,u,v)$ is non-negative at every boundary point sampled for $r<2$ and in a targeted
+minimisation at $r=2$ (values below rounding level are positive in 50-digit arithmetic), and it is negative at many
+sampled points for $r>2$ (\texttt{numerics/forward\_unequal\_barrier.py}).
+
+\begin{remark}\label{rem:unequal}
+(a) \emph{Where the conditions fail.} In our scans (\texttt{numerics/forward\_unequal\_chaos\_scan.py}, floating point,
+$x_j\in(0,1)$), at the threshold $p=p^*$ of $M\ge0$ some $M_m$ with $m\le60$ is indefinite only for $r>2$. None of the
+$80000$ random cases with $r<2$ fails (for $r\le1$ this is Proposition~\ref{prop:local}). The $40000$ random cases with
+$2\le r<2.5$ find nothing either, although Proposition~\ref{prop:allr} gives failures there, with $\rho$ and $x_1$
+extremely close to $1$ and $p$ large. A targeted minimisation finds nothing below rounding level (about $-2\cdot10^{-14}$)
+for $r\in\{0.5,0.9,1.5,2\}$, and negative values from $r=2.2$ on. The smallest values of $\lambda_{\min}(M_m)/p^*$ found
+are $-9\cdot10^{-6}$ at $r=2.2$, $-2\cdot10^{-4}$ at $r=2.5$, $-1.6\cdot10^{-3}$ at $r=3$ and $-1.9\cdot10^{-2}$ at $r=5$.
+They need $\rho$ close to $1$ ($\rho\ge0.9$ in all cases found) and one $x_j$ close to $1$; the other can be as small as
+about $0.6$. In all $18012$ failing random cases the level $m=2$ fails first. Proposition~\ref{prop:counter}(b) shows
+that centred Gaussians, which see the second chaos non-perturbatively, can violate~\eqref{eq:unequal} even where every
+$M_m$ is positive definite. So for every $r>2$ condition~\eqref{eq:IKcond} is not sufficient in general, although it is
+sufficient on the faces $x_1x_2=0$ (Proposition~\ref{prop:face}) and wherever Theorem~\ref{thm:noise} below applies.
+We do not know whether it is sufficient for all $r\in(0,2]\setminus\{1\}$, nor what the exact condition is for $r>2$. The natural candidate is that all Gaussian test
+functions satisfy~\eqref{eq:unequal}. A random search over centred Gaussians at $p=p^*$ found no violation for
+$r\in\{0.3,0.7,1.3,1.7,2,2.2,2.5\}$ (\texttt{numerics/forward\_unequal\_gaussian\_search.py}). Non-Gaussian test functions
+$f,g=\exp(\sum_{k\le6}a_kT_k(s))$ and $\exp(\sum_{k\le6}a_k\mathrm{He}_k(s))$, $s=t/\sqrt{16+t^2}$ resp.\ $t/\sqrt{1+t^2/16}$,
+with bounded coefficients, optimised at $p=p^*$ at five points with $r\in\{1.5,1.8,2\}$ and at four points with
+$r\in\{0.5,0.8\}$, and re-evaluated on finer quadrature grids, found no violation either (best log-ratios between
+$-4\cdot10^{-7}$ and $-6\cdot10^{-10}$;
+\texttt{numerics/forward\_unequal\_flex\_attack.py} and \texttt{forward\_unequal\_flex\_attack\_he.py}). In the related comparison setting of~\cite{GC},
+however, Gaussian functions are not extremal~\cite[Prop.~1.10]{GC}, so Gaussian tests alone are weak evidence here.
+
+(b) \emph{What the method gives.} For $r<1$ and $x_1x_2>0$, raising $q$ to $1$ at fixed noise and then
+using~\eqref{eq:q1} yields sufficiency under $(1-r(1-\rho))x_1x_2\ge1-p(1-\rho)$. We only sketch this; when
+$(1-r(1-\rho))x_1x_2>\rho$ the path has to stop at $\theta=\rho/(x_1x_2)$, as in the second subcase of Section~5.2.
+This condition implies $M\ge0$, and is strictly stronger for some parameters with $x_1\ne x_2$. Here the flow method
+cannot be sharp for the following structural reason. Consider flows of the type of Lemma~\ref{lem:mono}, with a common
+exponent $q$, the correlation $\theta$ and separate noise parameters $s_1,s_2$. For exponential test functions the flow
+evaluates the Gaussian log-ratio matrix $N(q,\theta,s_1,s_2)$ with diagonal entries $1+(q-1)s_j^2$ and off-diagonal
+entry $q\theta s_1s_2$. A flow that is monotone for all exponentials has $N(t)$ non-decreasing between its initial and
+final values, whose difference is $M=M(p)$. When the path crosses $q=1$, $P=N(t_1)-N(0)$ satisfies $0\le P\le M(p)$
+and has the fixed diagonal $((1-r)x_1^2,(1-r)x_2^2)$. At $p=p^*$ the matrix $M$ has rank one, which forces
+$P=\tau M$ and then $(1-r)(p-1)(x_1^2-x_2^2)=0$; for $r<1$, $p>1$ and $x_j\ge0$ this means $x_1=x_2$. The set of such
+$P$ is compact and, for $x_1\ne x_2$, empty at $p^*$, so it is also empty for $p$ near $p^*$.
+
+For $r\ge1$ no such crossing is needed. With $q$ allowed to pause and $s_j\le1$ enforced, candidate lossless paths reach
+$p^*$ in at least $1405$ of $1707$ random cases with $2001$ steps, and $1409$ with $8001$ steps ($r\in[1,4]$,
+$\rho\le0.95$; \texttt{numerics/forward\_unequal\_flow\_obstruction.py}). For $r>1$, Corollary~\ref{cor:noise} and
+Proposition~\ref{prop:noiseopt} below show that a path of the flow of Lemma~\ref{lem:noise} reaching $p^*$ exists
+exactly when a closed-form criterion holds; the criterion holds at $1410$ of these cases, including all $1405$ found by
+the search (\texttt{numerics/forward\_unequal\_flow\_obstruction\_vs\_criterion.py}). Turning such paths into a proof requires a version of Lemma~\ref{lem:mono} with separate noise
+parameters and conditioning on a non-isotropic Gaussian component, along which $\theta$ may decrease. Lemma~\ref{lem:noise}
+below is such a version, and Theorem~\ref{thm:noise} turns it into a sufficient condition under
+which~\eqref{eq:IKcond} is sharp.
+
+(c) \emph{Earlier tests.} At the test points of \texttt{numerics/test\_forward\_unequal.py} and
+\texttt{numerics/test\_forward\_unequal\_r\_ge\_1.py} with $M\ge0$ ($r\le3$, $\rho\le0.8$), optimised test functions found
+no violation; at the control points with $M\not\ge0$ they did. The closed-form Gaussian scan
+\texttt{numerics/forward\_unequal\_gaussians.py} ($p\le3$, $\rho\le0.9$) found no violation either; its parameter box
+contains no failure of any $M_m$.
+\end{remark}
+
+\subsection{A flow with separate noise parameters}\label{sec:noiseflow}
+Let $(X,Y)$ be a $\theta$-correlated pair of standard Gaussian vectors in $\R^k$, $|\theta|<1$, and let $f,g\in\cS$. For
+$q\ge1$ and $s_1,s_2\in(0,1]$ put $F=T_{s_1}f$, $G=T_{s_2}g$,
+\[
+W=F(X)^qG(Y)^q,\qquad\Phi(q,\theta,s_1,s_2)=\frac1q\log\E_\theta W,\qquad a_1=\frac{\nabla F}{F}(X),\quad
+a_2=\frac{\nabla G}{G}(Y).
+\]
+The proof of Lemma~\ref{lem:deriv}, applied to each noise parameter separately (there $\widehat B_{12}=\Id$), gives
+\begin{gather*}
+q^2\E W\,\partial_q\Phi=\Ent(W),\qquad q^2\E W\,\partial_\theta\Phi=q^3\E[W\langle a_1,a_2\rangle],\\
+q^2\E W\,\partial_{s_1}\Phi=\frac{q^2}{s_1}\E\big[W\big((q-1)|a_1|^2+\theta q\langle a_1,a_2\rangle\big)\big],
+\end{gather*}
+and the same for $s_2$ with $a_1,a_2$ exchanged.
+
+\begin{lemma}\label{lem:noise}
+Let $t\mapsto(q,\theta,s_1,s_2)(t)$ be continuous on $[0,1]$ and piecewise $C^1$ with finitely many pieces, with $q\ge1$, $|\theta|<1$ and
+$s_j\in(0,1]$. Suppose that on each piece $\dot q\ge0$ and $\dot s_j\ge0$, and that for every $t$ in the interior of
+a piece there are $d_1,d_2\ge0$ with
+\begin{equation}\label{eq:noiseLMI}
+\begin{pmatrix}1-d_1&\theta\\\theta&1-d_2\end{pmatrix}\ge0,\qquad
+\begin{pmatrix}\dot qd_1+2(q-1)\frac{\dot s_1}{s_1}&q\big(\dot\theta+\theta(\frac{\dot s_1}{s_1}+\frac{\dot s_2}{s_2})\big)\\
+q\big(\dot\theta+\theta(\frac{\dot s_1}{s_1}+\frac{\dot s_2}{s_2})\big)&\dot qd_2+2(q-1)\frac{\dot s_2}{s_2}\end{pmatrix}\ge0 .
+\end{equation}
+Then $t\mapsto\Phi(q(t),\theta(t),s_1(t),s_2(t))$ is non-decreasing.
+\end{lemma}
+
+Here $d_j=0$ is allowed. Where $\dot q=0$ one may take $d_1=d_2=0$; the first condition is then $|\theta|\le1$, and only
+the second one remains. The dimension $k$ plays no role, since all matrices act through $\otimes\Id_k$.
+
+\begin{proof}
+Write $L_0$ for the second matrix in~\eqref{eq:noiseLMI} without the terms $\dot qd_j$. By the formulas above,
+$\Lambda:=q^2\E W\,\frac d{dt}\Phi=\dot q\Ent(W)+\frac{q^2}2\E[W\,a^T(L_0\otimes\Id_k)a]$, $a=(a_1,a_2)$. By the first
+condition in~\eqref{eq:noiseLMI} we may write $(X,Y)=\eta+(\sqrt{d_1}A_1,\sqrt{d_2}A_2)$ with $A_1,A_2\sim\gamma_k$ and
+$\eta$ centred Gaussian, all independent. Given $\eta$, $X$ and $Y$ are independent with laws $N(\eta_1,d_1\Id)$ and
+$N(\eta_2,d_2\Id)$. Put $\Psi_1=F^q$, $\Psi_2=G^q$, $u_j=\E[\Psi_j\,|\,\eta]$, $b_j=\E[\nabla\Psi_j\,|\,\eta]/u_j$ and
+$U=u_1u_2$. As in the proof of Lemma~\ref{lem:rlsi}, by~\eqref{eq:onegauss},
+$\Ent(W)\ge\frac12\E[U(d_1|b_1|^2+d_2|b_2|^2)]$. Since $\nabla\Psi_j=q\Psi_ja_j$, conditional independence gives
+$\E[W\langle a_1,a_2\rangle]=q^{-2}\E[U\langle b_1,b_2\rangle]$, and the conditional Cauchy--Schwarz inequality
+$\E[|\nabla\Psi_j|^2/\Psi_j\,|\,\eta]\ge|\E[\nabla\Psi_j\,|\,\eta]|^2/u_j$ gives $\E[W|a_j|^2]\ge q^{-2}\E[U|b_j|^2]$. The
+diagonal entries $2(q-1)\dot s_j/s_j$ of $L_0$ are non-negative, so
+\[
+\Lambda\ \ge\ \frac12\E\Big[U\,b^T\Big(\big(\dot q\,\mathrm{diag}(d_1,d_2)+L_0\big)\otimes\Id_k\Big)b\Big]\ \ge\ 0 .
+\]
+Differentiation under the expectation is justified as in Lemma~\ref{lem:deriv}, and $\Phi$ is continuous along the
+path.
+\end{proof}
+
+The same proof works for $n$ functions and a general path of covariances. Let
+$t\mapsto(C(t),q(t),s_1(t),\dots,s_n(t))$ be continuous on $[0,1]$ and piecewise $C^1$, with $C(t)$ positive definite
+with identity diagonal blocks, $q>0$ and $s_j\in(0,1]$. Let $\xi\sim N(0,C(t))$,
+$\Phi=\frac1q\log\E\prod_j(T_{s_j}f_j(\xi_j))^q$ and $\sigma_j=\dot s_j/s_j$, and suppose that on each piece $\dot q\ge0$,
+$\sigma_j\ge0$ and $(q-1)\sigma_j\ge0$. If for every $t$ in the interior of a piece some block-diagonal $D$ with
+$0\le D\le C(t)$ satisfies $\dot qD+L\ge0$, where $L$ has the diagonal blocks $2(q-1)\sigma_j\Id$ and the off-diagonal
+blocks $q\big(\dot C_{jl}+(\sigma_j+\sigma_l)C_{jl}\big)$, then $\Phi$ is non-decreasing. For non-scalar blocks $D_j$ the
+proof uses~\eqref{eq:onegauss} in the matrix form $\Ent_\nu\Psi\ge\langle A\,\E_\nu\nabla\Psi,\E_\nu\nabla\Psi\rangle/(2\,\E_\nu\Psi)$
+for $\nu=N(m,A)$, which is~\eqref{eq:onegauss} with $\sigma=1$ applied to $z\mapsto\Psi(m+A^{1/2}z)$. With all
+$s_j\equiv1$ and $q=p^t$ this is the ungrouped case of~\cite[Thm.~4.1]{GC}, which also allows a singular starting
+covariance and grouped blocks. With equal $s_j$, $C(t)=\Sigma_{\theta(t)}$ and $D=(1-\theta)\Id$ it gives
+Lemma~\ref{lem:mono}: as $\widehat B\ge-\Id$ and $\dot\theta+2\theta\sigma\ge0$, the condition $\dot qD+L\ge0$ reduces to
+its value on the bottom eigenvectors of $\widehat B$, which is $s^{-2}\frac d{dt}I\ge0$.
+
+For two functions with $\rho\in(0,1)$, $x_1,x_2\in(0,1]$ and $r>1$ this lemma yields a sufficient condition under which~\eqref{eq:IKcond} is sharp. Put
+$\mu_j=1+(r-1)x_j^2$ and $\mu_0=rx_1x_2$, so that $M_{jj}=p-\mu_j$ and $M_{12}=\rho(p-\mu_0)$. The quadratic
+$\det M(p)=(p-\mu_1)(p-\mu_2)-\rho^2(p-\mu_0)^2$ has leading coefficient $1-\rho^2>0$ and is $\le0$ at
+$p=\mu_1,\mu_2$, so it has real roots $p_-\le p^*$ with $p_-\le\mu_1,\mu_2\le p^*$. Hence $M(p)\ge0$ for $p\ge p^*$,
+$\det M(p)<0$ for $p_-<p<p^*$, and the diagonal of $M(p)$ is negative for $p<p_-$; if $p_-<p^*$, then $M(p_-)\ge0$ would
+force $p_-=\mu_1=\mu_2$ and $\rho(p_--\mu_0)=0$, and then $p_-$ would be a double root. So
+$\{p:M(p)\ge0\}=[p^*,\infty)$: $p^*$ is the threshold of~\eqref{eq:IKcond}. Let $u=(1,-\kappa)$ be the kernel vector of
+$M(p^*)$, $\kappa=M_{11}(p^*)/M_{12}(p^*)$; for $r<p^*$ and $x_j\in(0,1]$ one has $p^*>r\ge\mu_j,\mu_0$, so $\kappa>0$. Put
+\[
+c_1=1+(r-1)x_1^2-\kappa r\rho x_1x_2,\qquad c_2=r\rho x_1x_2-\kappa\big(1+(r-1)x_2^2\big),
+\]
+$\gamma_1(\varphi)=c_1-1+\kappa\varphi$, $\gamma_2(\varphi)=\varphi-c_2-\kappa$, and
+$\varphi_{\min}=\max\{(1-c_1)/\kappa,\ c_2+\kappa\}$, so that $\gamma_1,\gamma_2\ge0$ exactly for $\varphi\ge\varphi_{\min}$.
+
+\begin{theorem}\label{thm:noise}
+Let $k\ge1$, $\rho\in(0,1)$, $x_1,x_2\in(0,1]$ and $1<r<p^*$. Suppose there is a continuous, piecewise $C^1$,
+non-decreasing $\varphi:[r,p^*]\to\R$ with
+\begin{enumerate}[label=(\alph*)]
+\item $\varphi(r)\ge\max\{\rho x_1x_2,\varphi_{\min}\}$ and $\gamma_1(\varphi(r))+\gamma_2(\varphi(r))>0$;
+\item $\varphi'(q)\ge\max\Big\{\dfrac{\gamma_1(\varphi(q))}{\kappa q(q-1)},\ \dfrac{\gamma_2(\varphi(q))}{q(q-1)}\Big\}$ on each piece;
+\item $\varphi(p^*)\le\rho$.
+\end{enumerate}
+Then~\eqref{eq:unequal} holds for $p=p^*$, hence for every $p\ge p^*$, and for all measurable $f,g\ge0$. So at this
+point~\eqref{eq:IKcond} is necessary and sufficient.
+\end{theorem}
+
+\begin{proof}
+For $q\in[r,p^*]$ and $\varphi\in\R$ put
+\begin{gather*}
+w_1(q,\varphi)=\frac{c_1-1+\kappa q\varphi}{q-1},\qquad w_2(q,\varphi)=\frac{q\varphi-c_2-\kappa}{\kappa(q-1)},\\
+N(q,\varphi)=\begin{pmatrix}1+(q-1)w_1&q\varphi\\q\varphi&1+(q-1)w_2\end{pmatrix}.
+\end{gather*}
+A direct computation gives $N(q,\varphi)u=(c_1,c_2)$ for all $q,\varphi$; $N$ is the Gaussian log-ratio matrix of the
+flow for exponential test functions, with $w_j=s_j^2$ and $\varphi=\theta s_1s_2$. Moreover $w_j(r,\rho x_1x_2)=x_j^2$,
+and the two rows of $M(p^*)u=0$ give $w_1(p^*,\rho)=w_2(p^*,\rho)=1$. Consider the path made of three stretches: at
+$q=r$, $\varphi$ rises from $\rho x_1x_2$ to $\varphi(r)$; then $q$ runs from $r$ to $p^*$ with $\varphi=\varphi(q)$; at
+$q=p^*$, $\varphi$ rises from $\varphi(p^*)$ to $\rho$. Along it put $s_j=w_j^{1/2}$ and $\theta=\varphi/(s_1s_2)$. At
+the start $(q,\theta,s_1,s_2)=(r,\rho,x_1,x_2)$ and at the end $(p^*,\rho,1,1)$, so by Lemma~\ref{lem:noise} it suffices
+to check its hypotheses, for $f,g\in\cS$; Section~\ref{sec:approx} then gives all measurable $f,g\ge0$.
+
+Conjugating the matrices in~\eqref{eq:noiseLMI} by $\mathrm{diag}(s_1,s_2)$ and putting $e_j=w_jd_j$, the conditions
+become
+\[
+\begin{pmatrix}w_1-e_1&\varphi\\\varphi&w_2-e_2\end{pmatrix}\ge0,\qquad
+\begin{pmatrix}\dot qe_1+(q-1)\dot w_1&q\dot\varphi\\q\dot\varphi&\dot qe_2+(q-1)\dot w_2\end{pmatrix}\ge0,
+\]
+together with $e_j\ge0$, $\dot q\ge0$ and $\dot w_j\ge0$. On the first and third stretches $\dot q=0$ and we take
+$e_1=e_2=0$, so that the first matrix is $\begin{psmallmatrix}w_1&\varphi\\\varphi&w_2\end{psmallmatrix}$, which is
+positive semi-definite because $|\theta|<1$ (checked below). There $\varphi$ is the parameter,
+$\partial_\varphi w_1=\kappa q/(q-1)>0$, $\partial_\varphi w_2=q/(\kappa(q-1))>0$, and the second matrix is
+$q\begin{psmallmatrix}\kappa&1\\1&1/\kappa\end{psmallmatrix}\ge0$. On the second stretch take $q$ as the parameter and
+$e_1=\gamma_1(\varphi)/(q-1)$, $e_2=\gamma_2(\varphi)/(\kappa(q-1))$, which are non-negative by (a), since $\varphi$ is
+non-decreasing. Then $w_1-e_1=\kappa\varphi$ and $w_2-e_2=\varphi/\kappa$, so the first matrix is
+$\varphi\begin{psmallmatrix}\kappa&1\\1&1/\kappa\end{psmallmatrix}\ge0$. The two matrices add up to $\frac{d}{dq}N(q,\varphi(q))$,
+which annihilates $u$; the first does too, hence so does the second, which is therefore positive semi-definite as soon
+as its trace $e_1+e_2+(q-1)(w_1'+w_2')$ is non-negative. Finally $w_1'\ge0$ and $w_2'\ge0$ are equivalent to the two
+lower bounds in (b).
+
+It remains to check $s_j\in(0,1]$ and $|\theta|<1$. Along the whole path $w_1$ and $w_2$ are non-decreasing, and they end
+at $w_j(p^*,\rho)=1$, so $w_j\le1$. Moreover $w_j\ge x_j^2>0$ on the first stretch, $w_1\ge\kappa\varphi>0$ and
+$w_2\ge\varphi/\kappa>0$ on the second, and on the third $w_j$ increases from its positive value at the end of the
+second. On the second stretch $w_1w_2-\varphi^2=e_1(w_2-e_2)+e_2w_1>0$, because $e_1+e_2>0$ there
+by (a). On the first and third stretches $Q(\varphi)=w_1w_2-\varphi^2$ satisfies
+$Q'=\frac q{q-1}(\kappa w_2+w_1/\kappa)-2\varphi>2(\sqrt{w_1w_2}-\varphi)$, which is positive wherever $Q\ge0$; since
+$Q>0$ at the start of each of these stretches, $Q>0$ throughout. So $\theta^2=\varphi^2/(w_1w_2)<1$.
+\end{proof}
+
+The flow is lossless on the exponential test functions in the direction $u$: for $f=e^{a\,\cdot}$, $g=e^{b\,\cdot}$
+($k=1$) one has $\Phi=\frac12(a,b)N(q,\varphi)(a,b)^T$, and $N(q,\varphi)u$ does not depend on $(q,\varphi)$, so $\Phi$
+is constant along the path when $(a,b)\parallel u$. This is why the exponent $p^*$ is reached. The hypothesis is not
+known to be necessary for the sufficiency of~\eqref{eq:IKcond} (see the end of this section). By the following
+corollary it can be checked in closed form.
+
+\begin{corollary}\label{cor:noise}
+In the setting of Theorem~\ref{thm:noise} put $\varphi_s=\max\{\rho x_1x_2,\varphi_{\min}\}$. If
+$\gamma_1(\varphi_s)+\gamma_2(\varphi_s)>0$ and $w_j(r,\varphi_s)\le1$ for $j=1,2$, then~\eqref{eq:unequal} holds for
+$p=p^*$, so~\eqref{eq:IKcond} is necessary and sufficient. This is the case, in particular, whenever
+$\rho x_1/x_2\le\kappa\le x_1/(\rho x_2)$; for $x_1=x_2$ this
+always holds. Conversely, if the hypothesis of Theorem~\ref{thm:noise} holds, then $w_j(r,\varphi_s)\le1$ for $j=1,2$.
+So, if $\gamma_1(\varphi_s)+\gamma_2(\varphi_s)>0$, the hypothesis of Theorem~\ref{thm:noise} holds if and only if
+$w_1(r,\varphi_s)\le1$ and $w_2(r,\varphi_s)\le1$.
+\end{corollary}
+
+\begin{proof}
+Put $K_0=1-c_1-\kappa c_2-\kappa^2$. Then $\gamma_1(\varphi)/\kappa-\gamma_2(\varphi)=-K_0/\kappa$ for all $\varphi$, so the
+first lower bound in (b) is the larger one exactly when $K_0\le0$. In the proof of Theorem~\ref{thm:noise},
+$\partial_qw_1=-\gamma_1/(q-1)^2$ and $\partial_\varphi w_1=\kappa q/(q-1)$, so $w_1$ is constant along $q\mapsto(q,\varphi(q))$
+iff $\varphi'=\gamma_1(\varphi)/(\kappa q(q-1))$; similarly $w_2$ is constant iff $\varphi'=\gamma_2(\varphi)/(q(q-1))$. Let
+$K_0\le0$, $W_1=w_1(r,\varphi_s)$, and define $\varphi$ by $w_1(q,\varphi(q))=W_1$, i.e.\
+$\varphi(q)=\big((q-1)W_1+1-c_1\big)/(\kappa q)$. Then $\varphi(r)=\varphi_s$, which gives (a); $\varphi'$ equals the
+larger lower bound in (b) as long as $\gamma_1(\varphi)\ge0$, and is then non-negative, so $\varphi$ is non-decreasing and
+$\gamma_1,\gamma_2\ge0$ persist; and $w_1(p^*,\varphi(p^*))=W_1\le1=w_1(p^*,\rho)$ gives $\varphi(p^*)\le\rho$, since
+$w_1(p^*,\cdot)$ is increasing. This is (c). For $K_0\ge0$ argue in the same way with $w_2$. For the last statement,
+$\gamma_1(\rho x_1x_2)=(r-1)x_1(x_1-\kappa\rho x_2)$ and $\gamma_2(\rho x_1x_2)=(r-1)x_2(\kappa x_2-\rho x_1)$, so under the
+stated inequalities $\varphi_s=\rho x_1x_2$ and $w_j(r,\varphi_s)=x_j^2\le1$. Both $\gamma_j(\rho x_1x_2)$ vanish only if
+$x_1=\kappa\rho x_2$ and $\kappa x_2=\rho x_1$, which would give $x_1=\rho^2x_1$; so their sum is positive. For $x_1=x_2$ one has
+$\kappa=1$.
+
+For the converse, let $\varphi$ be as in Theorem~\ref{thm:noise}. By (b), $q\mapsto w_j(q,\varphi(q))$ is
+non-decreasing (see the end of the proof of Theorem~\ref{thm:noise}), and $w_j(r,\cdot)$, $w_j(p^*,\cdot)$ are
+increasing. With (a) and (c),
+$w_j(r,\varphi_s)\le w_j(r,\varphi(r))\le w_j(p^*,\varphi(p^*))\le w_j(p^*,\rho)=1$.
+\end{proof}
+
+The four points of the following proposition all need the initial pause ($\varphi_s>\rho x_1x_2$).
+
+\begin{proposition}\label{prop:noisecert}
+At $(\rho,r,x_1,x_2)=(\frac35,\frac32,\frac9{10},\frac15)$, $(\frac12,\frac65,\frac45,\frac3{10})$, $(\frac7{10},2,\frac7{10},\frac25)$
+and $(\frac45,\frac95,\frac35,\frac34)$, inequality~\eqref{eq:unequal} holds for all measurable $f,g\ge0$ if and only
+if $p\ge p^*$, that is, iff~\eqref{eq:IKcond} holds.
+\end{proposition}
+
+\begin{proof}[Proof (computer-assisted, ball arithmetic)]
+Necessity is the exponential computation. For sufficiency, \texttt{numerics/certify\_forward\_noise\_flow.py} computes
+$p^*$ (a root of a quadratic) and $\kappa,c_1,c_2,\varphi_{\min}$ in ball arithmetic and checks the hypothesis of
+Corollary~\ref{cor:noise}. As an independent check of Theorem~\ref{thm:noise} it also builds a polygonal $\varphi$ with
+$400$ pieces of equal length on $[r,p^*]$. On a piece $[q_k,q_{k+1}]$ the right side of (b) is increasing in $\varphi$ and
+decreasing in $q$ (as $\gamma_j\ge0$), so it is bounded by its value at $(q_k,\varphi(q_{k+1}))$; the slope on the piece is
+chosen above this bound, and the bound is re-checked in ball arithmetic. Conditions (a) and (c) are checked the same
+way; the end values $\varphi(p^*)$ of the polygon are $0.535$, $0.343$, $0.388$ and $0.489$, against $\rho$. For the
+exact path of the proof of Corollary~\ref{cor:noise} they are $0.5328$, $0.3413$, $0.3875$ and $0.4886$
+(\texttt{numerics/certify\_forward\_noise\_flow\_remarks.py}). Theorem~\ref{thm:noise} applies.
+\end{proof}
+
+Numerically (\texttt{numerics/forward\_noise\_flow\_scan.py}) the hypothesis of Theorem~\ref{thm:noise} holds at
+$2731$ of $2976$ sampled points with $1<r\le2$ and $p^*>r$ (about $92\%$; $r$, $\rho$, $x_1$, $x_2$ independent and
+uniform on $(1,2)$, $(0.05,0.95)$, $(0.05,1)$, $(0.05,1)$, points with $|x_1-x_2|<0.02$ dropped), and at $638$ of $1222$
+sampled points with $2<r\le8$ and $p^*>r$ ($r$ uniform on $(2,8)$, $\rho$ on $(0.05,0.99)$, $x_j$ as before, no points
+dropped). Points with $p^*\le r$ are left out: there~\eqref{eq:unequal} holds for every $p\ge r$
+by~\cite[Thm.~9(i)]{IK25} at $\alpha=1$ and Lyapunov's inequality, as in Remark~\ref{rem:cases}(b). Condition (a) by
+itself can always be met by taking $\varphi(r)$ large. At every observed failure the pause forced by (a) already pushes
+some $w_j(r,\varphi_s)$ above $1$, as it must by the converse part of Corollary~\ref{cor:noise}. For the same reason,
+the agreement of that criterion with a direct integration of the extremal differential equation at all $8505$ random
+points tested is a consistency check of the script, not independent evidence. The hypothesis fails, as it must, at
+the counterexamples (E1)--(E3) and at all $400$ random points with $r>2$ at which some $M_m$ is indefinite at $p^*$. A
+direct quadrature check of Lemma~\ref{lem:noise} along the path of Theorem~\ref{thm:noise} at the first point of
+Proposition~\ref{prop:noisecert} finds $\Phi$ increasing for random non-Gaussian $f,g$, and constant up to
+$2\cdot10^{-15}$ for the extremal exponentials (\texttt{numerics/forward\_noise\_flow\_check.py}). Among the points with $p^*>r$ in a
+sample of $300000$ ($r$, $\rho$, $x_1$, $x_2$ uniform on $(1,2)$, $(0,1)$, $(0,1)$, $(0,1)$; same script as the scan
+above), the criterion of Corollary~\ref{cor:noise} failed only when $\max\{x_1,x_2\}>0.82$ (the smallest value
+observed was $0.83$), at a rate rising with $\rho$ from $2\%$ to $43\%$ among the points with
+$\max\{x_1,x_2\}\ge0.8$. This cut-off is a property of the sample: at
+$(\rho,r,x_1,x_2)=(\frac{6249}{6250},2,\frac{163}{400},\frac{4083}{5000})$, where $\max\{x_1,x_2\}=0.8166$ and
+$p^*\approx4694$, the criterion fails, with $w_2(r,\varphi_s)=1.000145\ldots$ (ball arithmetic,
+\texttt{numerics/certify\_forward\_noise\_flow\_remarks.py}).
+
+We do not know whether~\eqref{eq:IKcond} is sufficient where the criterion of Corollary~\ref{cor:noise} fails, for
+$1<r\le2$. The evidence suggests that the hypothesis of Theorem~\ref{thm:noise} is not necessary. At
+$(\rho,x_1,x_2)=(\frac35,1,\frac3{10})$ it fails at $r=1+\frac j{100}$, $j=1,\dots,100$, and at $r=1+10^{-k}$,
+$k=3,\dots,8$, with $w_1(r,\varphi_s)>1.09$ throughout and $w_1(r,\varphi_s)\to1.09$ numerically as $r\downarrow1$ (ball
+arithmetic, same script). Yet at $r=1$ condition~\eqref{eq:IKcond} is sufficient (Proposition~\ref{prop:unequal}). At
+$(\rho,r,x_1,x_2)=(\frac35,\frac{11}{10},\frac{99}{100},\frac3{10})$ the hypothesis fails ($w_1(r,\varphi_s)=1.0770\ldots$).
+There an optimised attack on~\eqref{eq:unequal} at $p=p^*$, with non-Gaussian test functions in a $14$-parameter family
+for each of $f$ and $g$ and a finer re-evaluation, found no violation (best log-ratio $-3\cdot10^{-10}$); the same
+attack finds the violation at (E1) (log-ratio $+1.2\cdot10^{-2}$; \texttt{numerics/forward\_noise\_flow\_nonhyp\_attack.py}).
+It found no violation at $p=p^*$ either at $(\rho,r,x_1,x_2)=(\frac45,\frac32,\frac{19}{20},\frac12)$, $(\frac45,2,\frac{19}{20},\frac12)$ and
+$(\frac35,2,1,\frac3{10})$, where $w_1(r,\varphi_s)\ge1.10$ (ball arithmetic); the best log-ratios lie between
+$-1.2\cdot10^{-9}$ and $-5\cdot10^{-10}$ (\texttt{numerics/out\_forward\_noise\_flow\_nonhyp\_attack\_more.txt}).
+If~\eqref{eq:IKcond} is sufficient at such points, the proof needs a different argument: by the next proposition, no
+path of Lemma~\ref{lem:noise} from the starting point comes near the threshold there.
+
+\begin{proposition}\label{prop:noiseopt}
+Let $\rho\in(0,1)$, $x_1,x_2\in(0,1]$ and $1<r<p^*$.
+\begin{enumerate}[label=(\alph*)]
+\item If a path as in Lemma~\ref{lem:noise} joins $(q,\theta,s_1,s_2)=(r,\rho,x_1,x_2)$ to $(p^*,\rho,1,1)$, then
+$w_1(r,\varphi_s)\le1$ and $w_2(r,\varphi_s)\le1$, with strict inequalities if $\gamma_1(\varphi_s)+\gamma_2(\varphi_s)=0$.
+\item If for every $n$ a path as in Lemma~\ref{lem:noise} joins $(r,\rho,x_1,x_2)$ to a point $P_n$, and
+$P_n\to(p^*,\rho,1,1)$, then $w_1(r,\varphi_s)\le1$ and $w_2(r,\varphi_s)\le1$.
+\end{enumerate}
+So if $\max_jw_j(r,\varphi_s)>1$, some neighbourhood of $(p^*,\rho,1,1)$ contains no endpoint of a path of
+Lemma~\ref{lem:noise} starting at $(r,\rho,x_1,x_2)$.
+\end{proposition}
+
+\begin{proof}
+(a) Put $w_j=s_j^2$, $\varphi=\theta s_1s_2$ and
+$N(t)=\begin{psmallmatrix}1+(q-1)w_1&q\varphi\\q\varphi&1+(q-1)w_2\end{psmallmatrix}$, all continuous and piecewise
+$C^1$ in $t$. In the interior of a piece let $A$ and $B$ be the two matrices of~\eqref{eq:noiseLMI} conjugated by
+$\mathrm{diag}(s_1,s_2)$, with $e_j=w_jd_j$, as in the proof of Theorem~\ref{thm:noise}; then $A,B\ge0$, and a direct
+computation gives $\dot N=\dot qA+B$. At the endpoints $N(1)-N(0)=M(p^*)$, so
+$\int_0^1u^T\dot N u\,dt=u^TM(p^*)u=0$. The integrand is non-negative and continuous on each piece, hence $u^T\dot Nu=0$
+in the interior of every piece. Since $\dot N\ge0$, this gives $\dot Nu=0$; and since $\dot q\,u^TAu$ and $u^TBu$ are
+non-negative with sum $0$, it gives $Au=0$ wherever $\dot q>0$.
+
+From $\dot Nu=0$, $N(t)u=N(0)u=(c_1,c_2)$ for all $t$. As $q\ge r>1$, this says $w_j(t)=w_j(q(t),\varphi(t))$, with
+the functions $w_j(q,\varphi)$ of the proof of Theorem~\ref{thm:noise}. Where $\dot q>0$, the two rows of $Au=0$ give
+$e_1=w_1-\kappa\varphi=\gamma_1(\varphi)/(q-1)$ and $e_2=w_2-\varphi/\kappa=\gamma_2(\varphi)/(\kappa(q-1))$, so
+$\gamma_1(\varphi),\gamma_2(\varphi)\ge0$ there.
+
+Let $t_0=\max\{t:q(t)=r\}$; then $t_0<1$ and $q=r$ on $[0,t_0]$. For every $t>t_0$, $q(t)-r=\int_{t_0}^t\dot q>0$, so
+$(t_0,t)$ contains interior points of pieces with $\dot q>0$, where $\gamma_j(\varphi)\ge0$. By continuity
+$\gamma_j(\varphi(t_0))\ge0$ for $j=1,2$, that is $\varphi(t_0)\ge\varphi_{\min}$. Since $w_j(t)=s_j(t)^2$ is
+non-decreasing, $w_1(r,\varphi(t_0))=w_1(t_0)\ge w_1(0)=x_1^2=w_1(r,\rho x_1x_2)$, and $w_1(r,\cdot)$ is increasing;
+so $\varphi(t_0)\ge\rho x_1x_2$, hence $\varphi(t_0)\ge\varphi_s$, and
+\[
+w_j(r,\varphi_s)\le w_j(r,\varphi(t_0))=w_j(t_0)\le w_j(1)=1 .
+\]
+If $\gamma_1(\varphi_s)+\gamma_2(\varphi_s)=0$, then $\gamma_1(\varphi_s)=\gamma_2(\varphi_s)=0$. Suppose that
+$\varphi(t_0)=\varphi_s$. Along points $t\downarrow t_0$ with $\dot q(t)>0$, $e_1=\gamma_1(\varphi)/(q-1)\to0$ and
+$e_2\to0$, so $Au=0$ gives in the limit $w_1(t_0)=\kappa\varphi(t_0)$ and $w_2(t_0)=\varphi(t_0)/\kappa$, with
+$\varphi(t_0)>0$ as $w_1(t_0)\ge x_1^2$. Then $\theta(t_0)^2=\varphi^2/(w_1w_2)=1$, which is impossible. So
+$\varphi(t_0)>\varphi_s$, and the first inequality in the display is strict.
+
+(b) Let $N_n(t)$ be the matrix $N(t)$ for the $n$-th path and $\Delta_n=N_n(1)-N_n(0)$. As in (a), $\dot N_n\ge0$, so
+$0\le N_n(t)-N_n(0)\le\Delta_n$ for all $t$. Here $N_n(0)$ does not depend on $n$, and $\Delta_n\to M(p^*)$, so
+$\varepsilon_n:=u^T\Delta_nu\to0$. For a positive semi-definite $P$ and any vector $v$,
+$|Pv|^2\le\lambda_{\max}(P)\,v^TPv$. With $P=N_n(t)-N_n(0)$ and $v=u$ this gives
+$|N_n(t)u-(c_1,c_2)|\le\delta_n:=(\varepsilon_n\operatorname{tr}\Delta_n)^{1/2}$, and hence
+$|w_j(t)-w_j(q(t),\varphi(t))|\le C\delta_n$ for all $t$ and $j$, with $C=\max\{1,\kappa^{-1}\}/(r-1)$.
+
+Fix $\eta\in(0,p^*-r)$. For large $n$ the $n$-th path has $q(1)>r+\eta$; let $t_0=\max\{t:q(t)=r\}$ and
+$t_1=\min\{t:q(t)=r+\eta\}$. Then $\int_{t_0}^{t_1}\dot q=\eta$ and $\int_{t_0}^{t_1}u^T\dot N_nu\le\varepsilon_n$. So
+some interior point $t^*\in(t_0,t_1)$ of a piece has $\dot q>0$ and $u^T\dot N_nu\le2\varepsilon_n\dot q/\eta$ there:
+otherwise integration would give $\int_{t_0}^{t_1}u^T\dot N_nu>2\varepsilon_n$. As $u^T\dot N_nu\ge\dot q\,u^TAu$, at
+$t^*$ we get $u^TAu\le2\varepsilon_n/\eta$; since $A\ge0$ and $\operatorname{tr}A\le w_1+w_2\le2$, also
+$|Au|\le2(\varepsilon_n/\eta)^{1/2}$. The rows of $Au$ are $w_1-e_1-\kappa\varphi$ and $\varphi-\kappa(w_2-e_2)$. With
+$e_j\ge0$ and the bound on $w_j-w_j(q,\varphi)$ this gives, at $t^*$,
+\[
+\frac{\gamma_1(\varphi)}{q-1}=w_1(q,\varphi)-\kappa\varphi\ge-|Au|-C\delta_n,\qquad
+\frac{\gamma_2(\varphi)}{\kappa(q-1)}=w_2(q,\varphi)-\frac\varphi\kappa\ge-\frac{|Au|}\kappa-C\delta_n .
+\]
+Moreover $x_j^2=w_j(0)\le w_j(t^*)\le1$, $q(t^*)\in(r,r+\eta]$ and $|\varphi(t^*)|\le1$. Letting first $n\to\infty$
+and then $\eta\to0$, along subsequences, we obtain $\bar\varphi$ with $\gamma_j(\bar\varphi)\ge0$ and
+$x_j^2\le w_j(r,\bar\varphi)\le1$ for $j=1,2$. As in (a), this gives $\bar\varphi\ge\varphi_s$ and
+$w_j(r,\varphi_s)\le w_j(r,\bar\varphi)\le1$.
+\end{proof}
+
+Together with Corollary~\ref{cor:noise} and the construction in its proof, part (a) shows that the hypothesis of
+Theorem~\ref{thm:noise} holds if and only if some path of Lemma~\ref{lem:noise} joins $(r,\rho,x_1,x_2)$ to
+$(p^*,\rho,1,1)$, and if and only if $w_1(r,\varphi_s)\le1$ and $w_2(r,\varphi_s)\le1$, with strict inequalities when
+$\gamma_1(\varphi_s)+\gamma_2(\varphi_s)=0$; in that case the construction of Corollary~\ref{cor:noise} is started at a
+value $\varphi(r)>\varphi_s$ with $w_j(r,\varphi(r))\le1$. At $(\rho,r,x_1,x_2)=(\frac35,\frac{11}{10},\frac{99}{100},\frac3{10})$,
+for instance, no path of Lemma~\ref{lem:noise} starting at $(r,\rho,x_1,x_2)$ ends near $(p^*,\rho,1,1)$.
+
+\section{Numerical checks}
+\texttt{numerics/check\_forward\_real.py} (floating point, equicorrelated case, nested Gauss--Hermite quadrature over
+the common factor; evidence for the algebra, not part of the proof) checks:
+(A) inequality~\eqref{eq:rlsi} with $B_{ij}=\Id$ for $500$ random pairs (in the stronger form with
+$|\E[\Psi_1'\Psi_2']|$) and $300$ random triples of smooth positive functions with logarithms of at most linear
+growth (minimal ratio of the two sides $1.03$ and $1.02$), and equality for anti-aligned exponentials; these
+functions are not bounded, so the test goes slightly beyond the hypotheses of Lemma~\ref{lem:rlsi};
+(B) the formulas of Lemma~\ref{lem:deriv} against finite differences in random directions of $(q,\theta,s)$ (relative
+errors $\le10^{-9}$);
+(C) inequality~\eqref{eq:main} for $n=2$ at $x^2=1.02\,x_*^2$, where $x_*^2=\frac{1-p\lambda}{1-r\lambda}$, for six
+parameter sets with $p\lambda<1$ (including $r<1$ and $r>1$), with random functions and a local optimiser over a
+seven-parameter family (no violation; the supremum of the ratio is $1$, attained by constants);
+(D) the closed form of the necessity computation, and the violation at $x^2=0.98\,x_*^2$;
+(E) for $n=3$, $60$ random functions at $x^2=1.03\,x_*^2$ (no violation) and exponential witnesses at
+$x^2=0.97\,x_*^2$ (violation), for three parameter sets.
+\texttt{numerics/check\_forward\_general.py} checks Lemma~\ref{lem:rlsi} and inequality~\eqref{eq:main} for $n=3$
+with random non-equicorrelated covariances (for $n=2$ with scalar blocks every covariance is equicorrelated): random
+pairings $B$, random test functions above the threshold (largest log-ratio between $-0.32$ and $-0.07$, so this is
+not a test of sharpness), and exponential witnesses along the bottom eigenvector below it.
+\texttt{numerics/check\_forward\_negative\_p.py} tests~\eqref{eq:IK} for $p<0$ (Proposition~\ref{prop:pneg}) at $400$
+random equicorrelated cases ($n\in\{2,3\}$, $\rho\in[0,0.9)$, $p\in(-3,-0.2)$, $\alpha\in(0.05,0.95)$, $x\in(-1,1)$,
+random smooth positive $f_j$): the largest value of $\log(\text{left side})-\log(\text{right side})$ is
+$-1.5\cdot10^{-3}$.
+
+\section{Novelty and limitations}
+\emph{Novelty.} The forward inequality~\eqref{eq:IK} with $\alpha\in(0,1)$ is excluded from~\cite[Thm.~9(i)]{IK25}.
+The range $p\lambda\ge1$, where the condition is void, follows from~\cite[Thm.~9(i)]{IK25} at $\alpha=1$ and
+Lyapunov's inequality (Remark~\ref{rem:cases}(b)); for two functions this is~\cite[Prop.~1.4(a)]{MF}. As far as we
+know, Theorem~\ref{thm:main} is the first characterisation in the range $p\lambda<1$, where the inequality fails near
+$x=0$. It shows that the covariance condition~\eqref{eq:IKcond} stays exact for $\alpha\in(0,1)$ in this case,
+although the FB method does not apply. Propositions~\ref{prop:counter} and~\ref{prop:allr} show that this exactness does not extend to
+unequal parameters: for every $\alpha\in(0,1)$ condition~\eqref{eq:IKcond} is not sufficient in general, even for
+$p\ge1$, where for equal parameters it is exact; this is in contrast with the ranges covered
+by~\cite[Thm.~9(i)]{IK25}. The inequality is of
+Brascamp--Lieb type, with a correlated $L^p$ norm on the
+right and degenerate Gaussian (exponential) extremisers. Gaussian saturation is known for many inequalities of this
+kind: Lieb~\cite{Lieb90}, Barthe--Wolff~\cite{BW18} (inverse Brascamp--Lieb), Liu--Courtade--Cuff--Verd\'u and
+Courtade--Liu~\cite{LCCV18,CL21} (forward--reverse Brascamp--Lieb), Nakamura--Tsuji~\cite{NT25}, and the semigroup
+approach of Ledoux~\cite{Ledoux14}. We are not aware of a result among these that covers $r<p$ with a correlated
+$L^p$ norm on the right, but we did not search the literature systematically beyond~\cite{IK25}, its references and
+these works. Lemma~\ref{lem:rlsi} is a reverse counterpart of the correlated log-Sobolev
+inequality~\cite[Thm.~11]{IK25}. Its one-function ingredient~\eqref{eq:onegauss} is classical; we did not find the
+correlated version. The quantity $\Phi$ of Lemma~\ref{lem:noise} is monotone along a heat-type flow, in the tradition surveyed
+by Ledoux~\cite{Ledoux14}; Bennett and Bez~\cite{BB19} give a general method for generating such quantities. We did
+not find the flow with separate noise parameters, or a one-dimensional criterion like Theorem~\ref{thm:noise}, in
+these works. Novelty is claimed to the best of this search.
+
+\emph{Limitations.} (1) Only equal parameters $r_j=x$ and equal exponents $p_j=p$ are treated in general. For two
+functions and $r=1$, condition~\eqref{eq:IKcond} is sharp (Proposition~\ref{prop:unequal}); the companion
+note~\cite{GC} extends this to general blocks and cross-covariance, and to any number of scalar functions with
+sign-balanced correlations and $x_ix_j\ge0$ on the non-zero correlations~\cite[Cor.~1.5]{GC}. For unequal parameters
+it is not sufficient in general: sufficiency fails for every $r>2$ (Propositions~\ref{prop:counter}
+and~\ref{prop:allr}), but it holds when $r\ge1$ and $x_1x_2=0$ (Proposition~\ref{prop:face}), and wherever the
+one-dimensional condition of Theorem~\ref{thm:noise} holds ($r>1$ and $\rho,x_1,x_2>0$; verified at explicit points,
+Proposition~\ref{prop:noisecert}, and numerically at about $92\%$ of the sampled points with $1<r\le2$ and $p^*>r$).
+That condition is not known to be necessary, and the evidence at the end of Section~\ref{sec:noiseflow} suggests that
+it is not. Where its closed-form inequalities fail strictly, no path of the flow of Lemma~\ref{lem:noise} comes near
+the threshold (Proposition~\ref{prop:noiseopt}), so those cases need a different argument. Whether~\eqref{eq:IKcond}
+is sufficient for all $r\in(0,2]\setminus\{1\}$, and what the exact condition is for $r>2$, is open
+(Remark~\ref{rem:unequal}). (2) Unequal negative exponents are not treated; for equal
+exponents $p<0$ see Proposition~\ref{prop:pneg}. (3) Negative $\alpha$ and the reverse inequality are covered
+by~\cite{IK25}, and are not revisited.
+
+\begin{thebibliography}{99}
+\bibitem{BGL14} D.~Bakry, I.~Gentil, M.~Ledoux, Analysis and Geometry of Markov Diffusion Operators, Grundlehren
+Math.\ Wiss.\ 348, Springer, 2014.
+\bibitem{BW18} F.~Barthe, P.~Wolff, Positive Gaussian kernels also have Gaussian minimizers, Mem.\ Amer.\ Math.\
+Soc.\ 276 (2022), no.~1359; arXiv:1805.02455.
+\bibitem{BB19} J.~Bennett, N.~Bez, Generating monotone quantities for the heat equation, J.\ Reine Angew.\ Math.\
+756 (2019), 37--63.
+\bibitem{GC} Companion note: \emph{A comparison inequality for Gaussian vectors and product functions}
+(\texttt{RESULT\_gaussian\_comparison\_product\_functions.pdf}, this repository).
+\bibitem{CL21} T.~A.~Courtade, J.~Liu, Euclidean forward--reverse Brascamp--Lieb inequalities: finiteness, structure,
+and extremals, J.\ Geom.\ Anal.\ 31 (2021), 3300--3350.
+\bibitem{IK25} P.~Ivanisvili, P.~Kalantzopoulos, Multiversion of the Hausdorff--Young inequality,
+arXiv:2506.08494 (2025).
+\bibitem{JB} Companion note: \emph{Two correlated functions below the diagonal: joint narrow bumps defeat the local
+conditions} (\texttt{RESULT\_two\_function\_joint\_bumps.pdf}, this repository).
+\bibitem{LCCV18} J.~Liu, T.~A.~Courtade, P.~Cuff, S.~Verd\'u, A forward--reverse Brascamp--Lieb inequality: entropic
+duality and Gaussian optimality, Entropy 20 (2018).
+\bibitem{Ledoux14} M.~Ledoux, Remarks on Gaussian noise stability, Brascamp--Lieb and Slepian inequalities, in
+Geometric Aspects of Functional Analysis, Lecture Notes in Math.\ 2116, Springer, 2014, 309--333.
+\bibitem{Lieb90} E.~H.~Lieb, Gaussian kernels have only Gaussian maximizers, Invent.\ Math.\ 102 (1990),
+179--208.
+\bibitem{MF} Companion note: \emph{Multi-function complex hypercontractivity for imaginary parameters, for every
+outer exponent} (\texttt{RESULT\_multifunction\_imaginary\_every\_alpha.pdf}, this repository).
+\bibitem{NT25} S.~Nakamura, H.~Tsuji, A generalized Legendre duality relation and Gaussian saturation, Invent.\
+Math.\ (2025), doi:10.1007/s00222-025-01382-5; arXiv:2409.13611.
+\end{thebibliography}
+\end{document}
