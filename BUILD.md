@@ -12,7 +12,7 @@ The pages show `images/paata-dark.png`: the same 357×357 photo with its white s
 
 Root:
 
-- `index.html` — header (bio, links, department) and, full width below it, the point-cloud clock (`clock/index.html#embed=1` in an iframe); no footer
+- `index.html` — header (bio, links, department) and the site footer (department line only)
 - `papers.html` — the numbered list of all papers (`<ol class="papers">`, oldest first)
 - `talks.html` — talks 2012–2026, including 2024 (no traveling due to childbirth)
 - `teaching.html` — courses with cleaned UCI / Canvas / NCSU URLs
@@ -24,6 +24,7 @@ Root:
 - `awards.html` — awards and grants
 - `ai-proofs/index.html` — AI-generated proofs, built from `ai-proofs/entries.json` by `tools/site.py ai-proofs`
 - `vibe-projects/` — interactive projects
+- `clock/` — the point-cloud clock, a stand-alone page without the site header; it can be embedded as `clock/index.html#embed=1` (see README)
 
 Schools (`schools/`):
 
@@ -45,4 +46,4 @@ After x.com's dark mode. Everything sits on a `#000` page, with no card behind t
 
 The masthead has the name and links on the left and the portrait on the right; the portrait's background is black, so only the person shows. Below it the nav is a row of X-style tabs: grey labels, with the current page in white over a blue bar. Wide screens get two aligned rows; narrow screens get wrapping rows balanced with `text-wrap: balance`, so no tab is left alone on the last row. Content lists share one small grey dot; numbered lists use grey numerals. AI-proof statuses are tinted pills. No sticky nav, no accordions.
 
-iPhone: every page sets `theme-color` `#000000` and `color-scheme` `dark`, so the status bar and overscroll stay black. With `viewport-fit=cover`, body padding keeps content clear of the notch in landscape (`env(safe-area-inset-*)`). The home clock is sized in `svh`, so Safari's toolbars do not resize it.
+iPhone: every page sets `theme-color` `#000000` and `color-scheme` `dark`, so the status bar and overscroll stay black. With `viewport-fit=cover`, body padding keeps content clear of the notch in landscape (`env(safe-area-inset-*)`).
