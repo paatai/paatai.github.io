@@ -69,24 +69,6 @@ strong, b { font-weight: 700; }
   margin: 0 auto;
   padding: env(safe-area-inset-top, 0px) var(--gutter) max(3rem, calc(env(safe-area-inset-bottom, 0px) + 2rem));
 }
-.band {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  gap: 1rem;
-  padding: 0.9rem 0 0.8rem;
-  border-bottom: 1px solid var(--line);
-  font-size: 0.75rem;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--mute);
-}
-.band .mono {
-  color: var(--text);
-  font-weight: 700;
-  letter-spacing: 0.22em;
-  font-variant-numeric: tabular-nums;
-}
 
 .mast {
   display: grid;
@@ -507,7 +489,7 @@ a.ap-n:hover { color: var(--link-hover); text-decoration: underline; }
   :root { color-scheme: light; }
   html, body { background: #fff; color: #000; }
   .folio { max-width: none; padding: 0; }
-  .band, nav.primary, .also, .skip, .jump, .mast img, nav[aria-label="School"] { display: none; }
+  nav.primary, .also, .skip, .jump, .mast img, nav[aria-label="School"] { display: none; }
   a { color: inherit; }
   .meta, .dept, .note, .vibe-date, footer.site, .ap-cite, .ap-legend, .ap-count, .ap-n, .ap-side, .ap-note, ol.papers li::before { color: #444; }
   .badge { color: #000; background: none; border-color: #999; }
