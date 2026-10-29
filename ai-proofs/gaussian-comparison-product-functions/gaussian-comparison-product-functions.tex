@@ -1,0 +1,830 @@
+\documentclass[11pt]{amsart}
+\usepackage[margin=1.1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\hypersetup{colorlinks=true,linkcolor=blue,citecolor=blue,urlcolor=blue,
+pdftitle={A comparison inequality for Gaussian vectors and product functions}}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{remark}[theorem]{Remark}
+
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Ent}{\operatorname{Ent}}
+\newcommand{\cS}{\mathcal{S}}
+\newcommand{\Id}{\mathrm{Id}}
+
+\title{A comparison inequality for Gaussian vectors and product functions}
+\date{October 28, 2026}
+
+\begin{document}
+\sloppy
+\begin{abstract}
+Let $\Sigma_0$ and $\Sigma_1$ be covariance matrices of Gaussian vectors $\xi=(\xi_1,\dots,\xi_n)$ whose blocks
+$\xi_j\in\R^{k_j}$ are standard Gaussian, with $\Sigma_1$ positive definite, and let $p>1$. We prove that
+\[
+\E_{\Sigma_0}\Big[\prod_jf_j(\xi_j)\Big]\le\Big(\E_{\Sigma_1}\Big[\prod_jf_j(\xi_j)^p\Big]\Big)^{1/p}
+\qquad\text{for all measurable }f_j\ge0
+\]
+whenever some block-diagonal matrix $D$ satisfies $\frac p{p-1}(\Sigma_0-\Sigma_1)\le D\le\Sigma_0$. The necessary
+condition is $\Sigma_0\le p\Sigma_1$, and the block-diagonal condition implies it. The two conditions are equivalent
+when $\Sigma_0$ lies on the segment between $\Id$ and $\Sigma_1$, and for scalar blocks when, after changing the
+signs of some coordinates, all correlations are non-positive and those of $\Sigma_0$ are no larger in absolute value
+than those of $\Sigma_1$. For $\Sigma_0=\Id$ the inequality is the reverse H\"older inequality of Chen, Dafnis and
+Paouris with equal exponents. In general $\Sigma_0\le p\Sigma_1$ is not sufficient, already for two functions whose
+correlation decreases from $\Sigma_0$ to $\Sigma_1$, and Gaussian functions are not extremal: a computer-assisted
+example has all Gaussian test functions satisfying the inequality while it fails. Applied to $\Sigma_0=X\Sigma_1X+\Id-X^2$, the results give the forward inequality of
+Ivanisvili and Kalantzopoulos with outer exponent $\alpha=1/p$ and unequal parameters $x_j$, a case excluded from
+their theorem. Their covariance condition is then necessary and sufficient for two functions with any parameters and
+any cross-covariance, and for any number of scalar functions whose correlations become non-positive after sign
+changes, provided $x_ix_j\ge0$ whenever the corresponding correlation is non-zero. The proof is a flow along
+the segment from $\Sigma_0$ to $\Sigma_1$, with the exponent rising from $1$ to $p$, controlled by a weighted reverse
+log-Sobolev inequality. The flow also works along curved paths. In an explicit example, where the block-diagonal
+condition holds only for $p\ge3$ and $\Sigma_0\le p\Sigma_1$ holds for $p\ge2.175\ldots$, such a path, with two of the
+blocks merged on its first stretch and an exact rational certificate, gives the inequality for $p\ge2.1925$. We show
+that these flows stay bounded away from $2.175\ldots$ there; the range in between is open.
+\end{abstract}
+\maketitle
+
+\section{Introduction and results}
+Let $k_1,\dots,k_n\ge1$ and $K=k_1+\dots+k_n$. We write matrices on $\R^K=\R^{k_1}\times\dots\times\R^{k_n}$ in
+blocks $A=(A_{ij})_{i,j=1}^n$, $A_{ij}\in\R^{k_i\times k_j}$, and call $A$ \emph{block-diagonal} if $A_{ij}=0$ for
+$i\ne j$. Let $\mathcal C$ be the set of positive semi-definite $K\times K$ matrices whose diagonal blocks are
+identities. For $\Sigma\in\mathcal C$, $\E_\Sigma$ denotes expectation with respect to a centred Gaussian vector
+$\xi=(\xi_1,\dots,\xi_n)$ with covariance $\Sigma$; so $\xi_j\sim\gamma_{k_j}$, the standard Gaussian measure on
+$\R^{k_j}$. For $p>0$ put $\|W\|_{L^p(\Sigma)}=(\E_\Sigma|W|^p)^{1/p}$. Products of values in $[0,\infty]$ are taken
+with $0\cdot\infty=0$. The order $A\le B$ is the Loewner order.
+
+\begin{theorem}\label{thm:main}
+Let $\Sigma_0,\Sigma_1\in\mathcal C$ with $\Sigma_1$ positive definite, and let $p>1$. Suppose there is a
+block-diagonal symmetric matrix $D$ with
+\begin{equation}\label{eq:lmi}
+\frac p{p-1}\,(\Sigma_0-\Sigma_1)\ \le\ D\ \le\ \Sigma_0 .
+\end{equation}
+Then for all measurable $f_j:\R^{k_j}\to[0,\infty]$,
+\begin{equation}\label{eq:comp}
+\E_{\Sigma_0}\Big[\prod_{j=1}^nf_j(\xi_j)\Big]\ \le\ \Big\|\prod_{j=1}^nf_j(\xi_j)\Big\|_{L^p(\Sigma_1)} .
+\end{equation}
+Conversely, if~\eqref{eq:comp} holds for all $f_j$ of the form $e^{\langle a_j,\cdot\rangle}$, then
+$\Sigma_0\le p\Sigma_1$; and~\eqref{eq:lmi} implies $\Sigma_0\le p\Sigma_1$.
+\end{theorem}
+
+\begin{remark}\label{rem:basic}
+(a) Condition~\eqref{eq:lmi} is a linear matrix inequality in the diagonal blocks of $D$, so its feasibility is a
+semidefinite programme. Any such $D$ is positive semi-definite: the diagonal blocks of $\Sigma_0-\Sigma_1$ vanish, so
+those of $D$ are $\ge0$.
+
+(b) Let $p^*=\lambda_{\max}(\Sigma_1^{-1/2}\Sigma_0\Sigma_1^{-1/2})$, the smallest $p$ with $\Sigma_0\le p\Sigma_1$.
+Since the diagonal entries of $\Sigma_0$ and $\Sigma_1$ agree, $p^*\ge1$, and $p^*=1$ only if $\Sigma_0=\Sigma_1$
+(then $\Sigma_1-\Sigma_0\ge0$ has trace $0$). By Lyapunov's inequality, if~\eqref{eq:comp} holds for some $p$, it
+holds for every larger $p$. If it holds for every $p>p_0$, it also holds at $p_0$: for $f_j$ with values in
+$[\varepsilon,M]$, $0<\varepsilon<M<\infty$, the right side of~\eqref{eq:comp} is continuous in $p$, and general $f_j$
+follow by the truncation in Section~\ref{sec:approx}. By Proposition~\ref{prop:holder} below,~\eqref{eq:comp} holds
+when $\lambda_{\max}(\Sigma_0)\le p\,\lambda_{\min}(\Sigma_1)$. So the set of $p\ge1$ for which~\eqref{eq:comp} holds is
+an interval $[p_c,\infty)$ with $p^*\le p_c\le\lambda_{\max}(\Sigma_0)/\lambda_{\min}(\Sigma_1)$.
+
+(c) Condition~\eqref{eq:lmi} is monotone in $p$: if $D$ satisfies it at $p$ and $p'>p$, then $\frac{c'}cD$ satisfies
+it at $p'$, where $c=\frac p{p-1}>c'=\frac{p'}{p'-1}$, because $D\ge0$. The feasible $D$ lie in the compact set
+$\{0\le D\le\Sigma_0\}$, so the set of $p>1$ at which~\eqref{eq:lmi} is feasible is closed in $(1,\infty)$. Theorem~\ref{thm:main}
+gives $p_c\le p$ for every such $p$, and $p_c=p^*$ when~\eqref{eq:lmi} is feasible at $p=p^*$. The set can be empty
+(Remark~\ref{rem:forward}).
+
+(d) If the diagonal blocks $A_j$ of $\Sigma_0$ and $\Sigma_1$ agree but are not identities ($A_j$ positive definite),
+the substitution $\xi_j\mapsto A_j^{-1/2}\xi_j$ reduces to $\mathcal C$, since it maps product functions to product
+functions. Grouping several blocks into one is allowed when the corresponding parts of $\Sigma_0$ and $\Sigma_1$
+agree, and makes~\eqref{eq:lmi} weaker, since $D$ may then have larger blocks.
+\end{remark}
+
+Theorem~\ref{thm:path} in Section~\ref{sec:paths} is a version of Theorem~\ref{thm:main} along curved paths, with a
+matrix $D$ that may vary along the path; it contains Theorem~\ref{thm:main}. The following elementary bound
+complements both. It is a direct consequence of the theorem of
+Chen, Dafnis and Paouris~\cite{CDP15}, which we use in the form~\cite[Theorem~B]{IK25}: for $\Sigma\in\mathcal C$ and
+$p_j\in\R\setminus\{0\}$, the inequality $\prod_j(\E F_j(\xi_j))^{p_j}\le\E_\Sigma\prod_jF_j(\xi_j)^{p_j}$ holds for all
+measurable $F_j:\R^{k_j}\to(0,\infty)$ if and only if $\mathrm{diag}(p_j^{-1}\Id_{k_j})\le\Sigma$, and the reverse
+inequality holds for all such $F_j$ if and only if $\mathrm{diag}(p_j^{-1}\Id_{k_j})\ge\Sigma$.
+
+\begin{proposition}\label{prop:holder}
+Let $\Sigma_0,\Sigma_1\in\mathcal C$ and $p\ge1$. If there are numbers $s_1,\dots,s_n>0$ with
+\begin{equation}\label{eq:holder}
+\Sigma_0\ \le\ S\ \le\ p\,\Sigma_1,\qquad S=\mathrm{diag}(s_1\Id_{k_1},\dots,s_n\Id_{k_n}),
+\end{equation}
+then~\eqref{eq:comp} holds for all measurable $f_j\ge0$. In particular, it holds if
+$\lambda_{\max}(\Sigma_0)\le p\,\lambda_{\min}(\Sigma_1)$.
+\end{proposition}
+
+\begin{proof}
+Let $f_j$ take values in $[\varepsilon,M]$, $0<\varepsilon<M<\infty$, and put $F_j=f_j^{s_j}$. The reverse form of the
+theorem quoted above, with $\Sigma=\Sigma_0$ and $p_j=1/s_j$, gives
+$\E_{\Sigma_0}\prod_jf_j(\xi_j)\le\prod_j\|f_j\|_{L^{s_j}(\gamma_{k_j})}$, since $S\ge\Sigma_0$. The direct form, with
+$\Sigma=\Sigma_1$ and $p_j=p/s_j$, gives $\prod_j\|f_j\|_{L^{s_j}(\gamma_{k_j})}^p\le\E_{\Sigma_1}\prod_jf_j(\xi_j)^p$,
+since $\frac1pS\le\Sigma_1$. Together they give~\eqref{eq:comp}; general $f_j\ge0$ follow by the truncation in
+Section~\ref{sec:approx}. For the last statement take all $s_j=\lambda_{\max}(\Sigma_0)$: then
+$\Sigma_0\le S=\lambda_{\max}(\Sigma_0)\Id\le p\lambda_{\min}(\Sigma_1)\Id\le p\Sigma_1$.
+\end{proof}
+
+Proposition~\ref{prop:holder} passes through the independent coupling, so it suits ``forward'' situations, where
+correlations decrease from $\Sigma_0$ to $\Sigma_1$; for $\Sigma_1=\Id$ it is sharp (Remark~\ref{rem:forward}).
+Theorem~\ref{thm:main} suits ``reverse'' situations, where correlations increase. For instance, for $n=2$, $k_j=1$,
+$\mathrm{cov}_{\Sigma_1}(\xi_1,\xi_2)=\rho\in(0,1)$ and $\mathrm{cov}_{\Sigma_0}(\xi_1,\xi_2)=t\rho$ with
+$t\in(0,1)$,~\eqref{eq:holder} needs $1+t\rho\le p(1-\rho)$ (by symmetry and convexity one may take $S=s\Id$), while
+Corollary~\ref{cor:sharp}(a) below gives~\eqref{eq:comp} under the sharp condition $1-t\rho\le p(1-\rho)$.
+
+\subsection{Cases in which the condition is sharp}
+\begin{corollary}\label{cor:sharp}
+In each of the following cases,~\eqref{eq:comp} holds if and only if $\Sigma_0\le p\Sigma_1$, for every $p>1$.
+\begin{enumerate}[label=(\alph*)]
+\item $\Sigma_1\in\mathcal C$ is positive definite and $\Sigma_0=(1-t)\Id+t\Sigma_1$ with $t\in[0,1]$. Here
+$\Sigma_0\le p\Sigma_1$ reads $1-t+t\lambda\le p\lambda$, $\lambda=\lambda_{\min}(\Sigma_1)$.
+\item All $k_j=1$, $\Sigma_1$ is positive definite, and there are signs $\varepsilon_j\in\{\pm1\}$ with
+\begin{equation}\label{eq:signs}
+\varepsilon_i\varepsilon_j(\Sigma_1)_{ij}\ \le\ \varepsilon_i\varepsilon_j(\Sigma_0)_{ij}\ \le\ 0\qquad(i\ne j).
+\end{equation}
+\item $n=2$, $\Sigma_1=\begin{psmallmatrix}\Id&C\\C^T&\Id\end{psmallmatrix}$ is positive definite and
+$\Sigma_0=\begin{psmallmatrix}\Id&tC\\tC^T&\Id\end{psmallmatrix}$ with $t\le0$ and $|t|\,\|C\|\le1$. Here
+$\Sigma_0\le p\Sigma_1$ reads $(p-t)\|C\|\le p-1$.
+\end{enumerate}
+At $p=1$ both~\eqref{eq:comp} and $\Sigma_0\le\Sigma_1$ mean $\Sigma_0=\Sigma_1$: exponential $f_j$ in~\eqref{eq:comp}
+give $\Sigma_0\le\Sigma_1$, and then the trace argument of Remark~\ref{rem:basic}(b) applies.
+\end{corollary}
+
+For $t=0$, (a) is the reverse H\"older inequality of Chen, Dafnis and Paouris~\cite{CDP15} with equal exponents
+(\cite[Theorem~B]{IK25} with $p_j=p$): $\prod_j\E f_j\le\|\prod_jf_j(\xi_j)\|_{L^p(\Sigma_1)}$ iff
+$p\lambda_{\min}(\Sigma_1)\ge1$. Inequalities of this direction are also called inverse Brascamp--Lieb
+inequalities~\cite{BW22}; Barthe's reverse Brascamp--Lieb inequality~\cite{Bar98} can be obtained from them by a
+limiting argument~\cite{IK25}. For $t=1$, (a) is Lyapunov's inequality. Case (a) contains every pair with $n=2$ of
+the form $\Sigma_1=\begin{psmallmatrix}\Id&C\\C^T&\Id\end{psmallmatrix}$,
+$\Sigma_0=\begin{psmallmatrix}\Id&tC\\tC^T&\Id\end{psmallmatrix}$, $t\in[0,1]$, since then $\Sigma_0=(1-t)\Id+t\Sigma_1$;
+together with (c), every $t\le1$ is covered. For some $t>1$ the condition $\Sigma_0\le p\Sigma_1$ is not sufficient
+(Proposition~\ref{prop:notsuff}). Condition~\eqref{eq:signs} says that after changing the signs of
+some coordinates all correlations are non-positive, and those of $\Sigma_0$ are no larger in absolute value than
+those of $\Sigma_1$. Signs making the off-diagonal entries of $\Sigma_1$ non-positive exist if and only if every
+cycle in the graph of its non-zero off-diagonal entries contains an even number of positive entries. (Along a cycle
+the product of the signs $-\varepsilon_i\varepsilon_j$ is $(-1)^{\text{length}}$; conversely, choose the signs along a
+spanning tree of each component.) This holds for instance when $n=2$, when the graph is a forest, and when all
+correlations are non-positive. Three variables with pairwise positive correlations are a non-example.
+
+By Remark~\ref{rem:basic}(d), (a) and (c) also apply to grouped blocks. Let $\Sigma_1$ be positive definite, and
+suppose the index set is partitioned into groups such that $\Sigma_0$ and $\Sigma_1$ agree on each group, and $(\Sigma_0)_{ij}=t(\Sigma_1)_{ij}$ whenever $i$ and
+$j$ lie in different groups. If $t\in[0,1]$, or if $t<0$, there are two groups and $\Sigma_0\ge0$, then~\eqref{eq:comp} holds
+if and only if $\Sigma_0\le p\Sigma_1$. Indeed, after the normalisation of Remark~\ref{rem:basic}(d) on each group
+(a congruence, which preserves the Loewner order), $\Sigma_0$ becomes $(1-t)\Id+t\Sigma_1$, respectively the matrix of
+(c).
+
+\subsection{The forward inequality with outer exponent \texorpdfstring{$1/p$}{1/p}}
+For $x\in[-1,1]$ let $T_xf(y)=\E f(xy+\sqrt{1-x^2}\,G)$, $G\sim\gamma_k$, be the Ornstein--Uhlenbeck (Mehler)
+operator. Ivanisvili and Kalantzopoulos~\cite[Thm.~9]{IK25} consider, for $\Sigma\in\mathcal C$, $r_j\in[-1,1]$, $p_j\ne0$
+and $\alpha\in\R\setminus\{0\}$, the forward inequality
+\begin{equation}\label{eq:IK}
+\Big\|\prod_j\big(T_{r_j}f_j(\xi_j)\big)^{p_j}\Big\|_{L^\alpha(\Sigma)}\le\Big\|\prod_jf_j(\xi_j)^{p_j}\Big\|_{L^1(\Sigma)}
+\end{equation}
+for positive $f_j$. They show that for $\alpha\in(-\infty,0)\cup[1,\infty)$ it holds iff
+\begin{equation}\label{eq:IKcond}
+\mathrm{diag}\Big(\frac{1-r_j^2}{p_j}\Id_{k_j}\Big)\le\big((1-\alpha r_ur_v)\Sigma_{uv}\big)_{u,v=1}^n
+\end{equation}
+(\cite[(2.16), (2.17)]{IK25}). The range $\alpha\in(0,1)$ is excluded. The companion note~\cite{FR} settles it for
+equal parameters $r_j=x$ and equal exponents $p_j=p$ (\cite[Thm.~1.1]{FR} for $p\ge1$, and~\cite[Cor.~1.4]{FR} for all
+$p\ne0$ when $\Sigma$ is non-singular), and for two $\rho$-correlated functions when $\alpha=1/p$, for all
+$r_1,r_2$~\cite[Prop.~6.1]{FR}. It also shows that for two functions with unequal parameters and any $\alpha p>2$,
+\eqref{eq:IKcond} is not sufficient in general~\cite[Props.~6.3, 6.5]{FR}, while for $\alpha p>1$ and positive
+$\rho,r_1,r_2$ a flow with separate noise parameters gives a sufficient condition under which it is
+sharp~\cite[Thm.~6.9]{FR}.
+
+\begin{corollary}\label{cor:IK}
+Let $\Sigma\in\mathcal C$ be positive definite, $p>1$, $x_j\in[-1,1]$, and $X=\mathrm{diag}(x_j\Id_{k_j})$. Then
+\eqref{eq:IK} with $r_j=x_j$, $p_j=p$ and $\alpha=1/p$ is the inequality~\eqref{eq:comp} for
+$\Sigma_0=X\Sigma X+\Id-X^2$ and $\Sigma_1=\Sigma$, and~\eqref{eq:IKcond} is $\Sigma_0\le p\Sigma$. So
+\eqref{eq:IKcond} is necessary, and it is sufficient whenever~\eqref{eq:lmi} or~\eqref{eq:holder} is feasible. In
+particular, \eqref{eq:IK}$\Leftrightarrow$\eqref{eq:IKcond} in each of the following cases:
+\begin{enumerate}[label=(\roman*)]
+\item $x_ix_j=t\ge0$ for all $i\ne j$ with $\Sigma_{ij}\ne0$; for instance, all $x_j$ are equal;
+\item all $k_j=1$, $x_ix_j\ge0$ whenever $\Sigma_{ij}\ne0$, and some signs $\varepsilon_j$ satisfy
+$\varepsilon_i\varepsilon_j\Sigma_{ij}\le0$ for all $i\ne j$;
+\item $n=2$, with any $x_1,x_2$, any $k_1,k_2$ and any cross-covariance $\Sigma_{12}$;
+\item $x_j=1$ for all $j$ in a set $G$ of indices, and either $x_j=0$ for all $j\notin G$, or $G$ contains all
+indices but one.
+\end{enumerate}
+\end{corollary}
+
+In case (i), $\Sigma_0=(1-t)\Id+t\Sigma$ is the noised covariance for the equal parameter $x=\sqrt t$, so (i) is
+the case $r=1$ of~\cite[Thm.~1.1]{FR}, which allows arbitrary block sizes. Case (iii) with $x_1x_2\ge0$ is contained in (i), and
+case (iv) with a non-negative parameter ($x_{j_0}$, or $0$) follows from the same theorem after grouping and
+normalising as in Remark~\ref{rem:basic}(d); with a negative parameter both follow from~\cite{CDP15} through
+Proposition~\ref{prop:holder}. For two $\rho$-correlated functions case (iii) is~\cite[Prop.~6.1]{FR}. We include (iii) and (iv) for
+completeness. Case (ii) with $n\ge3$ and genuinely unequal parameters is new as far as we know.
+
+\subsection{Limits of the method}
+\begin{proposition}\label{prop:example}
+Let $n=3$, $k_j=1$, $\Sigma_1$ the equicorrelated matrix with correlation $\frac12$, and $x=(1,\frac12,0)$, so
+$\Sigma_0=X\Sigma_1X+\Id-X^2=\begin{psmallmatrix}1&1/4&0\\1/4&1&0\\0&0&1\end{psmallmatrix}$. Then
+$p^*=\frac{11+\sqrt{41}}8=2.175\ldots$. Condition~\eqref{eq:lmi} is feasible if and only if $p\ge3$, and
+condition~\eqref{eq:holder} if and only if $p\ge\frac52$. So~\eqref{eq:comp} holds for $p\ge\frac52$, while the
+necessary condition only requires $p\ge p^*$.
+\end{proposition}
+
+Proposition~\ref{prop:certificate} below improves $\frac52$ to $2.1925$, and we do not know whether~\eqref{eq:comp}
+holds for $p\in[p^*,2.1925)$ here. The example is not covered by
+Corollaries~\ref{cor:sharp} and~\ref{cor:IK}: all correlations of $\Sigma_1$ are positive, so~\eqref{eq:signs} fails,
+and $\Sigma_0$ and $\Sigma_1$ agree on no group of two or more coordinates. Numerically, no Gaussian test
+function violates~\eqref{eq:comp} at $p=p^*$ (Section~\ref{sec:num}), and by the following remark~\eqref{eq:comp} holds
+near constant functions, in the uniform norm, for every $p>p^*$.
+
+\begin{remark}\label{rem:second}
+Let all $k_j=1$, let $(h_d)_{d\ge0}$ be the normalised Hermite polynomials, and let $g_j$ be bounded with
+$\E g_j(\xi_j)=0$, so that $g_j=\sum_{d\ge1}a_{j,d}h_d$ in $L^2(\gamma_1)$. Put $a_d=(a_{1,d},\dots,a_{n,d})$ and let
+$\Sigma^{\circ d}$ be the entrywise $d$-th power. For $f_j=1+\varepsilon g_j$, the right side of~\eqref{eq:comp} minus
+the left side equals
+\[
+\frac{\varepsilon^2}2\sum_{d\ge1}a_d^T\big(p\Sigma_1^{\circ d}-\Sigma_0^{\circ d}\big)a_d+O(\varepsilon^3)
+\qquad(\varepsilon\to0).
+\]
+Indeed, $\E_{\Sigma_0}\prod_j(1+\varepsilon g_j)=1+\varepsilon^2\sum_{i<j}\E_{\Sigma_0}[g_ig_j]+O(\varepsilon^3)$, and
+$N(\varepsilon)=\E_{\Sigma_1}\prod_j(1+\varepsilon g_j)^p$ is smooth near $0$ with $N(0)=1$, $N'(0)=0$ and
+$N''(0)=p(p-1)\sum_j\E g_j^2+2p^2\sum_{i<j}\E_{\Sigma_1}[g_ig_j]$, so that
+$N^{1/p}=1+\frac{\varepsilon^2}{2p}N''(0)+O(\varepsilon^3)$. Mehler's formula gives
+$\E_\Sigma[g_i(\xi_i)g_j(\xi_j)]=\sum_da_{i,d}a_{j,d}\Sigma_{ij}^d$. In particular $p\Sigma_1^{\circ d}\ge\Sigma_0^{\circ d}$
+for all $d\ge1$ is necessary for~\eqref{eq:comp} (truncate $h_d$ as in~\cite[Prop.~6.2]{FR}); $d=1$ is
+$\Sigma_0\le p\Sigma_1$. In Proposition~\ref{prop:example} the off-diagonal entries of $p\Sigma_1^{\circ d}-\Sigma_0^{\circ d}$
+are $p2^{-d}-4^{-d}$, $p2^{-d}$ and $p2^{-d}$, so for $d\ge2$ and $p>2$ Gershgorin's theorem gives
+$\lambda_{\min}(p\Sigma_1^{\circ d}-\Sigma_0^{\circ d})\ge p-1-2p\,2^{-d}\ge\frac p2-1>0$. For $p>p^*$ also
+$p\Sigma_1-\Sigma_0>0$. Hence for every $p>p^*$ the quadratic form is at least $c\sum_j\E g_j^2$ with $c>0$. The remainder is uniform:
+if $\|g_j\|_\infty\le M$ and $|\varepsilon|M\le\frac12$, it is at most $C|\varepsilon|^3M\sum_j\E g_j^2$ with
+$C=C(n,p)$, because every term of order $k\ge3$ contains two factors $g_i,g_j$ whose product is bounded by
+$\frac12(g_i^2+g_j^2)$ and $k-2$ factors bounded by $M$. So for every $p>p^*$ there is $\delta(p)>0$ such
+that~\eqref{eq:comp} holds whenever $\|f_j/\E f_j-1\|_\infty\le\delta(p)$ for all $j$: a violation for some
+$p\in(p^*,2.1925)$, if there is one, must be far from constants in the uniform norm.
+\end{remark}
+
+\begin{proposition}\label{prop:certificate}
+In the example of Proposition~\ref{prop:example},~\eqref{eq:comp} holds for every $p\ge\frac{877}{400}=2.1925$.
+\end{proposition}
+
+\begin{proof}[Proof (computer-assisted, exact arithmetic)]
+Let $b=\frac9{40}$, $C_1=\begin{psmallmatrix}1&1/4&b\\1/4&1&b\\b&b&1\end{psmallmatrix}$ and $p_1=\frac{139783}{100000}$.
+The matrices $\Sigma_0$ and $C_1$ agree on the groups $\{1,2\}$ and $\{3\}$, and $\Sigma_0$ vanishes between them, so
+by the grouping paragraph after Corollary~\ref{cor:sharp} (case (a) with $t=0$),~\eqref{eq:comp} holds from $\Sigma_0$
+to $C_1$ with exponent $p_1$ as soon as $\Sigma_0\le p_1C_1$; this is checked exactly (the threshold is
+$1/(1-\sqrt{8/5}\,b)=1.3978291\ldots$). Next, Theorem~\ref{thm:path} applies to a piecewise-linear path through
+rational correlation matrices $K_0=C_1,K_1,\dots,K_{256}=\Sigma_1$, with scalar blocks, pieces of length
+$\ell=\frac{4501}{2560000}$ and a rational diagonal matrix $D_k$ on the $k$-th piece. On a piece $K(s)-D_k$ is affine in
+$s$ and $K'(s)=(K_{k+1}-K_k)/\ell$, so~\eqref{eq:pathcond} holds there if $D_k\ge0$, $K_k-D_k\ge0$, $K_{k+1}-D_k\ge0$ and
+$(K_{k+1}-K_k)+\ell D_k\ge0$; positive definiteness of all $K_k$ gives that of $K(s)$. These $1281$ conditions are
+verified exactly (principal minors) by \texttt{numerics/comparison\_chain\_certificate.py}, which stores the rational
+data and re-checks them without any solver. This gives~\eqref{eq:comp} from $C_1$ to $\Sigma_1$ with exponent
+$e^{256\ell}=e^{0.4501}$. Applying it to the functions $f_j^{p_1}$ after the first step, the exponents multiply:
+\[
+\E_{\Sigma_0}\Big[\prod_jf_j\Big]\le\Big(\E_{C_1}\Big[\prod_jf_j^{p_1}\Big]\Big)^{1/p_1}
+\le\Big(\E_{\Sigma_1}\Big[\prod_jf_j^{p_1e^{0.4501}}\Big]\Big)^{1/(p_1e^{0.4501})} .
+\]
+Finally $p_1e^{0.4501}=2.19245\ldots<\frac{877}{400}$ in ball arithmetic, and Lyapunov's inequality gives every
+$p\ge\frac{877}{400}$.
+\end{proof}
+
+The first step is the segment flow of Theorem~\ref{thm:main} for the groups, with $D=\Sigma_0$ (for this $D$,
+condition~\eqref{eq:lmi} is exactly $\Sigma_0\le p_1C_1$), so by Remark~\ref{rem:path}(a) the whole construction is one
+admissible path for Theorem~\ref{thm:path} with grouped blocks on its first piece. The data were found by
+semidefinite programming (Section~\ref{sec:num}); this construction was suggested by an independent referee of this
+note. Optimising $b$ gives $2.1949$ and $2.1931$ with $64$ and $128$ scalar pieces, which suggests about $2.191$ in the
+limit. For comparison (all numerical): along the straight segment, letting $\tilde D$ vary as in
+Remark~\ref{rem:path}(d) already gives $2.3148$ instead of $3$
+(\texttt{numerics/comparison\_segment\_varying\_D.py}); curved paths with scalar blocks give at best about
+$2.287$ ($2.2957$, $2.2913$ and $2.2891$ for $64$, $128$ and $256$ pieces; $\frac{229}{100}$ is certified the same way by
+\texttt{numerics/comparison\_path\_certificate.py 256 1657/2000 229/100}), since the optimal scalar paths are not
+straight: the correlation of $\xi_1$ and $\xi_2$ first decreases slightly. A discretised first stretch with frozen
+$c_{12}$ gives $\frac{221}{100}$ (\texttt{numerics/comparison\_multistage\_certificate.py GS 32 0.4,0.6 7929/10000
+221/100}). So most of the gain over Theorem~\ref{thm:main} comes from letting $\tilde D$ vary, and the rest from merging
+blocks. By Proposition~\ref{prop:away}, no such flow reaches $p^*$ here, nor any exponent close to it; numerically they
+bottom out near $2.191$.
+
+The second variation also shows that the necessary condition is not sufficient in general.
+
+\begin{proposition}\label{prop:notsuff}
+Let $n=2$, $k_j=1$, $\mathrm{cov}_{\Sigma_1}(\xi_1,\xi_2)=\rho\in[0,1)$ and
+$\mathrm{cov}_{\Sigma_0}(\xi_1,\xi_2)=\theta\in(\rho,1)$. Then $p^*=\frac{1+\theta}{1+\rho}$, and~\eqref{eq:comp} fails for
+every $p<\sup_{d\ge1}\frac{1+\theta^d}{1+\rho^d}$. If $(1+\theta)(1+\rho)>2$, this supremum exceeds $p^*$ (already the
+term $d=2$ does), so $\Sigma_0\le p\Sigma_1$ does not imply~\eqref{eq:comp}.
+\end{proposition}
+
+\begin{proof}
+$p\Sigma_1-\Sigma_0\ge0$ iff $|p\rho-\theta|\le p-1$. If $p\rho\le\theta$ this reads $p\ge\frac{1+\theta}{1+\rho}$; if
+$p\rho>\theta$ it reads $p(1-\rho)\ge1-\theta$, which holds for all $p\ge1$. Since $\frac{1+\theta}{1+\rho}\le\frac\theta\rho$,
+$p^*=\frac{1+\theta}{1+\rho}$. By Remark~\ref{rem:second},~\eqref{eq:comp} requires $p\Sigma_1^{\circ d}\ge\Sigma_0^{\circ d}$
+for every $d$, and the vector $(1,1)$ gives $p-1+p\rho^d-\theta^d\ge0$, i.e.\ $p\ge\frac{1+\theta^d}{1+\rho^d}$. Finally
+$(1+\theta^2)(1+\rho)-(1+\theta)(1+\rho^2)=(\theta-\rho)\big((1+\theta)(1+\rho)-2\big)$, which is positive under the
+hypothesis.
+\end{proof}
+
+For $\rho=0$ the hypothesis cannot hold, in accordance with the forward H\"older inequality. For instance, for
+$\theta=0.9$ and $\rho=0.5$ the supremum is attained at $d=4$, and~\eqref{eq:comp} fails on
+$[\frac{19}{15},1.5587\ldots)$. By Remark~\ref{rem:second}, $f_1=f_2=1+\varepsilon(y^2-1)/\sqrt2$ violates it for every
+$p<1.448$ once $\varepsilon$ is small enough (depending on $p$); the expansion there also holds for this unbounded
+perturbation, since $f_j\ge1-\varepsilon/\sqrt2>0$ and all moments are finite; quadrature confirms this at $p=\frac{19}{15}$ and
+$p=1.35$ (\texttt{numerics/comparison\_hermite\_scan.py}). Gaussian test functions do not detect the
+higher levels: for these $\theta,\rho$, a numerical optimisation over all $f_j=e^{a_jy-b_jy^2/2}$ finds no violation
+for $p\ge1.497$. The following proposition makes this rigorous at another point. The Hermite levels do not
+determine the threshold either: at $p=1.56$, where all levels are positive semi-definite (smallest margin
+$0.0014$, at $d=4$), an optimised non-Gaussian pair $f_1,f_2$ violates~\eqref{eq:comp} by $4\cdot10^{-6}$ in the
+logarithm, stably under refinement of the quadrature, while nothing is found for $p\ge1.6$
+(\texttt{numerics/comparison\_n2\_forward\_attack.py}; floating point). So for $\theta=0.9$, $\rho=0.5$
+there is a violation at $p=1.56$ and none was found for $p\ge1.6$ (floating point), while Proposition~\ref{prop:holder}
+only gives $p\ge3.8$ and Theorem~\ref{thm:path} $p\ge5$.
+
+In the setting of Corollary~\ref{cor:IK} the correlations of $\Sigma_0=X\Sigma X+\Id-X^2$ are no larger in absolute
+value than those of $\Sigma$, so Proposition~\ref{prop:notsuff} does not apply there. In $196515$ random instances of
+that setting with $n\in\{3,4\}$ all levels $2\le d\le8$ of Remark~\ref{rem:second} were positive semi-definite at $p^*$
+(\texttt{numerics/comparison\_hermite\_scan.py}), and a targeted minimisation of the smallest level margin for
+$n\le5$, with $\lambda_{\min}(\Sigma)\ge0.05$, found only positive values
+(\texttt{numerics/comparison\_hermite\_target.py}).
+
+\begin{proposition}\label{prop:gauss}
+Let $n=2$, $k_j=1$, $\mathrm{cov}_{\Sigma_1}(\xi_1,\xi_2)=\frac35$, $\mathrm{cov}_{\Sigma_0}(\xi_1,\xi_2)=\frac{93}{100}$ and
+$p=\frac32$. Then every Gaussian test function $f_j(y)=c_je^{a_jy-b_jy^2/2}$ ($c_j>0$, $a_j,b_j\in\R$)
+satisfies~\eqref{eq:comp}, but~\eqref{eq:comp} fails for some measurable $f_j$ with values in $[\frac12,\frac32]$. So
+Gaussian functions are not extremal for~\eqref{eq:comp}.
+\end{proposition}
+
+Inequalities of Brascamp--Lieb type bound a multilinear Gaussian form by a product of norms of the individual
+functions, and under the hypotheses of~\cite{Lieb90,BW22,CL21,NT25} Gaussian functions are extremal for them.
+Inequality~\eqref{eq:comp} compares two multilinear forms; unless $\Sigma_1=\Id$ its right side is not a product of
+norms, and these results do not apply. The functions in Proposition~\ref{prop:gauss} are not log-concave; whether
+Gaussian functions are extremal for~\eqref{eq:comp} among log-concave $f_j$, the setting of~\cite{MNT26}, is open.
+
+\begin{proof}[Proof (computer-assisted: exact arithmetic and ball arithmetic)]
+Write $\theta=\frac{93}{100}$, $\rho=\frac35$. Here $p^*=\frac{193}{160}<\frac32$, and
+$(p-1)+p\rho^5-\theta^5=-\frac{790483693}{10^{10}}<0$, so~\eqref{eq:comp} fails by Proposition~\ref{prop:notsuff} (level
+$d=5$; the bounded perturbations $1+\varepsilon g$ of Remark~\ref{rem:second} take values in $[\frac12,\frac32]$ for
+small $\varepsilon$).
+
+Let $B=\mathrm{diag}(b_1,b_2)$, $K_0=\Sigma_0^{-1}+B$ and $K_1=\Sigma_1^{-1}+pB$. If $K_1$ is not positive definite,
+the right side of~\eqref{eq:comp} is infinite. Otherwise $K_0\ge\frac1pK_1>0$, because $\Sigma_0\le p\Sigma_1$, and
+Gaussian integrals give
+\[
+\log\frac{\E_{\Sigma_0}[f_1f_2]}{\|f_1f_2\|_{L^p(\Sigma_1)}}=\frac12\Big(\frac1p\log\det(\Id+p\Sigma_1B)
+-\log\det(\Id+\Sigma_0B)\Big)+\frac12a^T\big(K_0^{-1}-pK_1^{-1}\big)a ,
+\]
+where the last term is $\le0$. With $A(b)=\det(\Id+\Sigma_0B)=1+b_1+b_2+\frac{1351}{10^4}b_1b_2$ and
+$\tilde B(b)=\det(\Id+p\Sigma_1B)=1+\frac32(b_1+b_2)+\frac{36}{25}b_1b_2$, it remains to show
+$P=A^3-\tilde B^2\ge0$ on $\mathcal D=\{b:K_1>0\}$. In the variables $u_i=b_i+\frac{25}{24}$,
+$\mathcal D=\{u_1,u_2>0,\ u_1u_2>\frac{25}{64}\}$, $\tilde B=\frac{36}{25}u_1u_2-\frac9{16}$, and
+$A=\kappa u_1u_2+\frac{8249}{9600}(u_1+u_2)-\frac{8633}{9216}$ with $\kappa=\frac{1351}{10^4}$. Since
+$u_1+u_2\ge\frac54$ on $\mathcal D$, $A\ge\kappa u_1u_2+0.137$ there. On the boundary $\tilde B=0$, so $P=A^3>0$.
+Along any sequence in $\mathcal D$ with $|u|\to\infty$, $P\to\infty$: where $u_1u_2$ stays bounded, $\tilde B$ stays bounded
+and $A\to\infty$; where $u_1u_2\to\infty$, $P\ge\kappa^3(u_1u_2)^3-(\frac{36}{25}u_1u_2)^2$. So if $\inf_{\mathcal D}P\le0$,
+it is attained at a critical point of $P$ in $\mathcal D$. The partial derivatives of $P$ are coprime, and a
+lexicographic Gr\"obner basis of the ideal they generate is $\{b_2+d(b_1),\,h(b_1)\}$ with $\deg h=9$. The
+polynomial $h$ has exactly three real roots, isolated in exact arithmetic. They give the critical points $(0,0)$,
+where $P=0$; $b\approx(-0.3024,-0.3024)\in\mathcal D$, where $P\in0.0173028661872\pm2\cdot10^{-14}$; and
+$b\approx(-39.83,-39.83)\notin\mathcal D$. Hence $P\ge0$ on $\mathcal D$
+(\texttt{numerics/certify\_gaussian\_not\_extremal.py}).
+\end{proof}
+
+\section{Preliminaries}
+Let $\cS$ be the set of $C^\infty$ functions $f$ on some $\R^k$ with $\inf f>0$ such that $f$ and all its derivatives
+are bounded. If $g$ is measurable with values in $[\varepsilon,M]$, $0<\varepsilon<M<\infty$, and $s\in[0,1)$, then
+$T_sg\in\cS$: differentiate the Gaussian density in $T_sg(y)=\int g(w)\phi_{1-s^2}(w-sy)\,dw$ for $s>0$, where
+$\phi_v$ is the density of $N(0,v\Id_k)$ (for $s=0$, $T_0g$ is constant).
+
+\emph{Gaussian calculus.} Let $C(h)$, $h\in(h_0,h_1)$, be a $C^1$ family of positive definite $K\times K$ matrices, and
+let $H$ be a $C^2$ function on $\R^K$ which, with its derivatives up to order two, is bounded. Then
+\begin{equation}\label{eq:interp}
+\frac{d}{dh}\E_{C(h)}H(\zeta)=\frac12\sum_{a,b}\dot C_{ab}(h)\,\E_{C(h)}\big[\partial_a\partial_bH(\zeta)\big],
+\end{equation}
+by the heat equation $\partial_h\phi_{C(h)}=\frac12\sum_{a,b}\dot C_{ab}\partial_a\partial_b\phi_{C(h)}$ for the
+Gaussian density (compare Fourier transforms) and two integrations by parts. If $\dot C$ has zero diagonal blocks and
+$H(\zeta)=\prod_jG_j(\zeta_j)$ with $G_j\in\cS$, this reads
+\begin{equation}\label{eq:drho}
+\frac{d}{dh}\E_{C(h)}\Big[\prod_jG_j(\zeta_j)\Big]=\sum_{i<j}\E_{C(h)}\Big[\big\langle\nabla G_i(\zeta_i),
+\dot C_{ij}\nabla G_j(\zeta_j)\big\rangle\prod_{l\ne i,j}G_l(\zeta_l)\Big].
+\end{equation}
+
+\emph{Entropy.} For a random variable $W>0$ with $\E W\log W<\infty$ put $\Ent(W)=\E W\log W-\E W\log\E W\ge0$. If
+$\eta$ is a random vector, then $\Ent(W)=\E[\Ent(W\,|\,\eta)]+\Ent(\E[W\,|\,\eta])\ge\E[\Ent(W\,|\,\eta)]$. If
+$W=\prod_jW_j$ with independent $W_j>0$, then $\Ent(W)=\sum_j\Ent(W_j)\prod_{l\ne j}\E W_l$ (expand $\log W$).
+
+\section{A weighted reverse log-Sobolev inequality}
+\begin{lemma}\label{lem:rlsi}
+Let $\zeta$ be a centred Gaussian vector on $\R^K$ with covariance $C$, let $D=\mathrm{diag}(D_1,\dots,D_n)$ be
+block-diagonal and positive semi-definite with $C\ge D$, and let $B$ be symmetric with zero diagonal blocks and
+$D+B\ge0$. Then for $\Psi_j\in\cS$ on $\R^{k_j}$,
+\begin{equation}\label{eq:rlsi}
+\Ent\Big(\prod_j\Psi_j(\zeta_j)\Big)\ \ge\ -\sum_{i<j}\E\Big[\big\langle\nabla\Psi_i(\zeta_i),B_{ij}\nabla\Psi_j(\zeta_j)
+\big\rangle\prod_{l\ne i,j}\Psi_l(\zeta_l)\Big].
+\end{equation}
+\end{lemma}
+
+For $D=\lambda\Id$ this is~\cite[Lemma~1.6]{FR}; the proof is the same.
+
+\begin{proof}
+\emph{One Gaussian.} Let $\nu$ be the law of $m+A^{1/2}G$, $G\sim\gamma_k$, with $A\ge0$, and let $\Psi\in\cS$. For
+$h(w)=\langle\theta,w-m\rangle$ the entropy inequality $\E_\nu[\Psi h]\le\Ent_\nu(\Psi)+\E_\nu\Psi\log\E_\nu e^h$
+holds, $\E_\nu e^h=e^{\langle A\theta,\theta\rangle/2}$, and Gaussian integration by parts in $G$ gives
+$\E_\nu[\Psi(w)(w-m)]=A\,\E_\nu\nabla\Psi$. With $\theta=\E_\nu\nabla\Psi/\E_\nu\Psi$ we obtain
+\begin{equation}\label{eq:onegauss}
+\Ent_\nu(\Psi)\ \ge\ \frac{\langle A\,\E_\nu\nabla\Psi,\E_\nu\nabla\Psi\rangle}{2\,\E_\nu\Psi}.
+\end{equation}
+
+\emph{Conditioning.} Write $\zeta=\eta+\omega$ with $\eta\sim N(0,C-D)$ and $\omega\sim N(0,D)$ independent. Since $D$
+is block-diagonal, given $\eta$ the blocks $\zeta_j=\eta_j+\omega_j$ are independent with laws $N(\eta_j,D_j)$. Put
+$u_j(\eta_j)=\E[\Psi_j(\zeta_j)\,|\,\eta]$, so that $u_j\ge\inf\Psi_j>0$, $u_j$ is $C^1$ and
+$\nabla u_j(\eta_j)=\E[\nabla\Psi_j(\zeta_j)\,|\,\eta]$. Put $\beta_j=\nabla u_j/u_j$, $\beta=(\beta_1,\dots,\beta_n)$
+and $U=\prod_ju_j(\eta_j)$. By the facts on entropy and~\eqref{eq:onegauss} with $A=D_j$,
+\[
+\Ent\Big(\prod_j\Psi_j(\zeta_j)\Big)\ \ge\ \E\Big[\sum_j\Ent\big(\Psi_j(\zeta_j)\,\big|\,\eta\big)\prod_{l\ne j}u_l(\eta_l)\Big]
+\ \ge\ \frac12\,\E\big[U\,\beta^TD\beta\big].
+\]
+By conditional independence, and since $B$ has zero diagonal blocks, the sum on the right of~\eqref{eq:rlsi} without
+the minus sign equals $\sum_{i<j}\E[U\langle\beta_i,B_{ij}\beta_j\rangle]=\frac12\E[U\beta^TB\beta]$. Finally
+$\beta^TD\beta\ge-\beta^TB\beta$ pointwise, because $D+B\ge0$.
+\end{proof}
+
+\section{Proof of Theorem~\ref{thm:main}}
+\subsection{The flow}
+Let $f_j\in\cS$. For $q>0$ and $C\in\mathcal C$ put
+\[
+W=\prod_jf_j(\zeta_j)^q,\qquad\Phi(q,C)=\frac1q\log\E_CW,\qquad a_j=\frac{\nabla f_j}{f_j}(\zeta_j),\quad
+a=(a_1,\dots,a_n).
+\]
+Let $C(h)$ be a $C^1$ family in $\mathcal C$ of positive definite matrices and $q(h)$ a $C^1$ positive function. Then
+\begin{equation}\label{eq:deriv}
+q^2\,\E W\,\frac{d}{dh}\Phi\big(q(h),C(h)\big)=\dot q\,\Ent(W)+\frac{q^3}2\,\E\big[W\,a^T\dot C a\big],
+\end{equation}
+all expectations with respect to $C(h)$. Indeed,
+$\partial_q\Phi=-\frac1{q^2}\log\E W+\frac1q\E[W\sum_j\log f_j]/\E W=\Ent(W)/(q^2\E W)$, since
+$\log W=q\sum_j\log f_j$. And $\dot C$ has zero diagonal blocks, so~\eqref{eq:drho} with $G_j=f_j^q$,
+$\nabla G_j=qG_ja_j$, gives $\frac{d}{dh}\E_{C(h)}W=\frac{q^2}2\E[Wa^T\dot Ca]$ at fixed $q$. All functions involved
+are bounded with bounded derivatives, so the differentiations are justified.
+
+\subsection{The path}\label{sec:segment}
+Let $D$ satisfy~\eqref{eq:lmi}. For $h\in[0,1]$ put
+\[
+C(h)=(1-h)\Sigma_0+h\Sigma_1,\qquad m(h)=1-h\Big(1-\frac1p\Big),\qquad q(h)=\frac1{m(h)} .
+\]
+Then $C(h)\in\mathcal C$, $C(h)\ge h\Sigma_1$ is positive definite for $h>0$, $q(0)=1$ and $q(1)=p$. Moreover:
+\begin{enumerate}[label=(P\arabic*)]
+\item $C(h)\ge m(h)D$. The difference is affine in $h$; at $h=0$ it is $\Sigma_0-D\ge0$, and at $h=1$ it is
+$\Sigma_1-\frac1pD=\big(\Sigma_1-\Sigma_0+(1-\frac1p)D\big)+(\Sigma_0-D)\ge0$, by both halves of~\eqref{eq:lmi}.
+\item With $\kappa(h)=\frac{p\,m(h)}{p-1}$ and $B=\kappa(h)(\Sigma_1-\Sigma_0)$, which has zero diagonal blocks,
+$m(h)D+B=m(h)\big(D-\frac p{p-1}(\Sigma_0-\Sigma_1)\big)\ge0$.
+\item $\dot q\,\kappa=q$: indeed $\dot q=(1-\frac1p)/m^2$, so $\dot q\kappa=\frac{(p-1)/p}{m^2}\cdot\frac{pm}{p-1}=\frac1m$.
+\end{enumerate}
+
+\subsection{Monotonicity}\label{sec:mono}
+Let $h\in(0,1)$ and $\Lambda=q^2\E W\frac{d}{dh}\Phi(q(h),C(h))$. By~\eqref{eq:deriv} with $\dot C=\Sigma_1-\Sigma_0$,
+\[
+\Lambda=\dot q\,\Ent(W)+\frac{q^3}2\,G,\qquad G=\E\big[W\,a^T(\Sigma_1-\Sigma_0)a\big].
+\]
+Apply Lemma~\ref{lem:rlsi} with covariance $C(h)$, the block-diagonal matrix $m(h)D$ (admissible by (P1) and
+Remark~\ref{rem:basic}(a)), the matrix $B$ of (P2), and $\Psi_j=f_j^q$. Since $\nabla\Psi_j=q\Psi_ja_j$, the right side
+of~\eqref{eq:rlsi} is $-q^2\sum_{i<j}\E[W\langle a_i,B_{ij}a_j\rangle]=-\frac{q^2}2\E[Wa^TBa]=-\frac{\kappa q^2}2G$.
+Hence $\Ent(W)\ge-\frac{\kappa q^2}2G$, whatever the sign of $G$, and since $\dot q>0$, (P3) gives
+\[
+\Lambda\ \ge\ \frac{q^2G}2\,(q-\dot q\kappa)=0 .
+\]
+So $h\mapsto\Phi(q(h),C(h))$ is non-decreasing on $(0,1)$. It is continuous on $[0,1]$: $q$ is continuous, the
+integrands $\prod_jf_j^q$ are bounded and continuous, and $N(0,C(h))$ depends weakly continuously on $h$. Therefore
+\[
+\log\E_{\Sigma_0}\Big[\prod_jf_j(\xi_j)\Big]=\Phi(1,\Sigma_0)\le\Phi(p,\Sigma_1)=\log\Big\|\prod_jf_j(\xi_j)\Big\|_{L^p(\Sigma_1)},
+\]
+which is~\eqref{eq:comp} for $f_j\in\cS$.
+
+\subsection{Approximation}\label{sec:approx}
+Let $f_j:\R^{k_j}\to[\varepsilon,M]$ be measurable, $0<\varepsilon<M<\infty$, and $f_j^\delta=T_{1-\delta}f_j\in\cS$ for
+$\delta\in(0,1)$. As $\delta\to0$, $f_j^\delta\to f_j$ in $L^2(\gamma_{k_j})$ ($T_s\to\Id$ strongly on $L^2$), hence in
+$\gamma_{k_j}$-probability. Under both $\Sigma_0$ and $\Sigma_1$ each $\xi_j$ has law $\gamma_{k_j}$, so
+$\prod_jf_j^\delta(\xi_j)\to\prod_jf_j(\xi_j)$ in probability, and all values lie in $[\varepsilon^n,M^n]$. Dominated
+convergence carries~\eqref{eq:comp} from $f_j^\delta$ to $f_j$. For general measurable $f_j\ge0$ apply this to
+$\max\{\varepsilon,\min\{f_j,M\}\}$, let $\varepsilon\downarrow0$ (dominated convergence, values in $[0,M+1]$), and
+then $M\uparrow\infty$ (monotone convergence on both sides).
+
+\subsection{Necessity}
+For $f_j=e^{\langle a_j,\cdot\rangle}$, $\E_{\Sigma_0}e^{\langle a,\xi\rangle}=e^{a^T\Sigma_0a/2}$ and
+$\|e^{\langle a,\xi\rangle}\|_{L^p(\Sigma_1)}=e^{pa^T\Sigma_1a/2}$. So~\eqref{eq:comp} forces $\Sigma_0\le p\Sigma_1$.
+If $D$ satisfies~\eqref{eq:lmi}, then $D\le\Sigma_0$ and $\Sigma_1-\Sigma_0+(1-\frac1p)D\ge0$ give
+$\Sigma_1-\frac1p\Sigma_0\ge\Sigma_1-\Sigma_0+(1-\frac1p)D\ge0$.\qed
+
+\subsection{Curved paths}\label{sec:paths}
+The argument uses neither the linearity of the path nor the constancy of $D$. We parametrise by $s=\log q$.
+
+\begin{theorem}\label{thm:path}
+Let $\Sigma_0,\Sigma_1\in\mathcal C$ and $T>0$. Let $C:[0,T]\to\mathcal C$ be continuous and piecewise $C^1$, with
+finitely many pieces, $C(0)=\Sigma_0$, $C(T)=\Sigma_1$, and $C(s)$ positive definite for $0<s\le T$. Suppose that
+for every $s$ in the interior of a piece there is a block-diagonal matrix $\tilde D(s)$ with
+\begin{equation}\label{eq:pathcond}
+0\le\tilde D(s)\le C(s),\qquad C'(s)+\tilde D(s)\ge0 .
+\end{equation}
+Then~\eqref{eq:comp} holds with $p=e^T$ for all measurable $f_j\ge0$. This remains true if, on some pieces, the
+blocks are grouped: for a partition of $\{1,\dots,n\}$ into groups such that the diagonal blocks of $C(s)$ belonging to
+the groups are constant on the piece, $\tilde D(s)$ may be block-diagonal for the groups.
+\end{theorem}
+
+\begin{proof}
+Let $f_j\in\cS$ and $\tilde\Phi(s)=\Phi(e^s,C(s))$. In the interior of a piece,~\eqref{eq:deriv} with $q=e^s$ and
+$\dot q=q$ gives $q^2\E W\,\tilde\Phi'(s)=q\Ent(W)+\frac{q^3}2\E[Wa^TC'(s)a]$. The matrix $C'(s)$ has zero diagonal
+blocks, so Lemma~\ref{lem:rlsi} applies with covariance $C(s)$, the matrix $\tilde D(s)$, $B=C'(s)$ and
+$\Psi_j=f_j^q$, and gives $\Ent(W)\ge-\frac{q^2}2\E[Wa^TC'(s)a]$. Hence $\tilde\Phi'(s)\ge0$. On a piece with grouped
+blocks, $C'(s)$ has zero diagonal blocks for the groups, and Lemma~\ref{lem:rlsi}, which does not need identity
+diagonal blocks, applies in the same way to the grouped blocks with $\Psi_G=\prod_{j\in G}f_j^q$. The function
+$\tilde\Phi$ is continuous on $[0,T]$, also at a singular $\Sigma_0$: as $s\to s_0$, $\prod_jf_j^{e^s}\to\prod_jf_j^{e^{s_0}}$
+uniformly, with values in a fixed compact subset of $(0,\infty)$, and $N(0,C(s))\to N(0,C(s_0))$ weakly. By the mean
+value theorem on each closed piece, $\tilde\Phi(0)\le\tilde\Phi(T)$, which is~\eqref{eq:comp} with $p=e^T$ for
+$f_j\in\cS$; Section~\ref{sec:approx} gives the general case.
+\end{proof}
+
+\begin{remark}\label{rem:path}
+(a) Theorem~\ref{thm:main} is the case of the segment. With $q=e^s=1/m(h)$, the path of Section~\ref{sec:segment} has
+$dC/ds=\kappa(\Sigma_1-\Sigma_0)$, and $\tilde D=m(h)D$ satisfies~\eqref{eq:pathcond} by (P1) and (P2).
+
+(b) Along an admissible path, $C+C'=(C-\tilde D)+(C'+\tilde D)\ge0$, so $s\mapsto e^sC(s)$ is non-decreasing and
+$\Sigma_0\le e^T\Sigma_1$. Let $T=\log p^*$ and $\Sigma_0v=p^*\Sigma_1v$. Then $e^sv^TC(s)v$ is non-decreasing with
+equal values at $s=0$ and $s=T$, hence constant, so $v^T(C-\tilde D)v=0$ and $(C(s)-\tilde D(s))v=0$ in the interiors
+of the pieces. For scalar blocks and $v$ without zero entries this forces $\tilde D(s)=\mathrm{diag}(C(s)v/v)$, and
+letting $s\to0$ gives $\Sigma_0\ge\mathrm{diag}(\Sigma_0v/v)$. In Proposition~\ref{prop:example} this fails
+($\Sigma_0-\mathrm{diag}(\frac54,\frac54,1)$ has the eigenvalue $-\frac12$), so no admissible path with scalar blocks
+has $T=\log p^*$.
+
+(c) For $n=2$ and $k_j=1$, write $c(s)$ for the correlation. Some $\tilde D(s)$ satisfies~\eqref{eq:pathcond} iff
+$|c'(s)|\le1-|c(s)|$. Indeed $\tilde D=(1-|c|)\Id$ works then, and conversely
+$|c'|^2\le\tilde D_{11}\tilde D_{22}=(1-u_1)(1-u_2)\le(1-\sqrt{u_1u_2})^2\le(1-|c|)^2$, where
+$u_i=1-\tilde D_{ii}\in[0,1]$ and $u_1u_2\ge c^2$. So paths raise a correlation from $c_0\ge0$ to $c_1\in[c_0,1)$ iff
+$p\ge\frac{1-c_0}{1-c_1}$, which is sharp (Corollary~\ref{cor:sharp}(a)), and lower it from $\theta\in(0,1)$ to $0$
+iff $p\ge\frac1{1-\theta}$. The sharp exponent for lowering is $1+\theta$ (Remark~\ref{rem:forward}), while the
+segment of Theorem~\ref{thm:main} needs $p\ge\frac{1-\theta}{1-2\theta}$ and $\theta<\frac12$.
+
+(d) Along the segment $C(h)=(1-h)\Sigma_0+h\Sigma_1$ traversed at speed $dh/ds=1/\sigma(h)$, condition~\eqref{eq:pathcond}
+reads $\sigma(h)\tilde D\ge\Sigma_0-\Sigma_1$. So~\eqref{eq:comp} holds with $p=\exp\int_0^1\sigma(h)\,dh$ whenever $\sigma>0$
+is piecewise continuous and for each $h$ some block-diagonal $\tilde D$ with $0\le\tilde D\le C(h)$ satisfies
+$\sigma(h)\tilde D\ge\Sigma_0-\Sigma_1$. Taking $\tilde D=m(h)D$ gives $\sigma=(1-\frac1p)/m(h)$, with integral $\log p$:
+this is Theorem~\ref{thm:main}. For $n=2$ every admissible path is a reparametrised segment, so the gain in (c) over
+Theorem~\ref{thm:main} comes entirely from letting $\tilde D$ vary.
+\end{remark}
+
+\begin{remark}\label{rem:groups}
+In Proposition~\ref{prop:example} the grouped form of Theorem~\ref{thm:path} removes the obstruction of
+Remark~\ref{rem:path}(b) at $s=0$: for the groups $G=\{1,2\}$ and $\{3\}$ one may take $\tilde D=\Sigma_0$. It does
+not make $p^*$ reachable there. On a lossless path, $\tilde D(s)v=C(s)v$ and $(C'(s)+\tilde D(s))v=0$, so $C'v=-Cv$.
+On a piece with the groups $G,\{3\}$ we have $C'_{GG}=0$, and comparing the two components of $C'v=-Cv$ gives
+$v_G^TC_{GG}v_G=v_3^2$. On the first piece $C_{GG}=(\Sigma_0)_{GG}$, and
+$v_G^T(\Sigma_0)_{GG}v_G=\frac52\ne\frac{21+\sqrt{41}}8=v_3^2$ for $v=(1,1,-\frac{1+\sqrt{41}}4)$. The other block
+structures fail on the first piece as well: for the groups $\{1,3\},\{2\}$ the second component of
+$\tilde D(s)v=C(s)v$ gives $\tilde D_{22}(s)=(C(s)v)_2/v_2\to\frac54$ as $s\to0$, while $\tilde D_{22}\le C_{22}=1$
+(similarly for $\{2,3\},\{1\}$); and for a single group $C'=0$ on the piece, so the two identities give $C(s)v=0$,
+which is impossible. Since the path has finitely many pieces, no admissible path, with any choice of block
+structures, has $T=\log p^*$ in Proposition~\ref{prop:example}. The following proposition makes this quantitative.
+\end{remark}
+
+\begin{proposition}\label{prop:away}
+In Proposition~\ref{prop:example} there is $\varepsilon>0$ such that every admissible path in the sense of
+Theorem~\ref{thm:path}, with any block structures on its pieces, has $e^T\ge p^*+\varepsilon$.
+\end{proposition}
+
+\begin{proof}
+For a partition $\sigma$ of $\{1,2,3\}$ into groups and $C\in\mathcal C$, let $\mathcal A_\sigma(C)$ be the set of pairs
+$(V,\tilde D)$ with $V$ symmetric with zero diagonal blocks for $\sigma$, $\tilde D$ block-diagonal for $\sigma$,
+$0\le\tilde D\le C$ and $V+\tilde D\ge0$. It is compact, since $\tilde D_{ii}\le C_{ii}=1$ and the $2\times2$ minors of
+$V+\tilde D$ give $|V_{ij}|\le(\tilde D_{ii}\tilde D_{jj})^{1/2}\le1$, and $\{(C,V,\tilde D):(V,\tilde D)\in\mathcal A_\sigma(C)\}$
+is closed. Let $v=(1,1,-\frac{1+\sqrt{41}}4)$, so $\Sigma_0v=p^*\Sigma_1v$, and put
+\[
+m(C)=\min\big\{v^T(C+V)v:\ \sigma,\ (V,\tilde D)\in\mathcal A_\sigma(C)\big\}.
+\]
+Since $v^T(C+V)v=v^T(C-\tilde D)v+v^T(V+\tilde D)v$, we have $m\ge0$; the minimum exists, since $(0,0)\in\mathcal A_\sigma(C)$, and $m$ is lower semicontinuous, since the
+bounds above do not depend on $C$ and the graphs are closed.
+Moreover $m(\Sigma_0)>0$: otherwise some $\sigma$ and $(V,\tilde D)\in\mathcal A_\sigma(\Sigma_0)$ have $(\Sigma_0-\tilde D)v=0$
+and $(V+\tilde D)v=0$, i.e.\ $\tilde Dv=\Sigma_0v$ and $Vv=-\Sigma_0v$. For scalar blocks this forces
+$\tilde D=\mathrm{diag}(\frac54,\frac54,1)\not\le\Sigma_0$; for the groups $\{1,2\},\{3\}$, the components of
+$Vv=-\Sigma_0v$ give $v_G^T(\Sigma_0)_{GG}v_G=v_3^2$, which is false; for $\{1,3\},\{2\}$ (resp.\ $\{2,3\},\{1\}$) the second
+(resp.\ first) component of $\tilde Dv=\Sigma_0v$ gives $\tilde D_{22}=\frac54$ (resp.\ $\tilde D_{11}=\frac54$),
+contradicting $\tilde D\le\Sigma_0$; and for a single group $V=0$
+gives $\Sigma_0v=0$ (all as in Remarks~\ref{rem:path}(b) and~\ref{rem:groups}). Choose $\delta\in(0,\log p^*]$ with
+$m(C)\ge\eta:=\frac12m(\Sigma_0)$ whenever $C\in\mathcal C$ and $\max_{ij}|C_{ij}-(\Sigma_0)_{ij}|\le\delta$.
+
+Along an admissible path, $(C'(s),\tilde D(s))\in\mathcal A_\sigma(C(s))$ in the interior of each piece, so
+$|C'_{ij}|\le1$ and $\max_{ij}|C_{ij}(s)-(\Sigma_0)_{ij}|\le s$. The function $s\mapsto e^sv^TC(s)v$ is continuous,
+piecewise $C^1$, with derivative $e^sv^T(C+C')v\ge0$; comparing its values at $0$ and $T$ gives $e^T\ge p^*$, so
+$T\ge\delta$. Hence
+\[
+e^Tv^T\Sigma_1v-v^T\Sigma_0v=\int_0^Te^sv^T(C(s)+C'(s))v\,ds\ \ge\ \int_0^\delta m(C(s))\,ds\ \ge\ \eta\delta ,
+\]
+and $e^T\ge p^*+\eta\delta/(v^T\Sigma_1v)$. The argument does not give an explicit $\varepsilon$; numerically the best
+value is about $0.016$ (see after Proposition~\ref{prop:certificate}).
+\end{proof}
+
+\section{Proofs of the corollaries}
+\begin{lemma}\label{lem:forced}
+Let $p=p^*>1$ and let $v\ne0$ satisfy $\Sigma_0v=p^*\Sigma_1v$. If $D$ satisfies~\eqref{eq:lmi} at $p=p^*$, then
+$Dv=\Sigma_0v$.
+\end{lemma}
+
+\begin{proof}
+Using $v^T\Sigma_1v=v^T\Sigma_0v/p^*$, we get $v^T\big(D-\frac{p^*}{p^*-1}(\Sigma_0-\Sigma_1)\big)v
+=v^TDv-\frac{p^*}{p^*-1}\big(1-\frac1{p^*}\big)v^T\Sigma_0v=-v^T(\Sigma_0-D)v$. Both
+$D-\frac{p^*}{p^*-1}(\Sigma_0-\Sigma_1)$ and $\Sigma_0-D$ are positive semi-definite, so $v^T(\Sigma_0-D)v=0$ and
+hence $(\Sigma_0-D)v=0$.
+\end{proof}
+
+\begin{lemma}\label{lem:Z}
+Let $A$ be a real symmetric $n\times n$ matrix with $A_{ij}\le0$ for $i\ne j$, and let $v\in\R^n$ have positive
+entries with $Av=0$. Then $A\ge0$.
+\end{lemma}
+
+\begin{proof}
+For $w\in\R^n$, using $A_{ii}v_i=-\sum_{j\ne i}A_{ij}v_j$ and the symmetry of $A$,
+$w^TAw=-\frac12\sum_{i\ne j}A_{ij}v_iv_j\big(\frac{w_i}{v_i}-\frac{w_j}{v_j}\big)^2\ge0$.
+\end{proof}
+
+\begin{proof}[Proof of Corollary~\ref{cor:sharp}]
+In each case necessity is part of Theorem~\ref{thm:main}, and for $p\ge p^*$ it suffices, by
+Remark~\ref{rem:basic}(b), to find $D$ satisfying~\eqref{eq:lmi}, or $S$ satisfying~\eqref{eq:holder}, at
+$p=p^*$, if $p^*>1$. If $p^*=1$ then $\Sigma_0=\Sigma_1$, and~\eqref{eq:comp} is Lyapunov's inequality.
+
+(a) Let $\lambda=\lambda_{\min}(\Sigma_1)>0$. The eigenvalues of $\Sigma_0$ are $1-t+t\sigma$, $\sigma$ an eigenvalue
+of $\Sigma_1$, with the same eigenvectors, and $(1-t+t\sigma)/\sigma$ decreases in $\sigma$. So $\Sigma_0\le p\Sigma_1$
+iff $1-t+t\lambda\le p\lambda$. Assume this with $p>1$, and let $D=d\,\Id$ with $d=1-t+t\lambda$. Then
+$\Sigma_0-D=t(\Sigma_1-\lambda\Id)\ge0$, and $\frac p{p-1}(\Sigma_0-\Sigma_1)=\frac p{p-1}(1-t)(\Id-\Sigma_1)
+\le\frac p{p-1}(1-t)(1-\lambda)\Id$. The last bound is $\le d\,\Id$ iff
+$p(1-t)(1-\lambda)\le(p-1)(1-t+t\lambda)$, i.e.\ iff $1-t+t\lambda\le p\lambda$.
+
+(b) Conjugating by $\mathrm{diag}(\varepsilon_j)$ (that is, replacing $\xi_j$ by $\varepsilon_j\xi_j$ and $f_j$ by
+$f_j(\varepsilon_j\,\cdot)$) we may assume $(\Sigma_1)_{ij}\le(\Sigma_0)_{ij}\le0$ for $i\ne j$. If
+$(\Sigma_1)_{ij}=0$ then $(\Sigma_0)_{ij}=0$. So if the graph $\mathcal G$ on $\{1,\dots,n\}$ with edges
+$\{(\Sigma_1)_{ij}\ne0\}$ is disconnected, the coordinates in different components are independent under both
+measures, both sides of~\eqref{eq:comp} factorise over components, and $\Sigma_0\le p\Sigma_1$ holds iff it holds on
+each component. So let $\mathcal G$ be connected, and let $p^*>1$. Put $N=p^*\Sigma_1-\Sigma_0\ge0$; it is singular.
+For $i\ne j$, $N_{ij}=p^*(\Sigma_1)_{ij}-(\Sigma_0)_{ij}\le(\Sigma_1)_{ij}-(\Sigma_0)_{ij}\le0$, with
+$N_{ij}<0$ whenever $(\Sigma_1)_{ij}<0$. So $sI-N$ is entrywise non-negative and irreducible for large $s$, and by the
+Perron--Frobenius theorem its largest eigenvalue, $s-\lambda_{\min}(N)=s$, is simple with an eigenvector $v$ having
+positive entries. Thus $Nv=0$, i.e.\ $\Sigma_0v=p^*\Sigma_1v$. Let $D=\mathrm{diag}\big((\Sigma_0v)_i/v_i\big)$.
+Then $(\Sigma_0-D)v=0$, and $\Sigma_0-D$ has non-positive off-diagonal entries, so $\Sigma_0-D\ge0$ by
+Lemma~\ref{lem:Z}. Next, $A'=\Sigma_1-\Sigma_0+(1-\frac1{p^*})D$ has the off-diagonal entries
+$(\Sigma_1-\Sigma_0)_{ij}\le0$, and $A'v=\Sigma_1v-\frac1{p^*}\Sigma_0v=0$; so $A'\ge0$ by Lemma~\ref{lem:Z}.
+Multiplying by $\frac{p^*}{p^*-1}$ gives the left half of~\eqref{eq:lmi} at $p=p^*$.
+
+(c) The eigenvalues of a symmetric matrix $\begin{psmallmatrix}a\Id&B\\B^T&a\Id\end{psmallmatrix}$ are among $a$ and
+$a\pm\sigma_i$, $\sigma_i$ the singular values of $B$, and $a\pm\sigma_{\max}$ occur. Hence $\lambda_{\max}(\Sigma_0)=1+|t|\,\|C\|$,
+$\lambda_{\min}(\Sigma_1)=1-\|C\|$, and $p\Sigma_1-\Sigma_0\ge0$ iff $|p-t|\,\|C\|\le p-1$. For $t\le0$ this reads
+$1+|t|\,\|C\|\le p(1-\|C\|)$, i.e.\ $\lambda_{\max}(\Sigma_0)\le p\lambda_{\min}(\Sigma_1)$, and
+Proposition~\ref{prop:holder} applies.
+\end{proof}
+
+\begin{proof}[Proof of Corollary~\ref{cor:IK}]
+Let $A_j\sim\gamma_{k_j}$ be independent of each other and of $\xi\sim N(0,\Sigma)$. Then
+$\prod_jT_{x_j}f_j(\xi_j)=\E[\prod_jf_j(x_j\xi_j+\sqrt{1-x_j^2}A_j)\,|\,\xi]$, and the vector
+$(x_j\xi_j+\sqrt{1-x_j^2}A_j)_j$ has covariance $X\Sigma X+\Id-X^2=\Sigma_0\in\mathcal C$. By Tonelli,
+$\E_\Sigma[\prod_jT_{x_j}f_j(\xi_j)]=\E_{\Sigma_0}[\prod_jf_j(\xi_j)]$. With $p_j=p$ and $\alpha=1/p$,
+\eqref{eq:IK} is the $p$-th power of~\eqref{eq:comp}, and~\eqref{eq:IKcond} reads
+$\frac1p(\Id-X^2)\le\Sigma-\frac1pX\Sigma X$, i.e.\ $\Sigma_0\le p\Sigma$. Positive measurable $f_j$ are covered by
+Theorem~\ref{thm:main} and Proposition~\ref{prop:holder}, and the exponential witnesses of necessity are positive.
+The off-diagonal blocks of $\Sigma_0$ are $(\Sigma_0)_{ij}=x_ix_j\Sigma_{ij}$. In case (i) this gives
+$\Sigma_0=(1-t)\Id+t\Sigma$ with $t\in[0,1]$, and Corollary~\ref{cor:sharp}(a) applies. In case (ii),
+$\varepsilon_i\varepsilon_j\Sigma_{ij}\le\varepsilon_i\varepsilon_jx_ix_j\Sigma_{ij}\le0$ because $x_ix_j\in[0,1]$ whenever
+$\Sigma_{ij}\ne0$; this is~\eqref{eq:signs}, and Corollary~\ref{cor:sharp}(b) applies. In case (iii), $\Sigma_0$ has
+the off-diagonal block $t\Sigma_{12}$ with $t=x_1x_2$, and Corollary~\ref{cor:sharp}(a) (if $t\ge0$) or (c) (if
+$t<0$) applies. In case (iv), $(\Sigma_0)_{ij}=\Sigma_{ij}$ for $i,j\in G$. If $x_j=0$ for all $j\notin G$, take the
+groups $G$ and $\{j\}$, $j\notin G$: all blocks of $\Sigma_0$ between different groups vanish, which is the grouped
+form of Corollary~\ref{cor:sharp}(a) with $t=0$. If $G$ contains all indices but $j_0$, take the two groups $G$ and
+$\{j_0\}$: the block of $\Sigma_0$ between them is $x_{j_0}$ times that of $\Sigma$, which is the grouped form of
+(a) or (c) with $t=x_{j_0}$.
+\end{proof}
+
+\begin{proof}[Proof of Proposition~\ref{prop:example}]
+Exact computation (checked with sympy, \texttt{numerics/comparison\_example.py}): $\det(\Sigma_0-p\Sigma_1)
+=-\frac1{16}(2p-3)(4p^2-11p+5)$, so the generalised eigenvalues are $\frac32$ and $\frac{11\pm\sqrt{41}}8$, and
+$p^*=\frac{11+\sqrt{41}}8$. Both matrices are invariant under swapping the first two coordinates, and the sets of
+solutions of~\eqref{eq:lmi} and~\eqref{eq:holder} are convex. Averaging a solution with its swap, we may take
+$D=\mathrm{diag}(d,d,e)$ and $S=\mathrm{diag}(s,s,s_3)$.
+
+Condition~\eqref{eq:lmi}: $\Sigma_0-D\ge0$ iff $d\le\frac34$ and $e\le1$ (eigenvalues $1-d\pm\frac14$ and $1-e$).
+With $c=\frac p{p-1}$, the matrix $D-c(\Sigma_0-\Sigma_1)$ has the eigenvector $(1,-1,0)$ with eigenvalue
+$d-\frac c4$, and on the span of $\frac1{\sqrt2}(1,1,0)$ and $(0,0,1)$ it acts as
+$\begin{psmallmatrix}d+c/4&c/\sqrt2\\c/\sqrt2&e\end{psmallmatrix}$. So it is positive semi-definite iff
+$d\ge\frac c4$ and $(d+\frac c4)e\ge\frac{c^2}2$. These constraints become weaker as $d$ and $e$ grow, so~\eqref{eq:lmi}
+is feasible iff they hold at $d=\frac34$, $e=1$, i.e.\ iff $c\le3$ and $3+c\ge2c^2$. Since $(2c-3)(c+1)\le0$ means
+$c\le\frac32$, this is $p\ge3$. At $p=3$, $D=\mathrm{diag}(\frac34,\frac34,1)$: $\Sigma_0-D$ has the eigenvalues
+$\frac12,0,0$, and $D-\frac32(\Sigma_0-\Sigma_1)$ has the eigenvalues $\frac{17}8,\frac38,0$.
+
+Condition~\eqref{eq:holder}: $S-\Sigma_0\ge0$ iff $s\ge\frac54$ and $s_3\ge1$, and $p\Sigma_1-S$ has the eigenvector
+$(1,-1,0)$ with eigenvalue $\frac p2-s$. So~\eqref{eq:holder} forces $\frac54\le s\le\frac p2$, hence $p\ge\frac52$.
+For $p\ge\frac52$ take $S=\mathrm{diag}(\frac54,\frac54,1)$: then $S-\Sigma_0$ has the eigenvalues $\frac12,0,0$, and at
+$p=\frac52$ the matrix $p\Sigma_1-S$ has the eigenvalues $0$ and $2\pm\frac34\sqrt6$, all $\ge0$; for larger $p$ add
+$(p-\frac52)\Sigma_1\ge0$.
+\end{proof}
+
+\begin{remark}\label{rem:forward}
+For $\Sigma_1=\Id$, \eqref{eq:comp} is the forward Brascamp--Lieb (H\"older) inequality
+$\E_{\Sigma_0}\prod_jf_j\le\prod_j\|f_j\|_{L^p(\gamma_{k_j})}$, which holds iff $\lambda_{\max}(\Sigma_0)\le p$
+(\cite{CDP15}, see also~\cite{Ledoux14}; this is Proposition~\ref{prop:holder} with $S=p\Id$). Condition~\eqref{eq:lmi}
+is not sharp there. Let $n=2$, $k_j=1$ and $\mathrm{cov}_{\Sigma_0}(\xi_1,\xi_2)=\theta\in(0,1)$, so that $p^*=1+\theta$.
+By symmetry and convexity we may take $D=d\Id$, and~\eqref{eq:lmi} reads $c\theta\le d\le1-\theta$ with
+$c=\frac p{p-1}$. So~\eqref{eq:lmi} is feasible iff $\theta<\frac12$ and $p\ge\frac{1-\theta}{1-2\theta}$, a
+threshold larger than $1+\theta$; for $\theta\ge\frac12$ it is never feasible. Thus~\eqref{eq:lmi} is not necessary
+for~\eqref{eq:comp}. The reason is that Lemma~\ref{lem:rlsi} is a reverse inequality.
+\end{remark}
+
+\section{Numerical checks}\label{sec:num}
+All of the following is floating point, evidence for the algebra and not part of the proofs.
+\texttt{numerics/check\_comparison.py} ($n=3$, $k_j=1$, tensor Gauss--Hermite quadrature) checks (A) Lemma~\ref{lem:rlsi}
+for $300$ random covariances, diagonal $D$ and pairings $B$, with random smooth positive functions (smallest
+ratio of the two sides about $1.8$); (B) the monotonicity along the path for $60$ random pairs $(\Sigma_0,\Sigma_1)$
+of the form of Corollary~\ref{cor:IK} at which~\eqref{eq:lmi} is feasible (no decrease); and (C) the inequality at
+$p=p^*$ for $25$ such pairs with optimised test functions: the optimisers found with $28$ nodes per axis exploit the
+quadrature error, and recomputed with $60$ nodes per axis they give log-ratios $\le0$.
+\texttt{numerics/comparison\_example.py} checks Proposition~\ref{prop:example} exactly (including both thresholds), confirms
+the threshold $p=3$ for~\eqref{eq:lmi} by bisection, finds no violation of~\eqref{eq:comp} at $p=p^*$
+by Gaussian test functions $e^{a_jy-b_jy^2/2}$ (closed forms), and prints the smallest eigenvalues of
+$p^*\Sigma_1^{\circ d}-\Sigma_0^{\circ d}$ of Remark~\ref{rem:second} ($0$ for $d=1$, and $0.6102$, $0.8982$, $1.0381$ for
+$d=2,3,4$). \texttt{numerics/comparison\_example\_attack.py} optimises, in the same example, over test
+functions $f_j=\exp(a_jt+b_jt^2+c_j\tanh(w_j(t-d_j)))$ with bounded coefficients at $p\in\{p^*,2.3,2.6,2.9\}$ (only
+$p^*$ lies in the open range): the best log-ratios are at most $2\cdot10^{-8}$ with $30$ quadrature nodes per axis,
+and negative when recomputed with $56$. \texttt{numerics/comparison\_example\_attack2.py} uses
+$f_j=\exp(\sum_{k\le6}a_{jk}T_k(s))$, $T_k$ Chebyshev polynomials, $s=t/\sqrt{16+t^2}$, $|a_{jk}|\le1.5$, optimised with
+$36$ nodes per axis and re-evaluated with $56$ and $72$: at $p=p^*$ and $p=2.2$ all $30$ optimisers are stable, with best
+log-ratios $-1.5\cdot10^{-7}$ and $-1.4\cdot10^{-7}$; a variant with Hermite polynomials and $|a_{jk}|\le0.3$ gives
+$-1.8\cdot10^{-8}$ and $-2.2\cdot10^{-12}$ (\texttt{comparison\_example\_attack2\_he.py}). \texttt{numerics/comparison\_path\_flow.py} solves the discretised path
+problem of Theorem~\ref{thm:path} (piecewise-linear paths, one diagonal $\tilde D$ per piece; a semidefinite
+programme for fixed $T$, bisection in $T$). It reproduces the exponents of Remark~\ref{rem:path}(c) up to the
+discretisation error, and in Proposition~\ref{prop:example} it gives $2.4405$, $2.3596$, $2.3224$, $2.3045$, $2.2957$
+for $4,8,16,32,64$ pieces (and $2.2913$, $2.2891$ for $128$, $256$).
+\texttt{numerics/comparison\_path\_twostage.py} and \texttt{comparison\_path\_multistage.py} do the same with the
+groups $\{1,2\},\{3\}$ on some stretches (Theorem~\ref{thm:path}): two discretised stretches give $2.2152$ with $8+24$
+pieces, and with $32+32$ pieces the problem is feasible at $p=2.21$ but not at $2.20$; alternating three or four
+stretches ($16$ and $12$ pieces each, probed at $p=2.20$ and $2.21$) was not better at the splits we tried. \texttt{numerics/comparison\_chain\_scan.py} scans the construction
+of Proposition~\ref{prop:certificate} over $b$. Only the exact verifications
+in Proposition~\ref{prop:certificate} are part of a proof. For random $n=3$ and $n=4$ instances of Corollary~\ref{cor:IK}
+where~\eqref{eq:lmi} fails at $p^*$, Gaussian test functions do not violate~\eqref{eq:comp} at $p^*$ either ($60$ cases
+each), and the matrix $D=\mathrm{diag}(\Sigma_0v/v)$ forced by Lemma~\ref{lem:forced} ($v$ had no zero entries in any
+instance) satisfies~\eqref{eq:lmi} in all $2000$ random instances with sign pattern~\eqref{eq:signs} for each
+$n\in\{3,4,6\}$, and in none of the random equicorrelated instances with $\rho>0$, $n\ge3$ and unequal parameters
+(\texttt{numerics/comparison\_gaussian\_tests.py}).
+
+\section{Novelty and limitations}
+\emph{Novelty.} Theorem~\ref{thm:main} compares a Gaussian expectation under one covariance with a correlated $L^p$
+norm under another, for product functions. Its special cases include the reverse H\"older inequality
+of~\cite{CDP15} with equal exponents and Lyapunov's inequality, and Proposition~\ref{prop:holder} is an immediate
+consequence of~\cite{CDP15}. Applied to the forward inequality of~\cite{IK25} with $\alpha=1/p$, a case excluded
+from~\cite[Thm.~9(i)]{IK25}, the results recover the equal-parameter case~\cite[Thm.~1.1]{FR} at $r=1$ and, for two
+$\rho$-correlated functions, \cite[Prop.~6.1]{FR}. What is new is Theorem~\ref{thm:main} itself and its path
+version Theorem~\ref{thm:path}, Corollary~\ref{cor:sharp}(b), case (ii) of Corollary~\ref{cor:IK} with $n\ge3$ and unequal
+parameters, and Propositions~\ref{prop:certificate}, \ref{prop:notsuff}, \ref{prop:gauss} and~\ref{prop:away}.
+Gaussian saturation is known for many inequalities of Brascamp--Lieb type~\cite{Lieb90,Bar98,CDP15,CL21,BW22,NT25}.
+Comparisons of $\E_{\Sigma_0}F$ with $\E_{\Sigma_1}F$ for a single function (the case $p=1$) under sign conditions on
+mixed second derivatives go back to Slepian~\cite{Sle62} and Kahane~\cite{Kah86}, with the interpolation
+formula~\eqref{eq:interp}. Milman, Nakamura and Tsuji~\cite{MNT26} prove inequalities for convex sets under Gaussian
+measures with different covariance matrices, using a Gaussian forward--reverse Brascamp--Lieb inequality for
+log-concave functions; these results concern convex sets and log-concave functions and do not
+contain~\eqref{eq:comp} for general non-negative $f_j$. We did not find a statement covering~\eqref{eq:comp} with two
+different covariances, but we did not search the literature systematically beyond these works
+and~\cite{Ledoux14}. Novelty is claimed to the best of this search. The flow generalises the correlation flow
+of~\cite[Section~4]{FR} in two ways: the covariance moves along an arbitrary segment rather than a ray through $\Id$,
+and Lemma~\ref{lem:rlsi} conditions on a block-diagonal rather than a scalar Gaussian component.
+
+\emph{Limitations.} (1) Condition~\eqref{eq:lmi} is sufficient but not necessary for~\eqref{eq:comp}: in
+Remark~\ref{rem:forward},~\eqref{eq:comp} holds at $p^*=1+\theta$ while~\eqref{eq:lmi} fails there. The necessary
+condition $\Sigma_0\le p\Sigma_1$ is not sufficient either (Proposition~\ref{prop:notsuff}), and we do not know the
+exact threshold in general. The flows of this note (including the
+construction of Proposition~\ref{prop:certificate}) do not reach the necessary condition in
+Proposition~\ref{prop:example}: they give $p\ge2.1925$
+(Proposition~\ref{prop:certificate}) against $p^*=2.175\ldots$, the range $[p^*,2.1925)$ is open, and by
+Proposition~\ref{prop:away} the flows are bounded away from $p^*$ there. In the example $\theta=0.9$, $\rho=0.5$ after
+Proposition~\ref{prop:notsuff} they give only $p\ge5$ (Proposition~\ref{prop:holder} gives $p\ge3.8$), while a
+violation is found at $p=1.56$ and none for $p\ge1.6$ (floating point). For the forward
+inequality~\eqref{eq:IK} with $\alpha=1/p$ this leaves open, for example, three positively equicorrelated scalar
+functions with parameters not covered by Corollary~\ref{cor:IK}(i) and (iv), such as $x=(1,\frac12,0)$. For scalar
+blocks the flow is rigid at $p=p^*$: if some $v$ with $\Sigma_0v=p^*\Sigma_1v$ has no zero entries, then
+Lemma~\ref{lem:forced} leaves only the candidate $D=\mathrm{diag}(\Sigma_0v/v)$. (2) Theorems~\ref{thm:main} and~\ref{thm:path} are
+not sharp in forward situations (Remarks~\ref{rem:path}(c) and~\ref{rem:forward}), and Proposition~\ref{prop:holder}
+is not sharp on the segment of Corollary~\ref{cor:sharp}(a); we have no method that interpolates between the two. (3) Only the outer exponent
+$\alpha=1/p$ of~\eqref{eq:IK} is covered. For other $\alpha\in(0,1)$ and two functions with unequal parameters,
+condition~\eqref{eq:IKcond} is not sufficient in general when $r=\alpha p>2$~\cite[Props.~6.3, 6.5]{FR}. For $r>1$
+and $\rho,x_1,x_2>0$ a flow with separate noise parameters gives a sufficient condition under which it is sharp,
+verified at explicit points with $1<r\le2$~\cite[Thm.~6.9, Prop.~6.11]{FR}; it is also sufficient when $r\ge1$ and
+$x_1x_2=0$~\cite[Prop.~6.4]{FR}. For $r<1$ the analogous flows cannot be sharp~\cite[Remark~6.7(b)]{FR}.
+
+\begin{thebibliography}{99}
+\bibitem{Bar98} F.~Barthe, On a reverse form of the Brascamp--Lieb inequality, Invent.\ Math.\ 134 (1998), 335--361.
+\bibitem{BW22} F.~Barthe, P.~Wolff, Positive Gaussian kernels also have Gaussian minimizers, Mem.\ Amer.\ Math.\
+Soc.\ 276 (2022), no.~1359; arXiv:1805.02455.
+\bibitem{CDP15} W.-K.~Chen, N.~Dafnis, G.~Paouris, Improved H\"older and reverse H\"older inequalities for
+Gaussian random vectors, Adv.\ Math.\ 280 (2015), 643--689.
+\bibitem{CL21} T.~A.~Courtade, J.~Liu, Euclidean forward--reverse Brascamp--Lieb inequalities: finiteness, structure,
+and extremals, J.\ Geom.\ Anal.\ 31 (2021), 3300--3350.
+\bibitem{FR} Companion note: \emph{Correlated forward hypercontractivity with outer exponent $\alpha<1$}
+(\texttt{RESULT\_forward\_real\_hypercontractivity.pdf}, this repository).
+\bibitem{IK25} P.~Ivanisvili, P.~Kalantzopoulos, Multiversion of the Hausdorff--Young inequality,
+arXiv:2506.08494 (2025).
+\bibitem{Kah86} J.-P.~Kahane, Une in\'egalit\'e du type de Slepian et Gordon sur les processus gaussiens, Israel J.\
+Math.\ 55 (1986), 109--110.
+\bibitem{Ledoux14} M.~Ledoux, Remarks on Gaussian noise stability, Brascamp--Lieb and Slepian inequalities, in
+Geometric Aspects of Functional Analysis, Lecture Notes in Math.\ 2116, Springer, 2014, 309--333.
+\bibitem{Lieb90} E.~H.~Lieb, Gaussian kernels have only Gaussian maximizers, Invent.\ Math.\ 102 (1990),
+179--208.
+\bibitem{MNT26} E.~Milman, S.~Nakamura, H.~Tsuji, Gaussian inequalities with different covariance matrices -- the
+heterovariant Gaussian Brunn--Minkowski inequality, arXiv:2610.13596 (2026).
+\bibitem{NT25} S.~Nakamura, H.~Tsuji, A generalized Legendre duality relation and Gaussian saturation, Invent.\
+Math.\ (2025), doi:10.1007/s00222-025-01382-5; arXiv:2409.13611.
+\bibitem{Sle62} D.~Slepian, The one-sided barrier problem for Gaussian noise, Bell System Tech.\ J.\ 41 (1962),
+463--501.
+\end{thebibliography}
+\end{document}

@@ -1,0 +1,492 @@
+\documentclass[11pt]{amsart}
+\usepackage[margin=1.1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\hypersetup{colorlinks=true,linkcolor=blue,citecolor=blue,urlcolor=blue}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{question}[theorem]{Question}
+
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Rea}{\operatorname{Re}}
+\newcommand{\Ima}{\operatorname{Im}}
+\newcommand{\bT}{\mathbf{T}}
+\newcommand{\D}{\mathbb{D}}
+
+\title[Gaussian maximisers fail below the diagonal]{A non-degenerate Gaussian kernel without Gaussian
+maximisers:\\ Lieb's formula fails below the diagonal}
+\date{October 28, 2026}
+
+\begin{document}
+\sloppy
+\begin{abstract}
+Lieb proved that operators with non-degenerate (complex) Gaussian kernels from $L^p$ to $L^q$ have Gaussian
+maximisers, and that their norm equals the supremum over centred Gaussian functions, when $1<p\le q<\infty$.
+He also covered $p>q$ in the real case and in an ``imaginary'' case. We show by an explicit, computer-certified
+example that both statements fail for $p>q$ in the genuinely complex case. For the Mehler transform $T_z$ with
+$z=0.72\,e^{0.7i}$, from $L^p(\gamma)$ to $L^4(\gamma)$ with any $p\in[16,\infty)$, every Gaussian
+$g=C e^{\beta x^2/2+\eta x}$, centred or not, satisfies $\|T_zg\|_4\le\|g\|_p$, with equality only for constants.
+However, the unimodular function $f(y)=e^{-i\lambda(|y|-a)_+}$ has $\|T_zf\|_4\ge1.00097>1=\|f\|_p$. Equivalently, a
+non-degenerate complex Gaussian kernel on $\R$ has $L^p\to L^4$ norm strictly larger than the supremum over all
+Gaussian functions, so it has no Gaussian maximiser. The centred case is a branch-and-bound certificate; the
+non-centred case reduces, through exact polynomial identities, to three scalar inequalities. (By a companion result, $T_z$ fails to be an $L^p\to L^4$ contraction at every $z$
+outside $\Omega_{4,4}$, already in dimension one; the present example shows that Gaussians cannot see this.)
+The phenomenon is general. Let $1<q<p<\infty$ with $2<q$ or $p<2$, so that the contraction region $\Omega_{s,s}$,
+$s=\min\{p,\max\{q,2\}\}$, is not the whole disc. For every boundary point $z_0$ of $\Omega_{s,s}$ in the open unit
+disc and off the imaginary axis, an analytic compactness argument shows the following: on a non-empty open set outside $\Omega_{s,s}$ adjacent
+to $z_0$, no Gaussian detects the failure of $L^p\to L^q$ contractivity. The only delicate Gaussians are unimodular
+chirps, for which the inequality reduces to an explicit factorised discriminant, and (for $p<2$) their duals.
+\end{abstract}
+\maketitle
+
+\section{Statement}
+Let $\gamma$ be the standard Gaussian measure on $\R$ and $T_z$ the Mehler transform,
+$T_zH_n=z^nH_n$. For $|z|<1$, $\varsigma:=1-z^2$ satisfies $\Rea\varsigma>0$, and for $g$ of moderate growth
+\[
+\bT_zg(x)=\int_\R g(y)\,\frac{1}{\sqrt{2\pi\varsigma}}\,e^{-(y-zx)^2/(2\varsigma)}\,dy,
+\]
+which agrees with $T_z$ on polynomials (Mehler's formula). Put
+$N_1(p,q;z)=\sup\{\|T_zP\|_{L^q(\gamma)}/\|P\|_{L^p(\gamma)}:\ P \text{ a nonzero polynomial}\}$.
+
+\begin{theorem}\label{thm:D}
+Let $q=4$, $z=0.72\,e^{0.7i}$ and $16\le p<\infty$.
+\begin{enumerate}[label=(\alph*)]
+\item For every Gaussian $g(x)=C\,e^{\beta x^2/2+\eta x}$ with $C\ne0$, $\beta,\eta\in\C$ and $\Rea\beta<1/p$,
+$\|\bT_zg\|_{L^4(\gamma)}\le\|g\|_{L^p(\gamma)}$, with equality only for $\beta=\eta=0$.
+\item For $f(y)=\exp(-i\lambda(|y|-a)_+)$ with $a=2.776$ and $\lambda=5.115$,
+$\|\bT_zf\|_{L^4(\gamma)}\ge1.000974>1=\|f\|_{L^p(\gamma)}$.
+\item Consequently $N_1(p,4;z)\ge1.000974>1$, while the supremum of $\|\bT_zg\|_4/\|g\|_p$ over all Gaussians
+equals $1$.
+\end{enumerate}
+\end{theorem}
+
+\begin{corollary}\label{cor:lieb}
+Let $\phi$ be the standard Gaussian density and
+$G_p(x,y)=\phi(x)^{1/4}K_z(x,y)\phi(y)^{1-1/p}$, where
+$K_z(x,y)=\varsigma^{-1/2}\exp\big(-\frac{z^2(x^2+y^2)-2zxy}{2\varsigma}\big)$ is the Mehler kernel. Then
+$G_p$ is a non-degenerate complex Gaussian kernel. For $16\le p<\infty$ the norm of
+$F\mapsto\int G_p(\cdot,y)F(y)\,dy$ from $L^p(\R)$ to $L^4(\R)$ is strictly larger than the supremum of
+$\|G_pg\|_4/\|g\|_p$ over all Gaussian functions $g$, centred or not. In particular, the identity ``norm $=$ supremum
+over centred Gaussians'', which Lieb~\cite{Lieb90} proves in the complex case for $p\le q$ (see Theorem~6 in the
+summary~\cite{Durcik}), does not extend to $p>q$ in the complex case, and no Gaussian function is a maximiser.
+\end{corollary}
+
+The point $z$ lies outside the $L^4$-contraction region $\Omega_{4,4}$. By the main theorem of the companion note
+(\texttt{RESULT\_downward\_complex\_\allowbreak hypercontractivity}, Theorem~1.1), $T_z$ is therefore not a contraction
+from $L^p(\gamma_1)$ to $L^4(\gamma_1)$ for any $p$. The witnesses produced there are perturbations $1-2b$ of the
+constant function by narrow Gaussian bumps far from the origin, and at this $z$ they give a certified violation of
+relative size about $e^{-38}$. The point of Theorem~\ref{thm:D} is different: by~(a), no Gaussian, centred or not, detects
+the failure, while~(b) is a simple explicit witness with a violation of order
+$10^{-3}$. The result is one-dimensional.
+
+\section{Proof of (a) for centred Gaussians}
+\subsection{Closed form}
+By a Gaussian integral, $\bT_zg(x)=D^{-1/2}\exp(\beta'x^2/2)$ with $D=1-\beta\varsigma$ and
+$\beta'=\beta z^2/D$. Also $\|g\|_r^r=(1-r\Rea\beta)^{-1/2}$. Hence, if $1-4\Rea\beta'>0$,
+\[
+\log\frac{\|\bT_zg\|_4}{\|g\|_p}=c(\beta;p):=-\tfrac12\log|1-\varsigma\beta|-\tfrac18\log(1-4\Rea\beta')
++\tfrac1{2p}\log(1-p\Rea\beta).
+\]
+If $1-4\Rea\beta'\le0$, then $\bT_zg\notin L^4$; we show this never happens.
+
+\subsection{Monotonicity in $p$}
+Since $\gamma$ is a probability measure, $p\mapsto\|g\|_p$ is nondecreasing (Lyapunov's inequality), and the
+admissible half-plane $\{\Rea\beta<1/p\}$ shrinks as $p$ grows. Hence $c(\beta;p)\le c(\beta;16)$ for $p\ge16$, and it
+suffices to prove (a) for $p=16$. (Directly: $p\mapsto\frac1{2p}\log(1-px)$ is nonincreasing for $x<1/p$.)
+
+\subsection{The certificate}
+The script \texttt{numerics/\allowbreak certify\_centered\_gaussians.py} (python-flint/Arb, 100-bit balls) verifies the
+following for $p=16$. Each item is a rigorous inequality.
+\begin{enumerate}[label=(\arabic*)]
+\item \emph{$\bT_zg\in L^4$ for all admissible $\beta$.} $\beta\mapsto\beta'$ is a M\"obius map whose pole
+$1/\varsigma$ has $\Rea(1/\varsigma)=0.8346\ldots>1/16$. So the image of the half-plane is the disc through the
+images of $1/16$ and $1/16\pm i$ that contains $0$, and $\sup\Rea\beta'\le0.24165<1/4$. In particular
+$m_0:=\inf(1-4\Rea\beta')\ge0.0334$.
+\item \emph{Near $0$.} With $u=\varsigma\beta$, $a_1=\Rea(z^2\beta)$, $a_2=\Rea(z^2\varsigma\beta^2)$,
+$x=\Rea\beta$, the expansions
+$-\frac12\Rea\log(1-u)=\frac12\Rea u+\frac14\Rea u^2+E_1$,
+$\beta'=z^2\beta(1+u+\frac{u^2}{1-u})$,
+$-\frac18\log(1-4t)=\frac t2+t^2+E_3$ and
+$\frac1{32}\log(1-16x)=-\frac x2-4x^2+E_5$
+hold, with the standard bounds $|\log(1-w)+w+\frac{w^2}2|\le\frac{|w|^3}{3(1-|w|)}$. The first-order terms cancel
+($\varsigma+z^2=1$), and the second-order part is
+$c_2(\beta)=\frac14\big(|z^2\beta|_4^2-|\beta|_{16}^2\big)$, where $|w|_s^2=(s-1)(\Rea w)^2+(\Ima w)^2$; this is
+checked symbolically and at a test point. One finds $\lambda_{\max}(c_2)=-0.05219\ldots$ and a total remainder
+$\le K|\beta|^3$ with $K=44.63$ on $|\beta|\le\rho_0=8\cdot10^{-4}$. Hence
+$c(\beta)\le|\beta|^2(\lambda_{\max}+K\rho_0)\le-0.0165|\beta|^2$ there.
+\item \emph{Compact part.} The region $\rho_0\le|\beta|$, $-10\le\Rea\beta\le\frac1{16}-10^{-12}$,
+$|\Ima\beta|\le10$ is covered by $249{,}835$ adaptive boxes. On each box the upper bound of $c$, from interval
+evaluation or from the mean-value form with an analytic gradient, is negative; the largest such bound is
+$-5.8\cdot10^{-9}$.
+\item \emph{Boundary strip} $\frac1{16}-10^{-12}\le\Rea\beta<\frac1{16}$, $|\Ima\beta|\le10$. The first two terms
+of $c$ are $\le0.6232$, and the last is $\le\frac1{32}\log(16\cdot10^{-12})=-0.7768$.
+\item \emph{Infinity} ($|\beta|\ge10$). Here
+$c\le-\frac12\log(|\varsigma||\beta|-1)+\frac18\log\frac1{m_0}+\frac1{32}\log(1+16|\beta|)$. This bound is
+decreasing in $|\beta|$ and equals $-0.539\ldots<0$ at $|\beta|=10$.
+\end{enumerate}
+Hence $c(\beta;16)<0$ for all admissible $\beta\ne0$, and $c(0)=0$. \qed
+
+\section{Proof of (a) for non-centred Gaussians}\label{sec:noncentred}
+\subsection{Closed form}
+Let $g(x)=e^{\beta x^2/2+\eta x}$ with $\Rea\beta<1/p$ and $\eta\in\C$. Completing the square in the Mehler
+integral (absolutely convergent since $\Rea\frac1\varsigma>\Rea\beta$) gives
+$\bT_zg(x)=D^{-1/2}\exp\big(\frac{\beta'}2x^2+\eta'x+\tau\big)$ with $D=1-\beta\varsigma$, $\beta'=\beta z^2/D$,
+$\eta'=\eta z/D$ and $\tau=\varsigma\eta^2/(2D)$. Since
+$\E\exp(\frac a2x^2+bx)=(1-a)^{-1/2}\exp\frac{b^2}{2(1-a)}$ for real $a<1$ and real $b$, applied to $|\bT_zg|^4$ and to
+$|g|^p$,
+\[
+\log\frac{\|\bT_zg\|_4}{\|g\|_p}=c(\beta;p)+Q_\beta(\eta),\qquad
+Q_\beta(\eta)=\tfrac12\Rea\Big(\frac\varsigma D\eta^2\Big)+\frac{q}{2}\,\frac{(\Rea\frac{z\eta}D)^2}{m}
+-\frac p2\,\frac{(\Rea\eta)^2}{n},
+\]
+where $q=4$, $m=1-4\Rea\beta'$ and $n=1-p\Rea\beta$. So $Q_\beta$ is a real quadratic form in $(\Rea\eta,\Ima\eta)$,
+and by Section~2 it suffices to show that $Q_\beta$ is negative definite for every admissible $\beta$. The difficulty
+is that $Q_\beta\to0$ as $|\beta|\to\infty$, in every direction (the wide scans of Section~\ref{sec:num} approach $0$
+there), so a naive branch-and-bound near infinity cannot succeed. Exact identities remove this difficulty.
+
+\subsection{Exact identities}
+Write $z=a_0+ib_0$, $\beta=x+iy$, and
+\begin{gather*}
+c_0=\Rea\varsigma-qb_0^2,\qquad \alpha_0=q\Rea\varsigma-(q-1)|\varsigma|^2,\qquad \omega=q+(2-q)\varsigma,\\
+\kappa=pc_0-\alpha_0,\qquad N=|D|^2m,\qquad T=pN-q|z|^2n .
+\end{gather*}
+\begin{lemma}\label{lem:identities}
+As polynomial identities in $a_0,b_0,x,y,p,q$ and $\eta$:
+\begin{enumerate}[label=(\roman*)]
+\item $N=1-\Rea(\omega\beta)+\alpha_0|\beta|^2$;
+\item $2N\big[\frac12\Rea(\frac\varsigma D\eta^2)+\frac q2(\Rea\frac{z\eta}D)^2/m\big]=G(\beta)[\eta]$, where $G(\beta)$ is
+the symmetric matrix, affine in $\beta$,
+$G=\begin{psmallmatrix}q|z|^2+c_0-\alpha_0x & -(\alpha_0y+(q-2)a_0b_0)\\ -(\alpha_0y+(q-2)a_0b_0) & -(c_0-\alpha_0x)\end{psmallmatrix}$
+acting on $(\Rea\eta,\Ima\eta)$;
+\item $\det G=-\alpha_0N$ and $\operatorname{tr}G=q|z|^2$;
+\item if $\alpha_0>0$, then $\min_{\beta\in\C}T(\beta)=q|z|^2\kappa/\alpha_0$.
+\end{enumerate}
+Consequently the matrix $M$ of $Q_\beta$, which is $G/(2N)-\frac p{2n}e_1e_1^{T}$, satisfies
+\[
+\det M=\frac{\kappa}{4nN},\qquad \operatorname{tr}M=-\frac{T}{2nN}.
+\]
+\end{lemma}
+
+\begin{proof}
+(i)--(iii) are identities between polynomials (after the substitutions $1/D=\overline D/|D|^2$ and $m=N/|D|^2$); they
+are verified in exact rational polynomial arithmetic, with all variables symbolic, in part (A) of
+\texttt{numerics/\allowbreak certify\_noncentered\_gaussians.py}, which also re-checks the literal formula for
+$Q_\beta$, with complex division, at $60$ random rational points, and re-derives $\det M$ without using $G$; an
+independently written check, \texttt{numerics/\allowbreak check\_noncentered\_identities.py} (sympy polynomial
+expansion, $p,q$ symbolic), re-verifies (i)--(iii), the two consequences below and the minimum of $T$ used in
+Section~\ref{sec:cert}, and compares the closed form with direct quadrature. Given
+(ii) and (iii), $\det M=\frac{\det G}{4N^2}-\frac p{2n}\cdot\frac{G_{22}}{2N}=\frac{-\alpha_0n+p(c_0-\alpha_0x)}{4nN}
+=\frac{\kappa}{4nN}$ because $n=1-px$, and $\operatorname{tr}M=\frac{q|z|^2}{2N}-\frac p{2n}=-\frac T{2nN}$. For (iv),
+by (i), $T=(p-q|z|^2)+p\big[\alpha_0|\beta|^2-\Rea(v\beta)\big]$ with $v=\omega-q|z|^2$, whose minimum over $\beta$ is
+$p-q|z|^2-p|v|^2/(4\alpha_0)$. The identity $4\alpha_0-|v|^2=4q|z|^2c_0$ (verified in both scripts) turns this into
+$q|z|^2(pc_0-\alpha_0)/\alpha_0=q|z|^2\kappa/\alpha_0$.
+\end{proof}
+
+So $(\det M)\,nN$ is constant: the degeneracy of $Q_\beta$ at infinity is exact, and the sign of $Q_\beta$ is decided by
+three scalar quantities.
+
+\subsection{The certificate}\label{sec:cert}
+Part (B) of \texttt{numerics/\allowbreak certify\_noncentered\_gaussians.py} (Arb, 256-bit balls, exact inputs
+$z=\frac{18}{25}e^{7i/10}$, $p=16$, $q=4$) verifies:
+\begin{enumerate}[label=(\arabic*)]
+\item $\alpha_0=0.370006\ldots>0$, $c_0=0.051310\ldots>0$ and $\kappa=0.450969\ldots>0$;
+\item $N\ge N_{\min}=0.160105\ldots>0$ on $\Rea\beta\le\frac1{16}$: by (i), $\partial_xN=-\Rea\omega+2\alpha_0x\le-\Rea\omega+\frac{\alpha_0}8<0$
+there, so $N(x,y)\ge N(\frac1{16},y)$, whose minimum over $y$ is explicit. In particular $m=N/|D|^2>0$, re-proving
+$\bT_zg\in L^4$;
+\item $T\ge T_{\min}=\frac{q|z|^2\kappa}{\alpha_0}=2.527335\ldots>0$ on all of $\C$ (Lemma~\ref{lem:identities}(iv)).
+\end{enumerate}
+Since $n>0$ on the admissible half-plane, Lemma~\ref{lem:identities} gives $\det M>0$ and $\operatorname{tr}M<0$: $Q_\beta$ is
+negative definite, and in fact $\lambda_{\max}(Q_\beta)\le-\frac{\kappa}{2T(\beta)}<0$. For $p>16$ the same argument
+applies verbatim: $N$ does not depend on $p$, $\kappa=pc_0-\alpha_0$ increases with $p$ because $c_0>0$, and
+$\min_\C T=q|z|^2\kappa/\alpha_0$ for every $p$ (an identity in $z$, verified with $p$ symbolic); alternatively use
+Lyapunov's inequality as in Section~2. Together with $c(\beta;p)\le0$, with equality only at $\beta=0$, this proves (a): the
+log-ratio $c(\beta;p)+Q_\beta(\eta)$ is $\le0$, with equality only at $\beta=\eta=0$, and the constant $C$ does not
+matter. The script also checks the closed forms against the Mehler integral and the full log-ratio against direct
+quadrature for two non-centred Gaussians (floating point, agreement $10^{-15}$), and it re-runs the centred
+certificate. Its runtime is about $10$ seconds. \qed
+
+\section{Proof of (b): the unimodular witness}
+Since $|f|=1$, $\|f\|_p=1$ for every $p$. Splitting $\int_\R$ at $\pm a$ and completing squares gives the exact
+formula (with $m=zx$, $\Phi(w)=\frac12(1+\operatorname{erf}(w/\sqrt2))$, principal $\sqrt\varsigma$)
+\begin{multline*}
+F(x):=\bT_zf(x)=\Big[\Phi\big(\tfrac{a-m}{\sqrt\varsigma}\big)-\Phi\big(\tfrac{-a-m}{\sqrt\varsigma}\big)\Big]\\
++e^{i\lambda a}e^{-i\lambda m-\lambda^2\varsigma/2}\Big[1-\Phi\big(\tfrac{a-m+i\lambda\varsigma}{\sqrt\varsigma}\big)\Big]\\
++e^{i\lambda a}e^{i\lambda m-\lambda^2\varsigma/2}\,\Phi\big(\tfrac{-a-m-i\lambda\varsigma}{\sqrt\varsigma}\big).
+\end{multline*}
+This is cross-checked against direct quadrature to $10^{-6}$ relative accuracy. For real $x$,
+$|\bT_zf(x)|^4\phi(x)=F(x)^2\widetilde F(x)^2\phi(x)$ with $\widetilde F(x)=\overline{F(\bar x)}$, an entire
+function, so Arb's rigorous integrator applies on bounded intervals. Because the integrand is non-negative,
+\[
+\E|\bT_zf|^4\ \ge\ \int_{-12}^{12}|\bT_zf|^4\,\phi\,dx\ \in\ [1.0039031603844549\pm 7\cdot10^{-19}],
+\]
+so $\|\bT_zf\|_4\ge1.000974$ (\texttt{numerics/\allowbreak certify\_lieb\_counterexample.py}). The quantity is also finite: by
+the Schur bound $|\bT_zf(x)|\le(|\varsigma|A)^{-1/2}e^{Ex^2/2}$ with $A=\Rea\frac1\varsigma$,
+$C=\Rea\frac z\varsigma$, $E=\frac{C^2}{A}-A+1=0.23593<\frac14$, the contribution of $|x|>12$ is at most
+$0.0245$, so together with the enclosure on $[-12,12]$ one gets $\E|\bT_zf|^4\le1.0284$.
+
+\emph{Passage to polynomials.} Since $4(\frac{C^2}{A}-A+1)=0.9437<1$, the Schur--H\"older lemma of the companion
+note (Lemma~2.3 there) gives a finite $\sigma'\ge p$ such that $\bT_z:L^{\sigma'}(\gamma)\to L^4(\gamma)$ is
+bounded. Polynomials $P_n\to f$ in $L^{\sigma'}$ then satisfy $\|T_zP_n\|_4\to\|\bT_zf\|_4$ and
+$\|P_n\|_p\to1$. This proves (c). \qed
+
+\section{The Lebesgue-space formulation}
+The map $F\mapsto F\phi^{-1/p}$ is an isometry from $L^p(\R)$ onto $L^p(\gamma)$, and $h\mapsto h\phi^{1/4}$ is an
+isometry from $L^4(\gamma)$ onto $L^4(\R)$. They map centred Gaussians to centred Gaussians. Conjugating
+$\bT_z$ by them gives the kernel $G_p$ of Corollary~\ref{cor:lieb}. Its real quadratic part has matrix
+$\frac12\begin{psmallmatrix}\frac14+a&-b\\-b&1-\frac1p+a\end{psmallmatrix}$ with $a=\Rea\frac{z^2}{\varsigma}$ and
+$b=\Rea\frac z\varsigma$. This matrix is positive definite: $\frac14+a=0.0847$ and
+$(\frac14+a)(1-\frac1p+a)-b^2\ge0.00644$ for $p\ge16$ (certified at $p=16$, value $0.0064496\ldots$; the left side increases with $p$). So $G_p$ is non-degenerate, and
+Corollary~\ref{cor:lieb} follows from Theorem~\ref{thm:D}.
+
+\section{Open sets of examples, for all exponents below the diagonal}\label{sec:open}
+Theorem~\ref{thm:D} is not an isolated accident. Let $1<q<p<\infty$ with $s:=\min\{p,\max\{q,2\}\}\ne2$, i.e.\
+$2<q<p$ (then $s=q$) or $q<p<2$ (then $s=p$); for $q\le2\le p$ the contraction region is the whole disc. By the
+companion theorem~\cite[Theorem~1.1]{DCH}, $T_z$ is an $L^p\to L^q$ contraction exactly on $\Omega_{s,s}$. At a
+boundary point $z_0$ of $\Omega_{s,s}$ every Gaussian satisfies $\|\bT_{z_0}g\|_q\le\|g\|_p$, and the inequality is
+strict for non-constant $g$. This strictness needs an argument only for a one-parameter family of chirp-like
+Gaussians. A compactness argument then propagates the Gaussian inequality to all $z$ near $z_0$, while the
+contraction fails at every $z\notin\Omega_{s,s}$.
+
+\emph{Closed forms for general $q$.} The computations of Sections~2 and~\ref{sec:noncentred} hold verbatim with $4$
+replaced by $q$. For $g=Ce^{\beta x^2/2+\eta x}$ with $\Rea\beta<1/p$ and $1-q\Rea\beta'>0$,
+\begin{gather*}
+\log\frac{\|\bT_zg\|_q}{\|g\|_p}=c_q(\beta;p)+Q_\beta(\eta),\qquad
+c_q(\beta;p)=-\tfrac12\log|D|-\tfrac1{2q}\log(1-q\Rea\beta')+\tfrac1{2p}\log n,\\
+Q_\beta(\eta)=\tfrac12\Rea\big(\tfrac\varsigma D\eta^2\big)+\tfrac q2\big(\Rea\tfrac{z\eta}D\big)^2\big/(1-q\Rea\beta')
+-\tfrac p2(\Rea\eta)^2/n,
+\end{gather*}
+with $D=1-\varsigma\beta$, $\beta'=z^2\beta/D$ and $n=1-p\Rea\beta$. Lemma~\ref{lem:identities} is stated for symbolic
+$q$. We write $c_0=\Rea\varsigma-q(\Ima z)^2$, $\alpha_0=q\Rea\varsigma-(q-1)|\varsigma|^2$, $\kappa=pc_0-\alpha_0$,
+$\omega=q+(2-q)\varsigma$, $N(\beta)=1-\Rea(\omega\beta)+\alpha_0|\beta|^2=|D|^2(1-q\Rea\beta')$, and
+$A=\Rea\frac1\varsigma$, $C=\Rea\frac z\varsigma$, $\delta_r=1-r+rA$. With $|w|_r^2=(r-1)(\Rea w)^2+(\Ima w)^2$,
+expanding the three logarithms to second order gives, for all $z\in\D$ and $p,q>1$ (checked symbolically),
+\begin{equation}\label{eq:c2}
+c_q(\beta;p)=\tfrac14\big(|z^2\beta|_q^2-|\beta|_p^2\big)+O(|\beta|^3)\qquad(\beta\to0);
+\end{equation}
+the first-order terms cancel because $\varsigma+z^2=1$.
+
+\emph{The regions.} By~\cite[Lemma~2.1]{DCH}, $\Omega_{r,r}\cap\D=\{|r-2|\,|1-z^2|\le r(1-|z|^2)\}$ for $r>1$. Since
+$|1-z^2|^2=(1-|z|^2)^2+4(\Ima z)^2$, squaring gives the simpler description
+\begin{equation}\label{eq:omegasimple}
+\Omega_{r,r}\cap\D=\big\{z\in\D:\ |r-2|\,|\Ima z|\le\sqrt{r-1}\,(1-|z|^2)\big\}.
+\end{equation}
+For $r\ne2$ it meets $\R$ in interior points only, and $i\R$ in $[-i\varrho_r,i\varrho_r]$, where
+$\varrho_r=\min\{\sqrt{r-1},(r-1)^{-1/2}\}$. If $z_0\in\partial\Omega_{r,r}\cap\D$ and $z_0\notin\R\cup i\R$, then
+$z_0^2$ is an interior point of $\Omega_{r,r}$: from $|r-2||\Ima z_0|=\sqrt{r-1}(1-|z_0|^2)$ we get
+$|r-2||\Ima z_0^2|=2|\Rea z_0|\sqrt{r-1}(1-|z_0|^2)<\sqrt{r-1}(1-|z_0|^4)$, as $2|\Rea z_0|<1+|z_0|^2$. Hence
+$\sup_{w\ne0}|z_0^2w|_r/|w|_r<1$, since $(1+\varepsilon)z_0^2\in\Omega_{r,r}$ for small $\varepsilon>0$ and
+$\Omega_{r,r}=\{z:\ |zw|_r\le|w|_r\ \forall w\in\C\}$~\cite[Lemma~2.1(b)]{DCH}.
+
+\begin{theorem}\label{thm:open}
+Let $1<q<p<\infty$ with either $2<q$ or $p<2$, and let $s=\min\{p,\max\{q,2\}\}$. Let
+$z_0\in\partial\Omega_{s,s}\cap\D$ with $z_0\notin i\R$. There is $r_0\in(0,1-|z_0|]$ such that for every $z$ with
+$|z-z_0|<r_0$:
+\begin{enumerate}[label=(\alph*)]
+\item every Gaussian $g(x)=c_g\,e^{\beta x^2/2+\eta x}$ with $c_g\ne0$ and $\Rea\beta<1/p$ satisfies
+$\|\bT_zg\|_{L^q(\gamma)}\le\|g\|_{L^p(\gamma)}$, with equality only for $\beta=\eta=0$;
+\item the kernel $G_{p,q}(x,y)=\phi(x)^{1/q}K_z(x,y)\phi(y)^{1-1/p}$ is non-degenerate.
+\end{enumerate}
+Consequently, on the non-empty open set $U(z_0)=\{|z-z_0|<r_0\}\setminus\Omega_{s,s}$ we have $N_1(p,q;z)>1$, while
+the supremum over all Gaussians equals $1$: Lieb's formula fails and there is no Gaussian maximiser, for every
+$z\in U(z_0)$.
+\end{theorem}
+
+Theorem~\ref{thm:D} is a certified quantitative instance of the phenomenon ($q=4$), with an explicit witness, at
+$z=0.72e^{0.7i}$, which lies at radial distance about $0.025$ outside $\partial\Omega_{4,4}$. It does not follow from
+Theorem~\ref{thm:open}, whose $r_0$ is not explicit.
+
+\subsection{Identities at the boundary}
+For all $z\in\D$, with $S=|\varsigma|^2$:
+\begin{equation}\label{eq:bdid}
+\begin{gathered}
+S=(1-|z|^2)^2+4(\Ima z)^2,\qquad \alpha_0=S\,\delta_q,\\
+\alpha_0-qc_0=q^2(\Ima z)^2-(q-1)S,\qquad 2\delta_rS=r(1-|z|^4)-(r-2)S .
+\end{gathered}
+\end{equation}
+(The last one, for any $r$, uses $\Rea\varsigma=\frac12(1-|z|^4+S)$.) Let $z_0=x_0+iy_0\in\partial\Omega_{s,s}\cap\D$
+with $z_0\notin\R\cup i\R$; by symmetry ($z\mapsto\bar z$, $z\mapsto-z$) we may assume $x_0,y_0>0$.
+
+\emph{Case $2<q<p$, $s=q$.} Here $(q-2)\sqrt S=q(1-|z_0|^2)$, so $(q-2)y_0=\sqrt{q-1}(1-|z_0|^2)$, $(q-1)S=q^2y_0^2$,
+hence $\alpha_0=qc_0$, and $2\delta_qS=q(1-|z_0|^2)\big[(1+|z_0|^2)-|1-z_0^2|\big]>0$, because $z_0^2\notin(-\infty,0]$.
+So
+\begin{equation}\label{eq:atz0}
+\delta_q>0,\qquad \alpha_0>0,\qquad c_0=\alpha_0/q>0,\qquad \kappa=(p-q)c_0>0,\qquad A>\tfrac12>\tfrac1p,
+\end{equation}
+using $A>\frac12$ on $\D$ (\cite[\S2]{DCH}: $\Rea\frac1{1\mp z}>\frac12$).
+
+\emph{Case $q<p<2$, $s=p$.} Put $k=\sqrt{p-1}$. Here $(2-p)y_0=k(1-|z_0|^2)$, $0<y_0<k$, and one finds
+\begin{equation}\label{eq:atz0b}
+S=\tfrac{p^2y_0^2}{p-1},\qquad \kappa=(p-q)(2-p)\tfrac{y_0}k\big(1-\tfrac{y_0}k\big)>0,\qquad
+S\big(A-\tfrac1p\big)=(2-p)\tfrac{y_0}k\big(1-\tfrac{y_0}k\big)>0 .
+\end{equation}
+Moreover $\alpha_0=S\delta_q>0$, because $\delta_q=1-q(1-A)>1-\frac q2>0$.
+
+In both cases $A>1/p$, so $D=1-\varsigma\beta$ does not vanish on $\overline H$, where $H=\{\Rea\beta<1/p\}$, and the
+same holds for $z$ near $z_0$. The identities~\eqref{eq:bdid}, \eqref{eq:atz0b}, the factorisation in the case
+$s=q$, those in the proof of Lemma~\ref{lem:chirp}, \eqref{eq:c2}, the bound of Lemma~\ref{lem:identities}(iv) and
+the two determinant identities of Step~4 are verified symbolically in
+\texttt{numerics/\allowbreak check\_theorem\_Dprime.py}.
+
+\begin{lemma}[Chirps]\label{lem:chirp}
+Let $2<r<\infty$ and $z_0\in\partial\Omega_{r,r}\cap\D$, $z_0\notin\R\cup i\R$. Then
+$\|\bT_{z_0}e^{itx^2/2}\|_{L^r(\gamma)}<1$ for every real $t\ne0$. Explicitly, with $\vartheta=\Ima z_0^2$ and
+$\alpha_0$ computed with $r$ in place of $q$,
+$\log\|\bT_{z_0}e^{itx^2/2}\|_r=-\frac{r-2}{4r}\log(1-2\vartheta t+St^2)-\frac1{2r}\log(1+(r-2)\vartheta t+\alpha_0t^2)$.
+\end{lemma}
+
+\begin{proof}
+For $\beta=it$ one has $|D|^2=1-2\vartheta t+St^2$, $N(it)=1+(r-2)\vartheta t+\alpha_0t^2$ and
+$1-r\Rea\beta'=N/|D|^2$, which gives the formula. As above we may assume $x_0,y_0>0$ (the map $z\mapsto\bar z$
+changes $\vartheta$ to $-\vartheta$, i.e.\ $t$ to $-t$). Put $k_r=\sqrt{r-1}$, $w=k_ry_0$ and $h=\frac{r-2}2$. The
+boundary relation $(r-2)y_0=k_r(1-|z_0|^2)$ gives $x_0^2=\frac{(1-w)(w+r-1)}{r-1}$. Hence $0<w<1$, because $x_0\ne0$
+and $y_0>0$. Moreover $S=\frac{r^2y_0^2}{r-1}$ and $\alpha_0=r(r-2)y_0(\frac1{k_r}-y_0)$. Substituting
+$t=\frac{k_ru}{ry_0}$ gives
+\begin{gather*}
+|D|^2=P_1(u):=1-2\xi u+u^2,\qquad N=P_2(u):=1+2h\xi u+\chi u^2,\\
+\xi=\frac{2k_rx_0}r,\qquad \chi=\frac{(r-2)(r-1)(1-w)}{rw}>0 .
+\end{gather*}
+Here $\xi^2=\frac{4(1-w)(w+r-1)}{r^2}<\frac{4(r-1)}{r^2}\le1$, so $P_1>0$. Also $P_2=N(it)>0$, since $N>0$ on
+$\{\Rea\beta<\frac1r\}$ by the argument of Step~1 below. Let $\psi(u)=h\log P_1(u)+\log P_2(u)=-2r\log\|\bT_{z_0}e^{itx^2/2}\|_r$.
+Then $\psi(0)=0$ and
+\begin{gather*}
+\psi'(u)=\frac{hP_1'P_2+P_1P_2'}{P_1P_2}=\frac{2u\,R(u)}{P_1P_2},\qquad d_2=h+\chi-2h\xi^2(h+1),\\
+R(u)=\chi(h+1)u^2+\xi\big(h(2h+1)-\chi(h+2)\big)u+d_2 .
+\end{gather*}
+The discriminant of the quadratic $R$ is
+\begin{multline*}
+\xi^2\big(h(2h+1)-\chi(h+2)\big)^2-4\chi(h+1)d_2\\
+=-\frac{(r-2)^2(r-1)(1-w)(r+2w-2)^2\big(r^2(1-w)+(r+1)w-1\big)}{r^4w^2}.
+\end{multline*}
+This is negative: the last factor is linear in $w$, equal to $r^2-1$ at $w=0$ and to $r$ at $w=1$. As
+$\chi(h+1)>0$, $R>0$ on $\R$. So $\psi'$ has the sign of $u$, and $\psi(u)>0$ for $u\ne0$.
+\end{proof}
+
+\subsection{Proof of Theorem~\ref{thm:open}}
+\emph{Step 1: non-centred Gaussians.} Suppose that $\alpha_0>0$, $\kappa>0$, and $N>0$ on $\overline H$. Then for
+every $\beta\in H$ we have $n>0$ and $N>0$, so $\det M=\frac{\kappa}{4nN}>0$, and $\operatorname{tr}M=-\frac T{2nN}<0$
+because $T\ge\frac{q|z|^2\kappa}{\alpha_0}>0$ (Lemma~\ref{lem:identities}(iv)). So $Q_\beta$ is negative definite and
+$\log\frac{\|\bT_zg\|_q}{\|g\|_p}=c_q(\beta;p)+Q_\beta(\eta)\le c_q(\beta;p)$, with equality only for $\eta=0$.
+
+These hypotheses hold at $z_0$ by~\eqref{eq:atz0} or~\eqref{eq:atz0b}, except possibly $N>0$, which we now prove.
+Let $\Rea\beta<1/s$. Then $g_\beta=e^{\beta x^2/2}\in L^s(\gamma)$, and since $z_0\in\Omega_{s,s}$,
+$\|\bT_{z_0}g_\beta\|_s\le\|g_\beta\|_s<\infty$. Here we use the contractive extension $\widetilde T$ of $T_{z_0}$ to
+$L^s$, which agrees with $\bT_{z_0}$ on bounded functions~\cite[proof of Thm.~1.1]{DCH}. The truncations
+$g_n=g_\beta\mathbf 1_{\{|g_\beta|\le n\}}$ converge to $g_\beta$ in $L^s$, and $\bT_{z_0}g_n\to\bT_{z_0}g_\beta$ pointwise by
+dominated convergence in the Mehler integral (as $\Rea\beta<A$), so $\bT_{z_0}g_\beta=\widetilde Tg_\beta$. Since
+$|\bT_{z_0}g_\beta|^s$ is integrable, $1-s\Rea\beta'>0$. If $s=q$, this is $N(\beta)>0$, on
+$\{\Rea\beta<\frac1q\}\supset\overline H$. If $s=p>q$, it gives $1-p\Rea\beta'>0$ on $H$, hence $\ge0$ on $\overline H$.
+Then $1-q\Rea\beta'=(1-p\Rea\beta')+(p-q)\Rea\beta'>0$ on $\overline H$, which is clear if $\Rea\beta'\le0$. So again
+$N>0$ on $\overline H$. All hypotheses are open conditions. For $N$: for $z$ near $z_0$,
+$N_z(\beta)\ge\frac12\alpha_0(z_0)|\beta|^2>0$ for $|\beta|\ge R$ (with $R$ large, uniformly in $z$), and $N_z\to N_{z_0}$
+uniformly on the compact set $\overline H\cap\{|\beta|\le R\}$, where $N_{z_0}$ has a positive minimum.
+
+\emph{Step 2: centred Gaussians at $z_0$.} Write $\Gamma(z,\beta)=c_q(\beta;p)$. By~\eqref{eq:c2}, $\Gamma(z,0)=0$ and
+$\nabla_\beta\Gamma(z,0)=0$ for every $z$. The Hessian of $\Gamma(z_0,\cdot)$ at $0$ is negative definite. Indeed, by
+the last paragraph before Theorem~\ref{thm:open}, $|z_0^2\beta|_s<|\beta|_s$ for $\beta\ne0$. If $s=q$, this gives
+$|z_0^2\beta|_q<|\beta|_q\le|\beta|_p$; if $s=p$, it gives $|z_0^2\beta|_q\le|z_0^2\beta|_p<|\beta|_p$. We now show
+that $\Gamma(z_0,\beta)<0$ for every $\beta\in H\setminus\{0\}$. Write $G=\bT_{z_0}g_\beta$; by Step~1, $G\in L^s$
+with $\|G\|_s\le\|g_\beta\|_s$.
+\begin{itemize}[leftmargin=2em]
+\item Case $s=q$. If $\Rea\beta\ne0$, then $|g_\beta|$ is not constant, and the strict Lyapunov inequality gives
+$\Gamma(z_0,\beta)\le\log\frac{\|g_\beta\|_q}{\|g_\beta\|_p}<0$. If $\Rea\beta=0$, then $\|g_\beta\|_p=1$ and
+$\Gamma(z_0,\beta)=\log\|G\|_q<0$ by Lemma~\ref{lem:chirp} with $r=q$.
+\item Case $s=p$. Here $\Gamma(z_0,\beta)=\log\frac{\|G\|_q}{\|G\|_p}+\log\frac{\|G\|_p}{\|g_\beta\|_p}$, and both terms are
+$\le0$. If $|G|=|D|^{-1/2}e^{\Rea\beta'x^2/2}$ is not constant, the first is $<0$. If $|G|\equiv c$ is constant,
+i.e.\ $\beta'=i\tau$ with $\tau\ne0$, suppose $\|G\|_p=\|g_\beta\|_p$. Let $h=\overline G/c$, so $|h|=1$,
+$\|h\|_{p'}=1$, and $h$ is a unimodular multiple of the chirp $e^{-i\tau x^2/2}$. Use the bilinear symmetry
+$\E[(\widetilde Tg)h]=\E[g\,\widetilde T'h]$, where $\widetilde T'$ is the contractive extension of $T_{z_0}$ to
+$L^{p'}$ (valid on polynomials, hence on $L^p\times L^{p'}$ by density). This gives
+$c=\E[Gh]=\E[g_\beta\,\bT_{z_0}h]\le\|g_\beta\|_p\|\bT_{z_0}h\|_{p'}$, so $\|\bT_{z_0}h\|_{p'}\ge1$. This contradicts
+Lemma~\ref{lem:chirp} with $r=p'>2$, since $\Omega_{p',p'}=\Omega_{p,p}$. Hence the second term is $<0$.
+\end{itemize}
+
+\emph{Step 3: centred Gaussians near $z_0$.} $\Gamma$ is real-analytic in $(z,\beta)$ on the open set where
+$|D|$, $1-q\Rea\beta'$ and $n$ are positive. Hence there are $r_1,\lambda>0$ and a closed disc $V\subset\D$ around
+$z_0$, contained in the neighbourhood of Step~1, such that $\Gamma(z,\beta)\le-\lambda|\beta|^2$ for $|\beta|\le r_1$ and $z\in V$ (Taylor's formula with uniformly
+bounded third derivatives). For $|\beta|\ge R_2$, $\beta\in H$ and $z\in V$,
+\[
+\Gamma(z,\beta)\le-\tfrac12\log(|\varsigma||\beta|-1)+\tfrac1{2q}\log\tfrac1{m_*}+\tfrac1{2p}\log(1+p|\beta|)<-1,
+\]
+where $m_*>0$ is a uniform lower bound for $1-q\Rea\beta'=N/|D|^2\to\alpha_0/S=\delta_q$ as $|\beta|\to\infty$; this
+holds once $R_2$ is large. Near the boundary line, for $\frac1p-\varepsilon\le\Rea\beta<\frac1p$ and
+$|\beta|\le R_2$, the term $\frac1{2p}\log(1-p\Rea\beta)$ tends to $-\infty$. The other two terms are bounded above
+uniformly, since $|D|$ and $N/|D|^2$ are continuous and positive on the closed strip
+$\{\frac1p-\varepsilon\le\Rea\beta\le\frac1p,\ |\beta|\le R_2\}$, uniformly for $z\in V$. So $\Gamma<-1$
+there for small $\varepsilon$. On the compact set $K=\{\beta:\ r_1\le|\beta|\le R_2,\ \Rea\beta\le\frac1p-\varepsilon\}$,
+$\Gamma(z_0,\cdot)$ is continuous and negative by Step~2, hence $\le-2\mu$ for some $\mu>0$. By uniform
+continuity, $\Gamma(z,\cdot)\le-\mu$ on $K$ for $|z-z_0|<r_0$, with $r_0$ small. Altogether, $\Gamma(z,\beta)<0$ for
+all $\beta\in H\setminus\{0\}$ and $|z-z_0|<r_0$, where we also take $r_0$ so small that
+$\{|z-z_0|<r_0\}\subset V$.
+
+\emph{Step 4: conclusion.} By Steps~1 and~3, for $|z-z_0|<r_0$ and $g=c_ge^{\beta x^2/2+\eta x}$,
+$\log\frac{\|\bT_zg\|_q}{\|g\|_p}=\Gamma(z,\beta)+Q_\beta(\eta)\le0$, with equality only for $\beta=0$ and then
+$\eta=0$. This is (a). For (b), as in Section~5, the real quadratic part of $G_{p,q}$ has matrix
+$\frac12\begin{psmallmatrix}\frac1q+a&-C\\-C&1-\frac1p+a\end{psmallmatrix}$ with $a=A-1$, so $\frac1q+a=\frac{\delta_q}q>0$.
+If $s=q$, the identity of~\cite[Lemma~5.2]{DCH} gives $q^2C^2=(qA-1)\delta_q$ on $\partial\Omega_{q,q}$, so
+$(\frac1q+a)(1-\frac1p+a)-C^2=\frac{\delta_q}q(\frac1q-\frac1p)>0$. If $s=p$, a direct computation on
+$\partial\Omega_{p,p}$ gives $S^2\big[(\frac1q+a)(1-\frac1p+a)-C^2\big]=\frac{p\,y_0^3(p-q)(2-p)(k-y_0)}{q(p-1)^2}>0$.
+Non-degeneracy is an open condition. Finally, $U(z_0)$ is open and non-empty because $z_0\in\partial\Omega_{s,s}$.
+For $z\in U(z_0)$, $N_1(p,q;z)>1$ by~\cite[Theorem~1.1]{DCH} in dimension one. \qed
+
+\begin{remark}\label{rem:otherq}
+For $q\le2\le p$ no such set exists inside $\D$, because then $T_z$ is an $L^p\to L^q$ contraction for all $|z|\le1$.
+Numerically, away from the axes the Gaussian-blind band beyond $\partial\Omega_{s,s}$ has radial width between
+about $10^{-3}$ and $4\cdot10^{-2}$ in the cases tested ($q=4$ with $p\in\{4.5,5,8,16,64\}$; $q=3$ with $p\in\{4,6\}$;
+$(q,p)\in\{(1.5,1.8),(1.2,1.8),(1.3,1.6)\}$; \texttt{numerics/\allowbreak gaussian\_blind\_region.py}, whose finite
+searches give upper bounds for the widths). It tends to $0$ at the imaginary axis, at $\pm1$ and as $p\downarrow q$.
+One reason: at $\beta=0$, $Q_0(\eta)=\frac12(|z\eta|_q^2-|\eta|_p^2)$, so pure exponentials $e^{\eta x}$ already
+detect every $z\notin\Omega_{p,q}=\{z:\ |zw|_q\le|w|_p\ \forall w\}$, and the Gaussian-blind set lies inside
+$\Omega_{p,q}\setminus\Omega_{s,s}$.
+\end{remark}
+
+\section{Numerical complements and the mechanism}\label{sec:num}
+\begin{itemize}
+\item Consistency with the wide scans: a scan of $\max\{c(\beta),\lambda_{\max}(Q_\beta)\}$ with $\Rea\beta\ge-e^{20}$ and
+$|\Ima\beta|\le\sinh14$ at $p=16$ and $p=64$ (\texttt{numerics/\allowbreak wide\_gauss\_scan.py}) gives at most
+$-1.6\cdot10^{-19}$, attained near $\beta=\frac1{16}-e^{20}-512337i$. Lemma~\ref{lem:identities} explains this value:
+$|\beta|^2\lambda_{\max}(Q_\beta)\to-\kappa/(2p\alpha_0)=-0.0381\ldots$ in every direction, which at that point gives
+$-1.618\cdot10^{-19}$. For $p=12$ a centred Gaussian violation exists (log-ratio $+2.1\cdot10^{-3}$; $+3.5\cdot10^{-4}$ at $p=13$, and none found for $p\ge14$; \texttt{numerics/\allowbreak lieb\_p\_threshold.py}, floating point), which is why we take $p\ge16$.
+\item Mechanism: the optimiser over arbitrary unimodular grid functions (\texttt{numerics/\allowbreak opt\_general1d.py})
+produces a phase that is constant on $|y|\lesssim2.8$ and has slope $\approx\pm5$ in the tails. The gain comes
+from $|x|\approx8$--$13$, where $|\bT_zf|$ is astronomically large and the Gaussian weight tiny. Gaussian test
+functions cannot localise a linear phase to the tails. This is the mechanism of the bump perturbations in the
+companion note, where a bump at $x_0$ is transported by $\bT_z$ to a larger $|x|$ and amplified there.
+\item The same phenomenon occurs for $q=3$ ($z=0.82e^{0.7i}$, $p=\infty$, log-ratio $+7.5\cdot10^{-4}$, numerical; \texttt{numerics/\allowbreak opt\_general1d.py}, output \texttt{out\_opt\_inf\_3\_0.7\_0.820.txt}).
+\end{itemize}
+
+\section{Novelty and limitations}
+Lieb~\cite{Lieb90} establishes Gaussian maximisers for $p\le q$, and for $p>q$ in the real and ``imaginary''
+cases. Our kernel is genuinely complex: the real part of the off-diagonal coefficient is $b\neq0$. We found no
+prior counterexample for $p>q$ in the complex case. Negr\'in~\cite{Negrin95} determined the boundedness region of
+one-dimensional complex Gaussian kernels for all $p,q$ (for $q<p$ it is the non-degenerate region, consistent with
+Section~5), and gave sufficient conditions for contractivity of real kernels; his introduction paraphrases
+Lieb's theorem as giving, for every non-degenerate kernel, exactly one maximiser, a centred Gaussian. For $p>q$ in
+the complex case this cannot hold: by Theorem~\ref{thm:D}, every centred Gaussian has ratio at most $1$, which is
+strictly less than the norm. Theorem~\ref{thm:D} is an explicit point with a quantitative witness, certified
+rigorously (centred Gaussians by branch-and-bound, non-centred Gaussians by exact identities). Theorem~\ref{thm:open}
+is analytic. It shows that the failure occurs on a non-empty open set adjacent to every point of the boundary of the
+contraction region in the open unit disc and off the imaginary axis, for all $1<q<p<\infty$ except $q\le2\le p$ (where there is nothing to
+detect). \emph{Limitations.} Theorem~\ref{thm:open} gives no explicit size of $U(z_0)$, and only dimension one is
+treated. A complete description of the set of $(p,q,z)$ for which Gaussians determine the norm remains open;
+numerically (Remark~\ref{rem:otherq}) the Gaussian-blind band beyond $\partial\Omega_{4,4}$ has radial width up to
+about $0.04$ (for $p\le64$), and it shrinks to $0$ at the imaginary axis.
+
+\begin{thebibliography}{9}
+\bibitem{DCH} Companion note: \emph{Complex hypercontractivity below the diagonal: no gain from $p>q$, in any
+dimension} (\texttt{RESULT\_downward\_complex\_hypercontractivity.pdf}, this repository).
+\bibitem{Durcik} P.~Durcik, summary of ``Gaussian kernels have only Gaussian maximizers'', in
+\emph{Sharp Inequalities in Harmonic Analysis}, Bonn workshop notes (2015).
+\bibitem{Lieb90} E.~H.~Lieb, Gaussian kernels have only Gaussian maximizers, Invent.\ Math.\ 102 (1990),
+179--208.
+\bibitem{Negrin95} E.~R.~Negr\'in, Operators with complex Gaussian kernels: boundedness properties, Proc.\ Amer.\
+Math.\ Soc.\ 123 (1995), 1185--1190.
+\end{thebibliography}
+\end{document}

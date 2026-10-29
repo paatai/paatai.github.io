@@ -255,5 +255,59 @@
     "complex-hypercontractivity-correlated-gaussian/code.zip"
    ]
   ]
+ },
+ {
+  "n": 20,
+  "date": "2026-10-28",
+  "title": "A non-degenerate Gaussian kernel without Gaussian maximisers: Lieb&rsquo;s formula fails below the diagonal",
+  "status": "refereed",
+  "line": "An Arb-certified counterexample to Lieb&rsquo;s formula below the diagonal (p&gt;q, genuinely complex case): for the Mehler transform with z=0.72e<sup>0.7i</sup> from L<sup>p</sup> to L<sup>4</sup>, p&ge;16, every Gaussian satisfies the inequality but a unimodular function violates it. Rated valid by an independent referee.",
+  "pdf": "lieb-gaussian-maximizers-below-diagonal/lieb-gaussian-maximizers-below-diagonal.pdf",
+  "files": [
+   [
+    "TeX",
+    "lieb-gaussian-maximizers-below-diagonal/lieb-gaussian-maximizers-below-diagonal.tex"
+   ],
+   [
+    "code",
+    "lieb-gaussian-maximizers-below-diagonal/code.zip"
+   ]
+  ]
+ },
+ {
+  "n": 21,
+  "date": "2026-10-28",
+  "title": "Correlated forward hypercontractivity with outer exponent &alpha;&lt;1",
+  "status": "refereed",
+  "line": "With equal parameters and equal exponents p&ge;1, the Ivanisvili&ndash;Kalantzopoulos covariance condition is necessary and sufficient for every &alpha;&isin;(0,1). With unequal parameters it is not sufficient for r=&alpha;p&gt;2; whether it is sufficient for r&isin;(0,2]&setminus;{1} is open.",
+  "pdf": "forward-real-hypercontractivity-alpha-lt-1/forward-real-hypercontractivity-alpha-lt-1.pdf",
+  "files": [
+   [
+    "TeX",
+    "forward-real-hypercontractivity-alpha-lt-1/forward-real-hypercontractivity-alpha-lt-1.tex"
+   ],
+   [
+    "code",
+    "forward-real-hypercontractivity-alpha-lt-1/code.zip"
+   ]
+  ]
+ },
+ {
+  "n": 22,
+  "date": "2026-10-28",
+  "title": "A comparison inequality for Gaussian vectors and product functions",
+  "status": "partial result",
+  "line": "Sufficient conditions for the comparison inequality are refereed; in an explicit example the exact threshold is open on [2.175&hellip;, 2.1925).",
+  "pdf": "gaussian-comparison-product-functions/gaussian-comparison-product-functions.pdf",
+  "files": [
+   [
+    "TeX",
+    "gaussian-comparison-product-functions/gaussian-comparison-product-functions.tex"
+   ],
+   [
+    "code",
+    "gaussian-comparison-product-functions/code.zip"
+   ]
+  ]
  }
 ]
