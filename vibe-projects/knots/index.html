@@ -17,7 +17,10 @@
 <meta name="description" content="Paata Ivanisvili, Professor of Mathematics, University of California, Irvine.">
 <link rel="stylesheet" href="../../css/site.css">
 <style>
+dl.dict dt { font-weight: 650; margin-top: 0.9rem; }
+dl.dict dd { margin: 0.2rem 0 0 1.1rem; }
 ol.surf li { margin: 0.35rem 0; }
+.note { font-size: 0.92rem; }
 </style>
 </head>
 <body>
@@ -47,7 +50,7 @@ ol.surf li { margin: 0.35rem 0; }
 <p><a href="../index.html">← Vibe projects</a></p>
 <h1 class="page-title">Knots</h1>
 <p>Played with AI (Grok bot) to learn something about knots. A knot is a closed loop in space. Two knots are the same if one can be moved onto the other without cutting it and without passing it through itself. On a drawing, every such motion is a sequence of three local Reidemeister moves.</p>
-<p>Here are five examples where the answer is hard to guess from the picture. Click a knot to open its animation (each opens on its own page).</p>
+<p>Here are five examples where the answer is hard to guess from the picture. Click a knot to open its animation (each opens on its own page). The terms are explained in the dictionary below.</p>
 <ol class="surf">
 <li><a href="perko/index.html">The Perko pair</a> — two entries in the knot tables, 10₁₆₁ and 10₁₆₂, are the same knot.</li>
 <li><a href="culprit/index.html">The Culprit</a> — a drawing of the unknot that must get more tangled before it can come apart.</li>
@@ -55,7 +58,109 @@ ol.surf li { margin: 0.35rem 0; }
 <li><a href="conway-kinoshita-terasaka/index.html">The Conway knot and the Kinoshita–Terasaka knot</a> — mutants that share many invariants but are different knots.</li>
 <li><a href="eight-17/index.html">8₁₇</a> — the smallest knot that cannot be turned around: no motion takes it onto itself with its direction reversed.</li>
 </ol>
-<p><a href="montage/index.html">All five in one minute (montage)</a></p>
+
+<h2 id="dictionary">Intuitive dictionary</h2>
+<p class="note">Each term used on these pages, explained in plain words with an everyday picture. Knots live in ordinary 3-dimensional space.</p>
+<dl class="dict">
+<dt id="knot">Knot</dt>
+<dd>A closed loop of string in space, like an extension cord whose two plugs have been joined, so the knot can never slip off the ends. Two knots count as the same when one can be moved onto the other without cutting it and without passing it through itself (see <a href="#isotopy">isotopy</a>).</dd>
+
+<dt id="unknot">Unknot</dt>
+<dd>The knot that can be moved into an ordinary round circle, like a rubber band. A drawing of the unknot can look very tangled, as the Culprit does, and still be the unknot.</dd>
+
+<dt id="trefoil">Trefoil</dt>
+<dd>The simplest knot other than the unknot: tie an overhand knot in a rope and join the two ends. It has three crossings and comes in a left-handed and a right-handed version, which are mirror images of each other and cannot be moved onto each other.</dd>
+
+<dt id="diagram">Diagram</dt>
+<dd>A drawing of a knot on paper: its shadow on a table, with a small gap in the lower strand wherever the knot passes over itself, so you can tell which strand is on top. A <em>strand</em> is a stretch of the knot in the drawing. Every knot has infinitely many diagrams, and the hard question is when two diagrams show the same knot.</dd>
+
+<dt id="crossing">Crossing</dt>
+<dd>A place in a diagram where the knot passes over itself, like a road overpass: one strand goes over, the other goes under. A 10-crossing diagram has ten such places. An 11-crossing knot is a knot whose simplest diagrams have 11 crossings: no diagram of it has fewer.</dd>
+
+<dt id="minimal-diagram">Minimal diagram (fewest crossings)</dt>
+<dd>A diagram with the fewest crossings that any diagram of the knot can have. That smallest number is the knot’s <em>crossing number</em>. A knot can have several different minimal diagrams, and the Perko pair shows that they can even have different writhes.</dd>
+
+<dt id="reidemeister-moves">Reidemeister moves (types I, II, III)</dt>
+<dd>Three small local changes to a diagram, each one the shadow of a small motion of the knot in space:
+<ul>
+<li><em>Type I:</em> twist in or untwist a <a href="#kink">kink</a>, adding or removing one crossing.</li>
+<li><em>Type II:</em> slide one strand over another to create two crossings, or pull two strands apart to remove two crossings.</li>
+<li><em>Type III:</em> slide a strand over or under a crossing. The number of crossings stays the same.</li>
+</ul>
+Reidemeister (1927), and independently Alexander and Briggs (1926), proved that two diagrams show the same knot exactly when one can be turned into the other by a finite sequence of these moves, together with stretching the drawing in the page without changing its crossings. The theorem does not say how many moves are needed.</dd>
+
+<dt id="kink">Kink</dt>
+<dd>A small loop in a diagram with a single crossing, like a twist in a garden hose. A type I Reidemeister move twists one in or untwists one.</dd>
+
+<dt id="isotopy">Isotopy (a motion of the knot)</dt>
+<dd>Moving a knot in space without cutting it and without letting it pass through itself. It may be stretched, shrunk and bent freely, like rearranging a closed loop of rope. Two knots are the same knot exactly when there is an isotopy from one to the other. Taking a mirror image, reversing the direction and cutting and regluing are not isotopies.</dd>
+
+<dt id="mirror-image">Mirror image</dt>
+<dd>The knot as seen in a mirror: reflect it in a plane, for example the page. On a diagram this is the same as switching every crossing, over to under and under to over. A reflection is not a motion: a knot may or may not be movable onto its mirror image.</dd>
+
+<dt id="amphichiral">Amphichiral</dt>
+<dd>A knot is amphichiral if it can be moved (by an isotopy) onto its own mirror image, so it has no handedness, unlike a pair of hands. The figure-eight knot and 8₁₇ are amphichiral; the trefoil is not.</dd>
+
+<dt id="direction">Direction (arrows); reversal</dt>
+<dd>A choice of which way to travel along the knot, marked by arrows. Reversing the direction means turning every arrow around. This only relabels the knot; it does not move it.</dd>
+
+<dt id="invertible">Invertible</dt>
+<dd>A knot is invertible if it can be moved onto itself with its direction reversed: after the motion it sits exactly where it was, but every arrow points the other way. Most small knots are invertible; 8₁₇ is the smallest knot that is not.</dd>
+
+<dt id="writhe">Writhe</dt>
+<dd>Give the knot a direction. At each crossing of a diagram both strands are now arrows. The crossing is <em>positive</em> if the upper arrow must turn counterclockwise (by less than a half turn) to point along the lower one, and <em>negative</em> if it must turn clockwise. The writhe of the diagram is the number of positive crossings minus the number of negative ones. It does not depend on the direction chosen, because reversing every arrow keeps each sign. But it belongs to the diagram, not to the knot: a type I move changes it by one, while type II and III moves leave it alone. Taking the mirror image changes its sign. So the writhe is <em>not</em> an <a href="#invariant">invariant</a>.</dd>
+
+<dt id="knot-table">Knot table</dt>
+<dd>A catalogue of knots ordered by crossing number, with one minimal diagram for each knot. Mirror images and reversed directions are usually not listed separately. In the classical table, 10₁₆₁ is number 161 among the knots with 10 crossings. K11n34 is number 34 among the 11-crossing non-alternating knots in the table of Hoste and Thistlethwaite (non-alternating: travelling along the knot, the crossings do not alternate over, under, over, under).</dd>
+
+<dt id="closed-braid">Closed braid</dt>
+<dd>Several strands run side by side from top to bottom, neighbouring strands crossing each other here and there, like a braid of hair. Then the bottom ends are carried around and joined to the top ends by the closing strands, making one closed loop. Every knot can be drawn this way. The symbols σ₁ and σ₂ name the crossings from top to bottom: σ₁ is a crossing between the first and second strands, σ₂ between the second and third. An exponent ⁻¹ means the crossing goes the other way round, and ² means two such crossings in a row.</dd>
+
+<dt id="tangle">Tangle</dt>
+<dd>A part of a knot inside a ball, with the knot entering and leaving through the ball’s surface: like rope tangled inside a box, with four ends sticking out.</dd>
+
+<dt id="conway-sphere">Conway sphere</dt>
+<dd>A sphere that the knot crosses in exactly four points, so the part inside is a tangle with four ends. Named after John Conway.</dd>
+
+<dt id="mutation">Mutation; mutant</dt>
+<dd>Cut the knot along a Conway sphere, turn the tangle inside half a turn so that the four ends swap in pairs, and reglue. The result is a <em>mutant</em> of the original knot. This is not a motion: the new knot can be different, as the Conway and Kinoshita–Terasaka knots are. But mutants are very much alike, and many invariants cannot tell them apart.</dd>
+
+<dt id="invariant">Invariant</dt>
+<dd>Something computed from a diagram, such as a number or a polynomial, that comes out the same for every diagram of the same knot. Equivalently, it does not change under Reidemeister moves. It is a fingerprint: different values prove that two knots are different, but equal values prove nothing. The writhe is not an invariant.</dd>
+
+<dt id="alexander-polynomial">Alexander polynomial</dt>
+<dd>The oldest polynomial invariant (Alexander, 1928): from any diagram one computes a polynomial, and it is the same for every diagram of the knot. The unknot’s is 1. Some knotted knots, such as the Conway and Kinoshita–Terasaka knots, also have 1, so this fingerprint cannot tell them from the unknot.</dd>
+
+<dt id="jones-polynomial">Jones and HOMFLY-PT polynomials</dt>
+<dd>Two later polynomial invariants. Vaughan Jones found his in 1984. The HOMFLY-PT polynomial, named after the initials of its eight discoverers, followed soon after and contains both the Alexander and the Jones polynomials. Mutants always have the same Jones and HOMFLY-PT polynomials.</dd>
+
+<dt id="khovanov-homology">Khovanov homology</dt>
+<dd>A richer invariant found by Mikhail Khovanov (1999): instead of a single polynomial it is a whole collection of algebraic objects, from which the Jones polynomial can be read off. It tells apart some knots that the Jones polynomial cannot, but not the Conway and Kinoshita–Terasaka knots.</dd>
+
+<dt id="knot-floer-homology">Knot Floer homology</dt>
+<dd>Another algebraic invariant, found by Ozsváth and Szabó and independently by Rasmussen in the early 2000s. It detects the genus of a knot, and so it tells the Conway and Kinoshita–Terasaka knots apart.</dd>
+
+<dt id="hyperbolic-volume">Hyperbolic volume</dt>
+<dd>For most knots, including the Conway and Kinoshita–Terasaka knots, the space around the knot (everything except the knot itself) carries a natural geometry that is saddle-shaped at every point and in every direction (hyperbolic geometry). This geometry is unique, so its total volume is an invariant. Mutants always have the same hyperbolic volume.</dd>
+
+<dt id="genus">Genus</dt>
+<dd>Dip the knotted wire in soap and imagine a film whose only edge is the knot, required to be two-sided (you could paint one side red and the other blue). The genus of the knot is the fewest handles such a surface can have. The unknot bounds a flat disk and has genus 0, and it is the only knot of genus 0.</dd>
+
+<dt id="slice">Slice</dt>
+<dd>Our 3-dimensional space can be seen as the boundary of a 4-dimensional ball, just as the surface of the Earth is the boundary of the solid Earth. A circle drawn on the Earth’s surface is the edge of a disk that cuts through the inside. A knot is slice if, in the same way, it is the edge of a smooth disk that dips into the 4-dimensional ball without ever crossing itself. The unknot is slice; the trefoil is not. The name comes from this: the slice knots are exactly the cross-sections (slices) of smooth spheres in 4-dimensional space.</dd>
+
+<dt id="unknot-recognition">Unknot recognition problem</dt>
+<dd>Given a diagram, decide whether it shows the unknot.</dd>
+
+<dt id="np">NP and co-NP</dt>
+<dd>Ways to say a yes-or-no question has short proofs. In NP: whenever the answer is yes, there is a proof (a certificate) that can be checked quickly, in a time that grows at most like a fixed power of the size of the question, here the number of crossings. In co-NP: whenever the answer is no, there is such a quickly checkable proof. Neither says how to find the proof quickly.</dd>
+
+<dt id="grh">Generalized Riemann Hypothesis</dt>
+<dd>A famous unproved conjecture in number theory, about where the zeros of certain functions (relatives of the Riemann zeta function) lie. Many results are proved assuming it.</dd>
+
+<dt id="quasi-polynomial-time">Quasi-polynomial time</dt>
+<dd>A running time that grows faster than any fixed power of the size of the input (here the number of crossings), but far more slowly than exponentially.</dd>
+</dl>
 
 </div>
 <footer class="site">
