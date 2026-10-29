@@ -17,7 +17,7 @@
 <meta name="description" content="Paata Ivanisvili, Professor of Mathematics, University of California, Irvine.">
 <link rel="stylesheet" href="../../../css/site.css">
 <style>
-.watch img { display: block; width: 100%; max-width: 32rem; height: auto; margin: 0.65rem 0 0.35rem; }
+.watch video { display: block; width: 100%; max-width: 32rem; height: auto; margin: 0.65rem 0 0.35rem; border: 1px solid var(--line); }
 .tag { font-size: 0.8rem; letter-spacing: 0.06em; text-transform: uppercase; opacity: 0.75; }
 .credit { font-size: 0.92rem; }
 </style>
@@ -48,7 +48,7 @@
 <div class="page" id="content">
 <p><a href="../index.html">← Minimal surfaces</a></p>
 <h1 class="page-title">Schoen’s gyroid</h1>
-<p class="watch"><a href="03_gyroid.mp4"><img src="poster.jpg" width="1280" height="720" alt="Still from the video: Schoen’s gyroid"></a><a href="03_gyroid.mp4">Watch the video (MP4, 7 MB)</a></p>
+<p class="watch"><video controls playsinline muted autoplay loop preload="metadata" width="1920" height="1080" poster="poster.jpg" src="03_gyroid.mp4" aria-label="Video: Schoen’s gyroid"></video><a href="03_gyroid.mp4">Watch the video (MP4, 7 MB)</a></p>
 <p class="tag">EXACT animation · narrated</p>
 <p><strong>Why it is remarkable.</strong> Alan Schoen found the gyroid in 1970. It is an embedded, triply periodic minimal surface that divides space into two intertwined labyrinths which are mirror images of each other. It contains no straight lines and has no mirror planes. It belongs to the <em>associate family</em> of Schwarz’s P and D surfaces: there is a one-parameter way of bending D into P (and back) that keeps every length on the surface unchanged. D sits at angle 0°, P at 90°, and at the Bonnet angle θ = arctan(K(¼)/K(¾)) ≈ 38.01° (measured from D) the surface is the gyroid. Apart from P and D it is the only embedded member of the family (embeddedness proved by Große-Brauckmann and Wohlgemuth, 1996). Because the bending preserves lengths, it preserves Gaussian curvature at every point.</p>
 <p><strong>What the animation shows.</strong> First a 2×2×2 block of cubic cells, computed from the exact Weierstrass integral (not the popular trigonometric approximation sin x cos y + sin y cos z + sin z cos x = 0). Then one 17-tile patch bends continuously P → gyroid → D with its curvature colouring carried along unchanged, which is the visual proof that the bending is an isometry.</p>
@@ -61,5 +61,10 @@
 
 </article>
 </div>
+<script>
+if (matchMedia('(prefers-reduced-motion: reduce)').matches) {
+  document.querySelectorAll('video[autoplay]').forEach(function (v) { v.removeAttribute('autoplay'); v.pause(); });
+}
+</script>
 </body>
 </html>
