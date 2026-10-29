@@ -12,7 +12,7 @@ The pages show `images/paata-dark.png`: the same 357×357 photo with its white s
 
 Root:
 
-- `index.html` — header (bio, links, department) and the site footer (department line only)
+- `index.html` — header (bio, links, department)
 - `papers.html` — the numbered list of all papers (`<ol class="papers">`, oldest first)
 - `talks.html` — talks 2012–2026, including 2024 (no traveling due to childbirth)
 - `teaching.html` — courses with cleaned UCI / Canvas / NCSU URLs
@@ -44,6 +44,6 @@ Schools (`schools/`):
 
 After x.com's dark mode. Everything sits on a `#000` page, with no card behind the content. Text is `#e7e9ea`, secondary text `#71767b` (4.6:1 on black, so keep it on `#000`; use `#8b98a5` on raised or tinted surfaces), hairlines `#2f3336`, raised surfaces `#16181c`. Links are `#1d9bf0` and lighten on hover. Inside running text they are underlined, because blue on the light grey text is only 2.5:1; in the masthead and link lists they get the underline on hover. Text uses the system font stack (`system-ui`: San Francisco on Apple devices, Segoe UI on Windows, Roboto on Android), with no web fonts.
 
-The masthead has the name and links on the left and the portrait on the right; the portrait's background is black, so only the person shows. Below it the nav is a row of X-style tabs: grey labels, with the current page in white over a blue bar. Wide screens get two aligned rows; narrow screens get wrapping rows balanced with `text-wrap: balance`, so no tab is left alone on the last row. Content lists share one small grey dot; numbered lists use grey numerals. AI-proof statuses are tinted pills. No sticky nav, no accordions.
+The masthead has the name and links on the left and the portrait on the right; the portrait's background is black, so only the person shows. Below it the nav is a row of X-style tabs: grey labels, with the current page in white over a blue bar. Wide screens get two aligned rows; narrow screens get wrapping rows balanced with `text-wrap: balance`, so no tab is left alone on the last row. Content lists share one small grey dot; numbered lists use grey numerals. AI-proof statuses are tinted pills. No sticky nav, no accordions. Every page starts with the masthead and ends with its content: no strip above the masthead and no footer.
 
 iPhone: every page sets `theme-color` `#000000` and `color-scheme` `dark`, so the status bar and overscroll stay black. With `viewport-fit=cover`, body padding keeps content clear of the notch in landscape (`env(safe-area-inset-*)`).
