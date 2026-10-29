@@ -1,4 +1,5 @@
 \documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage{lmodern}
 \usepackage[margin=1in]{geometry}
@@ -43,6 +44,14 @@
 {\small\href{mailto:pivanisv@uci.edu}{\texttt{pivanisv@uci.edu}}}}
 \date{}
 
+% --- AI disclosure (site) ---
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd{\@maketitle}{\null}{\null\par{\centering\small\itshape
+This proof was generated on September 23, 2026, by Grok Bot using Cursor’s agents, guided by several prompts from Paata Ivanisvili
+\par}\vskip 1.2em}{}{}
+\makeatother
+% --- end AI disclosure ---
 \begin{document}
 \maketitle
 
