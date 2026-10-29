@@ -30,6 +30,8 @@ The primary nav is duplicated on every page. To change it, edit `NAV` in `tools/
 
 The year links under the title of `talks.html` are rebuilt by the same command from the year headings (`<h2 class="year" id="t2027">2027</h2>`), so after adding a new year, run `python3 tools/site.py nav`.
 
+The same command writes the footer, `FOOTER` in `tools/site.py`, on every page: the line "This site was created with AI and is maintained by the author’s assistants." under a hairline (the hairline is the top border of `footer.site` in `css/site.css`). It rewrites an existing footer in place and adds one before `</article>` on a page that has none; a page with two footers gets a warning and is left unchanged.
+
 ## Point-cloud clock
 
 `clock/` is a stand-alone page without the site header, linked from Vibe projects. It can be embedded in another page with an iframe pointing to `clock/index.html#embed=1`. The clock draws on `#000`, the same black as the site, so the iframe has no visible edge. With `embed=1` the clock:

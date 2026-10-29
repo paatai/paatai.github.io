@@ -368,6 +368,8 @@ ul.school-nav a[aria-current="page"]::after {
 
 footer.site {
   margin: 3rem 0 0;
+  padding: 1.1rem 0 0;
+  border-top: 1px solid var(--line);
   color: var(--mute);
   font-size: 0.85rem;
 }
@@ -493,6 +495,6 @@ a.ap-n:hover { color: var(--link-hover); text-decoration: underline; }
   a { color: inherit; }
   .meta, .dept, .note, .vibe-date, footer.site, .ap-cite, .ap-legend, .ap-count, .ap-n, .ap-side, .ap-note, ol.papers li::before { color: #444; }
   .badge { color: #000; background: none; border-color: #999; }
-  ol.ap-list, ol.ap-list > li, h2.year { border-color: #ccc; }
+  ol.ap-list, ol.ap-list > li, h2.year, footer.site { border-color: #ccc; }
   ol.papers li, ol.ap-list > li, ul > li { break-inside: avoid; }
 }

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Site maintenance.  Run from the repo root.
 
-  python3 tools/site.py nav        rewrite the primary nav on every page and the year links on talks.html
+  python3 tools/site.py nav        rewrite the primary nav and the footer on every page and the year links on talks.html
   python3 tools/site.py ai-proofs  rebuild ai-proofs/index.html from ai-proofs/entries.json
   python3 tools/site.py all        both
 """
@@ -14,6 +14,9 @@ NAV = [("Home", "index.html"), ("Papers", "papers.html"), ("Talks", "talks.html"
        ("Co-authors", "coauthors.html"), ("Organization", "organization.html"), ("Awards", "awards.html"),
        ("Vibe projects", "vibe-projects/index.html"), ("AI proofs", "ai-proofs/index.html")]
 SKIP = ("clock/", "3dpoints/")          # stand-alone pages without the site header
+FOOTER = ('<footer class="site">\n'
+          '  <p>This site was created with AI and is maintained by the author’s assistants.</p>\n'
+          '</footer>')                   # the hairline above the sentence is footer.site's top border in css/site.css
 
 
 def current(rel):
@@ -49,6 +52,17 @@ def fix_nav():
         if k != 1: print("WARNING: %d navs in %s" % (k, rel)); continue
         if t != s: open(p, "w", encoding="utf-8").write(t); n += 1
     print("nav updated on %d pages" % n)
+
+
+def fix_footer():
+    n = 0
+    for rel in sorted(pages()):
+        p = os.path.join(ROOT, rel); s = open(p, encoding="utf-8").read()
+        t, k = re.subn(r'<footer class="site">.*?</footer>', lambda m: FOOTER, s, flags=re.S)
+        if k == 0: t, k = re.subn(r'(?=</article>)', lambda m: FOOTER + "\n\n", s)   # a page without one gets it last in the folio
+        if k != 1: print("WARNING: %d footers in %s" % (k, rel)); continue
+        if t != s: open(p, "w", encoding="utf-8").write(t); n += 1
+    print("footer updated on %d pages" % n)
 
 
 def fix_years():
@@ -122,4 +136,4 @@ def build_ai_proofs():
 if __name__ == "__main__":
     cmd = sys.argv[1] if len(sys.argv) > 1 else "all"
     if cmd in ("ai-proofs", "all"): build_ai_proofs()
-    if cmd in ("nav", "all"): fix_nav(); fix_years()
+    if cmd in ("nav", "all"): fix_nav(); fix_footer(); fix_years()
