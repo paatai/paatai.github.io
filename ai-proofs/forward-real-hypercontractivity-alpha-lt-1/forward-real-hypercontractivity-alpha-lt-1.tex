@@ -60,9 +60,12 @@ blocks, with a flow in three parameters (exponent, correlation and noise) along 
 controlling quantity.
 \end{abstract}
 % --- AI disclosure (site) ---
-\noindent\begin{center}\small\itshape
+\makeatletter
+\let\aidisc@setabstracta\@setabstracta
+\def\@setabstracta{\par\vskip 10pt{\centering\small\itshape
 This proof was generated on October 28, 2026, by Grok Bot using Cursor’s agents, guided by several prompts from Paata Ivanisvili
-\end{center}\medskip
+\par}\aidisc@setabstracta}
+\makeatother
 % --- end AI disclosure ---
 \maketitle
 

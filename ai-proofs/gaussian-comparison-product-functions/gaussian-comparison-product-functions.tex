@@ -52,9 +52,12 @@ blocks merged on its first stretch and an exact rational certificate, gives the 
 that these flows stay bounded away from $2.175\ldots$ there; the range in between is open.
 \end{abstract}
 % --- AI disclosure (site) ---
-\noindent\begin{center}\small\itshape
+\makeatletter
+\let\aidisc@setabstracta\@setabstracta
+\def\@setabstracta{\par\vskip 10pt{\centering\small\itshape
 This proof was generated on October 28, 2026, by Grok Bot using Cursor’s agents, guided by several prompts from Paata Ivanisvili
-\end{center}\medskip
+\par}\aidisc@setabstracta}
+\makeatother
 % --- end AI disclosure ---
 \maketitle
 

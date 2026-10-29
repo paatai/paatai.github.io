@@ -21,16 +21,13 @@
 \author{Paata Ivanisvili}
 \date{24 October 2026}
 
-% --- AI disclosure (site) ---
-\usepackage{etoolbox}
-\makeatletter
-\patchcmd{\@maketitle}{\null}{\null\par{\centering\small\itshape
-This proof was generated on October 24, 2026, by Grok Bot using Cursor’s agents, guided by several prompts from Paata Ivanisvili
-\par}\vskip 1.2em}{}{}
-\makeatother
-% --- end AI disclosure ---
 \begin{document}
 \maketitle
+% --- AI disclosure (site) ---
+{\centering\small\itshape
+This proof was generated on October 24, 2026, by Grok Bot using Cursor’s agents, guided by several prompts from Paata Ivanisvili
+\par}\vskip 1em
+% --- end AI disclosure ---
 
 \begin{abstract}
 Let $N(d)$ be the maximum number of equiangular lines in $\R^d$. We prove that there are no $421$
