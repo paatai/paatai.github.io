@@ -17,7 +17,7 @@
 <meta name="description" content="Paata Ivanisvili, Professor of Mathematics, University of California, Irvine.">
 <link rel="stylesheet" href="../../../css/site.css">
 <style>
-.watch img { display: block; width: 100%; max-width: 32rem; height: auto; margin: 0.65rem 0 0.35rem; }
+.watch video { display: block; width: 100%; max-width: 32rem; height: auto; margin: 0.65rem 0 0.35rem; border: 1px solid var(--line); }
 .tag { font-size: 0.8rem; letter-spacing: 0.06em; text-transform: uppercase; opacity: 0.75; }
 .credit { font-size: 0.92rem; }
 </style>
@@ -48,7 +48,7 @@
 <div class="page" id="content">
 <p><a href="../index.html">← Minimal surfaces</a></p>
 <h1 class="page-title">A complete minimal surface dense in space</h1>
-<p class="watch"><a href="02_dense.mp4"><img src="poster.jpg" width="1280" height="720" alt="Still from the video: A complete minimal surface dense in space"></a><a href="02_dense.mp4">Watch the video (MP4, 14 MB)</a></p>
+<p class="watch"><video controls playsinline muted autoplay loop preload="metadata" width="1920" height="1080" poster="poster.jpg" src="02_dense.mp4" aria-label="Video: A complete minimal surface dense in space"></video><a href="02_dense.mp4">Watch the video (MP4, 14 MB)</a></p>
 <p class="tag">SCHEMATIC animation · narrated</p>
 <p><strong>Why it is remarkable.</strong> A minimal surface is the mathematical model of a soap film, yet there are complete minimal surfaces that are <em>dense</em> in space: they pass arbitrarily close to every point, so their closure is all of space. The first example dense in all of space was found by H. Rosenberg. In 2018 Alarcón and Castro-Infantes proved much more: for <em>every</em> region (open connected set) of space there is a complete minimal surface lying in it and dense in it, and it can be given any orientable topology. Such a surface crosses itself (it is immersed), and it behaves like an infinitely long, infinitely tangled ribbon.</p>
 <p><strong>What the animation shows.</strong> A genuine minimal ribbon grows inside a glass cube. It is built exactly (Björling’s formula) around a smoothed billiard path that never closes up and so comes arbitrarily close to every point of the cube; on each straight run the ribbon is an exact piece of a helicoid. The counters are measured on the mesh: the largest ball in the cube that the ribbon misses shrinks from about 0.83 to 0.14, and the ribbon visits 997 of 1000 cells. The ribbon has edges, so it is not complete; it stands in for the real surface.</p>
@@ -61,5 +61,10 @@
 
 </article>
 </div>
+<script>
+if (matchMedia('(prefers-reduced-motion: reduce)').matches) {
+  document.querySelectorAll('video[autoplay]').forEach(function (v) { v.removeAttribute('autoplay'); v.pause(); });
+}
+</script>
 </body>
 </html>

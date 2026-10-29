@@ -17,7 +17,7 @@
 <meta name="description" content="Paata Ivanisvili, Professor of Mathematics, University of California, Irvine.">
 <link rel="stylesheet" href="../../../css/site.css">
 <style>
-.watch img { display: block; width: 100%; max-width: 32rem; height: auto; margin: 0.65rem 0 0.35rem; }
+.watch video { display: block; width: 100%; max-width: 32rem; height: auto; margin: 0.65rem 0 0.35rem; border: 1px solid var(--line); }
 .tag { font-size: 0.8rem; letter-spacing: 0.06em; text-transform: uppercase; opacity: 0.75; }
 .credit { font-size: 0.92rem; }
 </style>
@@ -48,7 +48,7 @@
 <div class="page" id="content">
 <p><a href="../index.html">← Minimal surfaces</a></p>
 <h1 class="page-title">Nadirashvili’s complete minimal disk inside a ball</h1>
-<p class="watch"><a href="01_nadirashvili.mp4"><img src="poster.jpg" width="1280" height="720" alt="Still from the video: Nadirashvili’s complete minimal disk inside a ball"></a><a href="01_nadirashvili.mp4">Watch the video (MP4, 10 MB)</a></p>
+<p class="watch"><video controls playsinline muted autoplay loop preload="metadata" width="1920" height="1080" poster="poster.jpg" src="01_nadirashvili.mp4" aria-label="Video: Nadirashvili’s complete minimal disk inside a ball"></video><a href="01_nadirashvili.mp4">Watch the video (MP4, 10 MB)</a></p>
 <p class="tag">SCHEMATIC animation · narrated</p>
 <p><strong>Why it is remarkable.</strong> A surface is <em>complete</em> when you cannot walk off it in finite distance: every path on the surface that runs off toward its “edge” (eventually leaving every finite piece of the surface) has infinite length. In 1965 Calabi conjectured that a complete minimal surface in space cannot be bounded, i.e. cannot fit inside a ball. In 1996 Nadirashvili disproved this: he built a complete minimal surface, topologically a disk, that fits inside a ball. The idea is to add ever finer, steeper wiggles near the edge, so the surface barely grows in space while the distance you must walk along it to reach the edge becomes infinite.</p>
 <p>Nadirashvili’s disk necessarily crosses itself (it is immersed, not embedded): by Colding and Minicozzi (2008), a complete <em>embedded</em> minimal surface of finite topology can never be bounded.</p>
@@ -62,5 +62,10 @@
 
 </article>
 </div>
+<script>
+if (matchMedia('(prefers-reduced-motion: reduce)').matches) {
+  document.querySelectorAll('video[autoplay]').forEach(function (v) { v.removeAttribute('autoplay'); v.pause(); });
+}
+</script>
 </body>
 </html>

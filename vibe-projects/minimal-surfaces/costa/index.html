@@ -17,7 +17,7 @@
 <meta name="description" content="Paata Ivanisvili, Professor of Mathematics, University of California, Irvine.">
 <link rel="stylesheet" href="../../../css/site.css">
 <style>
-.watch img { display: block; width: 100%; max-width: 32rem; height: auto; margin: 0.65rem 0 0.35rem; }
+.watch video { display: block; width: 100%; max-width: 32rem; height: auto; margin: 0.65rem 0 0.35rem; border: 1px solid var(--line); }
 .tag { font-size: 0.8rem; letter-spacing: 0.06em; text-transform: uppercase; opacity: 0.75; }
 .credit { font-size: 0.92rem; }
 </style>
@@ -48,7 +48,7 @@
 <div class="page" id="content">
 <p><a href="../index.html">← Minimal surfaces</a></p>
 <h1 class="page-title">Costa’s surface</h1>
-<p class="watch"><a href="04_costa.mp4"><img src="poster.jpg" width="1280" height="720" alt="Still from the video: Costa’s surface"></a><a href="04_costa.mp4">Watch the video (MP4, 3 MB)</a></p>
+<p class="watch"><video controls playsinline muted autoplay loop preload="metadata" width="1920" height="1080" poster="poster.jpg" src="04_costa.mp4" aria-label="Video: Costa’s surface"></video><a href="04_costa.mp4">Watch the video (MP4, 3 MB)</a></p>
 <p class="tag">EXACT animation · narrated</p>
 <p><strong>Why it is remarkable.</strong> Before 1982 the only known complete embedded minimal surfaces of finite topology were the plane, the catenoid and the helicoid, and many expected there were no others. In 1982 Celso Costa found this surface: genus one (one handle) and three ends, two shaped like the ends of a catenoid and one flat (like a plane). In 1985 Hoffman and Meeks proved that it is embedded (it never crosses itself). Their work opened the way to infinitely many new examples, including ones of every genus.</p>
 <p><strong>What the animation shows.</strong> The surface is drawn from its exact closed-form formula in terms of Weierstrass elliptic functions on the square torus; the three ends are cut off at a finite distance.</p>
@@ -61,5 +61,10 @@
 
 </article>
 </div>
+<script>
+if (matchMedia('(prefers-reduced-motion: reduce)').matches) {
+  document.querySelectorAll('video[autoplay]').forEach(function (v) { v.removeAttribute('autoplay'); v.pause(); });
+}
+</script>
 </body>
 </html>
