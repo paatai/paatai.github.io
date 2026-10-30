@@ -39,7 +39,7 @@
   "n": 4,
   "date": "2026-10-02",
   "title": "Counterexample to Sedykh and Shapiro conjecture",
-  "status": "polished",
+  "status": "refereed",
   "line": "Written-up counterexample.",
   "pdf": "../counterexample-sedykh-shapiro.pdf",
   "files": []
@@ -48,7 +48,7 @@
   "n": 5,
   "date": "2026-10-15",
   "title": "Short, computer-free proofs of three nonlinear-mean inequalities of Nazarov, Vasyunin and Volberg",
-  "status": "polished",
+  "status": "refereed",
   "line": "Hand proofs of the I3, I4 and I6 inequalities of arXiv:2204.01336; an independent hostile audit found no errors.",
   "pdf": "nvv-inequalities/nvv-short-proofs.pdf",
   "files": [
