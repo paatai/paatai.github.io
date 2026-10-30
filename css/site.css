@@ -233,6 +233,9 @@ figure { margin: 0 0 1rem; }
 figcaption { margin-top: 0.5rem; font-size: 0.875rem; color: var(--mute); }
 video { max-width: 100%; height: auto; border-radius: 16px; }
 .watch img { border: 1px solid var(--line); border-radius: 16px; }
+/* Mars candidates (vibe-projects/mars/): tall figures capped so a whole panel fits on screen */
+.mars-fig img { display: block; width: 100%; max-width: 32rem; border: 1px solid var(--line); }
+.mars-fig.mars-wide img { max-width: 100%; }
 
 /* One bullet for every content list: a small grey dot */
 .page ul { list-style: none; padding-left: 0; }
