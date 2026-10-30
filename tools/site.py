@@ -12,7 +12,7 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 NAV = [("Home", "index.html"), ("Papers", "papers.html"), ("Talks", "talks.html"),
        ("Teaching", "teaching.html"), ("Students", "students.html"), ("Slides", "slides.html"),
        ("Co-authors", "coauthors.html"), ("Organization", "organization.html"), ("Awards", "awards.html"),
-       ("Vibe projects", "vibe-projects/index.html"), ("AI proofs", "ai-proofs/index.html")]
+       ("Vibe projects", "vibe-projects/index.html"), ("Vibe proofs", "ai-proofs/index.html")]
 SKIP = ("clock/", "3dpoints/")          # stand-alone pages without the site header
 FOOTER = ('<footer class="site">\n'
           '  <p>This site was created with AI and is maintained by the author’s assistants.</p>\n'
