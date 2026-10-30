@@ -236,6 +236,21 @@ video { max-width: 100%; height: auto; border-radius: 16px; }
 /* Mars candidates (vibe-projects/mars/): tall figures capped so a whole panel fits on screen */
 .mars-fig img { display: block; width: 100%; max-width: 32rem; border: 1px solid var(--line); }
 .mars-fig.mars-wide img { max-width: 100%; }
+/* Shorter form for the promising candidates: two small figures side by side at every width, each linked to the full image */
+.mars-two { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 0.75rem; align-items: start; margin: 0 0 1rem; }
+.mars-two figure { margin: 0; }
+.mars-two a { display: block; }
+.page h2.mars-group {
+  margin: 3rem 0 0;
+  padding-top: 1rem;
+  border-top: 1px solid var(--line);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--mute);
+}
+.page h2.mars-group + h2 { margin-top: 1rem; }
 
 /* One bullet for every content list: a small grey dot */
 .page ul { list-style: none; padding-left: 0; }
