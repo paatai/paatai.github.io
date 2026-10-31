@@ -1,6 +1,6 @@
 # Mars candidates
 
-- `index.html`: the intro (what was searched, how, caveat, credits) and the list of candidates, grouped Strong and Promising. The `id`s on the first fourteen list lines are the section anchors of the old one-page version, so old links such as `index.html#arsia-sulci` still land on the right line.
+- `index.html`: the intro (what was searched, how, caveat, credits) and the list of candidates, one line each in candidate order. The `id`s on the first fourteen lines are the section anchors of the old one-page version, so old links such as `index.html#arsia-sulci` still land on the right line. The old page's two group headings, `#strong` and `#promising`, are ids on the links of candidates 4 and 11, where those groups began. New lines need no `id`.
 - `candidate-NN/index.html`: one page per candidate, `candidate-01` to `candidate-14`.
 - `*.jpg`: the figures, all in this folder; candidate pages use them as `../<file>.jpg`. The existing file names keep the search's lead numbers, which are not the candidate numbers (for example `lead16_…` belongs to candidate 10).
 
@@ -8,10 +8,10 @@
 
 1. Put its figures in this folder, for example `candidate15_<place>_pair_web.jpg`, `…_epochs_web.jpg` and `…_context_web.jpg` (and `…_hirise_web.jpg` if there is a HiRISE view).
 2. Copy the newest candidate folder, for example `candidate-14/` to `candidate-15/`. In the copy, change the `<title>` and replace everything between `<div class="page" id="content">` and the `</div>` just before the footer with the template below. Leave the header and the footer as they are.
-3. Add one line to the Strong or the Promising list in `index.html`. `value` is the candidate number, so a list can skip numbers:
+3. Add one line at the end of the list in `index.html`. The list has no automatic numbering: the number is written into the line, so it always matches the candidate's page. The rating is `Strong` or `Promising` (shown in capitals) and, with the confidence, is the same as on the candidate's page:
 
    ```html
-   <li value="15"><a href="candidate-15/index.html">Place name</a> <span class="mars-meta">12.345°&nbsp;N, 67.890°&nbsp;E · <span class="mars-rating">Strong</span> · roughly&nbsp;70%</span></li>
+   <li><a href="candidate-15/index.html">Candidate 15: Place name</a> <span class="mars-meta">12.345°&nbsp;N, 67.890°&nbsp;E · <span class="mars-rating">Strong</span> · roughly&nbsp;70%</span></li>
    ```
 
 4. From the repository root, run `python3 tools/site.py nav`. Besides the nav and the footer, it rewrites the previous/next links at the bottom of every candidate page, so candidate 14 gets its link to 15.
