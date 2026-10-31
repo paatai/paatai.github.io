@@ -236,21 +236,31 @@ video { max-width: 100%; height: auto; border-radius: 16px; }
 /* Mars candidates (vibe-projects/mars/): tall figures capped so a whole panel fits on screen */
 .mars-fig img { display: block; width: 100%; max-width: 32rem; border: 1px solid var(--line); }
 .mars-fig.mars-wide img { max-width: 100%; }
-/* Shorter form for the promising candidates: two small figures side by side at every width, each linked to the full image */
-.mars-two { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 0.75rem; align-items: start; margin: 0 0 1rem; }
-.mars-two figure { margin: 0; }
-.mars-two a { display: block; }
-.page h2.mars-group {
-  margin: 3rem 0 0;
-  padding-top: 1rem;
+/* The list on mars/index.html: "Candidate N: place", then a grey line with coordinates, rating and confidence.
+   No bullets or list numbers, so the only number on a line is the candidate's own. */
+.page ul.mars-list > li { padding-left: 0; margin-bottom: 0.7rem; }
+.page ul.mars-list > li::before { content: none; }
+.mars-meta { display: block; font-size: 0.875rem; color: var(--mute); font-variant-numeric: tabular-nums; }
+.mars-rating, .mars-tag { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; }
+/* Links to the old one-page version (index.html#arsia-sulci and so on) land on that candidate's line */
+.page ul.mars-list > li:target { background: rgba(29, 155, 240, 0.1); box-shadow: -0.6rem 0 0 rgba(29, 155, 240, 0.1), 0.6rem 0 0 rgba(29, 155, 240, 0.1); }
+/* Candidate pages (mars/candidate-NN/): rating under the title, facts as label and value rows, stacked on phones */
+.mars-tag { margin: -0.6rem 0 1rem; color: var(--mute); }
+.mars-pager a { white-space: nowrap; }
+dl.mars-facts {
+  display: grid;
+  grid-template-columns: max-content minmax(0, 1fr);
+  gap: 0.45rem 1rem;
+  margin: 0 0 1.25rem;
+  padding: 0.85rem 0;
   border-top: 1px solid var(--line);
-  font-size: 0.8rem;
-  font-weight: 700;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: var(--mute);
+  border-bottom: 1px solid var(--line);
 }
-.page h2.mars-group + h2 { margin-top: 1rem; }
+dl.mars-facts dd { margin: 0; }
+@media (max-width: 480px) {
+  dl.mars-facts { grid-template-columns: minmax(0, 1fr); row-gap: 0.1rem; }
+  dl.mars-facts dd + dt { margin-top: 0.55rem; }
+}
 
 /* One bullet for every content list: a small grey dot */
 .page ul { list-style: none; padding-left: 0; }
