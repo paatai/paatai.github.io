@@ -24,6 +24,10 @@ Content was transferred from the Google Site https://sites.google.com/view/paata
    Paths are relative to `ai-proofs/`. Use `refereed` only if an independent referee rated the proof valid.
 3. Run `python3 tools/site.py ai-proofs` and commit. The page lists entries newest first; numbers never change, and each entry has a permanent link `ai-proofs/#<n>`. The script first checks every entry (all fields present, a whole-number `n` used once, a real `YYYY-MM-DD` date, a known status, `files` as label/path pairs, every file present); if anything is wrong it prints what and leaves the page unchanged.
 
+## Adding a Mars candidate
+
+Each candidate has its own page, `vibe-projects/mars/candidate-NN/index.html`, and one line in the list on `vibe-projects/mars/index.html`. Add both as described in `vibe-projects/mars/README.md` (it has a page template), then run `python3 tools/site.py nav`, which also rewrites the previous/next links between the candidate pages.
+
 ## Navigation
 
 The primary nav is duplicated on every page. To change it, edit `NAV` in `tools/site.py` and run `python3 tools/site.py nav`; it rewrites every page with the right `../` prefix and `aria-current`. On wide screens `css/site.css` lays the eleven items out in six columns, i.e. rows of six and five (`repeat(6, auto)` under `nav.primary ul`); revisit that if the number of items changes. Up to 660px wide the items wrap in balanced rows instead, and the `clamp()` font size and padding in that media query keep them to three rows on phones from 320px up; check a 375px-wide screen after adding an item.

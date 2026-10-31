@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 """Site maintenance.  Run from the repo root.
 
-  python3 tools/site.py nav        rewrite the primary nav and the footer on every page and the year links on talks.html
+  python3 tools/site.py nav        rewrite the primary nav and the footer on every page, the year links on talks.html
+                                   and the previous/next links on the Mars candidate pages
   python3 tools/site.py ai-proofs  rebuild ai-proofs/index.html from ai-proofs/entries.json
   python3 tools/site.py all        both
 """
@@ -75,6 +76,22 @@ def fix_years():
     print("talks: %d year links" % len(years))
 
 
+def fix_mars_pager():
+    d = os.path.join(ROOT, "vibe-projects/mars")
+    cands = sorted((int(m.group(1)), f) for f in os.listdir(d) for m in [re.fullmatch(r"candidate-(\d+)", f)]
+                   if m and os.path.isfile(os.path.join(d, f, "index.html")))
+    n = 0
+    for i, (num, f) in enumerate(cands):
+        links = ['<a href="../index.html">All candidates</a>']
+        if i > 0: links.insert(0, '<a href="../%s/index.html" rel="prev">← Candidate %d</a>' % (cands[i - 1][1], cands[i - 1][0]))
+        if i + 1 < len(cands): links.append('<a href="../%s/index.html" rel="next">Candidate %d →</a>' % (cands[i + 1][1], cands[i + 1][0]))
+        p = os.path.join(d, f, "index.html"); s = open(p, encoding="utf-8").read()
+        t, k = re.subn(r'<p class="mars-pager">.*?</p>', lambda m: '<p class="mars-pager">%s</p>' % " · ".join(links), s, flags=re.S)
+        if k != 1: print("WARNING: %d pagers in vibe-projects/mars/%s/index.html" % (k, f)); continue
+        if t != s: open(p, "w", encoding="utf-8").write(t); n += 1
+    print("mars: %d candidate pages, previous/next links updated on %d" % (len(cands), n))
+
+
 MONTHS = "January February March April May June July August September October November December".split()
 STATUSES = ("refereed", "partial result", "raw draft", "polished")   # badge styles live in css/site.css
 
@@ -136,4 +153,4 @@ def build_ai_proofs():
 if __name__ == "__main__":
     cmd = sys.argv[1] if len(sys.argv) > 1 else "all"
     if cmd in ("ai-proofs", "all"): build_ai_proofs()
-    if cmd in ("nav", "all"): fix_nav(); fix_footer(); fix_years()
+    if cmd in ("nav", "all"): fix_nav(); fix_footer(); fix_years(); fix_mars_pager()
