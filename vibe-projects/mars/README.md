@@ -11,7 +11,7 @@
 3. Add one line to the Strong or the Promising list in `index.html`. `value` is the candidate number, so a list can skip numbers:
 
    ```html
-   <li value="15"><a href="candidate-15/index.html">Place name</a> <span class="mars-meta">12.345°&nbsp;N, 67.890°&nbsp;E · <span class="mars-rating">Strong</span> · roughly 70%</span></li>
+   <li value="15"><a href="candidate-15/index.html">Place name</a> <span class="mars-meta">12.345°&nbsp;N, 67.890°&nbsp;E · <span class="mars-rating">Strong</span> · roughly&nbsp;70%</span></li>
    ```
 
 4. From the repository root, run `python3 tools/site.py nav`. Besides the nav and the footer, it rewrites the previous/next links at the bottom of every candidate page, so candidate 14 gets its link to 15.
