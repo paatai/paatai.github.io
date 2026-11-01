@@ -93,7 +93,7 @@ def fix_mars_pager():
 
 
 def fix_galaxy_pager():
-    """Previous/next links follow the order of the lists on galaxy/index.html, so the two weak candidates stay last."""
+    """Previous/next links follow the order of the lists on galaxy/index.html."""
     d = os.path.join(ROOT, "vibe-projects/galaxy")
     index_path = os.path.join(d, "index.html")
     if not os.path.isfile(index_path):
