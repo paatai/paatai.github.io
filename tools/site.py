@@ -2,7 +2,7 @@
 """Site maintenance.  Run from the repo root.
 
   python3 tools/site.py nav        rewrite the primary nav and the footer on every page, the year links on talks.html
-                                   and the previous/next links on the Mars candidate pages
+                                   and the previous/next links on the Mars and Galaxy hunt candidate pages
   python3 tools/site.py ai-proofs  rebuild ai-proofs/index.html from ai-proofs/entries.json
   python3 tools/site.py all        both
 """
@@ -92,6 +92,41 @@ def fix_mars_pager():
     print("mars: %d candidate pages, previous/next links updated on %d" % (len(cands), n))
 
 
+def fix_galaxy_pager():
+    """Previous/next links follow the order of the lists on galaxy/index.html, so the two weak candidates stay last."""
+    d = os.path.join(ROOT, "vibe-projects/galaxy")
+    index_path = os.path.join(d, "index.html")
+    if not os.path.isfile(index_path):
+        return
+    index = open(index_path, encoding="utf-8").read()
+    seen, cands = set(), []
+    for folder, num in re.findall(r'<a href="([0-9][^"]*)/index\.html">Candidate (\d+):', index):
+        if folder in seen:
+            continue
+        seen.add(folder)
+        cands.append((folder, int(num)))
+    n = 0
+    for i, (folder, num) in enumerate(cands):
+        links = ['<a href="../index.html">All candidates</a>']
+        if i > 0:
+            links.insert(0, '<a href="../%s/index.html" rel="prev">← Candidate %d</a>' % (cands[i - 1][0], cands[i - 1][1]))
+        if i + 1 < len(cands):
+            links.append('<a href="../%s/index.html" rel="next">Candidate %d →</a>' % (cands[i + 1][0], cands[i + 1][1]))
+        p = os.path.join(d, folder, "index.html")
+        if not os.path.isfile(p):
+            print("WARNING: missing vibe-projects/galaxy/%s/index.html" % folder)
+            continue
+        s = open(p, encoding="utf-8").read()
+        t, k = re.subn(r'<p class="galaxy-pager">.*?</p>', lambda m: '<p class="galaxy-pager">%s</p>' % " · ".join(links), s, flags=re.S)
+        if k != 1:
+            print("WARNING: %d pagers in vibe-projects/galaxy/%s/index.html" % (k, folder))
+            continue
+        if t != s:
+            open(p, "w", encoding="utf-8").write(t)
+            n += 1
+    print("galaxy: %d candidate pages, previous/next links updated on %d" % (len(cands), n))
+
+
 MONTHS = "January February March April May June July August September October November December".split()
 STATUSES = ("refereed", "partial result", "raw draft", "polished")   # badge styles live in css/site.css
 
@@ -153,4 +188,4 @@ def build_ai_proofs():
 if __name__ == "__main__":
     cmd = sys.argv[1] if len(sys.argv) > 1 else "all"
     if cmd in ("ai-proofs", "all"): build_ai_proofs()
-    if cmd in ("nav", "all"): fix_nav(); fix_footer(); fix_years(); fix_mars_pager()
+    if cmd in ("nav", "all"): fix_nav(); fix_footer(); fix_years(); fix_mars_pager(); fix_galaxy_pager()
