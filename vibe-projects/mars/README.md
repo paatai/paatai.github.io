@@ -1,22 +1,22 @@
 # Mars candidates
 
 - `index.html`: the intro (what was searched, how, caveat, credits) and the list of candidates, one line each in candidate order. The `id`s on the first fourteen lines are the section anchors of the old one-page version, so old links such as `index.html#arsia-sulci` still land on the right line. The old page's two group headings, `#strong` and `#promising`, are ids on the links of candidates 4 and 11, where those groups began. New lines need no `id`.
-- `candidate-NN/index.html`: one page per candidate, `candidate-01` to `candidate-49`.
+- `candidate-NN/index.html`: one page per candidate, `candidate-01` to `candidate-90`.
 - `*.jpg`: the figures, all in this folder; candidate pages use them as `../<file>.jpg`. The figures of candidates 1 to 14 keep the search's lead numbers in their file names, which are not the candidate numbers (for example `lead16_…` belongs to candidate 10); from candidate 15 on, the file names start with the candidate number (`candidate15_…`).
 
 ## Adding a candidate
 
-1. Put its figures in this folder, for example `candidate50_<place>_pair_web.jpg`, `…_epochs_web.jpg` and `…_context_web.jpg` (and `…_hirise_web.jpg` if there is a HiRISE view, `…_check_web.jpg` for an independent check figure).
-2. Copy the newest candidate folder, for example `candidate-49/` to `candidate-50/`. In the copy, change the `<title>` and replace everything between `<div class="page" id="content">` and the `</div>` just before the footer with the template below. Leave the header and the footer as they are.
+1. Put its figures in this folder, for example `candidate91_<place>_pair_web.jpg`, `…_epochs_web.jpg` and `…_context_web.jpg` (and `…_hirise_web.jpg` if there is a HiRISE view, `…_check_web.jpg` for an independent check figure).
+2. Copy the newest candidate folder, for example `candidate-90/` to `candidate-91/`. In the copy, change the `<title>` and replace everything between `<div class="page" id="content">` and the `</div>` just before the footer with the template below. Leave the header and the footer as they are.
 3. Add one line at the end of the list in `index.html`. The list has no automatic numbering: the number is written into the line, so it always matches the candidate's page. The rating is `Strong` or `Promising` (shown in capitals) and, with the confidence, is the same as on the candidate's page:
 
    ```html
-   <li><a href="candidate-50/index.html">Candidate 50: Place name</a> <span class="mars-meta">12.345°&nbsp;N, 67.890°&nbsp;E · <span class="mars-rating">Strong</span> · roughly&nbsp;70%</span></li>
+   <li><a href="candidate-91/index.html">Candidate 91: Place name</a> <span class="mars-meta">12.345°&nbsp;N, 67.890°&nbsp;E · <span class="mars-rating">Strong</span> · roughly&nbsp;70%</span></li>
    ```
 
-4. From the repository root, run `python3 tools/site.py nav`. Besides the nav and the footer, it rewrites the previous/next links at the bottom of every candidate page, so candidate 49 gets its link to 50.
+4. From the repository root, run `python3 tools/site.py nav`. Besides the nav and the footer, it rewrites the previous/next links at the bottom of every candidate page, so candidate 90 gets its link to 91.
 
-The Mars entry in `vibe-projects/index.html` gives the number of candidates ("Forty-nine dark spots"); update it too.
+The Mars entry in `vibe-projects/index.html` says the hunt is finished (166 leads: 80 strong, 81 promising, 5 weak). Update it when that changes. Candidates 50 to 90 are hunt leads 126 to 166.
 
 ## Page template
 
@@ -24,9 +24,9 @@ The Mars entry in `vibe-projects/index.html` gives the number of candidates ("Fo
 
 ```html
 <p><a href="../index.html">← Possible new impact sites on Mars</a></p>
-<h1 class="page-title">Candidate 50: Place name</h1>
+<h1 class="page-title">Candidate 91: Place name</h1>
 <p class="mars-tag">Strong · roughly 70%</p>
-<figure class="mars-fig mars-wide"><img src="../candidate50_place_pair_web.jpg" width="1600" height="983" alt="What the two close-ups show, for readers who cannot see them.">
+<figure class="mars-fig mars-wide"><img src="../candidate91_place_pair_web.jpg" width="1600" height="983" alt="What the two close-ups show, for readers who cannot see them.">
 <figcaption>The same 600 × 600 m in Month YYYY and Month YYYY, under the same sun. NASA/JPL-Caltech/MSSS.</figcaption></figure>
 <p><strong>What changed.</strong> What appeared, how big it is, and between which dates.</p>
 <p><strong>Why it may be a new impact.</strong> The evidence: absent under the same sun, unchanged in later images, its shape.</p>
@@ -38,9 +38,9 @@ The Mars entry in `vibe-projects/index.html` gives the number of candidates ("Fo
 <dt>Confidence</dt><dd>Strong candidate; roughly 70% that it is a new impact.</dd>
 <dt>Caveat</dt><dd>Its own weak points, if any. Like every candidate here, it is unconfirmed: see the <a href="../index.html#caveat">caveat</a>.</dd>
 </dl>
-<figure class="mars-fig mars-wide"><img src="../candidate50_place_epochs_web.jpg" width="1600" height="1244" loading="lazy" alt="What the epoch images show.">
+<figure class="mars-fig mars-wide"><img src="../candidate91_place_epochs_web.jpg" width="1600" height="1244" loading="lazy" alt="What the epoch images show.">
 <figcaption>All N CTX images of the same 2 × 2 km patch, YYYY to YYYY. NASA/JPL-Caltech/MSSS.</figcaption></figure>
-<figure class="mars-fig"><img src="../candidate50_place_context_web.jpg" width="1600" height="1676" loading="lazy" alt="What the wider view shows.">
+<figure class="mars-fig"><img src="../candidate91_place_context_web.jpg" width="1600" height="1676" loading="lazy" alt="What the wider view shows.">
 <figcaption>A 12 × 12 km view. NASA/JPL-Caltech/MSSS.</figcaption></figure>
 <p class="mars-pager"><a href="../index.html">All candidates</a></p>
 ```
