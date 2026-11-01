@@ -48,7 +48,7 @@ Write the numbers exactly as in `candidates.csv`: the coordinates rounded to thr
 <dt>Caveat</dt><dd>Its own weak points, if any. It lies outside every footprint of the high-resolution HiRISE camera; the nearest ends 12 km away. Like every candidate here, it is unconfirmed: see the <a href="../index.html#caveat">caveat</a>.</dd>
 </dl>
 <figure class="mars-fig"><img src="../lead167_place_epochs_web.jpg" width="1600" height="1866" loading="lazy" alt="What the epoch images show.">
-<figcaption>All four CTX images of the same 2 × 2 km patch, YYYY to YYYY. NASA/JPL-Caltech/MSSS.</figcaption></figure>
+<figcaption>Four CTX images of the same 2 × 2 km patch, YYYY to YYYY. NASA/JPL-Caltech/MSSS.</figcaption></figure>
 <figure class="mars-fig"><img src="../lead167_place_context_web.jpg" width="1600" height="1676" loading="lazy" alt="What the wider view shows.">
 <figcaption>A 12 × 12 km view from Month YYYY. The dashed box is the 2 × 2 km patch. NASA/JPL-Caltech/MSSS.</figcaption></figure>
 <p class="mars-pager"><a href="../index.html">All candidates</a></p>
