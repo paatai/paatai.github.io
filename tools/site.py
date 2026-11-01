@@ -36,13 +36,18 @@ def nav_html(rel):
     return '<nav class="primary" aria-label="Primary"><ul>%s</ul></nav>' % items
 
 
+def is_redirect(path):
+    with open(path, encoding="utf-8") as fh:
+        return 'http-equiv="refresh"' in fh.read()
+
+
 def pages():
     for d, _, fs in os.walk(ROOT):
         if "/.git" in d: continue
         for f in fs:
             if f.endswith(".html"):
                 rel = os.path.relpath(os.path.join(d, f), ROOT).replace(os.sep, "/")
-                if not rel.startswith(SKIP): yield rel
+                if not rel.startswith(SKIP) and not is_redirect(os.path.join(ROOT, rel)): yield rel   # redirects of old URLs have no header
 
 
 def fix_nav():
@@ -78,8 +83,8 @@ def fix_years():
 
 def fix_mars_pager():
     d = os.path.join(ROOT, "vibe-projects/mars")
-    cands = sorted((int(m.group(1)), f) for f in os.listdir(d) for m in [re.fullmatch(r"candidate-(\d+)", f)]
-                   if m and os.path.isfile(os.path.join(d, f, "index.html")))
+    cands = sorted((int(m.group(1)), f) for f in os.listdir(d) for m in [re.fullmatch(r"candidate-(\d{3})", f)]
+                   if m and os.path.isfile(os.path.join(d, f, "index.html")))   # candidate-NN (two digits) only redirect old URLs
     n = 0
     for i, (num, f) in enumerate(cands):
         links = ['<a href="../index.html">All candidates</a>']

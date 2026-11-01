@@ -30,7 +30,7 @@ Each candidate has its own page, `vibe-projects/galaxy/<folder>/index.html`, and
 
 ## Adding a Mars candidate
 
-Each candidate has its own page, `vibe-projects/mars/candidate-NN/index.html`, and one line in the list on `vibe-projects/mars/index.html`. Add both as described in `vibe-projects/mars/README.md` (it has a page template), then run `python3 tools/site.py nav`, which also rewrites the previous/next links between the candidate pages.
+Each candidate has its own page, `vibe-projects/mars/candidate-NNN/index.html` (three digits; candidate N is lead N of the hunt), and one line in the list on `vibe-projects/mars/index.html`. Add both as described in `vibe-projects/mars/README.md` (it has a page template), then run `python3 tools/site.py nav`, which also rewrites the previous/next links between the candidate pages, and `python3 tools/check_mars.py`, which compares the pages with the hunt's final list, `vibe-projects/mars/candidates.csv`. The two-digit folders `candidate-01` to `candidate-90` only redirect the addresses of the old numbering.
 
 ## Navigation
 
