@@ -247,8 +247,9 @@ video { max-width: 100%; height: auto; border-radius: 16px; }
 .page ul.galaxy-list > li::before { content: none; }
 .mars-meta,
 .galaxy-meta { display: block; font-size: 0.875rem; color: var(--mute); font-variant-numeric: tabular-nums; }
-.mars-rating, .mars-tag,
-.galaxy-rating, .galaxy-tag { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; }
+.mars-rating, .mars-tag { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; }
+/* The Galaxy hunt rating is a probability, written as "about 60%", so it is not forced into capitals. */
+.galaxy-rating { font-size: 0.8rem; font-weight: 700; letter-spacing: 0.01em; }
 /* Links to the old one-page Mars version (index.html#arsia-sulci and so on) land on that candidate's line */
 .page ul.mars-list > li:target,
 .page ul.galaxy-list > li:target { background: rgba(29, 155, 240, 0.1); box-shadow: -0.6rem 0 0 rgba(29, 155, 240, 0.1), 0.6rem 0 0 rgba(29, 155, 240, 0.1); }
