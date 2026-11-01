@@ -4,7 +4,7 @@ Twelve stars from public sky surveys, including Gaia DR3, that seem to have brig
 
 - `index.html`: one intro paragraph, then three lists numbered 1 to 12 in display order, highest probability first inside each list. Unexplained changes are 1 to 6, possible new microlensing events are 7 to 10, and possible hidden companions are 11 and 12.
 - `<folder>/index.html`: one page per candidate. The folder name starts with that display number and keeps the Gaia DR3 id (`3-fading-4296242940002232704`).
-- `finder.jpg`, `lightcurve.jpg`, and, where they exist, `decam_i_epochs.jpg`, `decam_z_epochs.jpg` and `epochs_r.jpg`: the figures, next to the page that uses them. They are JPEGs made from the original PNG figures, flattened onto white, kept under about 400 KB, with the original pixel size so the labels stay readable.
+- `finder.jpg`, `lightcurve.jpg`, and, where they exist, `decam_i_epochs.jpg`, `decam_z_epochs.jpg` and `epochs_r.jpg`: the figures, next to the page that uses them. They are JPEGs made from the original PNG figures, flattened onto white, kept under about 400 KB, with the original pixel size so the labels stay readable. The bold title line of each finder chart and light curve gives the display number and the probability, so it has to be redrawn if either changes.
 
 The pages use the same header, footer and figure styles as the Mars candidates (`galaxy-fig`, `galaxy-list`, `galaxy-facts` in `css/site.css`).
 
