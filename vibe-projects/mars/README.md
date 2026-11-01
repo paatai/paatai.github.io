@@ -14,7 +14,7 @@ From the repository root, run `python3 tools/check_mars.py`. It compares every l
 
 1. Put its figures in this folder, named as above, for example `lead167_<place>_pair_web.jpg`, `…_epochs_web.jpg` and `…_context_web.jpg` (and `…_hirise_web.jpg` if there is a HiRISE view). The lead must be in `candidates.csv`.
 2. Copy the newest candidate folder, for example `candidate-166/` to `candidate-167/`. In the copy, change the `<title>` and replace everything between `<div class="page" id="content">` and the `</div>` just before the footer with the template below. Leave the header and the footer as they are.
-3. Add one line at the end of the list in `index.html`. The list has no automatic numbering: the number is written into the line, so it always matches the candidate's page. The title, coordinates, rating (`Strong`, `Promising` or `Weak`, shown in capitals) and probability are the same as on the candidate's page:
+3. Add one line at the end of the list in `index.html`. The list has no automatic numbering: the number is written into the line, so it always matches the candidate's page. The title, rating (`Strong`, `Promising` or `Weak`, shown in capitals) and probability are the same as on the candidate's page, and so are the coordinates, except that the list gives the east longitude only (the page adds the west longitude in brackets east of 180° E):
 
    ```html
    <li><a href="candidate-167/index.html">Candidate 167: Place name</a> <span class="mars-meta">12.345°&nbsp;N, 67.890°&nbsp;E · <span class="mars-rating">Strong</span> · roughly&nbsp;70%</span></li>
