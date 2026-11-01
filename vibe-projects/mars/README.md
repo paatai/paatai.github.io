@@ -8,7 +8,7 @@
 
 ## Checking the pages
 
-From the repository root, run `python3 tools/check_mars.py`. It compares every line of the list and every candidate page with `candidates.csv` (number, title and place, coordinates to three decimals, rating, probability, the dates and number of images without and with the spot, size, what the page says about HiRISE, and that every figure exists, belongs to the lead and has the right size), checks the summary sentences on `index.html` that name candidates, the previous/next links and every link on the Mars pages and on `vibe-projects/index.html`, and ends with a line such as "166 of 166 lead pages pass". It exits with status 1 if anything is wrong. With `--ocr` it also reads the lead number printed on every figure (it needs the `tesseract` program).
+From the repository root, run `python3 tools/check_mars.py`. It compares every line of the list and every candidate page with `candidates.csv` (number, title and place, coordinates to three decimals, rating, probability, the dates and number of images without and with the spot, size, what the page says about HiRISE, and that every figure exists, belongs to the lead and has the right size), checks the counts and the lists of candidates in the intro of `index.html` (they are marked `<span data-count="…">` and `<span data-list="…">`, so keep those spans when rewording the intro), the previous/next links and every link on the Mars pages and on `vibe-projects/index.html`, and ends with a line such as "166 of 166 lead pages pass". It exits with status 1 if anything is wrong. With `--ocr` it also reads the lead number printed on every figure (it needs the `tesseract` program).
 
 ## Adding or changing a candidate
 
@@ -44,8 +44,8 @@ Write the numbers exactly as in `candidates.csv`: the coordinates rounded to thr
 <dt>Absent</dt><dd>Dates of the images without the spot</dd>
 <dt>Present</dt><dd>Dates of the images with the spot</dd>
 <dt>Size</dt><dd>Dark spot about 40 m across</dd>
-<dt>Confidence</dt><dd>Strong candidate; roughly 70% that it is a new impact.</dd>
-<dt>Caveat</dt><dd>Its own weak points, if any. It lies outside every footprint of the high-resolution HiRISE camera; the nearest ends 12 km away. Like every candidate here, it is unconfirmed: see the <a href="../index.html#caveat">caveat</a>.</dd>
+<dt>Confidence</dt><dd>Strong candidate: roughly 70% likely to be a new impact.</dd>
+<dt>Caveat</dt><dd>Its own weak points, if any. No image from the high-resolution HiRISE camera covers it; the nearest ends 12 km away. Like every candidate here, it is unconfirmed: see the <a href="../index.html#caveat">caveat</a>.</dd>
 </dl>
 <figure class="mars-fig"><img src="../lead167_place_epochs_web.jpg" width="1600" height="1866" loading="lazy" alt="What the epoch images show.">
 <figcaption>Four CTX images of the same 2 × 2 km patch, YYYY to YYYY. NASA/JPL-Caltech/MSSS.</figcaption></figure>

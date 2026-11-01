@@ -24,7 +24,7 @@ COMPASS = {"N": "north", "S": "south", "E": "east", "W": "west", "NE": "north-ea
            "WNW": "west-north-west", "WSW": "west-south-west"}
 DESCRIPTIVE = ("rayed dark spot", "twin dark spot", "large irregular patch", "cluster of dots", "large rayed dark spot",
                "cluster", "rayed spot with satellite dots", "spot with a tail", "formed Sep-Dec 2023",
-               "dot beside a small crater")        # parentheses in CSV names that describe the spot, not the place
+               "dot beside a small crater", "InSight study area")   # parentheses in CSV names that describe the spot, not the place
 INSIGHT = (4.502, 135.623)                         # Bickel et al. (2025) searched within 50 degrees of the lander
 EXTRA_FIGURES = {"lead1_control_hirise_targeted_site_web.jpg"}   # the hunt's control figure for lead 1
 
@@ -83,7 +83,7 @@ def size_numbers(size_m):
 
 def place_words(name):
     """Words of a CSV name that the page title must contain."""
-    n = name
+    n = name.replace("CTX monitoring site in ", "")      # what the site is used for, not where it is
     for d in DESCRIPTIVE: n = n.replace("(%s)" % d, " ")
     need = ["candidate %s" % m for m in re.findall(r"\b[Ll]ead (\d+)\b", n)]
     n = re.sub(r"\b[Ll]ead \d+\b", " ", n)
@@ -157,7 +157,7 @@ def check_page(n, row, slug, use_ocr):
     if not t or text(t.group(1)) != "Mars candidate %d: %s — Paata Ivanisvili" % (n, title):
         errs.append("<title> does not match the heading")
     for w in place_words(row["name"]):
-        if w not in title.lower(): errs.append("title lacks %r of the CSV name %r" % (w, row["name"]))
+        if w.replace("-", "") not in title.lower().replace("-", ""): errs.append("title lacks %r of the CSV name %r" % (w, row["name"]))
     tag = re.search(r'<p class="mars-tag">(.*?)</p>', body)
     if not tag or text(tag.group(1)) != "%s · roughly %d%%" % (rating, p):
         errs.append("tag %r, expected %r" % (text(tag.group(1)) if tag else None, "%s · roughly %d%%" % (rating, p)))
@@ -178,18 +178,18 @@ def check_page(n, row, slug, use_ocr):
     miss = [x for x in sorted(size_numbers(row["size_m"]), key=float)
             if x not in numbers(text(facts.get("Size", ""))) and str(int(float(x))) not in numbers(text(facts.get("Size", "")))]
     if miss: errs.append("size lacks %s of the CSV size %r" % (", ".join(miss), row["size_m"]))
-    conf = "%s candidate; roughly %d%% that it is a new impact." % (rating, p)
+    conf = "%s candidate: roughly %d%% likely to be a new impact." % (rating, p)
     if text(facts.get("Confidence", "")) != conf: errs.append("confidence %r, expected %r" % (text(facts.get("Confidence", "")), conf))
     page_text = text(body)
     imgs = re.findall(r'<img src="\.\./([^"]+)" width="(\d+)" height="(\d+)"', body)
     hi = hirise_images(row)
     if not hi:
         m = re.search(r"(?:nearest edge|edge) ([\d.]+) km", row["hirise"])
-        sent = "It lies outside every footprint of the high-resolution HiRISE camera; the nearest ends %s km away." % m.group(1)
+        sent = "No image from the high-resolution HiRISE camera covers it; the nearest ends %s km away." % m.group(1)
         if sent not in page_text: errs.append("missing the HiRISE sentence %r" % sent)
         if any("_hirise_web" in f for f, _, _ in imgs): errs.append("HiRISE figure on a page whose spot HiRISE never imaged")
     else:
-        if "outside every footprint" in page_text: errs.append("says it lies outside HiRISE footprints, but the CSV lists %s" % row["hirise"])
+        if "No image from the high-resolution HiRISE camera covers it" in page_text: errs.append("says no HiRISE image covers it, but the CSV lists %s" % row["hirise"])
         for d, when in hi:
             if long_date(d) not in page_text: errs.append("HiRISE image of %s not mentioned" % long_date(d))
         if all(w == "before" for _, w in hi) and not re.search(r"before the spots? formed", page_text):
@@ -221,22 +221,19 @@ def check_page(n, row, slug, use_ocr):
     return errs, title
 
 
-def numbers_after(s, start):
-    """Candidate numbers in the sentence of s that begins with start."""
-    i = s.find(start)
-    if i < 0: return None
-    j = s.find(".", i + len(start))
-    while j > 0 and s[j - 1].isdigit() and s[j + 1:j + 2].isdigit(): j = s.find(".", j + 1)
-    return [int(x) for x in re.findall(r"\b(\d{1,3})\b(?!°| km| m\b)", text(s[i:j]))]
+def marked(s, key):
+    """Candidate numbers inside <span data-list="key">...</span> on index.html."""
+    m = re.search(r'<span data-list="%s">(.*?)</span>' % key, s, flags=re.S)
+    return [int(x) for x in re.findall(r"\b(\d{1,3})\b", text(m.group(1)))] if m else None
 
 
 def check_index(rows, titles, review, hirise_fig):
     errs = []
     s = read(os.path.join(MARS, "index.html"))
-    t = text(s)
     c = {k: sum(r["rating"] == k for r in rows.values()) for k in ("STRONG", "PROMISING", "WEAK")}
-    want = "It found %d leads: %d strong, %d promising and %d weak." % (len(rows), c["STRONG"], c["PROMISING"], c["WEAK"])
-    if want not in t: errs.append("summary does not say %r" % want)
+    for key, want in (("total", len(rows)), ("strong", c["STRONG"]), ("promising", c["PROMISING"]), ("weak", c["WEAK"])):
+        m = re.search(r'<span data-count="%s">(\d+)</span>' % key, s)
+        if not m or int(m.group(1)) != want: errs.append("intro gives %s %s, CSV %d" % (key, m.group(1) if m else None, want))
     items = re.findall(r'<li[^>]*><a[^>]*href="(candidate-(\d{3})/index\.html)">Candidate (\d+): (.*?)</a> <span class="mars-meta">(.*?) · '
                        r'<span class="mars-rating">(\w+)</span> · roughly&nbsp;(\d+)%</span></li>', s)
     if [int(i[2]) for i in items] != list(range(1, len(rows) + 1)): errs.append("list is not numbered 1 to %d" % len(rows))
@@ -253,22 +250,16 @@ def check_index(rows, titles, review, hirise_fig):
     if seen != c: errs.append("list has %s, CSV %s" % (seen, c))
     after = sorted(n for n, r in rows.items() if any(w == "after" for _, w in hirise_images(r)))
     before = sorted(n for n, r in rows.items() if hirise_images(r) and all(w == "before" for _, w in hirise_images(r)))
-    got = numbers_after(t, "All but ")
-    if got is None or sorted(set(got) - {len(after) + len(before)}) != sorted(after + before):
-        errs.append("HiRISE sentence lists %s, CSV gives %s after the spot formed and %s before" % (got, after, before))
-    if hirise_fig != after: errs.append("pages with a HiRISE figure %s differ from %s" % (hirise_fig, after))
-    m = re.search(r"the views of candidates (.*?), and the HiRISE panels of the independent checks of (.*?)\)", t)
-    if not m or [int(x) for x in re.findall(r"\d+", m.group(1))] != after:
-        errs.append("credit line names HiRISE views of %s, pages show %s" % (m.group(1) if m else None, after))
-    got = numbers_after(t, "Thirty-five of the candidates")
-    if got is None or sorted(set(got)) != review or len(review) != 35:
-        errs.append("review sentence lists %s, pages with a check figure are %s" % (got, review))
     area = sorted(n for n, r in rows.items() if insight_distance(r) <= 50)
-    got = numbers_after(t, "of the candidates here, numbers")
-    if got is None or sorted(got) != area: errs.append("Bickel sentence lists %s, leads within 50° of InSight are %s" % (got, area))
     late = sorted(n for n in area if rows[n]["last_absent"] >= "2023-01-01")
-    got = numbers_after(t, "Numbers ")
-    if got is None or sorted(got) != late: errs.append("'formed after' sentence lists %s, expected %s" % (got, late))
+    checks = [("hirise-after", after, "HiRISE images after the spot formed"), ("hirise-before", before, "HiRISE images only before"),
+              ("credit-hirise", after, "credited HiRISE views"), ("reviewed", review, "pages with an independent check"),
+              ("bickel-area", area, "leads within 50° of InSight"), ("bickel-late", late, "of those, formed after 2022")]
+    for key, want, what in checks:
+        got = marked(s, key)
+        if got is None or sorted(got) != want: errs.append("intro list %s is %s; %s: %s" % (key, got, what, want))
+    if hirise_fig != after: errs.append("pages with a HiRISE figure %s differ from %s" % (hirise_fig, after))
+    if len(review) != 35: errs.append("%d pages have an independent check, the intro says 35" % len(review))
     return errs, len(items)
 
 
