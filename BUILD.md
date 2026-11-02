@@ -13,7 +13,7 @@ The pages show `images/paata-dark.png`: the same 357×357 photo with its white s
 Root:
 
 - `index.html` — header (bio, links, department)
-- `papers.html` — the numbered list of all papers (`<ol class="papers">`, oldest first), then the Astronomy category (an `<h2>` with its own `<ol class="papers">`, numbered from 1)
+- `papers.html` — the papers under two headings, Mathematics (oldest first) and then Astronomy; each heading is an `<h2>` followed by its own `<ol class="papers">`, numbered from 1
 - `talks.html` — talks 2012–2026, including 2024 (no traveling due to childbirth)
 - `teaching.html` — courses with cleaned UCI / Canvas / NCSU URLs
 - `math211.html` — MATH 211A (Spring 2020) notes and syllabus
