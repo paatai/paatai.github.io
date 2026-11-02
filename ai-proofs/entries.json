@@ -146,7 +146,7 @@
   "date": "2026-10-22",
   "title": "A sharp reverse Khinchin-type inequality for biased bits: the optimal constant R(q) for every q&isin;(0,1)",
   "status": "refereed",
-  "line": "Computer-assisted; rated valid by an independent referee and an auditor. Several agents worked on it over several days. The original output was <a href=\"reverse-khinchin-biased-bits/reverse-khinchin-original-output.pdf\">192 pages long</a>.",
+  "line": "Computer-assisted; rated valid by an independent referee and an auditor. Several agents worked on it over several days. The original output was <a href=\"reverse-khinchin-biased-bits/reverse-khinchin-original-output.pdf\">192 pages long</a>. Theorem 1.1 is formalized in Lean 4: for every q&isin;(0,1), the best constant R(q) in E|&sum;&alpha;<sub>i</sub>&chi;<sub>i</sub>| &le; R(q)&Vert;&alpha;&Vert;<sub>2</sub>, with &chi;<sub>i</sub>=(X<sub>i</sub>&minus;q)/&radic;(q(1&minus;q)) for i.i.d. X<sub>i</sub>&sim;Bernoulli(q), is 2&radic;(q(1&minus;q)) max<sub>k&ge;1</sub> &radic;k max(q,1&minus;q)<sup>k&minus;1</sup>, attained by equal coefficients on k=&lfloor;1/(p(2&minus;p))&rfloor; coordinates, p=min(q,1&minus;q). The Lean theorem <code>ReverseKhinchin.mainTheorem</code> states all of Theorem 1.1 and uses only the standard axioms propext, Classical.choice and Quot.sound; the Lean kernel checks every certificate. The 823 Lean files have about 534,000 lines: 508,000 (720 files) of machine-generated certificate data and 26,000 (103 files) of proof code. An independent referee rated the formalization valid after building it from source with Lean v4.35.0 and re-checking it with the external checker nanoda, except for the certificate computations, which a second checker re-checked on a random sample of 16 certificate modules. Not formalized: Theorem 10.1 and the characterization of the equality cases; Theorems 13.11 and 14.1 are replaced by one statement with new certificates, and Theorem 15.1 is proved with 8551/10000 in place of 171/200, so the formalization should be cited for Theorem 1.1 only.",
   "pdf": "reverse-khinchin-biased-bits/reverse-khinchin-biased-bits.pdf",
   "files": [
    [
@@ -156,6 +156,10 @@
    [
     "certificates",
     "reverse-khinchin-biased-bits/certificates.zip"
+   ],
+   [
+    "Lean formalization",
+    "reverse-khinchin-biased-bits/lean-formalization.zip"
    ]
   ]
  },
