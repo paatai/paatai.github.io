@@ -1,10 +1,10 @@
 # Galaxy hunt
 
-Twelve stars from public sky surveys, including Gaia DR3, that seem to have brightened, faded or wobbled in ways that are not already in the published record. Every probability on the pages is an estimate of the chance that the claim is real and previously unrecorded; none has been checked by outside experts.
+Thirty-two stars from public sky surveys, including Gaia DR3, that seem to have brightened, faded or wobbled in ways that are not already in the published record. Every probability on the pages is an estimate of the chance that the claim is real and previously unrecorded; none has been checked by outside experts.
 
-- `index.html`: one intro paragraph, then three lists numbered 1 to 12 in display order, highest probability first inside each list. Unexplained changes are 1 to 6, possible new microlensing events are 7 to 10, and possible hidden companions are 11 and 12.
-- `<folder>/index.html`: one page per candidate. The folder name starts with that display number and keeps the Gaia DR3 id (`3-fading-4296242940002232704`).
-- `finder.jpg`, `lightcurve.jpg`, and, where they exist, `decam_i_epochs.jpg`, `decam_z_epochs.jpg` and `epochs_r.jpg`: the figures, next to the page that uses them. They are JPEGs made from the original PNG figures, flattened onto white, kept under about 400 KB, with the original pixel size so the labels stay readable. The bold title line of each finder chart and light curve gives the display number and the probability, so it has to be redrawn if either changes.
+- `index.html`: one intro paragraph, then four lists numbered 1 to 32 in display order, highest probability first inside each list. Unexplained changes are 1 to 6, possible new microlensing events are 7 to 10, possible hidden companions are 11 and 12, and stars that dimmed for months are 13 to 32.
+- `<folder>/index.html`: one page per candidate. The folder name starts with that display number and keeps the Gaia DR3 id (`3-fading-4296242940002232704`, `13-dimming-3062085079575847296`).
+- `finder.jpg`, `lightcurve.jpg`, and, where they exist, `decam_i_epochs.jpg`, `decam_z_epochs.jpg`, `epochs_r.jpg`, `ztf_before_during.jpg` and `tess.jpg`: the figures, next to the page that uses them. They are JPEGs made from the original PNG figures, flattened onto white, kept under about 400 KB (the densest light curve, candidate 14's, is about 450 KB), with the original pixel size so the labels stay readable. The bold title line of each finder chart and light curve gives the display number and the probability, so it has to be redrawn if either changes. Where the title of another figure starts with a number, it is the display number too.
 
 The pages use the same header, footer and figure styles as the Mars candidates (`galaxy-fig`, `galaxy-list`, `galaxy-facts` in `css/site.css`).
 
