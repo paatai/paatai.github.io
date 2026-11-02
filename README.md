@@ -22,7 +22,8 @@ Content was transferred from the Google Site https://sites.google.com/view/paata
 2. Append one object to `ai-proofs/entries.json` with the next number `n`:
    `{"n": 19, "date": "YYYY-MM-DD", "title": "...", "status": "refereed | partial result | raw draft | polished", "line": "one honest sentence: what is proved, what is open", "pdf": "<slug>/<file>.pdf", "files": [["TeX", "<slug>/<file>.tex"], ["code", "<slug>/code.zip"]]}`
    Paths are relative to `ai-proofs/`. Use `refereed` only if an independent referee rated the proof valid.
-3. Run `python3 tools/site.py ai-proofs` and commit. The page lists entries newest first; numbers never change, and each entry has a permanent link `ai-proofs/#<n>`. The script first checks every entry (all fields present, a whole-number `n` used once, a real `YYYY-MM-DD` date, a known status, `files` as label/path pairs, every file present); if anything is wrong it prints what and leaves the page unchanged.
+   Add `"lean": true` only if the main theorem (not just a lemma or a partial result) is formalized in Lean without `sorry` and the Lean files are published with the entry, as a file whose label contains "Lean" (for example `["Lean formalization", "<slug>/lean-formalization.zip"]`). The entry then gets the Lean label under its status.
+3. Run `python3 tools/site.py ai-proofs` and commit. The page lists entries newest first; numbers never change, and each entry has a permanent link `ai-proofs/#<n>`. The script first checks every entry (all fields present, a whole-number `n` used once, a real `YYYY-MM-DD` date, a known status, `files` as label/path pairs, every file present, and `lean`, if given, true or false, and if true, with a Lean file); if anything is wrong it prints what and leaves the page unchanged.
 
 ## Adding a Galaxy hunt candidate
 

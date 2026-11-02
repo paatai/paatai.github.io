@@ -153,6 +153,9 @@ def problems(e, seen):
     files = e.get("files", [])
     if not (isinstance(files, list) and all(isinstance(f, list) and len(f) == 2 for f in files)):
         out.append('files must be a list of ["label", "path"] pairs'); files = []
+    if type(e.get("lean", False)) is not bool: out.append("lean %r is not true or false" % (e["lean"],))
+    elif e.get("lean") and not any("lean" in str(f[0]).lower() for f in files):
+        out.append('"lean": true needs the Lean files in files, with "Lean" in their label')
     out += ["missing file ai-proofs/%s" % h for h in [e["pdf"]] + [f[1] for f in files]
             if not os.path.isfile(os.path.join(ROOT, "ai-proofs", str(h)))]
     return out
@@ -163,12 +166,13 @@ def entry_html(e):
     files = [("PDF", e["pdf"])] + [tuple(f) for f in e.get("files", [])]
     links = " · ".join('<a href="%s">%s</a>' % (html.escape(h), t) for t, h in files)
     note = e["line"] + " " if e.get("line") else ""
+    lean = ' <span class="badge lean">Lean</span>' if e.get("lean") else ""
     return ('<li id="{n}" value="{n}"><a class="ap-n" href="#{n}">{n}</a> '
             '<a class="ap-title" href="{pdf}">{title}</a> '
-            '<span class="ap-side"><time datetime="{date}">{when}</time> <span class="badge {cls}">{status}</span></span> '
+            '<span class="ap-side"><time datetime="{date}">{when}</time> <span class="badge {cls}">{status}</span>{lean}</span> '
             '<span class="ap-note">{note}<span class="ap-files">[{links}]</span></span></li>').format(
         n=e["n"], pdf=html.escape(e["pdf"]), title=e["title"], date=e["date"], when="%s %d, %d" % (MONTHS[m - 1][:3], d, y),
-        cls=e["status"].replace(" ", "-"), status=e["status"], note=note, links=links)
+        cls=e["status"].replace(" ", "-"), status=e["status"], lean=lean, note=note, links=links)
 
 
 def build_ai_proofs():

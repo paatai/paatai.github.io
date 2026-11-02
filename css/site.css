@@ -451,6 +451,7 @@ footer.site p { margin: 0; }
 .badge.partial-result { color: #ffd400; background: rgba(255, 212, 0, 0.08); border-color: rgba(255, 212, 0, 0.4); }
 .badge.raw-draft { color: var(--mute-raised); border-style: dashed; border-color: #536471; }
 .badge.polished { color: #b4a6ff; background: rgba(120, 86, 255, 0.14); border-color: rgba(150, 125, 255, 0.5); }
+.badge.lean { color: #fb69ac; background: rgba(249, 24, 128, 0.1); border-color: rgba(249, 24, 128, 0.5); }
 ol.ap-list { list-style: none; padding: 0; margin: 0 0 1rem; border-top: 1px solid var(--line); }
 ol.ap-list > li {
   display: grid;
