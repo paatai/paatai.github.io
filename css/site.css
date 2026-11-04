@@ -447,6 +447,7 @@ footer.site p { margin: 0; }
   white-space: nowrap;
   color: var(--mute-raised);
 }
+.badge.verified { color: #1d9bf0; background: rgba(29, 155, 240, 0.1); border-color: rgba(29, 155, 240, 0.5); }
 .badge.refereed { color: #00ba7c; background: rgba(0, 186, 124, 0.1); border-color: rgba(0, 186, 124, 0.45); }
 .badge.partial-result { color: #ffd400; background: rgba(255, 212, 0, 0.08); border-color: rgba(255, 212, 0, 0.4); }
 .badge.raw-draft { color: var(--mute-raised); border-style: dashed; border-color: #536471; }

@@ -133,7 +133,7 @@ def fix_galaxy_pager():
 
 
 MONTHS = "January February March April May June July August September October November December".split()
-STATUSES = ("refereed", "partial result", "raw draft", "polished")   # badge styles live in css/site.css
+STATUSES = ("verified", "refereed", "partial result", "raw draft", "polished")   # badge styles live in css/site.css
 
 
 def is_date(s):
