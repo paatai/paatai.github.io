@@ -314,5 +314,14 @@
     "gaussian-comparison-product-functions/code.zip"
    ]
   ]
+ },
+ {
+  "n": 23,
+  "date": "2026-11-03",
+  "title": "The Maurey&ndash;Pisier problem for Bourgain&ndash;Milman&ndash;Wolfson type",
+  "status": "verified",
+  "line": "For every p&isin;(1,2), a metric space with supremal BMW type exponent p into which the discrete &ell;<sub>p</sub> cubes do not embed with uniformly bounded distortion, a negative answer to the Maurey&ndash;Pisier problem for BMW type; also an exact characterization of the metric spaces that contain these cubes uniformly. Obtained by Nika Areshidze.",
+  "pdf": "bmw-maurey-pisier/bmw-maurey-pisier.pdf",
+  "files": []
  }
 ]
