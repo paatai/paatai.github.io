@@ -323,5 +323,14 @@
   "line": "For every p&isin;(1,2), a metric space with supremal BMW type exponent p into which the discrete &ell;<sub>p</sub> cubes do not embed with uniformly bounded distortion, a negative answer to the Maurey&ndash;Pisier problem for BMW type; also an exact characterization of the metric spaces that contain these cubes uniformly. Obtained by Nika Areshidze.",
   "pdf": "bmw-maurey-pisier/bmw-maurey-pisier.pdf",
   "files": []
+ },
+ {
+  "n": 24,
+  "date": "2026-11-06",
+  "title": "On the Aaronson&ndash;Ambainis conjecture: a quasi-polynomial bound",
+  "status": "refereed",
+  "line": "MaxInf(f) &ge; (Var f/d)<sup>O(log d)</sup>&middot;exp(&minus;O(log<sup>4</sup> d)) for every Boolean f of degree d (Theorem 10.1). Written-up proof; the integrated notes and paper text were independently audited.",
+  "pdf": "aaronson-ambainis-quasipolynomial/aaronson-ambainis-quasipolynomial.pdf",
+  "files": []
  }
 ]
