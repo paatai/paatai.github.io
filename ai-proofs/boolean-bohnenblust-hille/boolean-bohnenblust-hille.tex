@@ -88,7 +88,7 @@ and, with $\lambda(d)=1+\log(1+\log d)$,
 $\Phi(M,2)\le C\,M\sqrt{\log(M+1)}$ for all $M\ge1$.
 \end{theorem}
 
-The Boolean Bohnenblust--Hille inequality is due to Defant, Mastyło and P\'erez \cite{DMP}. Polynomial bounds were proved by Ivanisvili \cite[Theorem~1.1]{I27}, $\BH(d)\le Cd^{27}$; by Slote, Tseng and Volberg \cite[Theorem~2.1]{STV}, $\BH(d)\le C_\varepsilon d^{3/2+1/\log 2+\varepsilon}$ for every $\varepsilon>0$; and by Barbosa, N\'u\~nez-Alarc\'on, Pellegrino and Raposo \cite{BNPR}, $\BH(d)\le Cd^{5/2}(1+\log d)^3$. Theorem~\ref{thm:main} is Theorem~\ref{thm:cond} with $\beta=1$, $K_0=1/2$ and Theorem~\ref{thm:seed}. Sections~\ref{sec:tools}--\ref{sec:assembly} prove Theorem~\ref{thm:cond} from an arbitrary level-two seed, and Section~\ref{sec:seed} proves Theorem~\ref{thm:seed}.
+The Boolean Bohnenblust--Hille inequality is due to Defant, Mastyło and P\'erez \cite{DMP}. Ivanisvili \cite[Theorem~1.1]{I27} proved $\BH(d)\le Cd^{27}$. Slote, Tseng and Volberg \cite{STV} give a proof scheme for the bound $\BH(d)\le C_\varepsilon d^{3/2+1/\log 2+\varepsilon}$ for every $\varepsilon>0$. Barbosa, N\'u\~nez-Alarc\'on, Pellegrino and Raposo \cite{BNPR} prove $\BH(d)\le Cd^{5/2}(1+\log d)^3$. Theorem~\ref{thm:main} is Theorem~\ref{thm:cond} with $\beta=1$, $K_0=1/2$ and Theorem~\ref{thm:seed}. Sections~\ref{sec:tools}--\ref{sec:assembly} prove Theorem~\ref{thm:cond} from an arbitrary level-two seed, and Section~\ref{sec:seed} proves Theorem~\ref{thm:seed}.
 
 \smallskip\noindent\emph{Outline.} Lemma~\ref{lem:agg} aggregates at the $\ell^{p_r}$ level and passes to $\ell^2$ only over the pairs consisting of a block and a block degree. The resulting counting factor is $|T|^{1/r}\le r^{1/r}$, which is what permits the critical stage to begin at level $\lceil20L^2\log L\rceil$ rather than at a higher power of $L$. The weight on that stage is $r^{1+1/L}$ with $L=\lfloor1+\log M\rfloor$: it produces the contraction $1-\kappa^2\asymp L^{-2}$ and, at degree $d$, only the factor $d^{1/L}\le e$. Proposition~\ref{prop:stage} is applied twice for \eqref{eq:two} and three times for \eqref{eq:three}. The powers of $\log d$ are then $K_0$ from the seed, $\frac12$ from the factor $R_*^{1/4}$ with $R_*=\lceil20L^2\log L\rceil$ (the weight is $r^{5/4}$ below $R_*$), and $1$ from the contraction $1-\kappa^2\asymp L^{-2}$.
 
@@ -111,7 +111,7 @@ If $\deg F\le M$, then $A_1(F)\le\frac\pi2M\|F\|_\infty$; if $F$ is real, $\sum_
 \end{lemma}
 
 \begin{proof}
-Fix $x$. The function $t\mapsto T_tF(x)$ is a polynomial of degree $\le M$ bounded by $\|F\|_\infty$ on $[-1,1]$ (an average for $t\ge0$, and $T_{-t}F(x)=T_tF(-x)$). Its derivative at $0$ is $F_1(x)=\sum_j\widehat F(\{j\})x_j$, so Bernstein's inequality for $\theta\mapsto T_{\cos\theta}F(x)$ at $\theta=\pi/2$ gives $|F_1(x)|\le M\|F\|_\infty$. For real $F$ choose $x_j=\operatorname{sign}\widehat F(\{j\})$. For complex $F$ take $x_j=\operatorname{sign}\mathrm{Re}(e^{-i\theta}\widehat F(\{j\}))$ and average over $\theta$, using $\frac1{2\pi}\int_0^{2\pi}|\mathrm{Re}(e^{-i\theta}a)|\,d\theta=\frac2\pi|a|$.
+Fix $x$. The function $t\mapsto T_tF(x)$ is a polynomial of degree $\le M$ bounded by $\|F\|_\infty$ on $[-1,1]$ (an average for $t\ge0$, and $T_{-t}F(x)=T_tF(-x)$). Its derivative at $0$ is $F_1(x)=\sum_j\widehat F(\{j\})x_j$. The function $\theta\mapsto T_{\cos\theta}F(x)$ is a trigonometric polynomial of order at most $n=\lfloor M\rfloor$. Bernstein's inequality \cite[p.~98]{DL} gives that the absolute value of its derivative is at most $n\|F\|_\infty$, so at $\theta=\pi/2$ one has $|F_1(x)|\le n\|F\|_\infty\le M\|F\|_\infty$. For real $F$ choose $x_j=\operatorname{sign}\widehat F(\{j\})$. For complex $F$ take $x_j=\operatorname{sign}\mathrm{Re}(e^{-i\theta}\widehat F(\{j\}))$ and average over $\theta$, using $\frac1{2\pi}\int_0^{2\pi}|\mathrm{Re}(e^{-i\theta}a)|\,d\theta=\frac2\pi|a|$.
 \end{proof}
 
 \begin{lemma}[Blei's inequality for $L$ blocks]\label{lem:blei}
@@ -273,7 +273,7 @@ Let $\|f\|_\infty\le1$. The cases $r=1,2$ are Lemma~\ref{lem:level1} and the hyp
 
 \section{Proof of Theorem~\ref{thm:cond}}\label{sec:assembly}
 
-Let $S(M)=C_0'M^\beta(1+\log M)^{K_0}$; then $S(M)\ge\frac\pi2M$ and $\Phi(M,2)\le S(M)$. Put $H^2=\sum_{r<R_0}D_r^2r^{-5/2}$, an absolute constant. Fix $M\ge1$ and $N\ge1$, and let $L_*=\lfloor1+\log M\rfloor$.
+Let $S(M)=C_0'M^\beta(1+\log M)^{K_0}$; then $S(M)\ge\frac\pi2M$ and $\Phi(M,2)\le S(M)$. A function on the cube has integer degree, so $\Phi(t,r)$ depends on $t$ only through $\lfloor t\rfloor$. Replace $M$ by $\lfloor M\rfloor$ and take $M$ to be a positive integer. In the application to $\BH(d)$ one has $M=d$, already an integer, so this replacement does not change the bounds below. Put $H^2=\sum_{r<R_0}D_r^2r^{-5/2}$, an absolute constant. Fix $N\ge1$ and let $L_*=\lfloor1+\log M\rfloor$.
 
 \smallskip\noindent\emph{The weight.} If $L_*\le39$, let $R_*=M$ and $w(r)=r^{5/4}$. If $L_*\ge40$, let $R_*=R_{L_*}=\lceil20L_*^2\log L_*\rceil$; then $118000<R_*\le21L_*^2\log L_*<e^{L_*-1}\le M$. Let
 \[
@@ -308,7 +308,7 @@ The slopes $\frac54\ge1+\frac1{L_2}\ge1+\frac1{L_3}$ decrease. So Proposition~\r
 Symbols introduced in this section are local to it. The block-constant estimate is proved directly, by Bernstein--Walsh on complex lines; polarization is not used. All functions in this section are real-valued. For complex $f$, apply the result to $\mathrm{Re}f$ and $\mathrm{Im}f$, whose Walsh coefficients are $\mathrm{Re}\hf$ and $\mathrm{Im}\hf$, so $\Phi_\C(M,2)\le2\Phi_\R(M,2)$, where $\Phi_\C$ and $\Phi_\R$ denote $\Phi$ with the supremum over complex, resp.\ real, $f$. For real $g$ with $|g|\le1$ and $\deg g\le M$ we use three facts.
 \begin{enumerate}[label=(\alph*),leftmargin=*]
 \item $\sum_i|\hat g(\{i\})|\le M$ (Lemma~\ref{lem:level1}).
-\item (Level-one inequality.) If $\alpha=\|g\|_1>0$, then $\|P_1g\|_2\le C_1\alpha\sqrt{\log(e/\alpha)}$ with $C_1=1+\sqrt2$, where $P_1g=\sum_i\hat g(\{i\})x_i$. The same shape of bound is classical \cite{Tal96,Cha02}, \cite[Sec.~5.4]{OD}; the constant used here is proved as follows. If $h=P_1g=0$ there is nothing to prove. Otherwise put $Z=|h|/\|h\|_2$. Hoeffding's inequality for the Rademacher sum $h$ gives $\Pr[Z>u]\le2e^{-u^2/2}$. Since $0\le|g|\le1$ and $\E|g|=\alpha$,
+\item (Level-one inequality.) If $\alpha=\|g\|_1>0$, then $\|P_1g\|_2\le C_1\alpha\sqrt{\log(e/\alpha)}$ with $C_1=1+\sqrt2$, where $P_1g=\sum_i\hat g(\{i\})x_i$. The same shape of bound is classical \cite{Tal96,Cha02}, \cite[Sec.~5.4]{OD}; the constant used here is proved as follows. If $h=P_1g=0$ there is nothing to prove. Otherwise put $Z=|h|/\|h\|_2$. Hoeffding's inequality \cite[Theorem~2]{Hoe63} says that if $Y_i$ are independent and $a_i\le Y_i\le b_i$, then $\Pr[S-\E S\ge t]\le\exp\bigl(-2t^2/\sum_i(b_i-a_i)^2\bigr)$ for $t>0$. Write $h=\sum_ic_ix_i$ with $x_i\in\{-1,1\}$. Each summand lies in $[-|c_i|,|c_i|]$, so $\sum_i(b_i-a_i)^2=4\|h\|_2^2$. The one-sided bound and the same bound for $-h$ give $\Pr[|h|\ge u\|h\|_2]\le2e^{-u^2/2}$, that is $\Pr[Z>u]\le2e^{-u^2/2}$. Since $0\le|g|\le1$ and $\E|g|=\alpha$,
 \[
 \|h\|_2^2=\E[gh]\le\E[|g||h|]=\|h\|_2\,\E[|g|Z],
 \]
@@ -377,7 +377,7 @@ By (b), $s_u\le C_1\alpha_u\sqrt{\ell_u}$ with $\ell_u=\log(e/\alpha_u)$; note $
 \end{proof}
 
 \begin{proof}[Proof of Theorem~\ref{thm:seed}]
-Fix a bipartition $I\sqcup J$ of the coordinates and a real $f$ with $|f|\le1$ and $\deg f\le M$. Write $b_{ui}=\hf(\{u,i\})$ for $u\in I$, $i\in J$. The rows $B_u(y)=\E_x[x_uf(x,y)]$ and the columns $B^i(x)=\E_y[y_if(x,y)]$ are bounded by $1$, have degree $\le M$, and have level-one vectors $b_u=(b_{ui})_i$ and $b^i=(b_{ui})_u$. For each $y$ the section $f(\cdot,y)$ has level-one coefficients $B_u(y)$, so by (a) $\sum_u|B_u(y)|\le M$; integrating, $\sum_u\|B_u\|_1\le M$, and likewise $\sum_i\|B^i\|_1\le M$. By Parseval, $\sum_u\|b_u\|_2^2=\sum_i\|b^i\|_2^2\le1$.
+Degree is an integer, so $\Phi(M,2)=\Phi(\lfloor M\rfloor,2)$. The map $u\mapsto u\sqrt{\log(u+1)}$ is increasing on $[1,\infty)$, and $\lfloor M\rfloor\le M$, so the bound at $\lfloor M\rfloor$ implies the bound at $M$. Replace $M$ by $\lfloor M\rfloor$ and assume that $M$ is a positive integer. Fix a bipartition $I\sqcup J$ of the coordinates and a real $f$ with $|f|\le1$ and $\deg f\le M$. Write $b_{ui}=\hf(\{u,i\})$ for $u\in I$, $i\in J$. The rows $B_u(y)=\E_x[x_uf(x,y)]$ and the columns $B^i(x)=\E_y[y_if(x,y)]$ are bounded by $1$, have degree $\le M$, and have level-one vectors $b_u=(b_{ui})_i$ and $b^i=(b_{ui})_u$. For each $y$ the section $f(\cdot,y)$ has level-one coefficients $B_u(y)$, so by (a) $\sum_u|B_u(y)|\le M$; integrating, $\sum_u\|B_u\|_1\le M$, and likewise $\sum_i\|B^i\|_1\le M$. By Parseval, $\sum_u\|b_u\|_2^2=\sum_i\|b^i\|_2^2\le1$.
 
 Let $\Gamma=\max(2,M)$ and $K=\max(7,\lceil\log \Gamma\rceil)$. For every row with $\alpha_u=\|B_u\|_1>0$ fix a set $\mathrm{top}_u$ of $\min(M^2,|J|)$ largest entries, apply Theorem~\ref{thm:S}, and write $b_u=b_u|_{\mathrm{top}_u}+t'_u+t''_u$ with $t'_u=b_u|_{T'_u}$ and $t''_u=b_u|_{T''_u}$, where $\mathrm{top}_u,T'_u,T''_u$ partition $J$. A row with $\alpha_u=0$ vanishes; put $\mathrm{top}_u=T'_u=\emptyset$ and $T''_u=J$. Do the same for the columns, with sets $\mathrm{top}^i,T'^i,T''^i$ partitioning $I$ and vectors $t'^i$, $t''^i$. Partition the entries $(u,i)$ into
 \[
@@ -411,7 +411,9 @@ Altogether $\|b\|_{4/3}^{4/3}\le CM^{4/3}(\log(M+1))^{2/3}$ for every bipartitio
 \bibitem{Bec75} W.~Beckner, Inequalities in Fourier analysis, Ann.\ of Math.\ (2) 102 (1975), 159--182.
 \bibitem{Bon70} A.~Bonami, \'Etude des coefficients de Fourier des fonctions de $L^p(G)$, Ann.\ Inst.\ Fourier (Grenoble) 20 (1970), 335--402.
 \bibitem{Cha02} M.-C.~Chang, A polynomial bound in Freiman's theorem, Duke Math.\ J.\ 113 (2002), 399--419.
+\bibitem{DL} R.~A.~DeVore, G.~G.~Lorentz, Constructive Approximation, Springer, 1993, p.~98.
 \bibitem{DMP} A.~Defant, M.~Mastyło, A.~P\'erez, On the Fourier spectrum of functions on Boolean cubes, Math.\ Ann.\ 374 (2019), 653--680.
+\bibitem{Hoe63} W.~Hoeffding, Probability inequalities for sums of bounded random variables, J.\ Amer.\ Statist.\ Assoc.\ 58 (1963), 13--30.
 \bibitem{I27} P.~Ivanisvili, Polynomial growth of Bohnenblust--Hille constants on the Hamming cube, arXiv:2609.12427 (2026).
 \bibitem{OD} R.~O'Donnell, Analysis of Boolean Functions, Cambridge University Press, 2014.
 \bibitem{Ran} T.~Ransford, Potential Theory in the Complex Plane, Cambridge University Press, 1995.
