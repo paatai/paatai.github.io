@@ -34,15 +34,15 @@
 \begin{document}
 
 \begin{abstract}
-For $f:\{-1,1\}^n\to\C$ of degree at most $d$ we give a self-contained proof of
+For $f:\{-1,1\}^n\to\C$ of degree at most $d$, with $\lambda(d)=1+\log(1+\log d)$ and with $\BH(d)$ the Boolean Bohnenblust--Hille constant defined below, we prove
 \[
-\Big(\sum_S|\hf(S)|^{\frac{2d}{d+1}}\Big)^{\frac{d+1}{2d}}\le C\,d^{2}(1+\log d)^{2}\big(1+\log(1+\log d)\big)^{1/4}\,\|f\|_\infty ,
+\BH(d)\le C\,d^{2}(1+\log d)^{2}\,\lambda(d)^{1/4}
 \]
-which contains the bound $Cd^2(1+\log d)^{5/2}$ of \cite{Iv}, and, with one more stage,
+and
 \[
-\BH(d)\le C\,d^{2}(1+\log d)^{3/2}\lambda(d)^{3/2}(1+\log\lambda(d))^{1/4},
+\BH(d)\le C\,d^{2}(1+\log d)^{3/2}\lambda(d)^{3/2}(1+\log\lambda(d))^{1/4}.
 \]
-where $\lambda(d)=1+\log(1+\log d)$. This is $Cd^2(\log d)^{3/2+o(1)}$. The level-two input is the seed $\Phi(M,2)\le CM\sqrt{\log(M+1)}$ of \cite{Iv}, whose block-constant estimate we reprove by Bernstein--Walsh on complex lines. The new part is the weighted bootstrap. Applying Blei's inequality and the entropy form of AM--GM at the $\ell^{p_r}$ level, and grouping multidegrees by a single block degree, reduces the counting loss of the critical step from $(r+1)^{(L-1)/r}$ to $r^{1/r}$. The critical contraction with $L\approx\log M$ blocks therefore starts at level $20L^2\log L$ instead of $L^4$. The scale-adapted weight $r^{1+1/L}$ contracts as fast as $r(1+\log r)$ but costs only a constant at the top level, so no finite-depth recursion is needed.
+In particular $\BH(d)\le C\,d^2(1+\log d)^{5/2}$. The level-two bound $\Phi(M,2)\le CM\sqrt{\log(M+1)}$ is proved below; the block-constant estimate uses Bernstein--Walsh on complex lines. From any such seed, one weighted bootstrap gives both bounds. Blei's inequality and the entropy form of AM--GM, applied at the $\ell^{p_r}$ level and grouped by a single block degree, produce a counting factor $r^{1/r}$. The critical contraction, with $L\approx\log M$ blocks, therefore starts at level $20L^2\log L$. The weight $r^{1+1/L}$ meets that contraction and contributes only a constant at degree $d$.
 \end{abstract}
 
 % --- AI disclosure (site) ---
@@ -84,19 +84,13 @@ and, with $\lambda(d)=1+\log(1+\log d)$,
 \]
 \end{theorem}
 
-\begin{theorem}[the seed {\cite[Theorem~4.8]{Iv}}]\label{thm:seed}
+\begin{theorem}[the seed]\label{thm:seed}
 $\Phi(M,2)\le C\,M\sqrt{\log(M+1)}$ for all $M\ge1$.
 \end{theorem}
 
-The Boolean Bohnenblust--Hille inequality is due to Defant, Mastyło and P\'erez \cite{DMP}; for the history of polynomial bounds see \cite[Section~1]{Iv}. Theorem~\ref{thm:main} is Theorem~\ref{thm:cond} with $\beta=1$, $K_0=1/2$ and Theorem~\ref{thm:seed}: the two bounds of Theorem~\ref{thm:cond} give \eqref{eq:two} and \eqref{eq:three}. Sections~\ref{sec:tools}--\ref{sec:assembly} prove Theorem~\ref{thm:cond}; Section~\ref{sec:seed} proves Theorem~\ref{thm:seed}, following \cite[Section~4.2]{Iv}.
+The Boolean Bohnenblust--Hille inequality is due to Defant, Mastyło and P\'erez \cite{DMP}. Polynomial bounds were proved by Ivanisvili \cite[Theorem~1.1]{I27}, $\BH(d)\le Cd^{27}$; by Slote, Tseng and Volberg \cite[Theorem~2.1]{STV}, $\BH(d)\le C_\varepsilon d^{3/2+1/\log 2+\varepsilon}$ for every $\varepsilon>0$; and by Barbosa, N\'u\~nez-Alarc\'on, Pellegrino and Raposo \cite{BNPR}, $\BH(d)\le Cd^{5/2}(1+\log d)^3$. Theorem~\ref{thm:main} is Theorem~\ref{thm:cond} with $\beta=1$, $K_0=1/2$ and Theorem~\ref{thm:seed}. Sections~\ref{sec:tools}--\ref{sec:assembly} prove Theorem~\ref{thm:cond} from an arbitrary level-two seed, and Section~\ref{sec:seed} proves Theorem~\ref{thm:seed}.
 
-\smallskip\noindent\emph{Relation to \cite{Iv,BNPR}.} The tools of Section~\ref{sec:tools} and Proposition~\ref{prop:fixed} are those of \cite[Sections~2--3]{BNPR} as written out in \cite[Appendix~A]{Iv}. The proof of Theorem~\ref{thm:cond} differs from \cite[Appendix~A and Section~5.2]{Iv} in three ways.
-\begin{enumerate}[label=(\roman*),leftmargin=*]
-\item Lemma~\ref{lem:agg} aggregates at the $\ell^{p_r}$ level and passes to $\ell^2$ only over the pairs (block, block degree). This leaves the counting factor $|T|^{1/r}\le r^{1/r}$, where \cite{Iv,BNPR} have $|\mathcal C_r|^{1/r}\le(r+1)^{(L-1)/r}$. The latter is what forces $r\ge L^4$ in \cite{Iv}.
-\item The weight $r^{1+1/L}$ with $L=\lfloor1+\log M\rfloor$ replaces $r(1+\log r)$ and the finite-depth recursion of \cite[Theorem~5.8, Corollary~5.9]{Iv}.
-\item One stage inequality (Proposition~\ref{prop:stage}) is stacked two or three times.
-\end{enumerate}
-The powers of $\log d$ add up as follows: $K_0$ from the seed, $\frac12$ from the factor $R_*^{1/4}$ with $R_*=\lceil20L^2\log L\rceil$ (the weight is $r^{5/4}$ below $R_*$), $1$ from the contraction $1-\kappa^2\asymp L^{-2}$, and nothing from the top weight, since $d^{1/L}\le e$.
+\smallskip\noindent\emph{Outline.} Lemma~\ref{lem:agg} aggregates at the $\ell^{p_r}$ level and passes to $\ell^2$ only over the pairs consisting of a block and a block degree. The resulting counting factor is $|T|^{1/r}\le r^{1/r}$, which is what permits the critical stage to begin at level $\lceil20L^2\log L\rceil$ rather than at a higher power of $L$. The weight on that stage is $r^{1+1/L}$ with $L=\lfloor1+\log M\rfloor$: it produces the contraction $1-\kappa^2\asymp L^{-2}$ and, at degree $d$, only the factor $d^{1/L}\le e$. Proposition~\ref{prop:stage} is applied twice for \eqref{eq:two} and three times for \eqref{eq:three}. The powers of $\log d$ are then $K_0$ from the seed, $\frac12$ from the factor $R_*^{1/4}$ with $R_*=\lceil20L^2\log L\rceil$ (the weight is $r^{5/4}$ below $R_*$), and $1$ from the contraction $1-\kappa^2\asymp L^{-2}$.
 
 \section{Tools}\label{sec:tools}
 
@@ -109,7 +103,7 @@ Also $\|h\|_q\le(q-1)^{k/2}\|h\|_2$ for $q\ge2$ and $\deg h\le k$, and $\|h\|_2\
 \end{lemma}
 
 \begin{proof}
-The real case of the first claim is due to Bonami and Beckner \cite{OD}. For complex $g$, $T_\rho g(x)=\E_\xi g(x\xi)$ with independent $\xi_i$, $\E\xi_i=\rho$, so $|T_\rho g|\le T_\rho|g|$ and $\|T_\rho g\|_2\le\||g|\|_p$. For \eqref{eq:extract} use $\|T_{\sigma_s}G\|_2\le\|G\|_{p_s}$ and Parseval. The $L^q$ bound is the dual statement $\|T_{(q-1)^{-1/2}}g\|_q\le\|g\|_2$ applied to $g=T_{(q-1)^{1/2}}h$. For the last claim, $\|h\|_2\le\|h\|_1^{1/3}\|h\|_4^{2/3}\le\|h\|_1^{1/3}3^{k/3}\|h\|_2^{2/3}$.
+The real case of the first claim is the Bonami--Beckner inequality \cite{Bon70,Bec75}, \cite[Ch.~9]{OD}. For complex $g$, $T_\rho g(x)=\E_\xi g(x\xi)$ with independent $\xi_i$, $\E\xi_i=\rho$, so $|T_\rho g|\le T_\rho|g|$ and $\|T_\rho g\|_2\le\||g|\|_p$. For \eqref{eq:extract} use $\|T_{\sigma_s}G\|_2\le\|G\|_{p_s}$ and Parseval. The $L^q$ bound is the dual statement $\|T_{(q-1)^{-1/2}}g\|_q\le\|g\|_2$ applied to $g=T_{(q-1)^{1/2}}h$. For the last claim, $\|h\|_2\le\|h\|_1^{1/3}\|h\|_4^{2/3}\le\|h\|_1^{1/3}3^{k/3}\|h\|_2^{2/3}$.
 \end{proof}
 
 \begin{lemma}[level one]\label{lem:level1}
@@ -264,12 +258,14 @@ The total is at most $-0.58/L^2<-1/(2L^2)$.
 \end{proof}
 
 \begin{remark}
-Both certificates were also checked numerically: stage one at seven values $r\in[R_0,10^8]$, and stage two for $L\in\{40,41,45,60,100,300,10^3,3\cdot10^3,10^4\}$ and $r\in\{R_L,R_L+1,2R_L,10R_L,1000R_L\}$. Two quantities are computed. The first is the bound of Lemma~\ref{lem:mult} with the Chernoff tail. The second is the maximum over the window of the objective $2\log\mathsf M_w(r,\bd)+(1+\frac1r)D(\bd)$, together with the union bound with exact binomial tails. Both are computed for the pure power $w(s)=s^b$. Any weight satisfying the hypothesis of Lemma~\ref{lem:mult} has no larger objective, since $s_j\ge r/2$ on the window. For $w(s)=s^b$ the objective is $\sum_j\chi(s_j)$ with $\chi$ convex: with $c=1/((L-1)r)$ and $\Psi(s)=s\artanh(1/s)=\sum_{k\ge0}s^{-2k}/(2k+1)$, we have $\chi(s)=c[2(r-s)\Psi(s)+2bs\log(s/r)+(1+\frac1r)s\log(Lcs)]$ and $\chi''=c[(2b+1+\frac1r)/s+2(r-s)\Psi''-4\Psi']>0$, since $\Psi'<0<\Psi''$. So the maximum over the polytope $\{\sum_jd_j=r,\ \mathrm{lo}\le d_j\le\mathrm{hi}\}$, where $\mathrm{lo}=\lceil(1-a)r/L\rceil$ and $\mathrm{hi}=\lfloor(1+a)r/L\rfloor$, is attained at a vertex, and the vertices are integer points of the window. Adding the counting term $\frac1r\log|T|$, at $L=40$, $r=R_L$ the two quantities give $\log\kappa^2\le-0.69/L^2$ and $\le-0.79/L^2$; the proof above uses $-0.58/L^2$.
+The proofs of Propositions~\ref{prop:stage1} and~\ref{prop:stage2} use only Lemma~\ref{lem:mult}. For the pure power $w(s)=s^b$, the objective $2\log\mathsf M_w(r,\bd)+(1+\frac1r)D(\bd)$ is $\sum_j\chi(s_j)$ with $\chi$ convex, so it is largest at a vertex of the window, but that observation is not required above. Explicitly, with $c=1/((L-1)r)$ and $\Psi(s)=s\artanh(1/s)=\sum_{k\ge0}s^{-2k}/(2k+1)$, one has $\chi(s)=c[2(r-s)\Psi(s)+2bs\log(s/r)+(1+\frac1r)s\log(Lcs)]$ and $\chi''=c[(2b+1+\frac1r)/s+2(r-s)\Psi''-4\Psi']>0$, since $\Psi'<0<\Psi''$. Any weight satisfying the hypothesis of Lemma~\ref{lem:mult} has no larger objective than this pure power, because $s_j\ge r/2$ on the window.
 \end{remark}
 
-\begin{proposition}[fixed levels {\cite[Prop.~2.6]{BNPR}, \cite[Prop.~A.10]{Iv}}]\label{prop:fixed}
+\begin{proposition}[fixed levels]\label{prop:fixed}
 Let $S(M)\ge\frac\pi2M$ satisfy $\Phi(M,2)\le S(M)$. Define $D_1=D_2=1$, $D_3=(9/2)^{2/3}\sqrt3$, and $D_r=\pi_r^{-1/p_r}(\sigma_2\sigma_{r-2})^{-2(r-2)/r}D_{r-2}^{(r-2)/r}$ for $r\ge4$, where $\pi_r=\binom r22^{-r}$. Then $A_r(f)\le D_rS(M)\|f\|_\infty$ for all $r\ge1$ and $\deg f\le M$.
 \end{proposition}
+
+Proposition~2.6 of \cite{BNPR} is the case of a level-two bound of order $M^{3/2}$, for functions on a finite local system. The statement here is the Boolean case with an arbitrary level-two bound $S(M)$.
 
 \begin{proof}
 Let $\|f\|_\infty\le1$. The cases $r=1,2$ are Lemma~\ref{lem:level1} and the hypothesis. For $r=3$ take $L=3$ and $\bd=(1,1,1)$, so $s_j=2$ and $\theta_j=\frac13$. Fix $j$, and for each $\mathbf S=(S_k)_{k\ne j}$ with $|S_k|=1$ let $G_{\mathbf S}(x_j)=\sum_{S\subseteq I_j}\hf(S\cup\bigcup_{k\ne j}S_k)x_j^S$. By \eqref{eq:extract}, $\sigma_2X_j\le(\sum_{\mathbf S}\|G_{\mathbf S}\|_{p_2}^{p_2})^{1/p_2}$. For fixed $x_j$ the numbers $G_{\mathbf S}(x_j)$ are level-two coefficients of a section of $f$, so $\sum_{\mathbf S}|G_{\mathbf S}(x_j)|^{p_2}\le S(M)^{p_2}$ and $X_j\le\sqrt3S(M)$. Lemmas~\ref{lem:blei} and~\ref{lem:capture} (with $\eta=\frac29$) give $A_3\le(9/2)^{1/p_3}\sqrt3S(M)$. For $r\ge4$ take $L=2$ and $\bd=(2,r-2)$. The same argument bounds the two Blei factors by $\sigma_{r-2}^{-2}D_{r-2}S(M)$ (sections in the variables of $I_2$, by induction) and $\sigma_2^{-(r-2)}S(M)$ (sections in the variables of $I_1$); their geometric mean with weights $\frac{r-2}r,\frac2r$ and the capture $\eta=\pi_r$ give the recursion.
@@ -309,10 +305,14 @@ The slopes $\frac54\ge1+\frac1{L_2}\ge1+\frac1{L_3}$ decrease. So Proposition~\r
 
 \section{The seed: proof of Theorem~\ref{thm:seed}}\label{sec:seed}
 
-We follow \cite[Section~4.2]{Iv}. Theorems~\ref{thm:F} and~\ref{thm:S} and Lemma~\ref{lem:Q} below are \cite[Theorems~4.5, 4.6 and Lemma~4.7]{Iv}, with the constant $C'=2e^2$ of \cite[Theorem~4.5]{Iv} improved to $C'=2e$. The middle step of Theorem~\ref{thm:F} is new: it applies Bernstein--Walsh on complex lines, so polarization is not needed. Symbols introduced in this section are local to it. All functions in this section are real-valued. For complex $f$, apply the result to $\mathrm{Re}f$ and $\mathrm{Im}f$, whose Walsh coefficients are $\mathrm{Re}\hf$ and $\mathrm{Im}\hf$, so $\Phi_\C(M,2)\le2\Phi_\R(M,2)$, where $\Phi_\C$ and $\Phi_\R$ denote $\Phi$ with the supremum over complex, resp.\ real, $f$. For real $g$ with $|g|\le1$ and $\deg g\le M$ we use three facts.
+Symbols introduced in this section are local to it. The block-constant estimate is proved directly, by Bernstein--Walsh on complex lines; polarization is not used. All functions in this section are real-valued. For complex $f$, apply the result to $\mathrm{Re}f$ and $\mathrm{Im}f$, whose Walsh coefficients are $\mathrm{Re}\hf$ and $\mathrm{Im}\hf$, so $\Phi_\C(M,2)\le2\Phi_\R(M,2)$, where $\Phi_\C$ and $\Phi_\R$ denote $\Phi$ with the supremum over complex, resp.\ real, $f$. For real $g$ with $|g|\le1$ and $\deg g\le M$ we use three facts.
 \begin{enumerate}[label=(\alph*),leftmargin=*]
 \item $\sum_i|\hat g(\{i\})|\le M$ (Lemma~\ref{lem:level1}).
-\item (Level-one inequality \cite{Tal96,Cha02}, \cite[Sec.~5.4]{OD}.) If $\alpha=\|g\|_1>0$, then $\|P_1g\|_2\le C_1\alpha\sqrt{\log(e/\alpha)}$, where $P_1g=\sum_i\hat g(\{i\})x_i$. Indeed, put $h=P_1g$ and $Z=|h|/\|h\|_2$; then $\|h\|_2^2=\E[gh]\le\|h\|_2\E[|g|Z]$ and $\Pr[Z>u]\le2e^{-u^2/2}$ (Hoeffding). Since $0\le|g|\le1$ and $\E|g|=\alpha$, we get $\E[|g|Z]\le\int_0^\infty\min(\alpha,2e^{-u^2/2})\,du\le\alpha(u_0+1/u_0)$ with $u_0=(2\log(2/\alpha))^{1/2}\ge1$.
+\item (Level-one inequality.) If $\alpha=\|g\|_1>0$, then $\|P_1g\|_2\le C_1\alpha\sqrt{\log(e/\alpha)}$ with $C_1=1+\sqrt2$, where $P_1g=\sum_i\hat g(\{i\})x_i$. The same shape of bound is classical \cite{Tal96,Cha02}, \cite[Sec.~5.4]{OD}; the constant used here is proved as follows. If $h=P_1g=0$ there is nothing to prove. Otherwise put $Z=|h|/\|h\|_2$. Hoeffding's inequality for the Rademacher sum $h$ gives $\Pr[Z>u]\le2e^{-u^2/2}$. Since $0\le|g|\le1$ and $\E|g|=\alpha$,
+\[
+\|h\|_2^2=\E[gh]\le\E[|g||h|]=\|h\|_2\,\E[|g|Z],
+\]
+so $\|h\|_2\le\E[|g|Z]\le\int_0^\infty\min(\alpha,2e^{-u^2/2})\,du$. With $u_0=(2\log(2/\alpha))^{1/2}$ the integral up to $u_0$ is at most $\alpha u_0$. The tail satisfies $\int_{u_0}^\infty 2e^{-u^2/2}\,du\le 2u_0^{-1}e^{-u_0^2/2}=\alpha/u_0$: indeed $\frac{d}{du}e^{-u^2/2}=-ue^{-u^2/2}$, so $\int_{u_0}^\infty ue^{-u^2/2}\,du=e^{-u_0^2/2}$, and $u\ge u_0$ on the range gives $\int_{u_0}^\infty e^{-u^2/2}\,du\le u_0^{-1}e^{-u_0^2/2}$, while $e^{-u_0^2/2}=\alpha/2$. For $0<\alpha\le1$ one has $u_0\ge1$ and $\log(e/\alpha)\ge1$, and $u_0^2=2\log(2/\alpha)\le2\log(e/\alpha)$, so $u_0+1/u_0\le u_0+1\le(1+\sqrt2)\sqrt{\log(e/\alpha)}$. Thus $\|h\|_2\le C_1\alpha\sqrt{\log(e/\alpha)}$.
 \item (Blei--Littlewood; Lemma~\ref{lem:blei} with $L=2$, $\bd=(1,1)$.) For every finite array, $\|a\|_{4/3}\le(\sum_u\|a_{u\cdot}\|_2)^{1/2}(\sum_i\|a_{\cdot i}\|_2)^{1/2}$.
 \end{enumerate}
 
@@ -398,29 +398,24 @@ Altogether $\|b\|_{4/3}^{4/3}\le CM^{4/3}(\log(M+1))^{2/3}$ for every bipartitio
 
 \section{Remarks}\label{sec:remarks}
 
-\noindent\emph{1. Where the length went.} The argument of \cite{Iv} for $(\log d)^{5/2}$ uses the bootstrap of \cite[Appendix~A]{Iv}: fixed levels, a fixed-block contraction with $L=3$, and a critical contraction with $L=\lfloor1+\log M\rfloor$ that starts at $r\ge L^4$ because of the counting factor $|\mathcal C_r|^{1/(2r)}\le(r+1)^{(L-1)/(2r)}$. On top of this it uses the finite-depth recursion of \cite[Theorem~5.8]{Iv} with the weight $r$. Here Lemma~\ref{lem:agg} and Proposition~\ref{prop:stage} replace both. Lemma~\ref{lem:agg} works for every window and weight, and the two contracting stages differ only in the numerical check of Lemma~\ref{lem:mult}.
+\noindent\emph{1. Where the length went.} The fixed levels are the recursion of Proposition~\ref{prop:fixed}. Above the constant level $R_0$, Proposition~\ref{prop:stage} is applied on two or three ranges of degrees. Lemma~\ref{lem:agg} is stated for an arbitrary window and weight, so the two contracting ranges differ only in the values fed to Lemma~\ref{lem:mult}.
 
 \smallskip\noindent\emph{2. The exponent (heuristic).} The top stage needs $L\gtrsim\log d$ blocks, since its weight $r^{1+1/L}$ costs $d^{1/L}$ in the completion. Lemma~\ref{lem:mult} then gives only $1-\kappa^2\asymp L^{-2}$, which costs a factor $\asymp\log d$. The stage can start only at a level $R\gtrsim L^2\log L$, where the counting term $(\log r)/r$ drops below $L^{-2}$, and the weight below $R$ costs $R^{1/4}$. A third stage with $L_2\approx\log R_3$ blocks covers the levels between $R_2\approx L_2^2\log L_2$ and $R_3$. This turns the cost $(\log d)^{1/2+o(1)}$ into $(\log\log d)^{3/2+o(1)}$, which is \eqref{eq:three}. More stages improve only the iterated logarithms: $K_0+1$ is the exponent of $\log d$ that this kind of stacking gives.
 
 \smallskip\noindent\emph{3. The seed.} By Theorem~\ref{thm:cond}, any seed $\Phi(M,2)\le CM(1+\log M)^{K_0}$ with $K_0<1$ (two stages) or $K_0<\frac32$ (three stages) already gives $\BH(d)\le Cd^2(1+\log d)^{5/2}$. In particular a cruder seed than Theorem~\ref{thm:seed} would suffice for the target. The bootstrap cannot start from level one alone: at $s=1$ the extraction \eqref{eq:extract} is void ($\sigma_1=0$), so a bound for $\Phi(M,2)$ is the input this bootstrap needs.
 
-\smallskip\noindent\emph{4. Constants and numerical checks.} The constant $C$ is absolute but not small: the recursion of Proposition~\ref{prop:fixed} gives $\log D_r=(1+o(1))\frac{\log2}{12}r^2$, so $\log H\approx3.6\cdot10^7$. In \cite{Iv} the corresponding cutoff is $10^{12}$ instead of $R_0=25000$. We made no attempt to optimize $C$. Separate numerical checks, not used in the proof, were made of the following:
-\begin{itemize}[leftmargin=*]
-\item Lemma~\ref{lem:agg} on small cubes, by exact enumeration of all partitions $\omega$;
-\item the certificates of Propositions~\ref{prop:stage1}--\ref{prop:stage2};
-\item Lemma~\ref{lem:section} for random complex $Q$;
-\item Lemma~\ref{lem:BW} for the Chebyshev polynomial of degree $M$ of the mean of $n$ coordinates, at block-constant complex points (exact coefficients, floating-point evaluation);
-\item the bounds $|c_\beta|$, $\|Q_k\|_2$ of Theorem~\ref{thm:F} for Chebyshev polynomials of block means, with one and two blocks, in exact rational arithmetic;
-\item the growth of $D_r$.
-\end{itemize}
+\smallskip\noindent\emph{4. The constant.} The constant $C$ is absolute. It depends on $H^2=\sum_{r<R_0}D_r^2r^{-5/2}$, a finite sum up to the fixed cutoff $R_0=25000$, and no attempt is made to optimize it. The inequalities in Propositions~\ref{prop:stage1} and~\ref{prop:stage2} are proved in the text; in particular Proposition~\ref{prop:stage2} uses the factor $e^{-1/(2L^2)}$.
 
 \begin{thebibliography}{99}
 \bibitem{BNPR} A.~Barbosa, D.~N\'u\~nez-Alarc\'on, D.~Pellegrino, A.~Raposo Jr., Polynomial Bohnenblust--Hille bounds and Hardy--Littlewood inequalities for finite local systems, arXiv:2610.15363 (2026).
+\bibitem{Bec75} W.~Beckner, Inequalities in Fourier analysis, Ann.\ of Math.\ (2) 102 (1975), 159--182.
+\bibitem{Bon70} A.~Bonami, \'Etude des coefficients de Fourier des fonctions de $L^p(G)$, Ann.\ Inst.\ Fourier (Grenoble) 20 (1970), 335--402.
 \bibitem{Cha02} M.-C.~Chang, A polynomial bound in Freiman's theorem, Duke Math.\ J.\ 113 (2002), 399--419.
 \bibitem{DMP} A.~Defant, M.~Mastyło, A.~P\'erez, On the Fourier spectrum of functions on Boolean cubes, Math.\ Ann.\ 374 (2019), 653--680.
-\bibitem{Iv} P.~Ivanisvili, The Bohnenblust--Hille constant of the Boolean cube is at most $d^{2+o(1)}$, manuscript, November 2026.
+\bibitem{I27} P.~Ivanisvili, Polynomial growth of Bohnenblust--Hille constants on the Hamming cube, arXiv:2609.12427 (2026).
 \bibitem{OD} R.~O'Donnell, Analysis of Boolean Functions, Cambridge University Press, 2014.
 \bibitem{Ran} T.~Ransford, Potential Theory in the Complex Plane, Cambridge University Press, 1995.
+\bibitem{STV} J.~Slote, C.-K.~Tseng, A.~Volberg, An $m^{2.943}$ Bohnenblust--Hille bound on the Boolean cube, arXiv:2609.21144 (2026).
 \bibitem{Tal96} M.~Talagrand, How much are increasing sets positively correlated?, Combinatorica 16 (1996), 243--258.
 \end{thebibliography}
 \end{document}
