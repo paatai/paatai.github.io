@@ -1,0 +1,426 @@
+\documentclass[11pt]{amsart}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage[margin=1.05in]{geometry}
+\usepackage{enumitem}
+\usepackage{microtype}
+\usepackage[colorlinks=true,linkcolor=blue,citecolor=blue,urlcolor=blue]{hyperref}
+\hypersetup{pdftitle={A short proof that the Boolean Bohnenblust-Hille constant is at most d2 (log d) to the power 3/2+o(1)},
+  pdfauthor={Paata Ivanisvili}}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{remark}[theorem]{Remark}
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\T}{\mathbb{T}}
+\newcommand{\BH}{\mathrm{BH}}
+\newcommand{\hf}{\widehat f}
+\newcommand{\artanh}{\operatorname{artanh}}
+\newcommand{\arsinh}{\operatorname{arsinh}}
+\newcommand{\bd}{\mathbf d}
+\setlength{\emergencystretch}{3em}
+
+\title[A short proof of the Boolean Bohnenblust--Hille bound]{A short proof that the Boolean Bohnenblust--Hille constant\\ is at most $d^{2}(\log d)^{3/2+o(1)}$}
+\author{Paata Ivanisvili}
+\date{November 6, 2026}
+
+\begin{document}
+
+\begin{abstract}
+For $f:\{-1,1\}^n\to\C$ of degree at most $d$ we give a self-contained proof of
+\[
+\Big(\sum_S|\hf(S)|^{\frac{2d}{d+1}}\Big)^{\frac{d+1}{2d}}\le C\,d^{2}(1+\log d)^{2}\big(1+\log(1+\log d)\big)^{1/4}\,\|f\|_\infty ,
+\]
+which contains the bound $Cd^2(1+\log d)^{5/2}$ of \cite{Iv}, and, with one more stage,
+\[
+\BH(d)\le C\,d^{2}(1+\log d)^{3/2}\lambda(d)^{3/2}(1+\log\lambda(d))^{1/4},
+\]
+where $\lambda(d)=1+\log(1+\log d)$. This is $Cd^2(\log d)^{3/2+o(1)}$. The level-two input is the seed $\Phi(M,2)\le CM\sqrt{\log(M+1)}$ of \cite{Iv}, whose block-constant estimate we reprove by Bernstein--Walsh on complex lines. The new part is the weighted bootstrap. Applying Blei's inequality and the entropy form of AM--GM at the $\ell^{p_r}$ level, and grouping multidegrees by a single block degree, reduces the counting loss of the critical step from $(r+1)^{(L-1)/r}$ to $r^{1/r}$. The critical contraction with $L\approx\log M$ blocks therefore starts at level $20L^2\log L$ instead of $L^4$. The scale-adapted weight $r^{1+1/L}$ contracts as fast as $r(1+\log r)$ but costs only a constant at the top level, so no finite-depth recursion is needed.
+\end{abstract}
+
+% --- AI disclosure (site) ---
+\makeatletter
+\let\aidisc@setabstracta\@setabstracta
+\def\@setabstracta{\par\vskip 10pt{\centering\small\itshape
+This proof was generated on November 6, 2026, by Grok Bot using Cursor’s agents, guided by several prompts from Paata Ivanisvili
+\par}\aidisc@setabstracta}
+\makeatother
+% --- end AI disclosure ---
+
+\maketitle
+
+\section{Statement}
+
+Let $\{-1,1\}^n$ carry the uniform probability measure; $\E$ is expectation and $\|\cdot\|_q$ the $L^q$ norm (the $\ell^q$ norm for arrays). Every $f:\{-1,1\}^n\to\C$ is $f=\sum_{S\subseteq[n]}\hf(S)x^S$; $\deg f=\max\{|S|:\hf(S)\ne0\}$. For $r\ge1$ put
+\[
+p_r=\frac{2r}{r+1},\quad A_r(f)=\Big(\sum_{|S|=r}|\hf(S)|^{p_r}\Big)^{1/p_r},\quad \Phi(M,r)=\sup\{A_r(f):\deg f\le M,\,\|f\|_\infty\le1\},
+\]
+the supremum over all $n$ and all complex $f$, and let $\BH(d)$ be the least constant with $(\sum_S|\hf(S)|^{p_d})^{1/p_d}\le\BH(d)\|f\|_\infty$ whenever $\deg f\le d$. For $s\ge2$ let $\sigma_s=((s-1)/(s+1))^{1/2}=(p_s-1)^{1/2}$, so $\log(1/\sigma_s)=\artanh(1/s)$. Logarithms are natural.
+
+\begin{theorem}\label{thm:main}
+There is an absolute constant $C$ such that for every $d\ge1$, with $\lambda(d)=1+\log(1+\log d)$,
+\begin{align}
+\BH(d)&\le C\,d^{2}(1+\log d)^{2}\,\lambda(d)^{1/4},\label{eq:two}\\
+\BH(d)&\le C\,d^{2}(1+\log d)^{3/2}\lambda(d)^{3/2}(1+\log\lambda(d))^{1/4}.\label{eq:three}
+\end{align}
+In particular $\BH(d)\le C\,d^2(1+\log d)^{5/2}$.
+\end{theorem}
+
+\begin{theorem}\label{thm:cond}
+Let $\beta\ge1$, $K_0\ge0$, $C_0>0$, and suppose $\Phi(M,2)\le C_0M^\beta(1+\log M)^{K_0}$ for all $M\ge1$. Then, with $C$ absolute and $C_0'=\max(C_0,\pi/2)$,
+\[
+\BH(d)\le1+C\,C_0'\,d^{1+\beta}(1+\log d)^{K_0+3/2}\big(1+\log(1+\log d)\big)^{1/4}\qquad(d\ge1),
+\]
+and, with $\lambda(d)=1+\log(1+\log d)$,
+\[
+\BH(d)\le1+C\,C_0'\,d^{1+\beta}(1+\log d)^{K_0+1}\lambda(d)^{3/2}(1+\log\lambda(d))^{1/4}\qquad(d\ge1).
+\]
+\end{theorem}
+
+\begin{theorem}[the seed {\cite[Theorem~4.8]{Iv}}]\label{thm:seed}
+$\Phi(M,2)\le C\,M\sqrt{\log(M+1)}$ for all $M\ge1$.
+\end{theorem}
+
+The Boolean Bohnenblust--Hille inequality is due to Defant, Mastyło and P\'erez \cite{DMP}; for the history of polynomial bounds see \cite[Section~1]{Iv}. Theorem~\ref{thm:main} is Theorem~\ref{thm:cond} with $\beta=1$, $K_0=1/2$ and Theorem~\ref{thm:seed}: the two bounds of Theorem~\ref{thm:cond} give \eqref{eq:two} and \eqref{eq:three}. Sections~\ref{sec:tools}--\ref{sec:assembly} prove Theorem~\ref{thm:cond}; Section~\ref{sec:seed} proves Theorem~\ref{thm:seed}, following \cite[Section~4.2]{Iv}.
+
+\smallskip\noindent\emph{Relation to \cite{Iv,BNPR}.} The tools of Section~\ref{sec:tools} and Proposition~\ref{prop:fixed} are those of \cite[Sections~2--3]{BNPR} as written out in \cite[Appendix~A]{Iv}. The proof of Theorem~\ref{thm:cond} differs from \cite[Appendix~A and Section~5.2]{Iv} in three ways.
+\begin{enumerate}[label=(\roman*),leftmargin=*]
+\item Lemma~\ref{lem:agg} aggregates at the $\ell^{p_r}$ level and passes to $\ell^2$ only over the pairs (block, block degree). This leaves the counting factor $|T|^{1/r}\le r^{1/r}$, where \cite{Iv,BNPR} have $|\mathcal C_r|^{1/r}\le(r+1)^{(L-1)/r}$. The latter is what forces $r\ge L^4$ in \cite{Iv}.
+\item The weight $r^{1+1/L}$ with $L=\lfloor1+\log M\rfloor$ replaces $r(1+\log r)$ and the finite-depth recursion of \cite[Theorem~5.8, Corollary~5.9]{Iv}.
+\item One stage inequality (Proposition~\ref{prop:stage}) is stacked two or three times.
+\end{enumerate}
+The powers of $\log d$ add up as follows: $K_0$ from the seed, $\frac12$ from the factor $R_*^{1/4}$ with $R_*=\lceil20L^2\log L\rceil$ (the weight is $r^{5/4}$ below $R_*$), $1$ from the contraction $1-\kappa^2\asymp L^{-2}$, and nothing from the top weight, since $d^{1/L}\le e$.
+
+\section{Tools}\label{sec:tools}
+
+\begin{lemma}[Bonami--Beckner]\label{lem:bonami}
+For $1\le p\le2$, $0\le\rho\le(p-1)^{1/2}$ and $g:\{-1,1\}^n\to\C$, $\|T_\rho g\|_2\le\|g\|_p$, where $T_\rho x^S=\rho^{|S|}x^S$. Hence for $s\ge2$, $t\ge0$ and every $G$,
+\begin{equation}\label{eq:extract}
+\sigma_s^t\Big(\sum_{|\xi|=t}|\widehat G(\xi)|^2\Big)^{1/2}\le\|G\|_{p_s}.
+\end{equation}
+Also $\|h\|_q\le(q-1)^{k/2}\|h\|_2$ for $q\ge2$ and $\deg h\le k$, and $\|h\|_2\le 3^{k}\|h\|_1$ for $\deg h\le k$.
+\end{lemma}
+
+\begin{proof}
+The real case of the first claim is due to Bonami and Beckner \cite{OD}. For complex $g$, $T_\rho g(x)=\E_\xi g(x\xi)$ with independent $\xi_i$, $\E\xi_i=\rho$, so $|T_\rho g|\le T_\rho|g|$ and $\|T_\rho g\|_2\le\||g|\|_p$. For \eqref{eq:extract} use $\|T_{\sigma_s}G\|_2\le\|G\|_{p_s}$ and Parseval. The $L^q$ bound is the dual statement $\|T_{(q-1)^{-1/2}}g\|_q\le\|g\|_2$ applied to $g=T_{(q-1)^{1/2}}h$. For the last claim, $\|h\|_2\le\|h\|_1^{1/3}\|h\|_4^{2/3}\le\|h\|_1^{1/3}3^{k/3}\|h\|_2^{2/3}$.
+\end{proof}
+
+\begin{lemma}[level one]\label{lem:level1}
+If $\deg F\le M$, then $A_1(F)\le\frac\pi2M\|F\|_\infty$; if $F$ is real, $\sum_i|\widehat F(\{i\})|\le M\|F\|_\infty$.
+\end{lemma}
+
+\begin{proof}
+Fix $x$. The function $t\mapsto T_tF(x)$ is a polynomial of degree $\le M$ bounded by $\|F\|_\infty$ on $[-1,1]$ (an average for $t\ge0$, and $T_{-t}F(x)=T_tF(-x)$). Its derivative at $0$ is $F_1(x)=\sum_j\widehat F(\{j\})x_j$, so Bernstein's inequality for $\theta\mapsto T_{\cos\theta}F(x)$ at $\theta=\pi/2$ gives $|F_1(x)|\le M\|F\|_\infty$. For real $F$ choose $x_j=\operatorname{sign}\widehat F(\{j\})$. For complex $F$ take $x_j=\operatorname{sign}\mathrm{Re}(e^{-i\theta}\widehat F(\{j\}))$ and average over $\theta$, using $\frac1{2\pi}\int_0^{2\pi}|\mathrm{Re}(e^{-i\theta}a)|\,d\theta=\frac2\pi|a|$.
+\end{proof}
+
+\begin{lemma}[Blei's inequality for $L$ blocks]\label{lem:blei}
+Let $L\ge2$, let $a$ be an array on $E_1\times\dots\times E_L$, $\bd\in\N_0^L$, $r=|\bd|$, $s_j=r-d_j\ge1$, $\theta_j=s_j/((L-1)r)$, and
+\[
+X_j(a)=\Big(\sum_{(i_k)_{k\ne j}}\Big(\sum_{i_j\in E_j}|a_{i_1\dots i_L}|^2\Big)^{p_{s_j}/2}\Big)^{1/p_{s_j}} .
+\]
+Then $\sum_j\theta_j=1$ and $\|a\|_{p_r}\le\prod_jX_j(a)^{\theta_j}$.
+\end{lemma}
+
+\begin{proof}
+For $P\in[1,\infty)^L$ let $\|a\|_P$ be the iterated norm ($\ell^{P_L}$ in $i_L$ first, $\ell^{P_1}$ in $i_1$ last). If $\theta_j\ge0$, $\sum_j\theta_j=1$ and $1/P_k=\sum_j\theta_j/P^{(j)}_k$ for every $k$, then $\|a\|_P\le\prod_j\|a\|_{P^{(j)}}^{\theta_j}$. For one index this is H\"older's inequality $\|\prod_jb_j^{\theta_j}\|_{\ell^{P}}\le\prod_j\|b_j\|_{\ell^{P^{(j)}}}^{\theta_j}$ for arbitrary $b_j\ge0$ (exponents $P^{(j)}/(P\theta_j)$). For the induction step fix $i_1$, apply the claim to $a(i_1,\cdot)$, and then apply the one-index inequality in $i_1$ to $b_j(i_1)=\|a(i_1,\cdot)\|_{(P^{(j)}_2,\dots,P^{(j)}_L)}$. Let $P^{(j)}$ have $2$ in position $j$ and $p_{s_j}$ elsewhere. Since $\theta_j/(2s_j)=1/(2(L-1)r)$,
+$\frac{\theta_k}2+\sum_{j\ne k}\theta_j(\frac12+\frac1{2s_j})=\frac12+\frac1{2r}=\frac1{p_r}$, so $P=(p_r,\dots,p_r)$. Finally, Minkowski's inequality $\|\|F\|_{\ell^q_v}\|_{\ell^2_u}\le\|\|F\|_{\ell^2_u}\|_{\ell^q_v}$ ($q\le2$) moves the $\ell^2$ norm innermost, so $\|a\|_{P^{(j)}}\le X_j(a)$.
+\end{proof}
+
+\smallskip\noindent\emph{Random partitions.} Fix $L\ge2$ and let $\omega:[n]\to[L]$ be uniform, $I_j=\omega^{-1}(j)$. For $\bd\in\N_0^L$ let $a_\bd(\omega)=(\hf(S_1\cup\dots\cup S_L))_{S_j\subseteq I_j,|S_j|=d_j}$, an array on $\prod_j\{S\subseteq I_j:|S|=d_j\}$, and $X_j(\bd,\omega)=X_j(a_\bd(\omega))$.
+
+\begin{lemma}[capture identity]\label{lem:capture}
+For every set $\mathcal C$ of multidegrees with $|\bd|=r$,
+\[
+\E_\omega\sum_{\bd\in\mathcal C}\|a_\bd(\omega)\|_{p_r}^{p_r}=\eta(\mathcal C)A_r(f)^{p_r},\qquad \eta(\mathcal C)=\Pr\big[\mathrm{Mult}(r;\tfrac1L,\dots,\tfrac1L)\in\mathcal C\big].
+\]
+\end{lemma}
+
+\begin{proof}
+Each $S$ lies in exactly one array, at the multidegree $(|S\cap I_j|)_j$, which for $|S|=r$ has the multinomial law.
+\end{proof}
+
+\smallskip\noindent\emph{Partial square functions.} A \emph{weight} is a function $w:\N\to(0,\infty)$, where $\N=\{1,2,\dots\}$; only its values at $s\le M$ enter $G_w$. For $N\ge1$ and $1\le R\le M$ let
+\[
+G_w(R)=\sup\Big\{\Big(\sum_{s=1}^{R}\frac{A_s(g)^2}{w(s)^2}\Big)^{1/2}:\ g:\{-1,1\}^n\to\C,\ n\le N,\ \deg g\le M,\ \|g\|_\infty\le1\Big\}.
+\]
+($M$ and $N$ are fixed and suppressed.) $G_w(R)<\infty$, since $A_s(g)\le\binom Ns^{1/(2s)}\|g\|_2$ by H\"older.
+
+\begin{lemma}[section estimate]\label{lem:section}
+Let $Q$ be a function on $\{-1,1\}^I\times\{-1,1\}^J$ with $|I|+|J|\le N$ and $\deg Q\le M$. Put $b_{\alpha,\xi}=\widehat Q(\alpha\cup\xi)$ for $\alpha\subseteq I$, $\xi\subseteq J$, and
+$Y_{s,t}=\big(\sum_{|\alpha|=s}(\sum_{|\xi|=t}|b_{\alpha,\xi}|^2)^{p_s/2}\big)^{1/p_s}$. Then for every weight $w$ and $2\le R\le M$,
+\[
+\sum_{s=2}^{R}\sum_{t\ge0}\frac{\sigma_s^{2t}Y_{s,t}^2}{w(s)^2}\le G_w(R)^2\|Q\|_\infty^2 .
+\]
+\end{lemma}
+
+\begin{proof}
+Fix $s\ge2$, $p=p_s$, and let $g_\alpha(y)=\sum_\xi b_{\alpha,\xi}y^\xi$, the coefficient of $x^\alpha$ in $Q(\cdot,y)$. With $c_{\alpha,t}=\sigma_s^t(\sum_{|\xi|=t}|b_{\alpha,\xi}|^2)^{1/2}$ we have $\|c_{\alpha,\cdot}\|_{\ell^2}=\|T_{\sigma_s}g_\alpha\|_2\le\|g_\alpha\|_p$ by Lemma~\ref{lem:bonami}, so Minkowski's inequality ($p\le2$) gives
+\[
+\sum_t\sigma_s^{2t}Y_{s,t}^2=\big\|(\|c_{\cdot,t}\|_{\ell^p})_t\big\|_{\ell^2}^2\le\big\|(\|c_{\alpha,\cdot}\|_{\ell^2})_\alpha\big\|_{\ell^p}^2\le\Big(\sum_\alpha\|g_\alpha\|_p^p\Big)^{2/p}=\big(\E_yA_s(Q(\cdot,y))^p\big)^{2/p},
+\]
+which is at most $\E_yA_s(Q(\cdot,y))^2$. Divide by $w(s)^2$ and sum over $2\le s\le R$. Each section $Q(\cdot,y)$ has degree $\le M$, at most $N$ coordinates and sup norm $\le\|Q\|_\infty$, so $\E_y\sum_{s\le R}A_s(Q(\cdot,y))^2/w(s)^2\le G_w(R)^2\|Q\|_\infty^2$.
+\end{proof}
+
+\begin{lemma}[binomial tails]\label{lem:tails}
+If $Z\sim\mathrm{Bin}(r,1/L)$, $\mu=r/L$ and $0<a<1$, then $\Pr[|Z-\mu|>a\mu]\le2e^{-c_a\mu}$, $c_a=a^2(3-a)/6$.
+\end{lemma}
+
+\begin{proof}
+$\E e^{\tau Z}\le e^{\mu(e^\tau-1)}$. With $\tau=\log(1+a)$, resp.\ $\tau=\log(1-a)<0$, Markov's inequality for $e^{\tau Z}$ bounds the upper, resp.\ lower, tail by $e^{-\mu\phi(a)}$, resp.\ $e^{-\mu\psi(a)}$, where $\phi(a)=(1+a)\log(1+a)-a\ge\frac{a^2}2-\frac{a^3}6$ and $\psi(a)=(1-a)\log(1-a)+a\ge\frac{a^2}2$.
+\end{proof}
+
+\section{Degree-marginal aggregation and the stage inequality}\label{sec:agg}
+
+Fix $L\ge2$ and $r\ge4$. A \emph{window} is a nonempty set $\mathcal C$ of multidegrees $\bd\in\N_0^L$ with $|\bd|=r$ and $1\le d_j\le r-2$ for all $j$. For $\bd\in\mathcal C$ let $s_j=r-d_j\ge2$ and $\theta_j=\theta_j(\bd)=s_j/((L-1)r)$ as in Lemma~\ref{lem:blei}, and $D(\bd)=\sum_j\theta_j\log(L\theta_j)\ge0$ (the relative entropy of $\theta$ with respect to the uniform law on $[L]$). Let $T(\mathcal C)=\{d_j:\bd\in\mathcal C,\,1\le j\le L\}$. For a weight $w$ define
+\[
+\mathsf M_w(r,\bd)=\prod_{j=1}^L\Big(\frac{\sigma_{s_j}^{-d_j}\,w(s_j)}{w(r)}\Big)^{\theta_j},\qquad
+\kappa_w(r,\mathcal C)^2=\eta(\mathcal C)^{-(1+\frac1r)}\,|T(\mathcal C)|^{\frac1r}\max_{\bd\in\mathcal C}\mathsf M_w(r,\bd)^2e^{(1+\frac1r)D(\bd)} .
+\]
+For a splitting $[n]=I\sqcup J$ write $Y_{s,t}(f;J)$ for the quantity $Y_{s,t}$ of Lemma~\ref{lem:section} with $Q=f$.
+
+\begin{lemma}[degree-marginal aggregation]\label{lem:agg}
+For every $f:\{-1,1\}^n\to\C$, every window $\mathcal C$ at level $r$ and every weight $w$,
+\[
+\frac{A_r(f)^2}{w(r)^2}\le\kappa_w(r,\mathcal C)^2\cdot\frac1L\,\E_\omega\sum_{j=1}^L\sum_{t\in T(\mathcal C)}\frac{\sigma_{r-t}^{2t}\,Y_{r-t,t}(f;I_j)^2}{w(r-t)^2}.
+\]
+\end{lemma}
+
+\begin{proof}
+Write $p=p_r$ and fix $\omega$. For every $\bd$ with $|\bd|=r$ and every $j$ with $1\le d_j\le r-2$ put $U_j(\bd)=\sigma_{s_j}^{d_j}X_j(\bd,\omega)/w(s_j)$, where $s_j=r-d_j$. For $\bd\in\mathcal C$, Lemma~\ref{lem:blei} gives $\|a_\bd\|_p\le\prod_jX_j^{\theta_j}=w(r)\mathsf M_w(r,\bd)\prod_jU_j^{\theta_j}$. By the weighted AM--GM inequality,
+\[
+\prod_j(U_j^p)^{\theta_j}=\prod_j(L\theta_j)^{\theta_j}\prod_j\Big(\frac{U_j^p}{L\theta_j}\Big)^{\theta_j}\le e^{D(\bd)}\sum_j\theta_j\frac{U_j^p}{L\theta_j}=\frac{e^{D(\bd)}}L\sum_jU_j^p .
+\]
+Hence, with $\mu=\max_{\bd\in\mathcal C}\mathsf M_w(r,\bd)^pe^{D(\bd)}$,
+\begin{equation}\label{eq:agg1}
+\sum_{\bd\in\mathcal C}\|a_\bd\|_p^p\le\frac{\mu\,w(r)^p}L\sum_{j=1}^L\sum_{t\in T}\ \sum_{\bd\in\mathcal C,\ d_j=t}U_j(\bd)^p .
+\end{equation}
+Fix $j$ and $t\in T$, and let $s=r-t$; every $\bd$ in the inner sum has $s_j=s$. The sets $\alpha\subseteq[n]\setminus I_j$ with $|\alpha|=s$ are partitioned according to the profile $(|\alpha\cap I_k|)_{k\ne j}$, and the part of profile $(d_k)_{k\ne j}$ is exactly the outer index set of $X_j(\bd,\omega)$. Hence $\sum_{\bd:|\bd|=r,\,d_j=t}X_j(\bd,\omega)^{p_s}=Y_{s,t}(f;I_j)^{p_s}$, and since $p_s\le p$,
+\[
+\sum_{\bd\in\mathcal C,\ d_j=t}U_j(\bd)^p\le\Big(\sum_{\bd:\,|\bd|=r,\,d_j=t}U_j(\bd)^{p_s}\Big)^{p/p_s}=V_{j,t}(\omega)^p,\qquad V_{j,t}=\frac{\sigma_s^{t}\,Y_{s,t}(f;I_j)}{w(s)} .
+\]
+Take $\E_\omega$ in \eqref{eq:agg1}. By Lemma~\ref{lem:capture} the left side becomes $\eta(\mathcal C)A_r(f)^p$. On the right, H\"older's inequality for the measure $\Pr\otimes(\text{counting on }[L]\times T)$, of total mass $L|T|$, with exponents $2/p$ and $2/(2-p)$, gives
+$\E\sum_{j,t}V_{j,t}^p\le(L|T|)^{1-p/2}(\E\sum_{j,t}V_{j,t}^2)^{p/2}$. Therefore
+\[
+A_r(f)^p\le\eta^{-1}\mu\,w(r)^pL^{-1}(L|T|)^{1-p/2}\Big(\E\sum_{j,t}V_{j,t}^2\Big)^{p/2}.
+\]
+Raise this to the power $2/p=1+\frac1r$. Then $\mu^{2/p}=\max\mathsf M_w^2e^{(1+1/r)D}$ and $L^{-2/p}(L|T|)^{2/p-1}=L^{-1}|T|^{1/r}$.
+\end{proof}
+
+\begin{proposition}[stage inequality]\label{prop:stage}
+Let $w$ be a weight, $4\le R\le R'\le M$, $L\ge2$, and for each $r\in[R,R']$ let $\mathcal C_r$ be a window at level $r$ with $L$ blocks such that $\kappa_w(r,\mathcal C_r)\le\kappa$. Then $\sum_{r=R}^{R'}A_r(f)^2/w(r)^2\le\kappa^2G_w(R'-1)^2\|f\|_\infty^2$ for every $f$ with $\deg f\le M$ on $n\le N$ coordinates. Consequently, if $\kappa<1$,
+\[
+G_w(R')^2\le\frac{G_w(R-1)^2}{1-\kappa^2}.
+\]
+\end{proposition}
+
+\begin{proof}
+Sum Lemma~\ref{lem:agg} over $r\in[R,R']$ and exchange the sum with $\E_\omega$ and $\frac1L\sum_j$. For fixed $\omega$ and $j$, the pairs $(s,t)=(r-t,t)$ with $r\in[R,R']$ and $t\in T(\mathcal C_r)$ are distinct and satisfy $2\le s\le R'-1$. So Lemma~\ref{lem:section}, applied to $Q=f$ with $J=I_j$, bounds their contribution by $G_w(R'-1)^2\|f\|_\infty^2$. For the second claim, take the supremum over $g$ of $\sum_{s<R}A_s(g)^2/w(s)^2+\sum_{s=R}^{R'}A_s(g)^2/w(s)^2$; this gives $G_w(R')^2\le G_w(R-1)^2+\kappa^2G_w(R'-1)^2\le G_w(R-1)^2+\kappa^2G_w(R')^2$, and $G_w(R')<\infty$.
+\end{proof}
+
+\section{Windows, fixed levels and the two stages}\label{sec:stages}
+
+For $L\ge3$, $0<a\le\frac12$ and $r\ge4L$ let $\mathcal C_r(L,a)=\{\bd\in\N_0^L:|\bd|=r,\ |d_j-r/L|\le ar/L\ \forall j\}$.
+
+\begin{lemma}[the multiplier]\label{lem:mult}
+Let $L\ge3$, $0<a\le\frac12$, $b\ge1$, $r\ge4L$ with $ar\ge L$, and let $w$ satisfy $w(s)/w(r)\le(s/r)^b$ for $r/2\le s\le r$. Then $\mathcal C=\mathcal C_r(L,a)$ is a window, $|T(\mathcal C)|\le 2ar/L+1$, $\eta(\mathcal C)\ge1-2Le^{-c_ar/L}$, and for $\bd\in\mathcal C$
+\[
+2\log\mathsf M_w(r,\bd)+\big(1+\tfrac1r\big)D(\bd)\le\frac{2}{(L-1)(1-4/r^2)}-2b\log\frac{L}{L-1}+\big(2b+1+\tfrac1r\big)\frac{a^2}{(L-1)^2}.
+\]
+\end{lemma}
+
+\begin{proof}
+For $\bd\in\mathcal C$ we have $d_j\ge(1-a)r/L\ge r/(2L)\ge2$ and $s_j=r-d_j\ge r(1-\frac{1+a}L)\ge\frac r2\ge2$. $\mathcal C$ is nonempty: it contains a vector with entries $\lfloor r/L\rfloor$ and $\lceil r/L\rceil$, since $ar/L\ge1$. So $\mathcal C$ is a window. The set $T$ consists of integers in an interval of length $2ar/L$. By the union bound and Lemma~\ref{lem:tails}, $1-\eta\le\sum_j\Pr[|d_j-r/L|>ar/L]\le2Le^{-c_ar/L}$. Next, $\log\mathsf M_w=P_1+P_2$ with $P_1=\sum_j\theta_jd_j\artanh(1/s_j)$ and $P_2=\sum_j\theta_j\log(w(s_j)/w(r))$. Using $\artanh u\le u/(1-u^2)$, $s_j\ge r/2$ and $\theta_j/s_j=1/((L-1)r)$, we get $P_1\le(1-4/r^2)^{-1}\sum_jd_j/((L-1)r)=(1-4/r^2)^{-1}/(L-1)$. As $s_j/r=(L-1)\theta_j\in[\frac12,1]$, the hypothesis gives $P_2\le b\sum_j\theta_j\log((L-1)\theta_j)=b(D-\log\frac L{L-1})$. Finally $\log x\le x-1$ gives $D\le\sum_j\theta_j(L\theta_j-1)=L\sum_j(\theta_j-\frac1L)^2$, and $\theta_j-\frac1L=-(d_j/r-\frac1L)/(L-1)$, so $D\le\frac{L}{(L-1)^2}\cdot L\cdot\frac{a^2}{L^2}=\frac{a^2}{(L-1)^2}$. Combine: $2P_1+2P_2+(1+\frac1r)D\le2P_1-2b\log\frac L{L-1}+(2b+1+\frac1r)D$.
+\end{proof}
+
+\begin{proposition}[stage one]\label{prop:stage1}
+Let $L=3$, $a=\frac1{20}$, $b=\frac54$, and let $w$ satisfy $w(s)/w(r)\le(s/r)^{5/4}$ for $r/2\le s\le r$. Then $\kappa_w(r,\mathcal C_r(3,\frac1{20}))^2\le e^{-1/125}$ for every $r\ge R_0:=25000$.
+\end{proposition}
+
+\begin{proof}
+Lemma~\ref{lem:mult} applies since $r\ge25000\ge\max(4L,L/a)=60$; it bounds the multiplier term by $(1-4/r^2)^{-1}-\frac52\log\frac32+(\frac72+\frac1r)\frac1{1600}\le1+10^{-8}-1.013662+0.002188\le-0.01147$. Here $c_a=\frac{59}{48000}\ge0.001229$, so $c_ar/3\ge10.24$ and $1-\eta\le6e^{-10.24}\le2.2\cdot10^{-4}$; the capture term is $-(1+\frac1r)\log\eta\le(1+\frac1r)\frac{1-\eta}\eta\le2.3\cdot10^{-4}$. The counting term is $\frac1r\log|T|\le\frac1r\log(\frac r{30}+1)\le2.7\cdot10^{-4}$, since $x\mapsto\frac1x\log(\frac{x}{30}+1)$ is decreasing for $x\ge R_0$. The total is at most $-0.01097<-\frac1{125}$.
+\end{proof}
+
+\begin{proposition}[stage two]\label{prop:stage2}
+Let $L\ge40$, $a=\frac14$, $b=1+\frac1L$, and let $w$ satisfy $w(s)/w(r)\le(s/r)^{1+1/L}$ for $r/2\le s\le r$. Then $\kappa_w(r,\mathcal C_r(L,\frac14))^2\le e^{-1/(2L^2)}$ for every $r\ge R_L:=\lceil20L^2\log L\rceil$.
+\end{proposition}
+
+\begin{proof}
+Lemma~\ref{lem:mult} applies since $R_L\ge4L=L/a$. Let $u=\frac1{L-1}$. Since $2u-2\log(1+u)\le u^2$ and $\frac2L\log\frac L{L-1}\ge\frac2{L^2}$, Lemma~\ref{lem:mult} bounds the multiplier term by
+\[
+u^2+\frac{10u}{r^2}-\frac2{L^2}+\Big(3+\frac2L+\frac1r\Big)\frac{u^2}{16}\le1.1907\,u^2-\frac2{L^2}+\frac{10u}{r^2}\le-\frac{0.747}{L^2}+\frac{10^{-7}}{L^2},
+\]
+using $(1-4/r^2)^{-1}\le1+5/r^2$, $(L/(L-1))^2\le(40/39)^2\le1.052$ and $r^2\ge400L^4\log^2L$. Here $c_{1/4}=\frac{11}{384}$, so $c_ar/L\ge0.57\,L\log L$ and $1-\eta\le2L\cdot L^{-0.57L}\le10^{-30}/L^2$; the capture term is below $10^{-29}/L^2$. The counting term is $\frac1r\log|T|\le\frac{\log r}r\le\frac{\log R_L}{R_L}$, and $\log R_L\le\log(21L^2\log L)\le3.045+2\log L+\log\log L$, so
+\[
+\frac{\log R_L}{R_L}\le\frac{1}{20L^2}\Big(2+\frac{3.045+\log\log L}{\log L}\Big)\le\frac{0.16}{L^2}.
+\]
+The total is at most $-0.58/L^2<-1/(2L^2)$.
+\end{proof}
+
+\begin{remark}
+Both certificates were also checked numerically: stage one at seven values $r\in[R_0,10^8]$, and stage two for $L\in\{40,41,45,60,100,300,10^3,3\cdot10^3,10^4\}$ and $r\in\{R_L,R_L+1,2R_L,10R_L,1000R_L\}$. Two quantities are computed. The first is the bound of Lemma~\ref{lem:mult} with the Chernoff tail. The second is the maximum over the window of the objective $2\log\mathsf M_w(r,\bd)+(1+\frac1r)D(\bd)$, together with the union bound with exact binomial tails. Both are computed for the pure power $w(s)=s^b$. Any weight satisfying the hypothesis of Lemma~\ref{lem:mult} has no larger objective, since $s_j\ge r/2$ on the window. For $w(s)=s^b$ the objective is $\sum_j\chi(s_j)$ with $\chi$ convex: with $c=1/((L-1)r)$ and $\Psi(s)=s\artanh(1/s)=\sum_{k\ge0}s^{-2k}/(2k+1)$, we have $\chi(s)=c[2(r-s)\Psi(s)+2bs\log(s/r)+(1+\frac1r)s\log(Lcs)]$ and $\chi''=c[(2b+1+\frac1r)/s+2(r-s)\Psi''-4\Psi']>0$, since $\Psi'<0<\Psi''$. So the maximum over the polytope $\{\sum_jd_j=r,\ \mathrm{lo}\le d_j\le\mathrm{hi}\}$, where $\mathrm{lo}=\lceil(1-a)r/L\rceil$ and $\mathrm{hi}=\lfloor(1+a)r/L\rfloor$, is attained at a vertex, and the vertices are integer points of the window. Adding the counting term $\frac1r\log|T|$, at $L=40$, $r=R_L$ the two quantities give $\log\kappa^2\le-0.69/L^2$ and $\le-0.79/L^2$; the proof above uses $-0.58/L^2$.
+\end{remark}
+
+\begin{proposition}[fixed levels {\cite[Prop.~2.6]{BNPR}, \cite[Prop.~A.10]{Iv}}]\label{prop:fixed}
+Let $S(M)\ge\frac\pi2M$ satisfy $\Phi(M,2)\le S(M)$. Define $D_1=D_2=1$, $D_3=(9/2)^{2/3}\sqrt3$, and $D_r=\pi_r^{-1/p_r}(\sigma_2\sigma_{r-2})^{-2(r-2)/r}D_{r-2}^{(r-2)/r}$ for $r\ge4$, where $\pi_r=\binom r22^{-r}$. Then $A_r(f)\le D_rS(M)\|f\|_\infty$ for all $r\ge1$ and $\deg f\le M$.
+\end{proposition}
+
+\begin{proof}
+Let $\|f\|_\infty\le1$. The cases $r=1,2$ are Lemma~\ref{lem:level1} and the hypothesis. For $r=3$ take $L=3$ and $\bd=(1,1,1)$, so $s_j=2$ and $\theta_j=\frac13$. Fix $j$, and for each $\mathbf S=(S_k)_{k\ne j}$ with $|S_k|=1$ let $G_{\mathbf S}(x_j)=\sum_{S\subseteq I_j}\hf(S\cup\bigcup_{k\ne j}S_k)x_j^S$. By \eqref{eq:extract}, $\sigma_2X_j\le(\sum_{\mathbf S}\|G_{\mathbf S}\|_{p_2}^{p_2})^{1/p_2}$. For fixed $x_j$ the numbers $G_{\mathbf S}(x_j)$ are level-two coefficients of a section of $f$, so $\sum_{\mathbf S}|G_{\mathbf S}(x_j)|^{p_2}\le S(M)^{p_2}$ and $X_j\le\sqrt3S(M)$. Lemmas~\ref{lem:blei} and~\ref{lem:capture} (with $\eta=\frac29$) give $A_3\le(9/2)^{1/p_3}\sqrt3S(M)$. For $r\ge4$ take $L=2$ and $\bd=(2,r-2)$. The same argument bounds the two Blei factors by $\sigma_{r-2}^{-2}D_{r-2}S(M)$ (sections in the variables of $I_2$, by induction) and $\sigma_2^{-(r-2)}S(M)$ (sections in the variables of $I_1$); their geometric mean with weights $\frac{r-2}r,\frac2r$ and the capture $\eta=\pi_r$ give the recursion.
+\end{proof}
+
+\section{Proof of Theorem~\ref{thm:cond}}\label{sec:assembly}
+
+Let $S(M)=C_0'M^\beta(1+\log M)^{K_0}$; then $S(M)\ge\frac\pi2M$ and $\Phi(M,2)\le S(M)$. Put $H^2=\sum_{r<R_0}D_r^2r^{-5/2}$, an absolute constant. Fix $M\ge1$ and $N\ge1$, and let $L_*=\lfloor1+\log M\rfloor$.
+
+\smallskip\noindent\emph{The weight.} If $L_*\le39$, let $R_*=M$ and $w(r)=r^{5/4}$. If $L_*\ge40$, let $R_*=R_{L_*}=\lceil20L_*^2\log L_*\rceil$; then $118000<R_*\le21L_*^2\log L_*<e^{L_*-1}\le M$. Let
+\[
+w(r)=r^{5/4}\ (r\le R_*),\qquad w(r)=R_*^{5/4}(r/R_*)^{1+1/L_*}\ (r>R_*).
+\]
+For $L_*\ge40$, $\log w$ is a piecewise linear function of $\log r$ with slopes $\frac54\ge1+\frac1{L_*}$, so $w(s)/w(r)\le(s/r)^{1+1/L_*}$ for all $s\le r$. In both cases $w$ is increasing and $w(s)/w(r)=(s/r)^{5/4}$ for $s\le r\le R_*$.
+
+\smallskip\noindent\emph{The stages.} By Proposition~\ref{prop:fixed}, $G_w(\min(M,R_0-1))^2\le\sum_{r<R_0}D_r^2S(M)^2/r^{5/2}=H^2S(M)^2$. If $R_*\ge R_0$, Proposition~\ref{prop:stage} with three blocks and Proposition~\ref{prop:stage1} on the levels $[R_0,R_*]$ give $G_w(R_*)^2\le H^2S(M)^2/(1-e^{-1/125})\le126H^2S(M)^2$. If $L_*\ge40$, Proposition~\ref{prop:stage} with $L_*$ blocks and Proposition~\ref{prop:stage2} with $L=L_*$ on the levels $[R_*+1,M]$ give
+\[
+G_w(M)^2\le\frac{G_w(R_*)^2}{1-e^{-1/(2L_*^2)}}\le4L_*^2G_w(R_*)^2\le504\,L_*^2H^2S(M)^2 .
+\]
+In all cases $G_w(M)\le23\,L_*HS(M)$.
+
+\smallskip\noindent\emph{Completion.} Let $\deg f\le d$, $\|f\|_\infty\le1$, and take $M=d$ and $N=n$. Since $p_r\le p_d$ for $r\le d$, $\sum_{S\ne\emptyset}|\hf(S)|^{p_d}\le\sum_{r=1}^dA_r(f)^{p_d}$. H\"older's inequality over the $d$ levels and the monotonicity of $w$ then give
+\[
+\|\hf\|_{p_d}\le1+d^{\frac1{2d}}\Big(\sum_{r=1}^dA_r(f)^2\Big)^{1/2}\le1+e^{1/(2e)}w(d)\,G_w(d).
+\]
+If $L_*\le39$ then $w(d)\le e^{10}d$. If $L_*\ge40$ then $w(d)\le R_*^{1/4}d\cdot d^{1/L_*}\le e\,R_*^{1/4}d$, since $L_*\ge\log d$, and $R_*\le21L_*^2\log L_*$. With $L_*\le1+\log d$,
+\[
+\BH(d)\le1+C\,d\,L_*^{3/2}(\log(1+L_*))^{1/4}S(d)\le1+C\,C_0'\,d^{1+\beta}(1+\log d)^{K_0+3/2}\big(1+\log(1+\log d)\big)^{1/4}.
+\]
+This is the first bound of Theorem~\ref{thm:cond}.
+
+\smallskip\noindent\emph{Three stages.} Let $L_3=L_*$. If $L_3\ge40$, let $R_3=R_{L_3}$, $L_2=\lceil\log R_3\rceil$ and $R_2=R_{L_2}$. Suppose $L_3\ge40$ and $L_2\ge40$; otherwise $\log d<e^{20}$, and the first bound already implies the second. Then $L_2<L_3$, $R_0<R_2<R_3<M$, and we use
+\[
+w(r)=\begin{cases}r^{5/4}&(r\le R_2),\\ R_2^{5/4}(r/R_2)^{1+1/L_2}&(R_2<r\le R_3),\\ w(R_3)(r/R_3)^{1+1/L_3}&(r>R_3).\end{cases}
+\]
+The slopes $\frac54\ge1+\frac1{L_2}\ge1+\frac1{L_3}$ decrease. So Proposition~\ref{prop:stage} applies with Proposition~\ref{prop:stage1} on $[R_0,R_2]$, with Proposition~\ref{prop:stage2} for $L=L_2$ on $[R_2+1,R_3]$, and with Proposition~\ref{prop:stage2} for $L=L_3$ on $[R_3+1,M]$. Hence $G_w(M)\le\sqrt{126}\,HS(M)\cdot2L_2\cdot2L_3$, and $w(d)\le d\,R_2^{1/4}R_3^{1/L_2}d^{1/L_3}\le e^2R_2^{1/4}d$. Since $L_3\le1+\log d$, $L_2\le1+\log(21L_3^2\log L_3)\le5+3\log L_3\le5\lambda(d)$ and $R_2\le21L_2^2\log L_2\le C\lambda(d)^2(1+\log\lambda(d))$, this gives the second bound of Theorem~\ref{thm:cond}.\qed
+
+\section{The seed: proof of Theorem~\ref{thm:seed}}\label{sec:seed}
+
+We follow \cite[Section~4.2]{Iv}. Theorems~\ref{thm:F} and~\ref{thm:S} and Lemma~\ref{lem:Q} below are \cite[Theorems~4.5, 4.6 and Lemma~4.7]{Iv}, with the constant $C'=2e^2$ of \cite[Theorem~4.5]{Iv} improved to $C'=2e$. The middle step of Theorem~\ref{thm:F} is new: it applies Bernstein--Walsh on complex lines, so polarization is not needed. Symbols introduced in this section are local to it. All functions in this section are real-valued. For complex $f$, apply the result to $\mathrm{Re}f$ and $\mathrm{Im}f$, whose Walsh coefficients are $\mathrm{Re}\hf$ and $\mathrm{Im}\hf$, so $\Phi_\C(M,2)\le2\Phi_\R(M,2)$, where $\Phi_\C$ and $\Phi_\R$ denote $\Phi$ with the supremum over complex, resp.\ real, $f$. For real $g$ with $|g|\le1$ and $\deg g\le M$ we use three facts.
+\begin{enumerate}[label=(\alph*),leftmargin=*]
+\item $\sum_i|\hat g(\{i\})|\le M$ (Lemma~\ref{lem:level1}).
+\item (Level-one inequality \cite{Tal96,Cha02}, \cite[Sec.~5.4]{OD}.) If $\alpha=\|g\|_1>0$, then $\|P_1g\|_2\le C_1\alpha\sqrt{\log(e/\alpha)}$, where $P_1g=\sum_i\hat g(\{i\})x_i$. Indeed, put $h=P_1g$ and $Z=|h|/\|h\|_2$; then $\|h\|_2^2=\E[gh]\le\|h\|_2\E[|g|Z]$ and $\Pr[Z>u]\le2e^{-u^2/2}$ (Hoeffding). Since $0\le|g|\le1$ and $\E|g|=\alpha$, we get $\E[|g|Z]\le\int_0^\infty\min(\alpha,2e^{-u^2/2})\,du\le\alpha(u_0+1/u_0)$ with $u_0=(2\log(2/\alpha))^{1/2}\ge1$.
+\item (Blei--Littlewood; Lemma~\ref{lem:blei} with $L=2$, $\bd=(1,1)$.) For every finite array, $\|a\|_{4/3}\le(\sum_u\|a_{u\cdot}\|_2)^{1/2}(\sum_i\|a_{\cdot i}\|_2)^{1/2}$.
+\end{enumerate}
+
+\begin{lemma}[Bernstein--Walsh on complex lines]\label{lem:BW}
+Let $F:\{-1,1\}^J\to\C$, $\deg F\le M$, $\|F\|_\infty\le1$, and let $F$ also denote its multi-affine extension to $\C^J$. Let $z=a+ib$ with $a\in[-1,1]^J$, $b\in\R^J\setminus\{0\}$, and suppose that $\Lambda=\min_{i:b_i\ne0}(1-|a_i|)/|b_i|>0$. Then $|F(z)|\le e^{M/\Lambda}$.
+\end{lemma}
+
+\begin{proof}
+$F_{a,b}(\zeta)=F(a+\zeta b)$ is a polynomial of degree $\le M$ in $\zeta\in\C$. For real $|\zeta|\le\Lambda$ the point $a+\zeta b$ lies in $[-1,1]^J$, where $F$ is an average of its values on the cube; so $|F_{a,b}|\le1$ on $[-\Lambda,\Lambda]$. By the Bernstein--Walsh inequality \cite[Thm.~5.5.7]{Ran}, $|F_{a,b}(\zeta)|\le|\omega+\sqrt{\omega^2-1}|^M$ with $\omega=\zeta/\Lambda$ and the branch of modulus $\ge1$. (Apply the maximum principle to $F_{a,b}(\Lambda\omega)(\omega+\sqrt{\omega^2-1})^{-M}$ on $(\C\cup\{\infty\})\setminus[-1,1]$; this holds for complex coefficients.) At $\zeta=i$ this is $(\Lambda^{-1}+\sqrt{1+\Lambda^{-2}})^M=e^{M\arsinh(1/\Lambda)}\le e^{M/\Lambda}$.
+\end{proof}
+
+\begin{theorem}[block-constant test forms]\label{thm:F}
+Let $|B|\le1$ on $\{-1,1\}^J$, $\deg B\le M$, $\alpha=\|B\|_1$. Let $G_1,\dots,G_m\subseteq J$ be disjoint with $|G_j|=n_j\ge n_0$, let $\varepsilon_i\in\{\pm1\}$ and $\lambda_j\ge0$ with $\sum_j\lambda_j^2=1$, and let $\mathcal L=\sum_j\lambda_j\sum_{i\in G_j}\varepsilon_ix_i/\sqrt{n_j}$. Put $\gamma=\E[B\mathcal L]/\alpha$ and $C'=2e$. If $\alpha>0$ and $K\ge2$ is an integer with $\gamma\ge18\sqrt K$ and $Kn_0\ge4C'^2M^2$, then $\alpha\le2\,(C'M/\sqrt{Kn_0})^K$.
+\end{theorem}
+
+\begin{proof}
+Replacing $x_i$ by $\varepsilon_ix_i$, we may assume $\varepsilon\equiv1$. Let $\bar B$ be the average of $B$ over $\prod_j\mathrm{Sym}(G_j)$, acting on the coordinates. Then $|\bar B|\le1$, $\deg\bar B\le M$, $\|\bar B\|_1\le\alpha$, and $\E[\bar B\mathcal L]=\E[B\mathcal L]=\gamma\alpha$, since $\mathcal L$ is invariant. Fix the coordinates outside the blocks in $\bar B$ and call the resulting function $g$ of the block variables; $g$ is invariant, $|g|\le1$ and $\deg g\le M$. So its level-$k$ part is $Q_k=\sum_{|\beta|=k}a_\beta\prod_je_{\beta_j}(x_{G_j})$, where $\beta\in\N_0^m$ and $e_b$ is the elementary symmetric polynomial; hence $\|Q_k\|_2^2=\sum_\beta|a_\beta|^2\prod_j\binom{n_j}{\beta_j}$.
+
+For $t\in\C$ and $y\in\T^m$ let $z(t,y)$ have coordinates $z_i=ty_j$ for $i\in G_j$. Since $e_b(ty_j,\dots,ty_j)=\binom{n_j}bt^by_j^b$, the multi-affine extension satisfies
+\[
+g(z(t,y))=\sum_{k\le M}t^kh_k(y),\qquad h_k(y)=\sum_{|\beta|=k}c_\beta y^\beta,\qquad c_\beta=a_\beta\prod_j\binom{n_j}{\beta_j}.
+\]
+If $|t|=\delta\le\frac12$, each coordinate of $z(t,y)$ has real and imaginary parts of modulus $\le\delta$. So either $z(t,y)$ is real and $|g(z(t,y))|\le1$, or Lemma~\ref{lem:BW} applies with $\Lambda\ge(1-\delta)/\delta$ and gives $|g(z(t,y))|\le e^{M\delta/(1-\delta)}\le e^{2M\delta}$. Cauchy's estimate in $t$ with $\delta=k/(2M)\le\frac12$ gives $|h_k(y)|\le(2M/k)^ke^k=(C'M/k)^k$ for $y\in\T^m$ and $1\le k\le M$, and Parseval on $\T^m$ gives $\sum_\beta|c_\beta|^2\le(C'M/k)^{2k}$. Since $\prod_j\binom{n_j}{\beta_j}\ge\prod_j(n_j/\beta_j)^{\beta_j}\ge(n_0/k)^k$,
+\[
+\|Q_k\|_2^2=\sum_\beta\frac{|c_\beta|^2}{\prod_j\binom{n_j}{\beta_j}}\le\Big(\frac k{n_0}\Big)^k\Big(\frac{C'M}k\Big)^{2k},\qquad\text{i.e.}\qquad\|Q_k\|_2\le\Big(\frac{C'M}{\sqrt{kn_0}}\Big)^k.
+\]
+Now $\mathcal L$ has level one and $\|\mathcal L\|_2=1$. Let $q=C'M/\sqrt{Kn_0}\le\frac12$. For $\deg\psi<K$, H\"older's inequality and Lemma~\ref{lem:bonami} give $\|\psi\|_{1+1/K}\le\|\psi\|_1^{(K-1)/(K+1)}\|\psi\|_2^{2/(K+1)}\le9\|\psi\|_1$, and Lemma~\ref{lem:bonami} gives $\|\mathcal L\|_{K+1}\le\sqrt K$. Hence
+\[
+\E[g\mathcal L]=\E[g^{<K}\mathcal L]\le9\sqrt K\,\|g^{<K}\|_1\le9\sqrt K\Big(\|g\|_1+\sum_{k\ge K}\|Q_k\|_2\Big)\le9\sqrt K(\|g\|_1+2q^K).
+\]
+Averaging over the fixed coordinates gives $\gamma\alpha=\E[\bar B\mathcal L]\le9\sqrt K(\|\bar B\|_1+2q^K)\le9\sqrt K(\alpha+2q^K)$, and $\gamma\ge18\sqrt K$ yields $\alpha\le2q^K$.
+\end{proof}
+
+\begin{theorem}[decomposition of the level-one tail]\label{thm:S}
+Let $M\ge1$ and $K\ge2$ be integers and $B:\{-1,1\}^J\to\R$ with $|B|\le1$, $\deg B\le M$ and $\alpha=\|B\|_1>0$. Let $v$ be the level-one coefficient vector of $B$ and $s_v=\|v\|_2$. The set $\mathcal T$ of coordinates outside a fixed choice of the $\min(M^2,|J|)$ largest $|v_i|$ splits as $\mathcal T=T'\sqcup T''$ with
+\[
+\|v|_{T'}\|_2\le36\sqrt K\,\alpha,\qquad \|v|_{T''}\|_{4/3}^{4/3}\le C_2M^{2/3}s_v^{4/3}\Big(1+\frac1K\Big(\frac2\alpha\Big)^{2/K}\Big),\qquad C_2=24C'^2 .
+\]
+\end{theorem}
+
+\begin{proof}
+If $|J|\le M^2$, then $\mathcal T=\emptyset$ and there is nothing to prove. Otherwise every entry of $v|_{\mathcal T}$ is $\le s_v/M$, since the $M^2$ top entries dominate it. Let $V_k=\{i\in\mathcal T:2^{-k-1}<|v_i|\le2^{-k}\}$ and $m_k=|V_k|$. Only $k$ with $2^{-k}<2s_v/M$ occur, $\|v|_{V_k}\|_{4/3}^{4/3}\le m_k2^{-4k/3}$, and $\sum_{2^{-k}<2s_v/M}2^{-4k/3}\le6(s_v/M)^{4/3}$. Coordinates with $v_i=0$ go to $T''$. Let $n_*=4C'^2M^2$. Levels with $m_k<n_*$ go to $T''$, at total cost $\le6n_*(s_v/M)^{4/3}=24C'^2M^{2/3}s_v^{4/3}$. For integers $\nu\ge n_*$, let $W(\nu)$ be the union of the levels with $m_k\ge\nu$ and $\varphi(\nu)=\|v|_{W(\nu)}\|_2/\alpha$, which is non-increasing in $\nu$ and vanishes for large $\nu$. Let $n^*$ be the least $\nu\ge n_*$ with $\varphi(\nu)\le36\sqrt K$, and put $T'=W(n^*)$. Every remaining level has $n_*\le m_k<n^*$, hence $\varphi(m_k)>36\sqrt K$. For such $k$ apply Theorem~\ref{thm:F} to the blocks $\{V_l:m_l\ge m_k\}$, all of size $\ge n_0:=m_k$, with $\varepsilon_i=\mathrm{sgn}\,v_i$ and $\lambda_l=\|v|_{V_l}\|_2/\|v|_{W(m_k)}\|_2$. The entries of a level agree within a factor $2$, so $\|v|_{V_l}\|_1\ge\frac12\sqrt{m_l}\,\|v|_{V_l}\|_2$ and
+\[
+\E[B\mathcal L]=\sum_l\lambda_l\frac{\|v|_{V_l}\|_1}{\sqrt{m_l}}\ge\frac12\|v|_{W(m_k)}\|_2>18\sqrt K\,\alpha ;
+\]
+also $Km_k\ge n_*$. Hence $\alpha\le2(C'M/\sqrt{Km_k})^K$, i.e.\ $m_k\le(C'^2M^2/K)(2/\alpha)^{2/K}$, and these levels cost at most $6(C'^2M^2/K)(2/\alpha)^{2/K}(s_v/M)^{4/3}$ in total.
+\end{proof}
+
+\begin{lemma}[summing the rows]\label{lem:Q}
+Let $B_u$ ($u\in U$) be real with $|B_u|\le1$, $\alpha_u=\|B_u\|_1$ and $s_u=\|P_1B_u\|_2$, and suppose $\sum_us_u^2\le1$ and $\sum_u\alpha_u\le \Gamma$, where $\Gamma\ge2$. Then for every integer $K\ge7$,
+\[
+\sum_{u:\alpha_u>0}s_u^{4/3}\Big(1+\frac1K\Big(\frac2{\alpha_u}\Big)^{2/K}\Big)\le C_3\,\Gamma^{2/3}\sqrt{\log \Gamma}\,\Big(1+\frac1K\big(2\Gamma^{10}\big)^{2/K}\Big).
+\]
+\end{lemma}
+
+\begin{proof}
+By (b), $s_u\le C_1\alpha_u\sqrt{\ell_u}$ with $\ell_u=\log(e/\alpha_u)$; note $\alpha_u\le1$.
+
+\emph{Rows with $0<\alpha_u<\Gamma^{-10}$.} Here $1\le(2/\alpha_u)^{2/K}$, so the summand is at most $2s_u^{4/3}(2/\alpha_u)^{2/K}\le C\alpha_u^{4/3-2/K}\ell_u^{2/3}\le C\alpha_u\cdot\alpha_u^{1/21}\ell_u^{2/3}$, as $\frac13-\frac2K\ge\frac1{21}$. The function $t\mapsto t^{1/21}\log(e/t)^{2/3}$ is increasing on $(0,e^{-13}]$ and bounded by $3.2$ on $(0,1]$. So on $(0,\Gamma^{-10})$ it is at most $C\Gamma^{-10/21}(\log \Gamma)^{2/3}$ (use the bound $3.2$ when $\Gamma<e^{1.3}$), and these rows contribute $\le C\Gamma^{11/21}(\log \Gamma)^{2/3}\le C\Gamma^{2/3}$.
+
+\emph{Rows with $\alpha_u\ge \Gamma^{-10}$.} Here $(2/\alpha_u)^{2/K}\le(2\Gamma^{10})^{2/K}$, and it remains to bound $\sum s_u^{4/3}$. Rows with $s_u\ge1/\Gamma$ give $\sum s_u^{4/3}\le \Gamma^{2/3}\sum s_u^2\le \Gamma^{2/3}$. Rows with $s_u<1/\Gamma$ give $s_u^{4/3}\le \Gamma^{-1/3}s_u\le \Gamma^{-1/3}C_1\alpha_u\sqrt{\log(e\Gamma^{10})}$, which sums to $\le C\Gamma^{2/3}\sqrt{\log \Gamma}$.
+\end{proof}
+
+\begin{proof}[Proof of Theorem~\ref{thm:seed}]
+Fix a bipartition $I\sqcup J$ of the coordinates and a real $f$ with $|f|\le1$ and $\deg f\le M$. Write $b_{ui}=\hf(\{u,i\})$ for $u\in I$, $i\in J$. The rows $B_u(y)=\E_x[x_uf(x,y)]$ and the columns $B^i(x)=\E_y[y_if(x,y)]$ are bounded by $1$, have degree $\le M$, and have level-one vectors $b_u=(b_{ui})_i$ and $b^i=(b_{ui})_u$. For each $y$ the section $f(\cdot,y)$ has level-one coefficients $B_u(y)$, so by (a) $\sum_u|B_u(y)|\le M$; integrating, $\sum_u\|B_u\|_1\le M$, and likewise $\sum_i\|B^i\|_1\le M$. By Parseval, $\sum_u\|b_u\|_2^2=\sum_i\|b^i\|_2^2\le1$.
+
+Let $\Gamma=\max(2,M)$ and $K=\max(7,\lceil\log \Gamma\rceil)$. For every row with $\alpha_u=\|B_u\|_1>0$ fix a set $\mathrm{top}_u$ of $\min(M^2,|J|)$ largest entries, apply Theorem~\ref{thm:S}, and write $b_u=b_u|_{\mathrm{top}_u}+t'_u+t''_u$ with $t'_u=b_u|_{T'_u}$ and $t''_u=b_u|_{T''_u}$, where $\mathrm{top}_u,T'_u,T''_u$ partition $J$. A row with $\alpha_u=0$ vanishes; put $\mathrm{top}_u=T'_u=\emptyset$ and $T''_u=J$. Do the same for the columns, with sets $\mathrm{top}^i,T'^i,T''^i$ partitioning $I$ and vectors $t'^i$, $t''^i$. Partition the entries $(u,i)$ into
+\[
+\begin{gathered}E_1=\{(u,i):i\in\mathrm{top}_u\cup T''_u\},\qquad E_2=\{(u,i):i\in T'_u,\ u\in\mathrm{top}^i\cup T''^i\},\\ E_3=\{(u,i):i\in T'_u,\ u\in T'^i\}.\end{gathered}
+\]
+\emph{$E_1$.} H\"older on at most $M^2$ entries gives $\|b_u|_{\mathrm{top}_u}\|_{4/3}^{4/3}\le M^{2/3}s_u^{4/3}$, where $s_u=\|b_u\|_2$. With Theorem~\ref{thm:S} and Lemma~\ref{lem:Q},
+\[
+\sum_{E_1}|b_{ui}|^{4/3}\le(1+C_2)M^{2/3}\sum_{u:\alpha_u>0}s_u^{4/3}\Big(1+\frac1K\Big(\frac2{\alpha_u}\Big)^{2/K}\Big)\le CM^{2/3}\Gamma^{2/3}\sqrt{\log \Gamma},
+\]
+because $(2\Gamma^{10})^{2/K}\le\exp(2(\log2+10\log \Gamma)/K)\le e^{21}$.
+
+\emph{$E_2$.} Every entry of $E_2$ lies in $\mathrm{top}^i\cup T''^i$ for its column $i$, so the same argument applied to the columns gives the same bound.
+
+\emph{$E_3$.} Let $a=b\,\mathbf 1_{E_3}$. Its row $u$ is a sub-vector of $t'_u$ and its column $i$ a sub-vector of $t'^i$, so $\sum_u\|a_{u\cdot}\|_2\le36\sqrt K\sum_u\alpha_u\le36\sqrt KM$, and likewise for the columns. By (c), $\sum_{E_3}|b_{ui}|^{4/3}\le(36\sqrt KM)^{4/3}$.
+
+Altogether $\|b\|_{4/3}^{4/3}\le CM^{4/3}(\log(M+1))^{2/3}$ for every bipartition. For a uniformly random bipartition each pair $\{i,j\}$ is split with probability $\frac12$, so $A_2(f)^{4/3}=2\,\E_{(I,J)}\|b^{(I,J)}\|_{4/3}^{4/3}$ and $A_2(f)\le CM\sqrt{\log(M+1)}$.
+\end{proof}
+
+\section{Remarks}\label{sec:remarks}
+
+\noindent\emph{1. Where the length went.} The argument of \cite{Iv} for $(\log d)^{5/2}$ uses the bootstrap of \cite[Appendix~A]{Iv}: fixed levels, a fixed-block contraction with $L=3$, and a critical contraction with $L=\lfloor1+\log M\rfloor$ that starts at $r\ge L^4$ because of the counting factor $|\mathcal C_r|^{1/(2r)}\le(r+1)^{(L-1)/(2r)}$. On top of this it uses the finite-depth recursion of \cite[Theorem~5.8]{Iv} with the weight $r$. Here Lemma~\ref{lem:agg} and Proposition~\ref{prop:stage} replace both. Lemma~\ref{lem:agg} works for every window and weight, and the two contracting stages differ only in the numerical check of Lemma~\ref{lem:mult}.
+
+\smallskip\noindent\emph{2. The exponent (heuristic).} The top stage needs $L\gtrsim\log d$ blocks, since its weight $r^{1+1/L}$ costs $d^{1/L}$ in the completion. Lemma~\ref{lem:mult} then gives only $1-\kappa^2\asymp L^{-2}$, which costs a factor $\asymp\log d$. The stage can start only at a level $R\gtrsim L^2\log L$, where the counting term $(\log r)/r$ drops below $L^{-2}$, and the weight below $R$ costs $R^{1/4}$. A third stage with $L_2\approx\log R_3$ blocks covers the levels between $R_2\approx L_2^2\log L_2$ and $R_3$. This turns the cost $(\log d)^{1/2+o(1)}$ into $(\log\log d)^{3/2+o(1)}$, which is \eqref{eq:three}. More stages improve only the iterated logarithms: $K_0+1$ is the exponent of $\log d$ that this kind of stacking gives.
+
+\smallskip\noindent\emph{3. The seed.} By Theorem~\ref{thm:cond}, any seed $\Phi(M,2)\le CM(1+\log M)^{K_0}$ with $K_0<1$ (two stages) or $K_0<\frac32$ (three stages) already gives $\BH(d)\le Cd^2(1+\log d)^{5/2}$. In particular a cruder seed than Theorem~\ref{thm:seed} would suffice for the target. The bootstrap cannot start from level one alone: at $s=1$ the extraction \eqref{eq:extract} is void ($\sigma_1=0$), so a bound for $\Phi(M,2)$ is the input this bootstrap needs.
+
+\smallskip\noindent\emph{4. Constants and numerical checks.} The constant $C$ is absolute but not small: the recursion of Proposition~\ref{prop:fixed} gives $\log D_r=(1+o(1))\frac{\log2}{12}r^2$, so $\log H\approx3.6\cdot10^7$. In \cite{Iv} the corresponding cutoff is $10^{12}$ instead of $R_0=25000$. We made no attempt to optimize $C$. Separate numerical checks, not used in the proof, were made of the following:
+\begin{itemize}[leftmargin=*]
+\item Lemma~\ref{lem:agg} on small cubes, by exact enumeration of all partitions $\omega$;
+\item the certificates of Propositions~\ref{prop:stage1}--\ref{prop:stage2};
+\item Lemma~\ref{lem:section} for random complex $Q$;
+\item Lemma~\ref{lem:BW} for the Chebyshev polynomial of degree $M$ of the mean of $n$ coordinates, at block-constant complex points (exact coefficients, floating-point evaluation);
+\item the bounds $|c_\beta|$, $\|Q_k\|_2$ of Theorem~\ref{thm:F} for Chebyshev polynomials of block means, with one and two blocks, in exact rational arithmetic;
+\item the growth of $D_r$.
+\end{itemize}
+
+\begin{thebibliography}{99}
+\bibitem{BNPR} A.~Barbosa, D.~N\'u\~nez-Alarc\'on, D.~Pellegrino, A.~Raposo Jr., Polynomial Bohnenblust--Hille bounds and Hardy--Littlewood inequalities for finite local systems, arXiv:2610.15363 (2026).
+\bibitem{Cha02} M.-C.~Chang, A polynomial bound in Freiman's theorem, Duke Math.\ J.\ 113 (2002), 399--419.
+\bibitem{DMP} A.~Defant, M.~Mastyło, A.~P\'erez, On the Fourier spectrum of functions on Boolean cubes, Math.\ Ann.\ 374 (2019), 653--680.
+\bibitem{Iv} P.~Ivanisvili, The Bohnenblust--Hille constant of the Boolean cube is at most $d^{2+o(1)}$, manuscript, November 2026.
+\bibitem{OD} R.~O'Donnell, Analysis of Boolean Functions, Cambridge University Press, 2014.
+\bibitem{Ran} T.~Ransford, Potential Theory in the Complex Plane, Cambridge University Press, 1995.
+\bibitem{Tal96} M.~Talagrand, How much are increasing sets positively correlated?, Combinatorica 16 (1996), 243--258.
+\end{thebibliography}
+\end{document}
