@@ -142,13 +142,18 @@ def is_date(s):
 
 
 def problems(e, seen):
-    if not isinstance(e, dict) or any(k not in e for k in ("n", "date", "title", "status", "pdf")):
-        return ["needs n, date, title, status and pdf"]
+    if not isinstance(e, dict) or any(k not in e for k in ("n", "title", "status", "pdf")):
+        return ["needs n, title, status and pdf"]
     out = []
     if type(e["n"]) is not int: out.append("n %r is not a whole number" % (e["n"],))
     elif e["n"] in seen: out.append("number %d is used twice" % e["n"])
     else: seen.add(e["n"])
-    if not is_date(e["date"]): out.append("date %r is not a real YYYY-MM-DD date" % (e["date"],))
+    # A posted date is required, except an entry marked "undated": true, which must not carry a date at all.
+    undated = e.get("undated", False)
+    if type(undated) is not bool: out.append("undated %r is not true or false" % (undated,))
+    elif undated and "date" in e: out.append("an undated entry must not include a date")
+    elif not undated and not is_date(e.get("date")):
+        out.append("date %r is not a real YYYY-MM-DD date" % (e.get("date"),))
     if e["status"] not in STATUSES: out.append("status %r is not one of %s" % (e["status"], ", ".join(STATUSES)))
     files = e.get("files", [])
     if not (isinstance(files, list) and all(isinstance(f, list) and len(f) == 2 for f in files)):
@@ -162,16 +167,20 @@ def problems(e, seen):
 
 
 def entry_html(e):
-    y, m, d = map(int, e["date"].split("-"))
     files = [("PDF", e["pdf"])] + [tuple(f) for f in e.get("files", [])]
     links = " · ".join('<a href="%s">%s</a>' % (html.escape(h), t) for t, h in files)
     note = e["line"] + " " if e.get("line") else ""
     lean = ' <span class="badge lean">Lean</span>' if e.get("lean") else ""
+    if is_date(e.get("date")):
+        y, m, d = map(int, e["date"].split("-"))
+        posted = '<time datetime="%s">%s %d, %d</time> ' % (e["date"], MONTHS[m - 1][:3], d, y)
+    else:
+        posted = ""
     return ('<li id="{n}" value="{n}"><a class="ap-n" href="#{n}">{n}</a> '
             '<a class="ap-title" href="{pdf}">{title}</a> '
-            '<span class="ap-side"><time datetime="{date}">{when}</time> <span class="badge {cls}">{status}</span>{lean}</span> '
+            '<span class="ap-side">{posted}<span class="badge {cls}">{status}</span>{lean}</span> '
             '<span class="ap-note">{note}<span class="ap-files">[{links}]</span></span></li>').format(
-        n=e["n"], pdf=html.escape(e["pdf"]), title=e["title"], date=e["date"], when="%s %d, %d" % (MONTHS[m - 1][:3], d, y),
+        n=e["n"], pdf=html.escape(e["pdf"]), title=e["title"], posted=posted,
         cls=e["status"].replace(" ", "-"), status=e["status"], lean=lean, note=note, links=links)
 
 
@@ -184,7 +193,8 @@ def build_ai_proofs():
     if bad:
         print("\n".join("ERROR: " + b for b in bad))
         sys.exit("ai-proofs/index.html was left unchanged; fix ai-proofs/entries.json and run again")
-    entries.sort(key=lambda e: (e["date"], e["n"]), reverse=True)   # newest first
+    # Newest first. Undated entries stay with the newest; dated ones keep date, then number.
+    entries.sort(key=lambda e: (1 if e.get("undated") else 0, e.get("date") or "", e["n"]), reverse=True)
     rows = [entry_html(e) for e in entries]
     block = ('<p class="ap-count">%d entries, newest first</p>\n<ol class="ap-list">\n%s\n</ol>\n'
              % (len(rows), "\n".join(rows)))
