@@ -332,5 +332,19 @@
   "line": "MaxInf(f) &ge; (Var f/d)<sup>O(log d)</sup>&middot;exp(&minus;O(log<sup>4</sup> d)) for every Boolean f of degree d (Theorem 10.1). Written-up proof; the integrated notes and paper text were independently audited.",
   "pdf": "aaronson-ambainis-quasipolynomial/aaronson-ambainis-quasipolynomial.pdf",
   "files": []
+ },
+ {
+  "n": 25,
+  "date": "2026-11-06",
+  "title": "A short proof that the Boolean Bohnenblust&ndash;Hille constant is at most d<sup>2</sup>(log d)<sup>3/2+o(1)</sup>",
+  "status": "polished",
+  "line": "BH(d) &le; C d<sup>2</sup>(1+log d)<sup>3/2</sup> &lambda;(d)<sup>3/2</sup>(1+log &lambda;(d))<sup>1/4</sup>, where &lambda;(d)=1+log(1+log d), and also BH(d) &le; C d<sup>2</sup>(1+log d)<sup>2</sup> &lambda;(d)<sup>1/4</sup>. The power of d remains 2. Independent AI audits of the argument found no gap.",
+  "pdf": "boolean-bohnenblust-hille/boolean-bohnenblust-hille.pdf",
+  "files": [
+   [
+    "TeX",
+    "boolean-bohnenblust-hille/boolean-bohnenblust-hille.tex"
+   ]
+  ]
  }
 ]
