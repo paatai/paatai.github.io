@@ -193,8 +193,17 @@ def build_ai_proofs():
     if bad:
         print("\n".join("ERROR: " + b for b in bad))
         sys.exit("ai-proofs/index.html was left unchanged; fix ai-proofs/entries.json and run again")
-    # Newest first. Undated entries stay with the newest; dated ones keep date, then number.
-    entries.sort(key=lambda e: (1 if e.get("undated") else 0, e.get("date") or "", e["n"]), reverse=True)
+    # Newest first by entry number. Dates and undated flags do not affect list order.
+    expected = set(range(1, len(entries) + 1))
+    if seen != expected:
+        missing = sorted(expected - seen)
+        extra = sorted(seen - expected)
+        msgs = []
+        if missing: msgs.append("missing numbers: %s" % ", ".join(map(str, missing)))
+        if extra: msgs.append("unexpected numbers: %s" % ", ".join(map(str, extra)))
+        print("\n".join("ERROR: " + m for m in msgs))
+        sys.exit("ai-proofs/index.html was left unchanged; fix ai-proofs/entries.json and run again")
+    entries.sort(key=lambda e: e["n"], reverse=True)
     rows = [entry_html(e) for e in entries]
     block = ('<p class="ap-count">%d entries, newest first</p>\n<ol class="ap-list">\n%s\n</ol>\n'
              % (len(rows), "\n".join(rows)))
