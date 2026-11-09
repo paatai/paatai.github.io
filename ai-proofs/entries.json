@@ -355,5 +355,24 @@
   "line": "A three-page simplified proof building on the approach of D. Turturean (Physical Superintelligence).",
   "pdf": "simplified-aa-conjecture/simplified-aa-conjecture.pdf",
   "files": []
+ },
+ {
+  "n": 27,
+  "date": "2026-11-09",
+  "title": "A full solution of the Keller&ndash;Klein conjecture: a simplified proof and a complete Lean formalization",
+  "status": "raw draft",
+  "lean": true,
+  "line": "Proves the full Keller&ndash;Klein conjecture for every normalized Rademacher sum: if a&ge;max |a<sub>j</sub>|, then both |P(X&le;x)&minus;&Phi;(x)| and |P(X&lt;x)&minus;&Phi;(x)| are at most &Phi;(a)&minus;1/2 for every real x. The Lean 4 theorem <code>KellerKlein.keller_klein</code> states both bounds and uses no sorry; the project has 128 Lean files.",
+  "pdf": "keller-klein-full/keller_klein_full_solution.pdf",
+  "files": [
+   [
+    "TeX",
+    "keller-klein-full/keller_klein_full_solution_tex.zip"
+   ],
+   [
+    "Lean formalization",
+    "keller-klein-full/keller_klein_full_solution_lean.zip"
+   ]
+  ]
  }
 ]
