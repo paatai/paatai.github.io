@@ -374,5 +374,14 @@
     "keller-klein-full/keller_klein_full_solution_lean.zip"
    ]
   ]
+ },
+ {
+  "n": 28,
+  "date": "2026-11-18",
+  "title": "Failure of the dimension-free Gaussian Markov&ndash;Bernstein inequality below two",
+  "status": "refereed",
+  "line": "A three-page note showing that both Gaussian gradient and generator ratios can be arbitrarily large for 1 &lt; p &lt; 2. This answers Question 3 and the question in (13) of Eskenazis&ndash;Ivanisvili (2020) in this range, and resolves the remaining range in Section 5 of the September 18, 2026 note negatively.",
+  "pdf": "gaussian-markov-bernstein-below-two/gaussian-markov-bernstein-below-two.pdf",
+  "files": []
  }
 ]
