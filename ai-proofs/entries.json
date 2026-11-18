@@ -378,19 +378,10 @@
  {
   "n": 28,
   "date": "2026-11-18",
-  "title": "Failure of the dimension-free Gaussian Markov&ndash;Bernstein inequality below two",
+  "title": "Markov–Bernstein inequalities and heat smoothing below L2",
   "status": "refereed",
-  "line": "A three-page note showing that both Gaussian gradient and generator ratios can be arbitrarily large for 1 &lt; p &lt; 2. This answers Question 3 and the question in (13) of Eskenazis&ndash;Ivanisvili (2020) in this range, and resolves the remaining range in Section 5 of the September 18, 2026 note negatively.",
-  "pdf": "gaussian-markov-bernstein-below-two/gaussian-markov-bernstein-below-two.pdf",
-  "files": []
- },
- {
-  "n": 29,
-  "date": "2026-11-18",
-  "title": "Counterexamples to the reverse Bernstein inequality on Gaussian and Walsh tail spaces",
-  "status": "refereed",
-  "line": "A six-page note giving counterexamples to the reverse Bernstein inequality on Gaussian and Walsh tail spaces for every 1 &lt; p &lt; 2.",
-  "pdf": "reverse-bernstein-tail-counterexamples/reverse-bernstein-tail-counterexamples.pdf",
+  "line": "A four-page note with Alexandros Eskenazis showing that for 1 &lt; p &lt; 2 the dimension-free Gaussian Markov–Bernstein inequalities, their reverse forms on Hermite tails, and heat smoothing at time u/d all fail, with extensions to the Hamming cube.",
+  "pdf": "markov-bernstein-heat-smoothing-below-L2/markov-bernstein-heat-smoothing-below-L2.pdf",
   "files": []
  }
 ]
