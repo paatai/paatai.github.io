@@ -3,7 +3,7 @@
   "n": 1,
   "date": "2026-09-18",
   "title": "Sharp Markov&ndash;Bernstein inequality in Gauss space for p&ge;2",
-  "status": "polished",
+  "status": "verified",
   "line": "Written-up proof. Prompted and discussed together with Alexandros Eskenazis.",
   "pdf": "../sharp-markov-bernstein-gauss.pdf",
   "files": []
