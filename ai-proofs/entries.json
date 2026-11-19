@@ -401,5 +401,19 @@
   "line": "A six-page note curated by Paata Ivanisvili constructing a uniform law on five points of {0,1,2}<sup>4</sup> whose four-way correlation tends to 1/256 while the first function's correlation with every normalized witness tends to zero; the same obstruction applies to restricted four-term progressions over prime fields of order at least five.",
   "pdf": "minzer-five-atom-counterexample/minzer-five-atom-counterexample.pdf",
   "files": []
+ },
+ {
+  "n": 31,
+  "date": "2026-11-19",
+  "title": "Connecting the Dots: A Folklore Problem in Real Algebraic Geometry",
+  "status": "raw draft",
+  "line": "AI generated text, which potentially contains proof, but needs human verification.",
+  "pdf": "connecting-the-dots/connecting_the_dots.pdf",
+  "files": [
+   [
+    "TeX",
+    "connecting-the-dots/connecting_the_dots.tex"
+   ]
+  ]
  }
 ]
