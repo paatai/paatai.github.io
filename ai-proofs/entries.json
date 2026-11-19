@@ -380,7 +380,7 @@
   "date": "2026-11-18",
   "title": "Markov–Bernstein inequalities and heat smoothing below L2",
   "status": "refereed",
-  "line": "A four-page note with Alexandros Eskenazis showing that for 1 &lt; p &lt; 2 the dimension-free Gaussian Markov–Bernstein inequalities, their reverse forms on Hermite tails, and heat smoothing at time u/d all fail, with extensions to the Hamming cube.",
+  "line": "A four-page note curated by Paata Ivanisvili showing that for 1 &lt; p &lt; 2 the dimension-free Gaussian Markov–Bernstein inequalities, their reverse forms on Hermite tails, and heat smoothing at time u/d all fail, with extensions to the Hamming cube.",
   "pdf": "markov-bernstein-heat-smoothing-below-L2/markov-bernstein-heat-smoothing-below-L2.pdf",
   "files": []
  },
