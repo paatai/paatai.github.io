@@ -392,5 +392,14 @@
   "line": "A six-page note by Paata Ivanisvili proving that the dimension-free Boolean Bohnenblust&ndash;Hille constant is at most Cd<sup>3/2</sup>, and Cd log(d+1) for homogeneous polynomials, improving the November 6 note (#25).",
   "pdf": "bohnenblust-hille-degree-three-halves/bohnenblust-hille-degree-three-halves.pdf",
   "files": []
+ },
+ {
+  "n": 30,
+  "date": "2026-11-18",
+  "title": "A five-atom counterexample to Minzer&rsquo;s inverse conjecture",
+  "status": "raw draft",
+  "line": "A six-page note curated by Paata Ivanisvili constructing a uniform law on five points of {0,1,2}<sup>4</sup> whose four-way correlation tends to 1/256 while the first function's correlation with every normalized witness tends to zero; the same obstruction applies to restricted four-term progressions over prime fields of order at least five.",
+  "pdf": "minzer-five-atom-counterexample/minzer-five-atom-counterexample.pdf",
+  "files": []
  }
 ]
