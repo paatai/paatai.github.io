@@ -1,5 +1,15 @@
 [
  {
+  "n": 33,
+  "date": "2026-11-18",
+  "title": "A square-root logarithmic bound for the degree gap of symmetric Boolean functions",
+  "status": "raw draft",
+  "status2": "refereed",
+  "line": "A four-page note curated by Natanael Alpay and Paata Ivanisvili.",
+  "pdf": "square-root-log-degree-gap/square_root_log_degree_gap.pdf",
+  "files": []
+ },
+ {
   "n": 1,
   "date": "2026-09-18",
   "title": "Sharp Markov&ndash;Bernstein inequality in Gauss space for p&ge;2",
@@ -425,4 +435,3 @@
   "pdf": "rank-one-convex-obstacle/rank_one_convex_obstacle.pdf",
   "files": []
  }
-]

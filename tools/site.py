@@ -154,6 +154,7 @@ def problems(e, seen):
     elif undated and "date" in e: out.append("an undated entry must not include a date")
     elif not undated and not is_date(e.get("date")):
         out.append("date %r is not a real YYYY-MM-DD date" % (e.get("date"),))
+    if e.get("status2") and e["status2"] not in STATUSES: out.append("status2 %r is not valid" % e["status2"])
     if e["status"] not in STATUSES: out.append("status %r is not one of %s" % (e["status"], ", ".join(STATUSES)))
     files = e.get("files", [])
     if not (isinstance(files, list) and all(isinstance(f, list) and len(f) == 2 for f in files)):
@@ -171,6 +172,9 @@ def entry_html(e):
     links = " · ".join('<a href="%s">%s</a>' % (html.escape(h), t) for t, h in files)
     note = e["line"] + " " if e.get("line") else ""
     lean = ' <span class="badge lean">Lean</span>' if e.get("lean") else ""
+    extra = e.get("status2")
+    if extra:
+        lean = ' <span class="badge %s">%s</span>' % (extra.replace(" ", "-"), extra) + lean
     if is_date(e.get("date")):
         y, m, d = map(int, e["date"].split("-"))
         posted = '<time datetime="%s">%s %d, %d</time> ' % (e["date"], MONTHS[m - 1][:3], d, y)
