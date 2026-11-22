@@ -415,5 +415,14 @@
     "connecting-the-dots/connecting_the_dots.tex"
    ]
   ]
+ },
+ {
+  "n": 32,
+  "date": "2026-11-21",
+  "title": "Convexity of the obstacle does not restore unique continuation of rank at most one",
+  "status": "verified",
+  "line": "A two-page note curated by Paata Ivanisvili giving an explicit C<sup>1,1</sup> energy-minimizing constraint map into the complement of the closed unit disk in R<sup>2</sup> that has rank one on an open set and rank two on another open set. <a href=\"https://grok.com/share/c2hhcmQtNA_75fbe206-d40d-4d3b-8742-94b8e3689f2f\">Original chat</a>.",
+  "pdf": "rank-one-convex-obstacle/rank_one_convex_obstacle.pdf",
+  "files": []
  }
 ]
