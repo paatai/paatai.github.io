@@ -1,5 +1,33 @@
 [
  {
+  "n": 35,
+  "date": "2026-11-26",
+  "title": "The ordinary three-point Chowla conjecture: two research reports",
+  "status": "raw draft",
+  "line": "Two research reports curated by Paata Ivanisvili, neither of which proves the conjecture: (A) <a href=\"ternary-chowla/ternary_chowla_report_A.pdf\">a localized parity inequality, an exact reduction, and a barrier</a> (168 pages); (B) <a href=\"ternary-chowla/ternary_chowla_report_B.pdf\">an every-scale parity reformulation, quantitative almost-all-scales theorems, and the residue-independence gap</a> (147 pages). AI generated text that needs human verification.",
+  "pdf": "ternary-chowla/ternary_chowla_report_A.pdf",
+  "files": [
+   [
+    "report B",
+    "ternary-chowla/ternary_chowla_report_B.pdf"
+   ]
+  ]
+ },
+ {
+  "n": 34,
+  "date": "2026-11-26",
+  "title": "Sarnak&rsquo;s M&ouml;bius disjointness conjecture: two research reports",
+  "status": "raw draft",
+  "line": "Two research reports curated by Paata Ivanisvili, neither of which proves the conjecture: (A) <a href=\"sarnak-mobius-disjointness/sarnak_report_A.pdf\">M&ouml;bius disjointness in Ces&agrave;ro form: verified status, universal sets of scales, and the remaining gaps</a> (112 pages); (B) <a href=\"sarnak-mobius-disjointness/sarnak_report_B.pdf\">skew-product towers of nonzero degree, the complexity frontier, and the remaining gap</a> (278 pages). AI generated text that needs human verification.",
+  "pdf": "sarnak-mobius-disjointness/sarnak_report_A.pdf",
+  "files": [
+   [
+    "report B",
+    "sarnak-mobius-disjointness/sarnak_report_B.pdf"
+   ]
+  ]
+ },
+ {
   "n": 33,
   "date": "2026-11-18",
   "title": "A square-root logarithmic bound for the degree gap of symmetric Boolean functions",
