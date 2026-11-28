@@ -67,9 +67,9 @@ table.bench tr.komla th { color: #ffc2c6; }
 <p><a href="../index.html">← Vibe projects</a></p>
 <h1 class="page-title">Image compression</h1>
 <p>Komla is a lossless JPEG recompressor. It makes existing JPEG files smaller and restores them byte for byte.</p>
-<p>Komla strong (<code>komla compress --strong</code>) is the strongest model. Komla fast (<code>komla compress --fast</code>) is the faster model, and it saves less.</p>
+<p>Komla has two JPEG models. Komla strong (<code>komla compress</code>, the command line’s default, or <code>--strong</code>) makes the smaller files. Komla fast (<code>komla compress --fast</code>, the web app’s default) is faster and saves less. The command line also has an older, much slower third mode, Komla maximum (<code>--maximum</code>), which is not part of this benchmark.</p>
 <h2>Benchmark</h2>
-<p>Held-out random set of 66 files (317.5 MB). The files were frozen by SHA-256 before any tuning, and the set was run once.</p>
+<p>Held-out random set of 66 files (317.5 MB). The files were frozen by SHA-256 before Komla strong was developed (Komla fast’s model is older but was never tuned on them), and the set was run once.</p>
 <figure class="chart">
 <a href="benchmark.png">
 <img src="benchmark.png" width="2680" height="1860" alt="Six bar charts: size reduction, compression speed, decompression speed, compress memory, decompress memory, and failed round trips. Komla is red. Dark bars are one thread and light bars are eight cores. Speed and memory use a logarithmic scale.">
@@ -138,14 +138,14 @@ table.bench tr.komla th { color: #ffc2c6; }
 <h2>Caveats</h2>
 <p>A failed file is one the tool refused. It is counted at its original size. No tool restored a file wrongly.</p>
 <p>Lepton (Dropbox) refuses 14 files on one thread and 1 file on eight cores. That is why its saving rises from 17.34% to 20.71%: the files it refuses are counted at their original size. JPEG XL here is its default effort. A higher effort makes it smaller and slower.</p>
-<p>Strong mode is new, so it has not had the long field use the mature tools have. It has a safety net: any file it cannot reproduce exactly is stored as it is. On this set that fallback was not used, and every file was recompressed.</p>
+<p>Strong mode is new, so it has not had the long field use the mature tools have. Its safety net checks the JPEG re-encoding: any file it cannot reproduce exactly is stored as it is. On this set that fallback was not used, and every file was recompressed. The check does not cover the model itself: on one file of an earlier test set (a rare layout with each component’s DC in its own scan), the evaluated strong mode wrote a file it could not restore, and the decoder was fixed before release 1.0.0 with every size unchanged. The command line does not decode its own output, so restore files once before deleting the originals; the web app does this for you.</p>
 
 <h2>Code</h2>
 <ul>
+<li><strong><a href="https://github.com/paatai/Compress/releases/tag/v1.0.0">Download</a></strong> Komla 1.0.0 for macOS (Apple Silicon and Intel), Linux and Windows, with SHA-256 checksums. Run <code>komla compress photo.jpg</code> (Komla strong) or <code>komla compress --fast photo.jpg</code>, and <code>komla decompress photo.jpg.komla</code>.</li>
 <li>The code is at <a href="https://github.com/paatai/Compress">github.com/paatai/Compress</a>.</li>
-<li>Strong mode is in <a href="https://github.com/paatai/Compress/pull/3">pull request 3</a>, on the branch <code>cursor/jpeg-strong-model-d777</code>.</li>
-<li>The full report is <a href="https://github.com/paatai/Compress/blob/cursor/jpeg-strong-model-d777/bench/results/JPEG_SPEED_REPORT.md">bench/results/JPEG_SPEED_REPORT.md</a> on that branch.</li>
-<li>The <a href="https://paatai.github.io/Compress/">web app</a> runs in the browser and offers Fast and Strong. Fast is the default. Restoring a file does not ask which model was used.</li>
+<li>The full report is <a href="https://github.com/paatai/Compress/blob/main/bench/results/JPEG_SPEED_REPORT.md">bench/results/JPEG_SPEED_REPORT.md</a>.</li>
+<li>The <a href="https://paatai.github.io/Compress/">web app</a> runs in the browser and offers Komla fast (the default) and Komla strong. Restoring a file does not ask which model was used.</li>
 </ul>
 <p class="note">Prepared with Grok Bot with Cursor agents.</p>
 </div>
