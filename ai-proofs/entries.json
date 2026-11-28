@@ -1,5 +1,20 @@
 [
  {
+  "n": 36,
+  "date": "2026-11-27",
+  "title": "A negative answer to a question of Bourgain on L<sup>1</sup> norms of exponential sums",
+  "status": "raw draft",
+  "status2": "refereed",
+  "line": "A twelve-page note curated by Paata Ivanisvili.",
+  "pdf": "bourgain-l1-exponential-sums/bourgain_negative_answer.pdf",
+  "files": [
+   [
+    "TeX",
+    "bourgain-l1-exponential-sums/bourgain_negative_answer.tex"
+   ]
+  ]
+ },
+ {
   "n": 35,
   "date": "2026-11-26",
   "title": "The ordinary three-point Chowla conjecture: two research reports",
