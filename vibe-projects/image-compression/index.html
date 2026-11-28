@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-B5RJQSZGRT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-B5RJQSZGRT');
+</script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#000000">
+<meta name="color-scheme" content="dark">
+<title>Image compression — Paata Ivanisvili</title>
+<meta name="description" content="Paata Ivanisvili, Professor of Mathematics, University of California, Irvine.">
+<link rel="stylesheet" href="../../css/site.css">
+<style>
+.chart { margin: 0.35rem 0 1.15rem; }
+.chart a { display: block; text-decoration: none; cursor: zoom-in; }
+.chart img {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+}
+.bench-scroll { overflow-x: auto; max-width: 100%; margin: 0 0 1rem; }
+table.bench { display: table; width: 100%; margin: 0; font-size: 0.92rem; }
+table.bench th, table.bench td { padding: 0.45rem 0.7rem 0.45rem 0; white-space: nowrap; }
+table.bench thead th { font-size: 0.8rem; line-height: 1.25; white-space: normal; }
+table.bench th:not(:first-child),
+table.bench td:not(:first-child) { text-align: right; }
+table.bench th:first-child,
+table.bench td:first-child { text-align: left; padding-right: 0.9rem; }
+table.bench tr.komla th,
+table.bench tr.komla td { background: rgba(208, 18, 45, 0.18); }
+table.bench tr.komla th { color: #ffc2c6; }
+</style>
+</head>
+<body>
+<a class="skip" href="#content">Skip to content</a>
+<div class="stage">
+<article class="folio">
+<header class="mast">
+  <div>
+    <p class="role">Professor of Mathematics</p>
+    <h1><a href="../../index.html">Paata Ivanisvili</a></h1>
+    <p class="meta"><a href="mailto:pivanisv@uci.edu">pivanisv@uci.edu</a>
+      · <a href="https://x.com/PI010101">x.com/PI010101</a></p>
+    <p class="dept">Department of Mathematics, University of California, Irvine</p>
+  </div>
+  <img src="../../images/paata-dark.png" width="134" height="166" alt="Paata Ivanisvili">
+  <nav class="primary" aria-label="Primary"><ul><li><a href="../../index.html">Home</a></li><li><a href="../../papers.html">Papers</a></li><li><a href="../../talks.html">Talks</a></li><li><a href="../../teaching.html">Teaching</a></li><li><a href="../../students.html">Students</a></li><li><a href="../../slides.html">Slides</a></li><li><a href="../../coauthors.html">Co-authors</a></li><li><a href="../../organization.html">Organization</a></li><li><a href="../../awards.html">Awards</a></li><li><a href="../../vibe-projects/index.html" aria-current="page">Vibe projects</a></li><li><a href="../../ai-proofs/index.html">Vibe proofs</a></li></ul></nav>
+  <ul class="also">
+    <li><a href="https://extremal010101.wordpress.com/">Zeros and Ones</a></li>
+    <li><a href="https://sites.google.com/view/paw-seminar">Probability and Analysis Webinar</a>
+      <span class="sub">(<a href="https://twitter.com/PAW_seminar">twitter</a>,
+      <a href="https://www.youtube.com/channel/UCO7mXgeoAFYG2Q17XDRQobA">youtube</a>)</span></li>
+    <li><a href="https://sites.uci.edu/analysis/">Harmonic Analysis Seminar</a>
+      <span class="sub">(<a href="https://www.youtube.com/channel/UChrqwsi-cQsUWfo7ASAgKtw">youtube</a>)</span></li>
+  </ul>
+</header>
+<div class="page" id="content">
+<p><a href="../index.html">← Vibe projects</a></p>
+<h1 class="page-title">Image compression</h1>
+<p>Komla is a lossless JPEG recompressor. It makes existing JPEG files smaller and restores them byte for byte.</p>
+<p>Komla strong (<code>komla compress --strong</code>) is the strongest model. Komla fast (<code>komla compress --fast</code>) is the faster model, and it saves less.</p>
+<h2>Benchmark</h2>
+<p>Held-out random set of 66 files (317.5 MB). The files were frozen by SHA-256 before any tuning, and the set was run once.</p>
+<figure class="chart">
+<a href="benchmark.png">
+<img src="benchmark.png" width="2680" height="1860" alt="Six bar charts: size reduction, compression speed, decompression speed, compress memory, decompress memory, and failed round trips. Komla is red. Dark bars are one thread and light bars are eight cores. Speed and memory use a logarithmic scale.">
+</a>
+<figcaption>Dark bars are one thread and light bars are eight cores. Komla is red. Speed and memory use a logarithmic scale. *paq8px ran separately, so its times are indicative only, and it has no model for progressive JPEGs. Open the chart for the full-size image.</figcaption>
+</figure>
+
+<h3>One thread</h3>
+<div class="bench-scroll">
+<table class="bench">
+<thead>
+<tr>
+<th scope="col">Tool</th>
+<th scope="col">Size %</th>
+<th scope="col">Compress MB/s</th>
+<th scope="col">Decompress MB/s</th>
+<th scope="col">Compress MiB</th>
+<th scope="col">Decompress MiB</th>
+<th scope="col">Fails</th>
+</tr>
+</thead>
+<tbody>
+<tr class="komla"><th scope="row">Komla strong</th><td>24.73</td><td>8.04</td><td>8.82</td><td>55</td><td>12</td><td>0</td></tr>
+<tr class="komla"><th scope="row">Komla fast</th><td>21.44</td><td>13.37</td><td>17.18</td><td>43</td><td>7</td><td>0</td></tr>
+<tr><th scope="row">JPEG XL</th><td>18.26</td><td>9.24</td><td>17.27</td><td>1471</td><td>295</td><td>0</td></tr>
+<tr><th scope="row">Lepton (Dropbox)</th><td>17.34</td><td>3.64</td><td>8.15</td><td>280</td><td>16</td><td>14</td></tr>
+<tr><th scope="row">Lepton (Rust port)</th><td>21.05</td><td>11.70</td><td>10.75</td><td>281</td><td>399</td><td>2</td></tr>
+<tr><th scope="row">brunsli</th><td>20.29</td><td>10.24</td><td>12.27</td><td>844</td><td>286</td><td>1</td></tr>
+<tr><th scope="row">packJPG</th><td>20.92</td><td>3.75</td><td>3.58</td><td>283</td><td>278</td><td>1</td></tr>
+<tr><th scope="row">paq8px*</th><td>23.00</td><td>0.01</td><td>0.01</td><td>2553</td><td>2553</td><td>0</td></tr>
+</tbody>
+</table>
+</div>
+
+<h3>Eight cores</h3>
+<div class="bench-scroll">
+<table class="bench">
+<thead>
+<tr>
+<th scope="col">Tool</th>
+<th scope="col">Size %</th>
+<th scope="col">Compress MB/s</th>
+<th scope="col">Decompress MB/s</th>
+<th scope="col">Compress MiB</th>
+<th scope="col">Decompress MiB</th>
+<th scope="col">Fails</th>
+</tr>
+</thead>
+<tbody>
+<tr class="komla"><th scope="row">Komla strong</th><td>24.73</td><td>29.45</td><td>37.60</td><td>156</td><td>150</td><td>0</td></tr>
+<tr class="komla"><th scope="row">Komla fast</th><td>21.44</td><td>43.40</td><td>68.17</td><td>73</td><td>78</td><td>0</td></tr>
+<tr><th scope="row">JPEG XL</th><td>18.26</td><td>16.11</td><td>33.35</td><td>1467</td><td>307</td><td>0</td></tr>
+<tr><th scope="row">Lepton (Dropbox)</th><td>20.71</td><td>10.24</td><td>33.92</td><td>294</td><td>238</td><td>1</td></tr>
+<tr><th scope="row">Lepton (Rust port)</th><td>20.73</td><td>30.88</td><td>42.73</td><td>291</td><td>399</td><td>2</td></tr>
+<tr><th scope="row">brunsli</th><td>20.29</td><td>10.24</td><td>12.27</td><td>844</td><td>286</td><td>1</td></tr>
+<tr><th scope="row">packJPG</th><td>20.92</td><td>3.75</td><td>3.58</td><td>283</td><td>278</td><td>1</td></tr>
+<tr><th scope="row">paq8px*</th><td>23.00</td><td>0.01</td><td>0.01</td><td>2553</td><td>2553</td><td>0</td></tr>
+</tbody>
+</table>
+</div>
+<p class="note">Higher is better for size and speed. Lower is better for memory and for failures, out of 66. brunsli, packJPG and paq8px have no threads, so their eight-core rows repeat the one-thread run.</p>
+<p>Komla strong saves 24.73%, against 21.05% for the best practical tool, Lepton’s Rust port, so its files are about 4.7% smaller. It uses far less memory than the others.</p>
+<p>On this set, for every other tool, either Komla strong or Komla fast is at least as good on every metric. The one tie is Komla fast against JPEG XL on one-thread decompression (17.18 against 17.27 MB/s).</p>
+<p>paq8px is about 2.4 points smaller on sequential (baseline) JPEGs, at roughly 600 to 3,300 times the time. It has no model for progressive JPEGs. On the full set of 66 files, Komla strong saves 24.73% and paq8px saves 23.00%.</p>
+
+<h2>Caveats</h2>
+<p>A failed file is one the tool refused. It is counted at its original size. No tool restored a file wrongly.</p>
+<p>Lepton (Dropbox) refuses 14 files on one thread and 1 file on eight cores. That is why its saving rises from 17.34% to 20.71%: the files it refuses are counted at their original size. JPEG XL here is its default effort. A higher effort makes it smaller and slower.</p>
+<p>Strong mode is new, so it has not had the long field use the mature tools have. It has a safety net: any file it cannot reproduce exactly is stored as it is. On this set that fallback was not used, and every file was recompressed.</p>
+
+<h2>Code</h2>
+<ul>
+<li>The code is at <a href="https://github.com/paatai/Compress">github.com/paatai/Compress</a>.</li>
+<li>Strong mode is in <a href="https://github.com/paatai/Compress/pull/3">pull request 3</a>, on the branch <code>cursor/jpeg-strong-model-d777</code>.</li>
+<li>The full report is <a href="https://github.com/paatai/Compress/blob/cursor/jpeg-strong-model-d777/bench/results/JPEG_SPEED_REPORT.md">bench/results/JPEG_SPEED_REPORT.md</a> on that branch.</li>
+<li>The <a href="https://paatai.github.io/Compress/">web app</a> runs in the browser. It compresses in the fast mode.</li>
+</ul>
+<p class="note">Prepared with Grok Bot with Cursor agents.</p>
+</div>
+<footer class="site">
+  <p>This site was created with AI and is maintained by the author’s assistants.</p>
+</footer>
+
+</article>
+</div>
+</body>
+</html>
