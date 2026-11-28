@@ -42,12 +42,63 @@
 </header>
 <div class="page" id="content">
 <p><a href="../index.html">← Vibe projects</a></p>
+<p class="lang-switch" aria-label="Language / Язык"><a href="?lang=en" hreflang="en" lang="en" data-lang="en" aria-current="true">English</a><a href="?lang=ru" hreflang="ru" lang="ru" data-lang="ru">Русский</a></p>
+<div lang="en" data-lang-block="en">
 <h1 class="page-title">The Four Voyages of Christopher Columbus (1492–1504)</h1>
 <p class="watch"><video controls playsinline preload="metadata" width="1920" height="1080" poster="poster.jpg" src="columbus.mp4" aria-label="Video: The Four Voyages of Christopher Columbus"></video><a href="columbus.mp4">Watch the video (MP4, 82 MB)</a></p>
 <p class="tag">Animated cartoon · 9:46 · narrated, with English subtitles</p>
 <p>A 9:46-minute animated cartoon based on a true story. It follows Columbus across the Atlantic four times, from Palos in 1492 to his year stranded on Jamaica in 1503–1504, and ends with his son Diego arriving in Santo Domingo as governor in 1509.</p>
 <p>The story is drawn from Columbus’s own diary of the first voyage and his letters, and from other historical documents: the life written by his son Ferdinand, the histories of Bartolomé de las Casas, and letters and records by people who sailed with him. The words Columbus speaks in the film are quoted from his diary and letters, apart from two short dramatized lines. Along the way it corrects some popular myths (people in 1492 knew the Earth was round) and is honest about what the voyages meant for the Taíno people, without showing violence.</p>
 <p class="credit">Sources: Columbus, <em>Diario de a bordo</em> (1492–93, in the abstract by Las Casas) and letters of 1493, 1498, 1500 and 1503 (the <em>Lettera rarissima</em>); Ferdinand Columbus, <em>Historie</em> (Venice, 1571); B. de las Casas, <em>Historia de las Indias</em>; D. Álvarez Chanca, letter on the second voyage (1494); D. Méndez, account of the fourth voyage (1536); M. Fernández de Navarrete, <em>Colección de los viages y descubrimientos</em>, vol. II (1825); J. E. Olson &amp; E. G. Bourne (eds.), <em>The Northmen, Columbus and Cabot, 985–1503</em> (1906); S. E. Morison, <em>Admiral of the Ocean Sea</em> (1942).</p>
+</div>
+<div lang="ru" data-lang-block="ru" hidden>
+<h1 class="page-title">Четыре плавания Христофора Колумба (1492–1504)</h1>
+<p class="watch"><video controls playsinline preload="none" width="1920" height="1080" poster="poster-ru.jpg" src="columbus-ru.mp4" aria-label="Видео: Четыре плавания Христофора Колумба"></video><a href="columbus-ru.mp4">Смотреть видео (MP4, 83 МБ)</a></p>
+<p class="tag">Мультфильм · 9:49 · с русской озвучкой и субтитрами</p>
+<p>Мультфильм длиной 9&nbsp;минут 49&nbsp;секунд, основанный на реальных событиях. Вместе с Колумбом зритель четыре раза пересекает Атлантику — от Палоса в 1492&nbsp;году до Ямайки, где Колумб целый год ждал спасения (1503–1504). В финале его сын Диего прибывает в Санто-Доминго губернатором — это уже 1509&nbsp;год.</p>
+<p>Сюжет основан на дневнике первого плавания и письмах самого Колумба, а также на других исторических документах: жизнеописании адмирала, которое составил его сын Фернандо, трудах Бартоломе де Лас Касаса, письмах и записях спутников Колумба. Слова, которые Колумб произносит в фильме, — цитаты из его дневника и писем в переводе Я.&nbsp;М.&nbsp;Света; инсценированы лишь две короткие реплики. Попутно фильм развенчивает несколько популярных мифов (в 1492&nbsp;году люди уже знали, что Земля круглая) и честно рассказывает, чем обернулись эти плавания для народа таино, не показывая насилия.</p>
+<p class="credit">Источники: Колумб, «Дневник первого путешествия» (1492–1493, в изложении Лас Касаса) и письма 1493, 1498, 1500 и 1503&nbsp;годов (последнее — <em>Lettera rarissima</em>) в переводе Я.&nbsp;М.&nbsp;Света («Путешествия Христофора Колумба. Дневники, письма, документы», М.:&nbsp;Географгиз, 1952 и 1956); Фернандо Колумб, <em>Historie</em> (Венеция, 1571); Б.&nbsp;де&nbsp;Лас Касас, «История Индий»; Д.&nbsp;Альварес Чанка, письмо о втором плавании (1494); Д.&nbsp;Мендес, рассказ о четвёртом плавании (1536); М.&nbsp;Фернандес де Наваррете, <em>Colección de los viages y descubrimientos</em>, т.&nbsp;II (1825); Дж.&nbsp;Э.&nbsp;Олсон, Э.&nbsp;Г.&nbsp;Борн (ред.), <em>The Northmen, Columbus and Cabot, 985–1503</em> (1906); С.&nbsp;Э.&nbsp;Морисон, <em>Admiral of the Ocean Sea</em> (1942).</p>
+</div>
+<script>
+(function () {
+  var blocks = document.querySelectorAll('[data-lang-block]');
+  var links = document.querySelectorAll('.lang-switch a');
+  var titles = {
+    en: 'The Four Voyages of Christopher Columbus — Paata Ivanisvili',
+    ru: 'Четыре плавания Христофора Колумба — Paata Ivanisvili'
+  };
+  function show(lang, remember) {
+    if (!titles[lang]) lang = 'en';
+    blocks.forEach(function (b) {
+      var on = b.getAttribute('data-lang-block') === lang;
+      b.querySelectorAll('video').forEach(function (v) {
+        if (!on) v.pause();
+        else if (v.preload === 'none') v.preload = 'metadata';
+      });
+      b.hidden = !on;
+    });
+    links.forEach(function (a) {
+      if (a.getAttribute('data-lang') === lang) a.setAttribute('aria-current', 'true');
+      else a.removeAttribute('aria-current');
+    });
+    document.documentElement.lang = lang;
+    document.title = titles[lang];
+    if (remember && window.history && history.replaceState) {
+      var u = new URL(location.href);
+      if (lang === 'ru') u.searchParams.set('lang', 'ru');
+      else u.searchParams.delete('lang');
+      history.replaceState(null, '', u.pathname + u.search + u.hash);
+    }
+  }
+  links.forEach(function (a) {
+    a.addEventListener('click', function (e) {
+      e.preventDefault();
+      show(a.getAttribute('data-lang'), true);
+    });
+  });
+  show(new URLSearchParams(location.search).get('lang') === 'ru' ? 'ru' : 'en', false);
+})();
+</script>
 </div>
 <footer class="site">
   <p>This site was created with AI and is maintained by the author’s assistants.</p>
